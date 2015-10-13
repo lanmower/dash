@@ -1,0 +1,23 @@
+<template name="PagesList">
+  {{#linkTo route="insertPage"}}<i class="fa fa-plus"></i> New Page{{/linkTo}}
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>title</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+    {{#each pages}}
+      <tr>
+        <td>{{title}}</td>
+        <td>
+          {{#linkTo route='editPage'}}
+            <i class="fa fa-pencil-square-o"></i>
+          {{/linkTo}}
+        </td>
+      </tr>
+    {{/each}}
+    </tbody>
+  </table>
+</template>

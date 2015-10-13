@@ -1,0 +1,19 @@
+Template.navbarUsers.helpers({
+  users: function () {
+    return Meteor.users.find();
+  },
+  userImage: function (id) {
+    var user = Meteor.users.findOne({_id:id});
+    if(user)return Meteor.users.findOne({_id:id}).profile.picture;
+  },
+});
+Template.navbarUsers.viewmodel({
+  user:null,
+  select: function () {
+    console.log('test', this);
+    this.user(this);
+  },
+});
+Template.navbarUsers.onCreated(function () {
+  Meteor.subscribe("users");
+});

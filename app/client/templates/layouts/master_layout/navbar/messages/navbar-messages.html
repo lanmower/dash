@@ -1,0 +1,46 @@
+<template name="navbarMessages">
+  <li class="dropdown messages-menu">
+    <!-- Menu toggle button -->
+    <a href="#" id="messageNotificationsTrigger" data-toggle="dropdown" data-bind="click: checkMessages" >
+      <i class="fa fa-envelope-o"></i>
+      {{#if messageCount}}
+      <span data-bind="text: messageCount" class="label label-success"></span>
+      {{/if}}
+    </a>
+    <ul class="dropdown-menu">
+      {{#if messageCount}}
+      <li class="header">You have {{messageCount}} messages</li>
+      {{/if}}
+      <li>
+        <!-- inner menu: contains the messages -->
+        <ul id="navbarMessagesMenu" class="menu">
+          {{#each msg}}
+            {{> navbarMessage}}
+          {{/each}}
+        </ul><!-- /.menu -->
+      </li>
+      <li class="footer">
+        <input type="text" data-bind="value: message, returnKey: sendMessage " style="width:245px;display:inline-block"/>
+        <a href="#" data-bind="click: sendMessage" style="width:30px;height:28px;display:inline-block"><i class="fa fa-paper-plane"></i></a>
+      </li>
+    </ul>
+  </li><!-- /.messages-menu -->
+</template>
+
+<template name="navbarMessage">
+<li><!-- start message -->
+  <a href="#">
+    <div class="pull-left">
+      <!-- User Image -->
+      <img src="{{userImage createdBy}}" class="img-circle" alt="User Image">
+    </div>
+    <!-- Message title and timestamp -->
+    <h4>
+      {{subject}}
+      <small><i class="fa fa-clock-o"></i>{{fromNow createdAt}}</small>
+    </h4>
+    <!-- The message -->
+    <p>{{body}}</p>
+  </a>
+</li><!-- end message -->
+</template>

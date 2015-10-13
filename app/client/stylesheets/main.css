@@ -1,0 +1,74 @@
+/*****************************************************************************/
+/* main: Style */
+/*****************************************************************************/
+.main {
+}
+body,html {
+  height:100%
+    background-color: #222d32;
+  }
+  .sidebar-menu li.header {
+      color: #4b646f;
+      background: #1a2226;
+  }
+
+.fill {
+left:0px;
+right:0px;
+position: absolute;
+top:0px;
+bottom:0px;
+}
+.skin-blue .wrapper{
+  background-color: #ecf0f5;
+}
+.main-footer {
+  bottom:0px;
+  left:0px;
+  right:0px;
+  height: 54px;
+  position:absolute;
+}
+.contain {
+  position:relative;
+  width:100%;
+  height:100%;
+}
+body .content {
+  min-height:100%
+}
+.skin-blue .content-wrapper {
+  bottom: 50px;
+  top: 50px;
+  height: auto;
+  min-height: auto;
+  overflow-y: auto;
+  position: absolute;
+  right: 0px;
+  left: 0px;
+}
+.main-sidebar {
+  overflow: auto;
+height: auto;
+min-height: auto;
+top: 50px;
+padding-top: 0px;
+bottom: 0px;
+}
+.skin-blue {
+      height: 100%;
+}
+.messages-menu .offline {
+  background:#eee;
+  opacity: 0.6;
+  filter: alpha(opacity=60); /* For IE8 and earlier */
+}
+.messages-menu .offline:hover {
+  opacity: 0.9;
+  filter: alpha(opacity=90); /* For IE8 and earlier */
+}
+@media(max-width:768px) {
+  .skin-blue .content-wrapper {
+    top:100px;
+  }
+}

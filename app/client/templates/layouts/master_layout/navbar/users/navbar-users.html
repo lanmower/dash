@@ -1,0 +1,30 @@
+<template name="navbarUsers">
+  <li class="dropdown messages-menu">
+    <a href="#" id="navbarUsersTrigger" data-toggle="dropdown">
+      <i class="fa fa-user"></i>
+    </a>
+    <ul class="dropdown-menu">
+      <li>
+        <ul class="menu">
+          {{#each users}}
+          <li class="{{#if status.online}}online{{else}}offline{{/if}} info">
+            <a data-bind="click: select" href="#">
+              <div class="pull-left">
+                <img src="{{userImage _id}}" class="img-circle" alt="User Image">
+              </div>
+              <h4>
+                {{profile.name}}
+              </h4>
+              {{#if status.online}}
+              <p><i class="fa fa-circle text-success"></i> Online</p>
+              {{else}}
+              <p><i class="fa fa-circle text-warning"></i> Offline</p>
+              {{/if}}
+            </a>
+          </li>
+          {{/each}}
+        </ul>
+      </li>
+    </ul>
+  </li>
+</template>

@@ -1,0 +1,12 @@
+<template name="updateForm">
+  {{#if destroyForm}}
+      {{! this is a wonky workaround for the fact that autoform doesn't handle reactively changing schema attribute, which should be fixed eventually}}
+  {{else}}
+      {{> quickForm collection=collection doc=form schema=getSchema id="editPageForm" type="update" omitFields="createdBy" buttonContent="Submit"}}
+  {{/if}}
+  {{#each widget.schema}}
+    {{#with getFile ..}}
+      <a href="{{url}}">{{#if isImage}}<img alt="image missing" src="http://localhost:3000{{url store='thumbnail'}}"/>{{else}}Download{{/if}}</a>
+    {{/with}}
+  {{/each}}
+</template>

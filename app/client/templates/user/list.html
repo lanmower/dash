@@ -1,0 +1,29 @@
+<template name="UsersList">
+  {{#linkTo route="insertMenu"}}<i class="fa fa-plus"></i> New Menu{{/linkTo}}
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Picture</th>
+        <th>Email</th>
+        <th>Status</th>
+        <th>Name</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+    {{#each users}}
+      <tr>
+        <td><img src="{{profile.picture}}" class="img-circle" style="width: 100%;max-width: 45px;height: auto;"/></td>
+        <td><img src="{{profile.email}}" class="img-circle" style="width: 100%;max-width: 45px;height: auto;"/></td>
+        <td>{{#if status.online}}<i class="fa fa-circle text-success"></i> Online{{else}}<i class="fa fa-circle text-warning"></i> Offline{{/if}}</td>
+        <td>{{profile.name}}</td>
+        <td>
+          {{#linkTo route='editUser'}}
+            <i class="fa fa-pencil-square-o"></i>
+          {{/linkTo}}
+        </td>
+      </tr>
+    {{/each}}
+    </tbody>
+  </table>
+</template>

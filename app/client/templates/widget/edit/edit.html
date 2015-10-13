@@ -1,0 +1,7 @@
+<template name="EditWidget">
+    {{#if (can "update" widget)}}
+      {{> quickForm collection="Widgets" doc=widget schema=schema id="editWidgetForm" type="update" omitFields="createdBy" buttonContent="Update"}}
+      <hr>
+      {{> quickRemoveButton collection="Widgets" _id=widget._id beforeRemove=beforeRemove class="btn btn-danger"}}
+    {{/if}}
+</template>
