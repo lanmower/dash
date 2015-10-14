@@ -24,7 +24,6 @@ aldeed:delete-button
 momentjs:moment
 accounts-google
 ian:accounts-ui-bootstrap-3
-natestrauser:font-awesome
 ejson
 vazco:universe-autoform-select
 alanning:roles
@@ -46,3 +45,4 @@ cfs:gridfs
 cfs:autoform
 cfs:ui
 cfs:graphicsmagick
+fortawesome:fontawesome

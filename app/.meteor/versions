@@ -55,6 +55,7 @@ ejson@1.0.7
 email@1.0.7
 es5-shim@4.1.13
 fastclick@1.0.7
+fortawesome:fontawesome@4.4.0
 geojson-utils@1.0.4
 google@1.1.6
 hot-code-push@1.0.0
@@ -98,7 +99,6 @@ mongo-id@1.0.1
 mongo-livedata@1.0.9
 mpowaga:autoform-summernote@0.4.2
 mrt:q@1.0.1
-natestrauser:font-awesome@4.4.0
 natestrauser:jquery-scrollto@1.4.7
 npm-mongo@1.4.39_1
 nucleuside:live-update@0.3.3
