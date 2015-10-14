@@ -46,3 +46,4 @@ cfs:autoform
 cfs:ui
 cfs:graphicsmagick
 fortawesome:fontawesome
+summernote:standalone
