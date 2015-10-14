@@ -1,4 +1,4 @@
 ANDROID_HOME=/root/Android/Sdk
 PATH=$PATH:/root/Android/Sdk/tools:/root/Android/Sdk/platform-tools
- iron build --server=beanscount.co.za
+ iron build apk --server=beanscount.co.za
  #meteor run android-device --mobile-server=https://10.0.1.217:2000
