@@ -1,7 +1,6 @@
 Template.InsertWidget.helpers({
-  getWidgets: function() {
-    var schema = Widgets.doSchema(Router.current().params.parent);
-    return true;
+  schema: function() {
+    return Widgets.doSchema(Router.current().params.parent);
   }
 });
 

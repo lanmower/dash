@@ -1,7 +1,5 @@
 <template name="InsertWidget">
   {{#if Template.subscriptionsReady}}
-  {{#if getWidgets}}
-  {{> quickForm collection="Widgets" id="insertWidgetForm" type="insert" omitFields="createdBy" buttonContent="Create"}}
-  {{/if}}
+    {{> quickForm collection="Widgets" schema=schema id="insertWidgetForm" type="insert" omitFields="createdBy" buttonContent="Create"}}
   {{/if}}
 </template>
