@@ -1,53 +1,20 @@
 Widgets = new Mongo.Collection("widgets");
 Widgets.schemas = {};
 Widgets.formSchemas = {};
-Widgets.schema = {
-  createdBy: {
-    type: String,
-    autoValue: function() {
-      if (this.isInsert) {
-        return this.userId;
-      } else if (this.isUpsert) {
-        return {$setOnInsert: this.userId};
-      } else {
-        this.unset();
-      }
-    }
-  },
-createdAt: {
-     type: Date,
-     autoform: {
-       value: new Date(),
-       type: "hidden"
-     },
-     autoValue: function(doc, operation) {
-       if (this.isInsert) {
-         return new Date();
-       } else if (this.isUpsert) {
-         return {$setOnInsert: this.userId};
-       } else {
-         this.unset();
-       }
-     }
- },
+Widgets.helpers({
+  parentType: Pages
+});
 
- updatedAt: {
-     type: Date,
-     autoform: {
-       value: new Date(),
-       type: "hidden"
-     },
-     autoValue: function(doc, operation) {
-       if (this.isInsert) {
-         return new Date();
-       } else if (this.isUpsert) {
-         return {$setOnInsert: this.userId};
-       } else {
-         this.unset();
-       }
-     }
- }
-};
+Widgets.before.insert(function (userId, doc) {
+  doc.createdBy = userId;
+});
+Widgets.before.update(function (userId, doc, fieldNames, modifier, options) {
+  doc.updatedBy = userId;
+});
+Widgets.before.upsert(function (userId, selector, modifier, options) {
+  modifier.$set = modifier.$set || {};
+  modifier.$set.updatedBy = userId;
+});
 
 var types = function (pageId) {
   var types = [];
@@ -63,7 +30,7 @@ var types = function (pageId) {
   return types;
 }
 Widgets.doSchema = function(parent, type) {
-  var schema = Widgets.schema;
+  var schema = Meteor.schema();
   schema.parent= {
     type: String,
     optional:false,
@@ -81,39 +48,33 @@ Widgets.doSchema = function(parent, type) {
               options: types(parent)
             }
         };
-  if(type) jQuery.extend(schema, Widgets.schemas[type]);
+  if(type) _.extend(schema, Widgets.schemas[type]);
   return new SimpleSchema(schema);
+}
+
+can = function(userId, item, action) {
+  if(action === "update") allow = userId && (item.createdBy === userId);
+  if(item.parent) {
+    var parentType = item.parentType;
+    var parent = parentType.findOne(item.parent);
+    if(!parent.createdBy || (userId && (parent.createdBy == userId))) return true;
+    for(i in parent[action]) {
+        if(Roles.userIsInRole(userId, item[action][i])) return true;
+    }
+  }
+  for(i in item[action]) {
+      if(Roles.userIsInRole(userId, item[action][i])) return true;
+  }
 }
 
 Widgets.allow({
   insert: function (userId, widget) {
-      var allow = userId && (widget.createdBy === userId);
-      if(allow == false){
-          var currentUser = Meteor.user();
-          for(i in widget.insert) {
-              if(Roles.userIsInRole(currentUser, i)) return true;
-          }
-      }
-      return allow;
+      return can(userId, widget, 'insert');
   },
   update: function (userId, widget, fields, modifier) {
-      var allow = userId && (widget.createdBy === userId);
-      if(allow == false){
-        var currentUser = Meteor.user();
-        for(i in widget.update) {
-            if(Roles.userIsInRole(currentUser, widget.update[i])) return true;
-        }
-      }
-    return allow;
+    return can(userId, widget, 'update');
   },
   remove: function (userId, widget) {
-      var allow = userId && (widget.createdBy === userId);
-      if(allow == false){
-          var currentUser = Meteor.user();
-          for(i in widget.remove) {
-              if(Roles.userIsInRole(currentUser, i)) return true;
-          }
-      }
-      return allow;
+    return can(userId, widget, 'remove');
   }
 });

@@ -4,7 +4,7 @@ Meteor.forms = {}
 var formUpdate = function(data, form) {
   if(form.schema && form.collectionName) {
     if(Meteor.forms[form.collectionName]) return Meteor.forms[form.CollectionName];
-    schema = {};
+    var schema = Meteor.schema();
     form.collection = new Mongo.Collection(form.collectionName);
     for(var x in form.schema) {
       var schemaItem = form.schema[x];
@@ -25,7 +25,6 @@ var formUpdate = function(data, form) {
       }
       schema[name] = schemaItem;
     }
-    _.extend(schema, Widgets.schema);
     form.collection.attachSchema(new SimpleSchema(schema));
     console.log(form.collectionName);
     Meteor.publish(form.collectionName, function (self) {

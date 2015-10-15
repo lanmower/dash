@@ -8,6 +8,7 @@ Template.InsertWidget.onCreated(function(){
   var subs = this.subscribe("page",Router.current().params.parent);
   Meteor.subscribe("types");
 });
+
 AutoForm.hooks({
   insertWidgetForm: {
     onSuccess: function(formType, result) {

@@ -10,12 +10,18 @@ Template.registerHelper("debug", function(optionalValue) {
   }
 });
 
+
 Template.registerHelper("arrayify", function(obj){
     result = [];
     for (var key in obj){
         result.push({name:key,value:obj[key]});
     }
     return result;
+});
+
+Template.registerHelper("file", function(_id){
+    file = Files.findOne({_id:_id});
+    if(file) return file.url();
 });
 
 Template.registerHelper('parentData',

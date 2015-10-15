@@ -30,11 +30,12 @@
             {{> loginButtons}}
             {{else}}
             <li>
-              <a href="#" onclick="Meteor.loginWithGoogle({requestPermissions:['https://www.googleapis.com/auth/drive',
+              <a href="#" onclick="Meteor.loginWithGoogle({requestPermissions:[
+              'https://www.googleapis.com/auth/userinfo.email',
+              'https://www.googleapis.com/auth/drive',
               'https://www.googleapis.com/auth/calendar',
               'https://www.googleapis.com/auth/userinfo.profile',
-              'https://www.googleapis.com/auth/tasks'],  requestOfflineToken: true,
-  forceApprovalPrompt: true})"><i class="fa fa-plus"></i>Sign in</a>
+              'https://www.googleapis.com/auth/tasks'],  requestOfflineToken: true})"><i class="fa fa-plus"></i>Sign in</a><!--forceApprovalPrompt: true-->
             </li>
             {{/if}}
             <!--li class="dropdown user user-menu">
@@ -89,7 +90,7 @@
     {{#if currentUser}}
     <div class="user-panel">
       <div class="pull-left image">
-        <img src="{{currentUser.profile.picture}}" class="img-circle" alt="User Image">
+        <img src="{{file currentUser.profile.picture}}" class="img-circle" alt="User Image">
       </div>
       <div class="pull-left info">
         <p>{{currentUser.profile.name}}</p>

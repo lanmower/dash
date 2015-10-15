@@ -17,7 +17,6 @@ es5-shim                # ECMAScript 5 compatibility for older browsers.
 ecmascript              # Enable ECMAScript2015+ syntax in app code
 
 iron:router
-twbs:bootstrap
 aldeed:collection2
 aldeed:autoform
 aldeed:delete-button
@@ -47,3 +46,4 @@ cfs:ui
 cfs:graphicsmagick
 fortawesome:fontawesome
 summernote:standalone
+matb33:collection-hooks

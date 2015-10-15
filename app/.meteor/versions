@@ -81,6 +81,7 @@ logging@1.0.8
 manuel:isdev@1.0.0
 manuel:reactivearray@1.0.5
 manuel:viewmodel@1.9.13
+matb33:collection-hooks@0.8.1
 meteor@1.1.9
 meteor-base@1.0.1
 meteorhacks:kadira@2.23.6

@@ -1,7 +1,39 @@
 <template name="EditWidget">
-    {{#if (can "update" widget)}}
-      {{> quickForm collection="Widgets" doc=widget schema=schema id="editWidgetForm" type="update" omitFields="createdBy" buttonContent="Update"}}
-      <hr>
+  <section class="content-header">
+  <h1 id="page_title" class="ui header page-header">
+    Edit Widget
+    {{#if (can "remove" widget)}}
       {{> quickRemoveButton collection="Widgets" _id=widget._id beforeRemove=beforeRemove class="btn btn-danger"}}
     {{/if}}
+  </h1>
+  {{> breadcrumb}}
+  </section>
+  <div class="nooverflow" >
+
+  <div class="split-left" >
+    <div class="left-container" >
+      <div class="left-wrapper">
+      {{#if (can "update" widget)}}
+        {{> quickForm collection="Widgets" doc=widget schema=schema id="editWidgetForm" type="update" omitFields="createdBy" buttonContent="Update"}}
+      {{/if}}
+      </div>
+    </div>
+  </div>
+
+    <!-- Sidebar -->
+    <div id="split-right" class="split-right collapse" >
+      <div class="right-container">
+        <div class="right-wrapper">
+          <div class="right-header">
+            <h1>Preview
+            </h1>
+          </div>
+          <div class="right-content">
+          {{> Template.dynamic template=widget.type data=widget}}
+        </div>
+      </div>
+    </div>
+    </div>
+    <button class="fab" data-toggle="collapse" data-target="#split-right"><i class="fa fa-search"></i></button>
+  </div>
 </template>

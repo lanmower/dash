@@ -1,4 +1,4 @@
-FS.debug = true
+//FS.debug = true
 var masterStore = new FS.Store.GridFS("filesStore");
 var thumbnailStore = new FS.Store.GridFS("thumbnail", {
     //Create the thumbnail as we save to the store.
@@ -31,6 +31,9 @@ Files = new FS.Collection("files", {
 });
 if(Meteor.isServer){
 Meteor.publish('files', function () {
+  return Files.find();
+});
+Meteor.publish('file', function(id) {
   return Files.find();
 });
 }
