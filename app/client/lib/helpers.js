@@ -54,8 +54,13 @@ Template.registerHelper("can", function(action, impactedDocument, fieldNames) {
 
 Meteor.can = function(action, impactedDocument, fieldNames) {
   var allowed = false;
-  _.each(Widgets._validators[action].allow, function(updateAllowRule){
-    allowed = allowed || updateAllowRule(Meteor.userId(), impactedDocument, fieldNames);
+  if(!impactedDocument.collectionType) {
+    return false;
+  }
+  _.each(impactedDocument.collectionType._validators[action].allow, function(allowRule){
+    if(allowRule(Meteor.userId(), impactedDocument, fieldNames)) {
+      allowed = true;
+    }
   });
   return allowed;
 };

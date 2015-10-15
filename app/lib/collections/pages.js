@@ -1,4 +1,7 @@
 Pages = new Mongo.Collection('pages');
+Pages.helpers({
+  collectionType: Pages
+});
 
 Pages.attachSchema(new SimpleSchema({
   title:{
@@ -25,6 +28,58 @@ Pages.attachSchema(new SimpleSchema({
           }
         }
     },
+    public:{
+      type: Boolean,
+      label: "Visible: Public",
+      max: 200
+    },
+    signedIn:{
+      type: Boolean,
+      label: "Visible: Signed in",
+      max: 200
+    },
+    view:{
+          type: [String],
+          optional: true,
+          // minCount: 1,
+          autoform: {
+            type: "universe-select",
+            afFieldInput: {
+              multiple: true,
+              options: function () {
+                return Meteor.rolesList();
+              }
+            }
+          }
+      },
+      update:{
+            type: [String],
+            optional: true,
+            // minCount: 1,
+            autoform: {
+              type: "universe-select",
+              afFieldInput: {
+                multiple: true,
+                options: function () {
+                  return Meteor.rolesList();
+                }
+              }
+            }
+        },
+        remove:{
+              type: [String],
+              optional: true,
+              // minCount: 1,
+              autoform: {
+                type: "universe-select",
+                afFieldInput: {
+                  multiple: true,
+                  options: function () {
+                    return Meteor.rolesList();
+                  }
+                }
+              }
+          },
     createdBy: {
       type: String,
       autoValue: function() {
@@ -77,7 +132,6 @@ Pages.allow({
       return allow;
   },
   update: function (userId, page, fields, modifier) {
-    console.log("check update");
       var allow = userId && (page.createdBy === userId);
       if(allow == false){
         var currentUser = Meteor.user();

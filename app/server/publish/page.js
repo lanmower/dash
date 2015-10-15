@@ -31,7 +31,7 @@ Meteor.publishComposite('pageByPath', function(path) {
 
 Meteor.publishComposite('page', function(id) {
   var additions = Pages.additions(this);
-
+  
   return {
     find: function() {
       return Pages.find({_id:id},

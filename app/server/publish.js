@@ -1,3 +1,6 @@
+Meteor.publish(null, function (){
+  return Meteor.roles.find({})
+})
 Meteor.publish('types', function () {
   return Types.find();
 });
@@ -16,13 +19,31 @@ Meteor.publish('messages', function () {
 });
 
 var additions = function(self) {
+  //no user? only public
+  if(!self.userId) {
+    return [
+      {$and:[
+        {"public": true},
+        {"public": {$exists: true}}
+      ]}
+    ];
+  }
+
+  //if user test against user roles, can see viewable updatable and removable items
   roles = Roles.getRolesForUser(self.userId);
+
   return [
     {$and:[
       {"public": true},
       {"public": {$exists: true}}
     ]},
+    {$and:[
+      {"signedIn": true},
+      {"signedIn": {$exists: true}}
+    ]},
     {view: {$in:roles}},
+    {update: {$in:roles}},
+    {remove: {$in:roles}},
     {$and:[
       {createdBy: self.userId},
       {createdBy: {$exists: true}}

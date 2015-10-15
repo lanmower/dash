@@ -54,7 +54,7 @@ Template.formWidget.created = function () {
 };
 
 Widgets.schemas.formWidget = {
-  'schema': {
+  'schema.$': {
         type: [Object],
         label: "Form fields",
         optional: true

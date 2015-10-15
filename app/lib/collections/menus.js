@@ -8,9 +8,56 @@ Menus.attachSchema(new SimpleSchema({
   },
   public:{
     type: Boolean,
-    label: "Public",
+    label: "Visible: Public",
     max: 200
   },
+  signedIn:{
+    type: Boolean,
+    label: "Visible: Signed in",
+    max: 200
+  },
+  view:{
+        type: [String],
+        optional: true,
+        // minCount: 1,
+        autoform: {
+          type: "universe-select",
+          afFieldInput: {
+            multiple: true,
+            options: function () {
+              return Meteor.rolesList();
+            }
+          }
+        }
+    },
+    update:{
+          type: [String],
+          optional: true,
+          // minCount: 1,
+          autoform: {
+            type: "universe-select",
+            afFieldInput: {
+              multiple: true,
+              options: function () {
+                return Meteor.rolesList();
+              }
+            }
+          }
+      },
+      remove:{
+            type: [String],
+            optional: true,
+            // minCount: 1,
+            autoform: {
+              type: "universe-select",
+              afFieldInput: {
+                multiple: true,
+                options: function () {
+                  return Meteor.rolesList();
+                }
+              }
+            }
+        },
   'item': {
         type: [Object],
         optional: false

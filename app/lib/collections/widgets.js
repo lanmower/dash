@@ -2,6 +2,7 @@ Widgets = new Mongo.Collection("widgets");
 Widgets.schemas = {};
 Widgets.formSchemas = {};
 Widgets.helpers({
+  collectionType: Widgets,
   parentType: Pages
 });
 
