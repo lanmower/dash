@@ -1,0 +1,5 @@
+<template name="EditTime">
+  {{> quickForm collection="Times" doc=obj id="editTimeForm" type="update" omitFields="createdBy" buttonContent="Update"}}
+  <hr>
+  {{> quickRemoveButton collection="Times" _id=obj._id beforeRemove=beforeRemove class="btn btn-danger"}}
+</template>

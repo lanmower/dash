@@ -1,0 +1,27 @@
+<template name="TimesList">
+  {{#linkTo route="insertTime"}}<i class="fa fa-plus"></i> Punch{{/linkTo}}
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>In/Out</th>
+        <th>Time</th>
+        <th>Location</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+    {{#each times}}
+      <tr>
+        <td>{{in}}</td>
+        <td>{{time}}</td>
+        <td>{{location}}</td>
+        <td>
+          {{#linkTo route='editTime'}}
+            <i class="fa fa-pencil-square-o"></i>
+          {{/linkTo}}
+        </td>
+      </tr>
+    {{/each}}
+    </tbody>
+  </table>
+</template>

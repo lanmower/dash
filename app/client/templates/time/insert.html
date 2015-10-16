@@ -1,0 +1,15 @@
+<!--template name="InsertTime">
+  {{#autoForm collection="Times" id="insertTimeForm" type="insert"}}
+   <fieldset>
+     <legend>Punch</legend>
+     {{> afQuickField name='in'}}
+     {{> afQuickField name='time'}}
+     {{> afQuickField name='lat' value=lat}}
+     {{> afQuickField name='lng' value=lng}}
+   </fieldset>
+   <button type="submit" class="btn btn-primary">Insert</button>
+ {{/autoForm}}
+</template-->
+<template name="InsertTime">
+  {{> quickForm collection="Times" id="insertTimeForm" type="insert" omitFields="createdBy" buttonContent="Create"}}
+</template>
