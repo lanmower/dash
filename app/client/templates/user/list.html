@@ -13,8 +13,8 @@
     <tbody>
     {{#each users}}
       <tr>
-        <td><img src="{{profile.picture}}" class="img-circle" style="width: 100%;max-width: 45px;height: auto;"/></td>
-        <td><img src="{{profile.email}}" class="img-circle" style="width: 100%;max-width: 45px;height: auto;"/></td>
+        <td>{{#with FS.GetFile "files" profile.picture}}<img src="{{url}}" class="img-circle" style="width: 100%;max-width: 45px;height: auto;"/>{{/with}}</td>
+        <td>{{profile.email}}</td>
         <td>{{#if status.online}}<i class="fa fa-circle text-success"></i> Online{{else}}<i class="fa fa-circle text-warning"></i> Offline{{/if}}</td>
         <td>{{profile.name}}</td>
         <td>

@@ -3,6 +3,17 @@ Template.navbarMessages.helpers({
     var messages = Messages.find().fetch();
     return messages;
   },
+  messageCount: function() {
+    var messages = Messages.find().fetch();
+    var count = 0;
+    for(var x in messages) {
+      var message = messages[x];
+      if (message.read.indexOf(Meteor.user()._id) < 0 && message.createdBy != Meteor.user()._id) {
+        ++count
+      }
+    }
+    return count;
+  }
 });
 Template.navbarMessage.helpers({
   userImage: function (id) {
@@ -15,13 +26,19 @@ Template.navbarMessages.onCreated(function () {
   Meteor.subscribe("users");
 });
 Template.navbarMessages.open = false;
+Template.navbarMessage.rendered = function(){
+  this.autorun(function() {
+    if(Template.navbarMessages.open == true) {
+      setTimeout(function(){$('#navbarMessagesMenu').scrollTo('100%')},50);
+    }
+  });
+}
 Template.navbarMessages.viewmodel({
   message: '',
   checkMessages: function() {
     $("#messageNotificationsTrigger").dropdown();
-    setTimeout(function(){$('#navbarMessagesMenu').scrollTo('100%')},50);
     if(Template.navbarMessages.open == false) {
-      console.log("check");
+      setTimeout(function(){$('#navbarMessagesMenu').scrollTo('100%')},50);
       Template.navbarMessages.open = true;
       var messages = Messages.find().fetch();
       for(var x in messages) {
@@ -35,17 +52,6 @@ Template.navbarMessages.viewmodel({
       Template.navbarMessages.open = false;
     }
   },
-  messageCount: function() {
-    var messages = Messages.find().fetch();
-    var count = 0;
-    for(var x in messages) {
-      var message = messages[x];
-      if (message.read.indexOf(Meteor.user()._id) < 0 && message.createdBy != Meteor.user()._id) {
-        ++count
-      }
-    }
-    return count;
-  },
   users: function() {
     var users = Meteor.users.find().fetch();
     var output = [];
@@ -55,6 +61,6 @@ Template.navbarMessages.viewmodel({
     return output;
   },
   sendMessage: function() {
-    console.log(Messages.insert({body:this.message(), to:['all']}));
+    Messages.insert({body:this.message(), to:['all']});
   }
 });

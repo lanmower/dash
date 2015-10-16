@@ -10,7 +10,7 @@
           <li class="{{#if status.online}}online{{else}}offline{{/if}} info">
             <a data-bind="click: select" href="#">
               <div class="pull-left">
-                <img src="{{userImage _id}}" class="img-circle" alt="User Image">
+                {{#with FS.GetFile "files" (userImage _id)}}<img src="{{url}}" class="img-circle" alt="User Image">{{/with}}
               </div>
               <h4>
                 {{profile.name}}

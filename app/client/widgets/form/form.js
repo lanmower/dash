@@ -7,7 +7,15 @@ Widgets.formSchema = function(data) {
     //delete schemaItem["name"];
     //delete schemaItem["type"];
     var schemaItem = {};
-    if(type == "Date") schemaItem["type"] = Date;
+    if(type == "Date") {
+      schemaItem["type"] = Date,
+      schemaItem["autoform"] = {
+        afFieldInput: {
+          type: "bootstrap-datetimepicker",
+          value: new Date()
+        }
+      }
+    }
     if(type == "String") schemaItem["type"] = String;
     if(type == "File") {
       schemaItem["type"] = String;

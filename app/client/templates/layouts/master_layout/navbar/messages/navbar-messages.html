@@ -4,7 +4,8 @@
     <a href="#" id="messageNotificationsTrigger" data-toggle="dropdown" data-bind="click: checkMessages" >
       <i class="fa fa-envelope-o"></i>
       {{#if messageCount}}
-      <span data-bind="text: messageCount" class="label label-success"></span>
+      &nbsp;
+      <span class="label label-success">{{messageCount}}</span>
       {{/if}}
     </a>
     <ul class="dropdown-menu">
@@ -32,7 +33,7 @@
   <a href="#">
     <div class="pull-left">
       <!-- User Image -->
-      <img src="{{userImage createdBy}}" class="img-circle" alt="User Image">
+      {{#with FS.GetFile "files" (userImage createdBy)}}<img src="{{url}}" class="img-circle" alt="User Image">{{/with}}
     </div>
     <!-- Message title and timestamp -->
     <h4>

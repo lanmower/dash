@@ -90,7 +90,9 @@
     {{#if currentUser}}
     <div class="user-panel">
       <div class="pull-left image">
-        <img src="{{file currentUser.profile.picture}}" class="img-circle" alt="User Image">
+        {{#with FS.GetFile "files" currentUser.profile.picture}}
+          <img src="{{url}}" class="img-circle" alt="User Image">
+        {{/with}}
       </div>
       <div class="pull-left info">
         <p>{{currentUser.profile.name}}</p>

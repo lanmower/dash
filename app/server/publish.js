@@ -4,6 +4,9 @@ Meteor.publish(null, function (){
 Meteor.publish('types', function () {
   return Types.find();
 });
+Meteor.publish('times', function () {
+  return Times.find();
+});
 
 Meteor.publish('forms', function () {
   return Forms.find();

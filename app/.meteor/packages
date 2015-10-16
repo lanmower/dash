@@ -47,3 +47,7 @@ cfs:graphicsmagick
 fortawesome:fontawesome
 summernote:standalone
 matb33:collection-hooks
+differential:event-hooks
+mdg:geolocation
+aldeed:autoform-bs-datetimepicker
+tsega:bootstrap3-datetimepicker@=3.1.3_3
