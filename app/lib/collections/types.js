@@ -1,5 +1,5 @@
 Types = new Mongo.Collection('types');
-Types.attachSchema(new SimpleSchema({
+Types.attachSchema(new SimpleSchema(_.extend({
   label:{
     type: String,
     label: "Label",
@@ -20,46 +20,8 @@ Types.attachSchema(new SimpleSchema({
     optional: true,
     label: "Js",
     max: 200
-  },
-  createdBy: {
-    type: String,
-    autoValue: function() {
-      if (this.isInsert) {
-        return this.userId;
-      } else if (this.isUpsert) {
-        return {$setOnInsert: this.userId};
-      } else {
-        this.unset();
-      }
-    }
-  },
-  createdAt: {
-       type: Date,
-       denyUpdate: true,
-       optional: false,
-       autoform: {
-         value: new Date(),
-         type: "hidden"
-       },
-       autoValue: function(doc, operation) {
-           if (operation === 'insert')
-               return new Date();
-       }
-   },
-
-   updatedAt: {
-       type: Date,
-       autoform: {
-         value: new Date(),
-         type: "hidden"
-       },
-       autoValue: function(doc, operation) {
-           if (operation === 'update')
-               return new Date();
-       }
-   }
-
-}));
+  }
+}, Meteor.schema())));
 
 Types.allow({
   insert: function (userId, widget) {

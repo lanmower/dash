@@ -51,7 +51,7 @@ body .content {
   right: 0px;
   left: 0px;
 }
-.main-sidebar {
+.wrapper .main-sidebar {
   overflow: auto;
 height: auto;
 min-height: auto;

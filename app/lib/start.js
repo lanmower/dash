@@ -7,32 +7,18 @@ var formUpdate = function(data, form) {
     var schema = Meteor.schema();
     form.collection = new Mongo.Collection(form.collectionName);
     for(var x in form.schema) {
-      var schemaItem = form.schema[x];
-      var name = schemaItem.name;
-      var type = schemaItem.type;
-      delete schemaItem["name"];
-      delete schemaItem["type"];
-      if(type == "Date") schemaItem["type"] = Date;
-      if(type == "String") schemaItem["type"] = String;
-      if(type == "File") {
-        schemaItem["type"] = String;
-        schemaItem["autoform"] = {
-          afFieldInput: {
-            type: "cfs-file",
-            collection: "files"
-          }
-        }
-      }
-      schema[name] = schemaItem;
+      var item = form.schema[x];
+      schema[item.name] = schemaItem(item);
     }
+    console.log(schema);
     form.collection.attachSchema(new SimpleSchema(schema));
-    console.log(form.collectionName);
+
     Meteor.publish(form.collectionName, function (self) {
       return form.collection.find(function(self) {
         return {createdBy: self.userId};
       });
     });
-    console.log("allowing");
+
     form.collection.allow({
       insert: function (userId, doc) {
         return true;

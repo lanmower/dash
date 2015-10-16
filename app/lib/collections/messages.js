@@ -1,6 +1,6 @@
 Messages = new Mongo.Collection('messages');
 
-Messages.attachSchema(new SimpleSchema({
+Messages.attachSchema(new SimpleSchema(_.extend({
   to:{
     type: [String],
     label: "To",
@@ -29,51 +29,7 @@ Messages.attachSchema(new SimpleSchema({
       }
     },
   },
-  createdBy: {
-    type: String,
-    autoValue: function() {
-      if (this.isInsert) {
-        return this.userId;
-      } else if (this.isUpsert) {
-        return {$setOnInsert: this.userId};
-      } else {
-        this.unset();
-      }
-    }
-  },
-createdAt: {
-     type: Date,
-     denyUpdate: true,
-     optional: false,
-     autoform: {
-       value: new Date(),
-       type: "hidden"
-     },
-     autoValue: function() {
-       if (this.isInsert) {
-         return new Date();
-       } else if (this.isUpsert) {
-         return {$setOnInsert: new Date()};
-       } else {
-         this.unset();
-       }
-     }
- },
-
- updatedAt: {
-     type: Date,
-     optional: true,
-     autoform: {
-       value: new Date(),
-       type: "hidden"
-     },
-     autoValue: function(doc, operation) {
-         if (operation === 'update')
-             return new Date();
-     }
- }
-
-}));
+}, Meteor.schema())));
 
 if (Meteor.isServer) {
   Messages.allow({

@@ -15,6 +15,8 @@ Meteor.methods({
     var today = GoogleApi.get('drive/v2/files', {params:{'q':'"'+todayPath.items[0].id+'" in parents AND title contains "today"'}});
     return today.items[0].id;
   },
+  setDiary: function(diary) {
+  },
   /**
    * update a user's permissions
    *
