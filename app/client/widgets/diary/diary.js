@@ -1,19 +1,43 @@
-Template.diary.helpers({
-  diary: function() {
-    var diary = Diaries.findOne({});
-    return
-  }
+
+Template.diary.onCreated( function() {
+  var self = this;
+  self.tod = ReactiveVar(null);
+  self.autorun(function() {
+    self.subscribe('diaries');
+    	if (Template.instance().subscriptionsReady()) {
+        Template.diary.helpers({
+          diary: function() {
+            return Diaries.findOne({_id:self.tod.get()}).diary;
+          }
+        });
+        Tracker.autorun(function () {
+          var tag = self.find('.diary');
+          console.log(self.tod.get());
+          if(self.tod.get()) $(tag).code(Diaries.findOne({_id:self.tod.get()}).diary);
+        });
+
+        var userId = Meteor.userId();
+        var ret = Diaries.findOne({user:userId, date:new Date().setHours(0,0,0,0)});
+        if(!ret) self.tod.set( Diaries.insert({user:userId, date:new Date().setHours(0,0,0,0)}));
+        else self.tod.set(ret._id);
+      }
+    }
+  )
 });
+
+Template.diary.destroyed = function() {
+  var tag = this.find('.diary');
+  $(tag).summernote('destroy');
+}
 Template.diary.rendered = function() {
   var typingTimer;
   var doneTypingInterval = 2000;
   var diary;
   var doneTyping = function() {
-    var user = Meteor.user();
-    Meteor.users.update({_id:user._id}, {'$set':{"profile.diary":diary.toString()}});
+    Diaries.update({_id:self.tod.get()}, {'$set':{"diary":diary.toString()}});
   }
 
-  var self = this;
+  var self = Template.instance();
   var tag = this.find('.diary');
   $(tag).summernote({
     oninit: function() {
@@ -34,5 +58,5 @@ Template.diary.rendered = function() {
       clearTimeout(typingTimer);
       diary = $(tag).code();
       typingTimer = setTimeout(doneTyping, doneTypingInterval);
-    }});
+    }})
 };

@@ -1,6 +1,7 @@
 <template name="updateForm">
   <h1 id="page_title" class="ui header page-header">
     {{widget.title}}
+    {{> quickRemoveButton collection=collection doc=form _id=widget._id beforeRemove=beforeRemove class="btn btn-danger"}}
   </h1>
   {{#if destroyForm}}
       {{! this is a wonky workaround for the fact that autoform doesn't handle reactively changing schema attribute, which should be fixed eventually}}

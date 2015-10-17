@@ -1,29 +1,13 @@
-Types = new Mongo.Collection('types');
+Diaries = new Mongo.Collection('diaries');
 Types.attachSchema(new SimpleSchema(_.extend({
-  label:{
+  diary:{
     type: String,
     label: "Label",
-    max: 200
-  },
-  value:{
-    type: String,
-    label: "Value",
-    max: 200
-  },
-  template: {
-      type: String,
-      label: "Widget content",
-      optional: true,
-  },
-  js:{
-    type: String,
-    optional: true,
-    label: "Js",
     max: 200
   }
 }, Meteor.schema())));
 
-Types.allow({
+Diaries.allow({
   insert: function (userId, widget) {
       return true;
   },

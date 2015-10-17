@@ -38,6 +38,10 @@ Template.formWidget.created = function () {
 };
 
 Widgets.schemas.formWidget = {
+  title:{
+    type: String,
+    optional: false,
+  },
   'schema.$': {
         type: [Object],
         label: "Form fields",

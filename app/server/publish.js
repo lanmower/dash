@@ -7,6 +7,9 @@ Meteor.publish('types', function () {
 Meteor.publish('times', function () {
   return Times.find();
 });
+Meteor.publish('diaries', function () {
+  return Diaries.find({user:this.userId});
+});
 
 Meteor.publish('forms', function () {
   return Forms.find();
