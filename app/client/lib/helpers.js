@@ -24,11 +24,6 @@ Template.registerHelper("file", function(_id){
     if(file) return file.url();
 });
 
-Template.registerHelper('parentData',
-    function () {
-        return Template.parentData(1);
-    }
-);
 Template.registerHelper("fromNow", function(dateToPass) {
   return moment(dateToPass).fromNow();
 });
@@ -48,16 +43,18 @@ Template.registerHelper("getCollection", function() {
 });
 
 Template.registerHelper("can", function(action, impactedDocument, fieldNames) {
+  if(!impactedDocument) return false;
   if(!fieldNames.isArray) fieldNames = null;
   return Meteor.can(action, impactedDocument, fieldNames);
 });
 
 Meteor.can = function(action, impactedDocument, fieldNames) {
   var allowed = false;
-  if(!impactedDocument.collectionType) {
+  if(!impactedDocument) return false;
+  if(!impactedDocument.collectionType()) {
     return false;
   }
-  _.each(impactedDocument.collectionType._validators[action].allow, function(allowRule){
+  _.each(impactedDocument.collectionType()._validators[action].allow, function(allowRule){
     if(allowRule(Meteor.userId(), impactedDocument, fieldNames)) {
       allowed = true;
     }

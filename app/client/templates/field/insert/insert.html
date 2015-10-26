@@ -1,0 +1,5 @@
+<template name="InsertField">
+  {{#if Template.subscriptionsReady}}
+    {{> quickForm collection="Fields" schema=schema id="insertFieldForm" type="insert" omitFields="createdBy" buttonContent="Create"}}
+  {{/if}}
+</template>

@@ -13,25 +13,35 @@ Meteor.publishComposite('pageByPath', function(path) {
   return {
     find: function() {
       return Pages.find({path:{$regex : "(/)?"+path}},
-        {$or:additions});
-      },
-      children: [
-        {
-          find: function(page) {
-            return Widgets.find({$and:[
-              {'parent': page._id},
-              {$or:additions}
-            ]});
-          },
-        }
-      ]
-    };
-  }
+      {$or:additions});
+    },
+    children: [
+      {
+        find: function(page) {
+          return Widgets.find({$and:[
+            {'parent': page._id},
+            {$or:additions}
+          ]});
+        },
+        children: [
+          {
+            find: function(widget) {
+              return Fields.find({$and:[
+                {'parent': widget._id},
+                {$or:additions}
+              ]});
+            },
+          }
+        ],
+      }
+    ]
+  };
+}
 );
 
 Meteor.publishComposite('page', function(id) {
   var additions = Pages.additions(this);
-  
+
   return {
     find: function() {
       return Pages.find({_id:id},
@@ -45,8 +55,18 @@ Meteor.publishComposite('page', function(id) {
               {$or:additions}
             ]});
           },
-        }
+          children: [
+            {
+              find: function(widget) {
+                return Fields.find({$and:[
+                  {'parent': widget._id},
+                  {$or:additions}
+                ]});
+              },
+            }
+          ]
+        },
       ]
-    };
-  }
+  };
+}
 );

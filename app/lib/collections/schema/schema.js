@@ -1,40 +1,59 @@
-schemaItem = function(orig) {
-  var name = orig.name;
-  var type = orig.type;
-  //delete schemaItem["name"];
-  //delete schemaItem["type"];
-  if(type == "Date") {
-    return {"type": Date,"autoform":{
-      afFieldInput: {
-        type: "bootstrap-datetimepicker",
-        value: new Date()
-      }
+can = function(userId, item, action) {
+  if(action === "update") allow = userId && (item.createdBy === userId);
+  if(item.parent) {
+    var parentType = item.parentType();
+    var parent = parentType.findOne(item.parent);
+    if(!parent.createdBy || (userId && (parent.createdBy == userId))) return true;
+    for(i in parent[action]) {
+        if(Roles.userIsInRole(userId, item[action][i])) return true;
     }
-  };
   }
-  if(type == "Editor") {
-    return {
-      "type": String,
-      autoform: {
-        afFieldInput: {
-          type: 'summernote',
-        }
-      }
-    };
+  for(i in item[action]) {
+      if(Roles.userIsInRole(userId, item[action][i])) return true;
   }
+}
 
-  if(type == "String") return {"type":String};
-  if(type == "File") {
-    return {
-      "type":String,
-      "autoform":{
-        afFieldInput: {
-          type: "cfs-file",
-          collection: "files"
-        }
-      }
-    };
+//display items have type and parent, as well as field or widget additions
+createDisplaySchema = function(parent, type, parentType) {
+  var tschema = Meteor.schema();
+  tschema.parent = {
+    type: String,
+    optional:false,
+    autoform: {
+      type: "hidden",
+      value: parent
+    }
+  },
+  tschema.type = {
+            type: String,
+            optional: false,
+            // minCount: 1,
+            autoform: {
+              type: "select",
+              options: types(parent, parentType)
+            }
+        };
+
+  if(type && Widgets.schemas[type]) {
+    _.extend(tschema, Widgets.schemas[type]);
   }
+  return new SimpleSchema(tschema);
+}
+
+
+
+//find the types that the parent allows, build a label value array
+var types = function(parent, parentType) {
+  var types = [];
+  var allTypes = Types.find().fetch();
+  var parent = parentType.findOne({_id: parent});
+  for(var type in parent.types) {
+    var search = parent.types[type];
+    for(var ttype in allTypes) {
+      if(search == allTypes[ttype].value) types.push({label:allTypes[ttype].label, value:allTypes[ttype].value})
+    }
+  }
+  return types;
 }
 
 Meteor.schema = function() {

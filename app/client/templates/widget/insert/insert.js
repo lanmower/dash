@@ -1,6 +1,6 @@
 Template.InsertWidget.helpers({
   schema: function() {
-    return Widgets.doSchema(Router.current().params.parent);
+    return createDisplaySchema(Router.current().params.parent, null, Pages);
   }
 });
 

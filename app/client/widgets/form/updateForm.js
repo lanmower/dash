@@ -15,16 +15,12 @@ Template.updateForm.created = function () {
         fileId = parent.form[this.name];
         return Files.findOne({_id:fileId});
       }
-    },
-    //getUrl: function() {
-    //  return this.url();
-    //}
+    }
   });
+
   template.autorun(function () {
     destroyForm.set(true);
-    var tschema = Widgets.formSchema(Template.currentData().widget.schema);
-    schema.set(new SimpleSchema(tschema));
-
+    schema.set(formSchema(Template.currentData().widget.schema));
   });
 
   template.autorun(function () {

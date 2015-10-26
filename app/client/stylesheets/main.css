@@ -35,21 +35,23 @@ bottom:0px;
   height:100%;
 }
 body .content {
-  min-height:auto;
-  height: 100%;
-  width: 100%;
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  overflow-y: scroll;
+  left: 0px;
+  right: 0px;
   padding-bottom:0px;
   padding-top:0px;
 }
 .skin-blue .content-wrapper {
-  bottom: 50px;
+  bottom: 0px;
   top: 50px;
-  height: auto;
-  min-height: auto;
-  overflow-y: auto;
   position: absolute;
   right: 0px;
   left: 0px;
+  height: auto;
+  min-height:auto;
 }
 .wrapper .main-sidebar {
   overflow: auto;

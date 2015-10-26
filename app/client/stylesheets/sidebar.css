@@ -10,10 +10,9 @@
       padding-right: 5px;
       overflow-y: auto;
       position: absolute;
-      top: 40px;
       right: 0px;
       left: 0px;
-      bottom: 0px;
+      height:100%;
 }
 .right-header h1 {
   margin:0px;
@@ -32,6 +31,7 @@
       position: relative;
     }
 .right-wrapper {
+  z-index: 1;
   background-color: #ecf0f5;
   position: absolute;
   right: 0px;
@@ -72,12 +72,7 @@
 
 .nooverflow {
 min-height: 250px;
-position: absolute;
-overflow: hidden;
-right: 0px;
-left: 0px;
-bottom: 0px;
-top: 50px;
+height:100%;
 }
 
 .fab {

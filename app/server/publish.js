@@ -59,6 +59,7 @@ var additions = function(self) {
 Pages.additions = additions;
 Menus.additions = additions;
 Widgets.additions = additions;
+Fields.additions = additions;
 
 Meteor.publish('menus', function () {
   var additions = Menus.additions(this);
@@ -72,18 +73,53 @@ Meteor.publish('menu', function (id) {
 Meteor.publishComposite('widget', function(id) {
   var additions = Widgets.additions(this);
   var pageAdditions = Pages.additions(this);
-
+  var fieldAdditions = Fields.additions(this);
   return {
     find: function() {
+      console.log("subscribe widget:", id);
       return Widgets.find({_id:id},
         {$or:additions});
       },
       children: [
         {
           find: function(widget) {
+            console.log("add page:", widget.parent);
             return Pages.find({$and:[
               {'_id': widget.parent},
               {$or:pageAdditions}
+            ]});
+          },
+        },
+        {
+          find: function(widget){
+            console.log("add fields for widget:", widget._id);
+            return Fields.find({$and:[
+              {'parent': widget._id},
+              {$or:fieldAdditions}
+            ]});
+          }
+        }
+      ]
+    };
+  }
+);
+
+Meteor.publishComposite('field', function(id) {
+  var additions = Fields.additions(this);
+  var widgetAdditions = Widgets.additions(this);
+
+  return {
+    find: function() {
+      return Fields.find({_id:id},
+        {$or:additions});
+      },
+      children: [
+        {
+          find: function(field) {
+            console.log("adding widget to field:", field.parent)
+            return Widgets.find({$and:[
+              {'_id': field.parent},
+              {$or:widgetAdditions}
             ]});
           },
         }

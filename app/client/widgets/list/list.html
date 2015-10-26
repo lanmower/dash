@@ -3,7 +3,7 @@
     <thead>
       <tr>
         {{#each schema}}
-        <th>{{label}}</th>
+          <th>{{label}}</th>
         {{/each}}
         <th></th>
       </tr>
@@ -12,7 +12,7 @@
     {{#each items}}
       <tr>
         {{#each ../schema}}
-        <td>{{cell .. name}}</td>
+          <td>{{cell .. this}}</td>
         {{/each}}
         <td>
           {{#linkTo route="updateForm" widget=../formId }}

@@ -1,6 +1,6 @@
 Pages = new Mongo.Collection('pages');
 Pages.helpers({
-  collectionType: Pages
+  collectionType: function() {return Pages}
 });
 
 Pages.attachSchema(new SimpleSchema(_.extend({

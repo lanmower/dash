@@ -4,7 +4,7 @@ Template.diary.onCreated( function() {
   self.tod = ReactiveVar(null);
   self.autorun(function() {
     self.subscribe('diaries');
-    	if (Template.instance().subscriptionsReady()) {
+    	if (Template.instance().subscriptionsReady() && self.tod.get()) {
         Template.diary.helpers({
           diary: function() {
             return Diaries.findOne({_id:self.tod.get()}).diary;
@@ -27,7 +27,7 @@ Template.diary.onCreated( function() {
 
 Template.diary.destroyed = function() {
   var tag = this.find('.diary');
-  $(tag).summernote('destroy');
+  $(tag).destroy();
 }
 Template.diary.rendered = function() {
   var typingTimer;
