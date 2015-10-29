@@ -4,7 +4,7 @@ DownloadAvatar = function(user) {
     newFile.attachData(user.services.google.picture, function(error) {
         var file = Files.insert(newFile, function(error, fileObj) {
         file = fileObj;
-        Meteor.users.update({_id:user._id},{"$set":{'profile.picture':file._id}});
+        Meteor.users.update({_id:user._id },{"$set":{'profile.picture':file._id}});
         console.log("Downloaded avatar", file._id);
         user.profile.picture = file._id;
       });
@@ -13,12 +13,12 @@ DownloadAvatar = function(user) {
 }
 
 Accounts.onCreateUser(function(options, user) {
+  if(user.services.google.email) {
+    user.profile = {email: user.services.google.email};
+    DownloadAvatar(user);
+  }
   if(Meteor.users.find().count() === 0){
-     user.role = "admin"
-     if(user.services.google.email) {
-       user.profile = {email: user.services.google.email};
-       DownloadAvatar(user);
-    }
+     user.roles = ["admin"] 
   }
   return user;
 });
