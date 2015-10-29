@@ -4,7 +4,7 @@ DownloadAvatar = function(user) {
     newFile.attachData(user.services.google.picture, function(error) {
         var file = Files.insert(newFile, function(error, fileObj) {
         file = fileObj;
-        Meteor.users.update({_id:userId},{"$set":{'profile.picture':file._id}});
+        Meteor.users.update({_id:user._id},{"$set":{'profile.picture':file._id}});
         console.log("Downloaded avatar", file._id);
         user.profile.picture = file._id;
       });
