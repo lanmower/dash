@@ -12,6 +12,13 @@ DownloadAvatar = function(user) {
   }
 }
 
+Accounts.onCreateUser(function(options, user) {
+  if(Meteor.users.find().count() === 0){
+     user.role = "admin"
+  }
+  return user;
+});
+
 Accounts.validateNewUser(function (user) {
   console.log(user);
   if(user.services && user.services.google) {
