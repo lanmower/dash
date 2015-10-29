@@ -13,6 +13,7 @@ DownloadAvatar = function(user) {
 }
 
 Accounts.validateNewUser(function (user) {
+  console.log(user);
   if(user.services && user.services.google) {
     if(user.services.google.email.match(/coas\.co\.za$/)) {
         if(user.services.google.email) user.profile.email = user.services.google.email;

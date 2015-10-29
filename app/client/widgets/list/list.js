@@ -24,7 +24,7 @@ Template.listWidget.helpers({
       console.log(approvers);
       console.log(field);
     }
-    console.log(line, line[name]);
+    console.log(line, name);
     return line[name];
   }
 });
