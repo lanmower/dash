@@ -24,6 +24,7 @@ Template.listWidget.helpers({
       console.log(approvers);
       console.log(field);
     }
+    console.log(line, line[name]);
     return line[name];
   }
 });
@@ -31,5 +32,20 @@ Widgets.schemas.listWidget = {
   collectionName:{
     type: String,
     optional: false,
+  },
+  'schema.$.name': {
+      type: String,
+      label: "Name",
+      max: 200
+  },
+  'schema.$.type' :{
+      type: String,
+      label: "Type",
+      max: 200
+  },
+  'schema.$.label': {
+      type: String,
+      label: "Label",
+      max: 200
   }
 };
