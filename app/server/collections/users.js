@@ -15,20 +15,20 @@ DownloadAvatar = function(user) {
 Accounts.onCreateUser(function(options, user) {
   if(Meteor.users.find().count() === 0){
      user.role = "admin"
+     if(user.services.google.email) {
+       user.profile.email = user.services.google.email;
+       DownloadAvatar(user);
+    }
   }
   return user;
 });
 
 Accounts.validateNewUser(function (user) {
   console.log(user);
-  if(user.services && user.services.google) {
     if(user.services.google.email.match(/coas\.co\.za$/)) {
-        if(user.services.google.email) user.profile.email = user.services.google.email;
-        DownloadAvatar(user);
         return true;
     }
     throw new Meteor.Error(403, "You must sign in using a coas.co.za account");
-  }
 });
 Meteor.publish("me", function () {
   return Meteor.users.find({_id:this.userId}, {fields: {emails: 1, profile: 1, 'status.online':1,'services.google.accessToken': 1}});
