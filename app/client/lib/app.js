@@ -9,7 +9,7 @@ Accounts.ui.config({
     //extraSignupFields: []
 });
 
-userGeoLocation = new ReactiveVar(null);
+/*userGeoLocation = new ReactiveVar(null);
 Meteor.startup(function () {                                                                    // 36
   Hooks.init();
   Tracker.autorun(function (computation) {
@@ -19,3 +19,4 @@ Meteor.startup(function () {                                                    
     }
   });
 });
+*/

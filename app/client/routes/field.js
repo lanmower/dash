@@ -1,6 +1,7 @@
-Router.route('form/edit/:_id', {
-  title: 'Update Form',
-  name: 'editForm',
+Router.route('field/edit/:_id', {
+  parent: 'editWidget',
+  title: 'Edit Field',
+  name: 'editField',
   fastRender: true,
   where: 'client',
   waitOn: function() {
@@ -13,15 +14,15 @@ Router.route('form/edit/:_id', {
     var schema = null;
     var field = Fields.findOne({_id: this.params._id});
     if(field && Widgets.findOne({_id: field.parent})) {
-      schema = createDisplaySchema(field.parent, field.type, Widgets);
+      schema = new SimpleSchema(createDisplaySchema(field.parent, field.type, Widgets));
     }
     return {field:field, schema:schema};
   }
 });
 
-
-Router.route('form/insert/:parent', {
-	title: 'Insert Form',
+Router.route('field/insert/:parent', {
+	parent: 'pagesList',
+	title: 'Insert Field',
   waitOn: function() {
     return[
       Meteor.subscribe("types"),
@@ -30,11 +31,11 @@ Router.route('form/insert/:parent', {
   data: function () {
     var widget = Widgets.findOne({_id: this.params.parent});
     if(widget) {
-      var schema = createDisplaySchema(widget._id, null, Widgets);
-      return page;
+      var schema = new SimpleSchema(createDisplaySchema(widget._id, null, Widgets));
+      return widget;
     }
   },
-  name: 'insertForm',
+  name: 'insertField',
   fastRender: true,
   where: 'client'
 });

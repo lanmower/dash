@@ -1,9 +1,13 @@
 formSchema = function(formWidget) {
-  var fields = Fields.find({parent:formWidget._id});
+  var fields = Fields.find({parent:formWidget._id},{sort: { listposition: 1 }});
+
   var schema = Meteor.schema();
   fields.forEach(function(field) {
-    var name = field.name;
-    schema[name] = schemaItem(field);
+    if(field.name) {
+      console.log(field.name);
+      var name = field.name;
+      schema[name] = schemaItem(field);
+    }
   });
 
   return new SimpleSchema(schema);

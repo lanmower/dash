@@ -103,7 +103,6 @@ Meteor.publishComposite('widget', function(id) {
     };
   }
 );
-
 Meteor.publishComposite('field', function(id) {
   var additions = Fields.additions(this);
   var widgetAdditions = Widgets.additions(this);

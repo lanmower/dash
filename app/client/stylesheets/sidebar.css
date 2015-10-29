@@ -71,8 +71,11 @@
 }
 
 .nooverflow {
-min-height: 250px;
-height:100%;
+  position: absolute;
+      top: 0px;
+      bottom: 0px;
+      left: 0px;
+      right: 0px;
 }
 
 .fab {

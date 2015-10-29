@@ -1,5 +1,6 @@
 Fields = new Mongo.Collection("fields");
 Fields.schemas = {};
+
 Fields.helpers({
   collectionType: function() {return Fields},
   parentType: function() {return Widgets}

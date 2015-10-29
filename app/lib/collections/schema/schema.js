@@ -37,7 +37,7 @@ createDisplaySchema = function(parent, type, parentType) {
   if(type && Widgets.schemas[type]) {
     _.extend(tschema, Widgets.schemas[type]);
   }
-  return new SimpleSchema(tschema);
+  return tschema;
 }
 
 

@@ -1,5 +1,5 @@
 <template name="EditMenu">
-  {{> quickForm collection="Menus" doc=this id="editMenuForm" type="update" omitFields="createdBy" buttonContent="Update"}}
+  {{> quickForm collection="Menus" doc=this.menu id="editMenuForm" type="update" omitFields="createdBy" buttonContent="Update"}}
   <hr>
-  {{> quickRemoveButton collection="Menus" _id=this._id beforeRemove=beforeRemove class="btn btn-danger"}}
+  {{> quickRemoveButton collection="Menus" _id=this.menu._id beforeRemove=beforeRemove class="btn btn-danger"}}
 </template>

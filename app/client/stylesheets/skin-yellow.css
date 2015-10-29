@@ -1,0 +1,20 @@
+.skin-yellow .wrapper{
+  background-color: #ecf0f5;
+}
+.skin-yellow .content-wrapper {
+  bottom: 0px;
+  top: 50px;
+  position: absolute;
+  right: 0px;
+  left: 0px;
+  height: auto;
+  min-height:auto;
+}
+.skin-yellow {
+      height: 100%;
+}
+@media(max-width:768px) {
+  .skin-yellow .content-wrapper {
+    top:100px;
+  }
+}

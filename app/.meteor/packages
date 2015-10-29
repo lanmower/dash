@@ -51,3 +51,7 @@ differential:event-hooks
 mdg:geolocation
 aldeed:autoform-bs-datetimepicker
 tsega:bootstrap3-datetimepicker@=3.1.3_3
+accounts-password
+aldeed:autoform-bs-datepicker
+rajit:bootstrap3-datepicker
+mrt:jquery-ui-sortable

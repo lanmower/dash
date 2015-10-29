@@ -1,8 +1,8 @@
 //build schema item
+
 schemaItem = function(field) {
   var name = field.name;
   var type = field.type;
-  console.log("Making schema item:",field);
   if(Fields.schemas[type]) return Fields.schemas[type](field);
   /*f(type == "Date") {
     return {"type": Date,"autoform":{
@@ -13,28 +13,6 @@ schemaItem = function(field) {
     }
   };
   }
-  if(type == "Editor") {
-    return {
-      "type": String,
-      autoform: {
-        afFieldInput: {
-          type: 'summernote',
-        }
-      }
-    };
-  }
-
-  if(type == "textInput") ;
-  if(type == "File") {
-    return {
-      "type":String,
-      "autoform":{
-        afFieldInput: {
-          type: "cfs-file",
-          collection: "files"
-        }
-      }
-    };
   }*/
 }
 
@@ -48,7 +26,7 @@ processForm = function(id, form) {
     fields = Fields.find({parent: id});
     console.log("Found fields", fields.fetch());
     fields.forEach(function(item) {
-      schema[item.name] = schemaItem(item);
+      if(item.name) schema[item.name] = schemaItem(item);
     });
     console.log("Processing form with schema:", schema);
     form.collection.attachSchema(new SimpleSchema(schema));

@@ -1,52 +1,52 @@
 <template name="EditWidget">
-  <section class="content-header">
-    <h1 id="page_title" class="ui header page-header">
-      Edit Widget
-      {{#if (can "remove" widget)}}
-      {{> quickRemoveButton collection="Widgets" _id=widget._id beforeRemove=beforeRemove class="btn btn-danger"}}
-      {{/if}}
-    </h1>
-    {{> breadcrumb}}
-  </section>
-  <div class="contain">
-    <div class="nooverflow" >
+  {{#if isWidget widget}}
+  <button class="fab" data-toggle="collapse" data-target="#split-right"><i class="fa fa-search"></i></button>
+  <div class="fill">
+    <div class="contain" style="overflow-y:auto;">
+      <section class="content-header">
+        <h1 id="page_title" class="ui header page-header">
+          Edit Widget
+          {{#if (can "remove" widget)}}
+          {{> quickRemoveButton collection="Widgets" _id=widget._id beforeRemove=beforeRemove class="btn btn-danger"}}
+          {{/if}}
+        </h1>
+        {{> breadcrumb}}
+      </section>
 
-      <div class="split-left" >
-        <div class="left-container" >
-          <div class="left-wrapper">
-            {{#if destroyForm}}
-            {{! this is a wonky workaround for the fact that autoform doesn't handle reactively changing schema attribute, which should be fixed eventually}}
-            {{else}}
-            {{#if (can "update" widget)}}
-            {{> quickForm collection="Widgets" doc=widget schema=schema id="editWidgetForm" type="update" omitFields="createdBy" buttonContent="Update"}}
-            {{#if isForm widget}}
-            {{#linkTo route="insertField" parent=widget._id}}<i class="fa fa-plus"></i> New Field{{/linkTo}}
-            <table class="table table-hover">
-              <thead>
-                <tr>
-                  <th>Type</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {{#each fields}}
-                <tr>
-                  <td>{{type}}</td>
-                  <td>
-                    {{#linkTo route='editField'}}
-                    <i class="fa fa-pencil-square-o"></i>
-                    {{/linkTo}}
-                  </td>
-                </tr>
-                {{/each}}
-              </tbody>
-            </table>
-            {{/if}}
-            {{/if}}
-            {{/if}}
-          </div>
-        </div>
-      </div>
+      {{#if destroyForm}}
+      {{! this is a wonky workaround for the fact that autoform doesn't handle reactively changing schema attribute, which should be fixed eventually}}
+      {{else}}
+      {{#if (can "update" widget)}}
+      {{> quickForm collection="Widgets" doc=widget schema=schema id="editWidgetForm" type="update" omitFields="createdBy" buttonContent="Update"}}
+      {{#if isForm widget}}
+      {{#linkTo route="insertField" parent=widget._id}}<i class="fa fa-plus"></i> New Field{{/linkTo}}
+      <table id="items" class="table table-hover">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Name</th>
+            <th>Type</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each fields}}
+          <tr data-id='{{_id}}' data-listposition='{{listposition}}'>
+            <td><i class="sortable-handle mdi-action-view-headline pull-right"></i></td>
+            <td>{{name}}</td>
+            <td>{{type}}</td>
+            <td>
+              {{#linkTo route='editField'}}
+              <i class="fa fa-pencil-square-o"></i>
+              {{/linkTo}}
+            </td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+      {{/if}}
+      {{/if}}
+      {{/if}}
 
       <!-- Sidebar -->
       <div id="split-right" class="split-right collapse" >
@@ -57,14 +57,12 @@
               </h1>
             </div>
             <div class="right-content">
-              {{#if isWidget widget}}
               {{> Template.dynamic template=widget.type data=widget}}
-              {{/if}}
             </div>
           </div>
         </div>
       </div>
-      <button class="fab" data-toggle="collapse" data-target="#split-right"><i class="fa fa-search"></i></button>
     </div>
   </div>
+  {{/if}}
 </template>

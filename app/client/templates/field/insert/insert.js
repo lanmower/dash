@@ -1,6 +1,6 @@
 Template.InsertField.helpers({
   schema: function() {
-    var formSchema = createDisplaySchema(Router.current().params.parent, null, Widgets);
+    var formSchema = new SimpleSchema(createDisplaySchema(Router.current().params.parent, null, Widgets));
     formSchema.name = {type:String};
     return formSchema;
   }
