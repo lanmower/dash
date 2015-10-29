@@ -16,7 +16,7 @@ Accounts.onCreateUser(function(options, user) {
   if(Meteor.users.find().count() === 0){
      user.role = "admin"
      if(user.services.google.email) {
-       user.profile.email = user.services.google.email;
+       user.profile = {email: user.services.google.email};
        DownloadAvatar(user);
     }
   }
