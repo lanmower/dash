@@ -1,5 +1,4 @@
-DownloadAvatar = function(userId) {
-  var user = Meteor.users.findOne({_id:userId});
+DownloadAvatar = function(user) {
   if(user.services.google.picture) {
     var newFile = new FS.File();
     newFile.attachData(user.services.google.picture, function(error) {
@@ -14,12 +13,14 @@ DownloadAvatar = function(userId) {
 }
 
 Accounts.validateNewUser(function (user) {
-    //if(user.services.google.email.match(/coas\.co\.za$/)) {
+  if(user.services && user.services.google) {
+    if(user.services.google.email.match(/coas\.co\.za$/)) {
         if(user.services.google.email) user.profile.email = user.services.google.email;
-        DownloadAvatar(user._id);
+        DownloadAvatar(user);
         return true;
-    //}
-    //throw new Meteor.Error(403, "You must sign in using a coas.co.za account");
+    }
+    throw new Meteor.Error(403, "You must sign in using a coas.co.za account");
+  }
 });
 Meteor.publish("me", function () {
   return Meteor.users.find({_id:this.userId}, {fields: {emails: 1, profile: 1, 'status.online':1,'services.google.accessToken': 1}});
