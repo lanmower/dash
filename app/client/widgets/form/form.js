@@ -8,7 +8,7 @@ Template.formWidget.created = function () {
     },
     getSchema: function() {
       return schema.get();
-    },
+    }
   });
 
   template.autorun(function () {

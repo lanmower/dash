@@ -18,6 +18,10 @@ Widgets.schemas.formWidget = {
     type: String,
     optional: false,
   },
+  collectionName:{
+    type: String,
+    optional: false,
+  },
   types:{
         type: [String],
         autoform: {
