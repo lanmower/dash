@@ -1,3 +1,5 @@
+Template.editWidget.attachSchema(new SimpleSchema(_.extend({}, Meteor.schema(), Meteor.protectSchema())));
+
 Template.EditWidget.helpers({
   isForm: function(widget) {
     if(widget) return widget.type == "formWidget";

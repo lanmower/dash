@@ -16,6 +16,7 @@ can = function(userId, item, action) {
 //display items have type and parent, as well as field or widget additions
 createDisplaySchema = function(parent, type, parentType) {
   var tschema = Meteor.schema();
+  _.extend(tschema, Meteor.protectSchema());
   tschema.parent = {
     type: String,
     optional:false,
