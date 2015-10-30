@@ -18,6 +18,9 @@ Template.listWidget.helpers({
     return items(this.collectionName);
   },
   cell: function(line, schema) {
+    //var name = schema;
+    console.log(schema);
+    var name = schema['name'];
     if(schema[line.type] == 'approval') {
       var approvers = line['approvers'];
       var field = line['field'];
