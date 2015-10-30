@@ -6,7 +6,7 @@ Widgets.schemas.dateRangeInput = {
   };
 Fields.schemas.dateRangeInput = function(data) {
       return {
-        type: Date,
+        type: [Date],
         label: data.title,
         autoform: {
               type: "bootstrap-daterangepicker",
