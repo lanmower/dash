@@ -22,9 +22,8 @@ Router.route('menu/edit/:_id', {
 	parent: 'menusList',
   waitOn: function() {return Meteor.subscribe("menus")},
   data: function() {
-		console.log(this.params);
     var menu = Menus.findOne({_id:this.params._id});
-    return {obj:menu};
+    return {menu:menu};
   },
 	title: 'Edit Menu',
   fastRender: true,
