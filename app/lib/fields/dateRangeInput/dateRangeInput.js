@@ -16,8 +16,8 @@ Fields.schemas.dateRangeInput = function(data) {
                       //maxDate:moment().add(6, 'months'),
                       //startDate: moment().add(1, 'days'),
                       //endDate: moment().add(3, 'days'),
-                      timePicker: false,
-                      format: 'DD/MM/YYYY',
+                      timePicker: true,
+                      //format: 'DD/MM/YYYY',
                       timePickerIncrement: 30,
                       timePicker12Hour: false,
                       timePickerSeconds: false
