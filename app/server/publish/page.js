@@ -31,7 +31,26 @@ Meteor.publishComposite('pageByPath', function(path) {
                 {$or:additions}
               ]});
             },
+          },
+          {
+            find: function(widget) {
+              return Widgets.find({$and:[
+                {'_id': widget.form},
+                {$or:additions}
+              ]});
+            },
+            children: [
+              {
+                find: function(widget) {
+                  return Fields.find({$and:[
+                    {'parent': widget._id},
+                    {$or:additions}
+                  ]});
+                },
+              }
+            ],
           }
+
         ],
       }
     ]

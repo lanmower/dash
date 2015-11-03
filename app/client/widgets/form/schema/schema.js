@@ -4,7 +4,6 @@ formSchema = function(formWidget) {
   var schema = Meteor.schema();
   fields.forEach(function(field) {
     if(field.name) {
-      console.log(field.name);
       var name = field.name;
       schema[name] = schemaItem(field);
     }

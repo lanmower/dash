@@ -1,24 +1,27 @@
 Template.formWidget.created = function () {
   var template = this;
-  var destroyForm = new ReactiveVar(true);
-  var schema = new ReactiveVar(null);
-  Template.formWidget.helpers({
-    destroyForm: function() {
-      return destroyForm.get();
-    },
-    getSchema: function() {
-      return schema.get();
-    }
+  template.destroyForm = new ReactiveVar(true);
+  template.schema = new ReactiveVar(null);
+
+  template.autorun(function () {
+    template.destroyForm.set(true);
+    template.schema.set(formSchema(Template.currentData()));
   });
 
   template.autorun(function () {
-    destroyForm.set(true);
-    schema.set(formSchema(Template.currentData()));
-  });
-
-  template.autorun(function () {
-    if (destroyForm.get()) {
-      destroyForm.set(false);
+    if (template.destroyForm.get()) {
+      template.destroyForm.set(false);
     }
   });
 };
+
+Template.formWidget.helpers({
+  destroyForm: function() {
+    if(Template.instance().destroyForm)
+    return Template.instance().destroyForm.get();
+  },
+  getSchema: function() {
+    if(Template.instance().schema)
+    return Template.instance().schema.get();
+  }
+});

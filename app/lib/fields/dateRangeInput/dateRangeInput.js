@@ -4,6 +4,32 @@ Widgets.schemas.dateRangeInput = {
       optional: false,
     }
   };
+if(Meteor.isClient) {
+  Template.dateRangeInput.cell = function(name, item, schema) {
+    console.log("cell function", name, item, schema);
+    var time = item[name];
+    var start = moment(time[0]);
+    var end = moment(time[1]);
+    var now = moment();
+    var started;
+    var ended;
+    var statusText;
+    if(start.diff(now) < 0) {
+      started = true;
+      statusText = ". Currently active, ends on" + end.format('MMMM Do, YYYY');
+    } else {
+      started = false;
+      statusText = ". Starting on " + start.format('MMMM Do, YYYY');
+    }
+    if(end.diff(now) < 0) {
+      ended = true;
+      statusText = ". Ended on " + end.format('MMMM Do, YYYY');
+    }
+    var text = "Duration: "+moment.duration(start - end).humanize()+statusText;
+    return text;
+  }
+
+}
 Fields.schemas.dateRangeInput = function(data) {
       return {
         type: [Date],

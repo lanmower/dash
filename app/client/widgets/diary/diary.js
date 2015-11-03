@@ -12,7 +12,6 @@ Template.diary.onCreated( function() {
         });
         Tracker.autorun(function () {
           var tag = self.find('.diary');
-          console.log(self.tod.get());
           if(self.tod.get()) $(tag).code(Diaries.findOne({_id:self.tod.get()}).diary);
         });
 
