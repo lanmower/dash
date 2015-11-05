@@ -10,7 +10,6 @@ Template.navbarUsers.helpers({
 Template.navbarUsers.viewmodel({
   user:null,
   select: function () {
-    console.log('test', this);
     this.user(this);
   },
 });

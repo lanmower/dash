@@ -22,6 +22,6 @@ Template.formWidget.helpers({
   },
   getSchema: function() {
     if(Template.instance().schema)
-    return Template.instance().schema.get();
+    return new SimpleSchema(Template.instance().schema.get());
   }
 });

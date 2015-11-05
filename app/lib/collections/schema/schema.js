@@ -4,11 +4,11 @@ can = function(userId, item, action) {
     var parentType = item.parentType();
     var parent = parentType.findOne(item.parent);
     if(!parent.createdBy || (userId && (parent.createdBy == userId))) return true;
-    for(i in parent[action]) {
+    for(var i in parent[action]) {
         if(Roles.userIsInRole(userId, item[action][i])) return true;
     }
   }
-  for(i in item[action]) {
+  for(var i in item[action]) {
       if(Roles.userIsInRole(userId, item[action][i])) return true;
   }
 }
@@ -107,16 +107,6 @@ Meteor.schema = function() {
 
 Meteor.protectSchema = function() {
   return _.extend({},{
-    public:{
-      type: Boolean,
-      label: "Visible: Public",
-      max: 200
-    },
-    signedIn:{
-      type: Boolean,
-      label: "Visible: Signed in",
-      max: 200
-    },
     view:{
           type: [String],
           optional: true,

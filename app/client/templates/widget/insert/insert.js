@@ -12,7 +12,6 @@ Template.InsertWidget.onCreated(function(){
 AutoForm.hooks({
   insertWidgetForm: {
     onSuccess: function(formType, result) {
-      console.log(result);
       Router.go('editPage', {"_id":Router.current().params.parent});
     }
   }

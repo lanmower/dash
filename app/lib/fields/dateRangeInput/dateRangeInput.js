@@ -6,7 +6,6 @@ Widgets.schemas.dateRangeInput = {
   };
 if(Meteor.isClient) {
   Template.dateRangeInput.cell = function(name, item, schema) {
-    console.log("cell function", name, item, schema);
     var time = item[name];
     var start = moment(time[0]);
     var end = moment(time[1]);

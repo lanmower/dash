@@ -54,7 +54,6 @@ Router.route('/:path', {
 	    var page = Pages.findOne({path:{$regex : "(/)?.*"}});
 	    Meteor.subscribe("widgets", page._id);
 	    var widgets = Widgets.find({parent:page._id});
-			console.log('test');
 	    return {page:page, widgets:widgets};
     }
   },

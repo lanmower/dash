@@ -6,3 +6,12 @@ if(Meteor.isClient) {
       });
     });
 }
+
+Meteor.users.allow({
+	  //insert: function () { return true; },
+	  //remove: function () { return true; },
+    update: function (userId, user) {
+      if(Roles.userIsInRole(userId, ["admin", "user-admin"])) return true;
+      return user.id == userId;
+    }
+});

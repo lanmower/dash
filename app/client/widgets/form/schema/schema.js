@@ -8,8 +8,7 @@ formSchema = function(formWidget) {
       schema[name] = schemaItem(field);
     }
   });
-
-  return new SimpleSchema(schema);
+  return schema;
 }
 
 Widgets.schemas.formWidget = {

@@ -1,7 +1,5 @@
-Template.EditUser.viewmodel(
-  function (data) {
-    return data.profile;
-  },
-  {
-
-  });
+Template.EditUser.helpers({
+  profile: function() {
+    return Meteor.user();
+  }
+});

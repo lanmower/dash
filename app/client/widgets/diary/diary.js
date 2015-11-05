@@ -1,24 +1,31 @@
-
 Template.diary.onCreated( function() {
   var self = this;
   self.tod = ReactiveVar(null);
-  self.autorun(function() {
-    self.subscribe('diaries');
-    	if (Template.instance().subscriptionsReady() && self.tod.get()) {
-        Template.diary.helpers({
-          diary: function() {
-            return Diaries.findOne({_id:self.tod.get()}).diary;
-          }
-        });
-        Tracker.autorun(function () {
-          var tag = self.find('.diary');
-          if(self.tod.get()) $(tag).code(Diaries.findOne({_id:self.tod.get()}).diary);
-        });
 
-        var userId = Meteor.userId();
-        var ret = Diaries.findOne({user:userId, date:new Date().setHours(0,0,0,0)});
-        if(!ret) self.tod.set( Diaries.insert({user:userId, date:new Date().setHours(0,0,0,0)}));
-        else self.tod.set(ret._id);
+  self.autorun(function() {
+      self.subscribe('diaries');
+    	if (Template.instance().subscriptionsReady()) {
+        if(self.tod.get()) {
+          Template.diary.helpers({
+            diary: function() {
+              return Diaries.findOne({_id:self.tod.get()}).diary;
+            }
+          });
+          Tracker.autorun(function () {
+            var tag = self.find('.diary');
+            if(self.tod.get()) $(tag).code(Diaries.findOne({_id:self.tod.get()}).diary);
+          });
+        }
+        var ret = Diaries.findOne({user:Meteor.userId(), date:new Date().setHours(0,0,0,0)});
+        if(!ret) {
+          console.log('inserting diary');
+          var diary = Diaries.insert({user:Meteor.userId(), date:new Date().setHours(0,0,0,0)});
+          self.tod.set(diary);
+        }
+        else {
+          console.log('setting diary');
+          self.tod.set(ret._id);
+        }
       }
     }
   )
@@ -29,14 +36,16 @@ Template.diary.destroyed = function() {
   $(tag).destroy();
 }
 Template.diary.rendered = function() {
+  var self = Template.instance();
   var typingTimer;
-  var doneTypingInterval = 2000;
+  var doneTypingInterval = 1000;
   var diary;
   var doneTyping = function() {
+    console.log(self.tod.get());
     Diaries.update({_id:self.tod.get()}, {'$set':{"diary":diary.toString()}});
+    console.log('typed');
   }
 
-  var self = Template.instance();
   var tag = this.find('.diary');
   $(tag).summernote({
     oninit: function() {

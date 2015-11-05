@@ -1,41 +1,34 @@
 <template name="EditField">
-  <section class="content-header">
-  <h1 id="page_title" class="ui header page-header">
-    Edit Field
-    {{#if (can "remove" field)}}
-      {{> quickRemoveButton collection="Fields" _id=field._id beforeRemove=beforeRemove class="btn btn-danger"}}
-    {{/if}}
-  </h1>
-  {{> breadcrumb}}
-  </section>
-  <div class="contain">
-  <div class="nooverflow" >
-
-  <div class="split-left" >
-    <div class="left-container" >
-      <div class="left-wrapper">
+  <div class="fill">
+    <div class="contain" style="overflow-y:auto;padding:10px">
+      <section class="content-header">
+        <h1 id="page_title" class="ui header page-header">
+          Edit Field
+          {{#if (can "remove" field)}}
+          {{> quickRemoveButton collection="Fields" _id=field._id beforeRemove=beforeRemove class="btn btn-danger"}}
+          {{/if}}
+        </h1>
+        {{> breadcrumb}}
+      </section>
       {{#if (can "update" field)}}
-        {{> quickForm collection="Fields" doc=field schema=schema id="editFieldForm" type="update" omitFields="createdBy" buttonContent="Update"}}
+      {{> quickForm collection="Fields" doc=field schema=schema id="editFieldForm" type="update" omitFields="createdBy" buttonContent="Update"}}
       {{/if}}
-      </div>
-    </div>
-  </div>
 
-    <!-- Sidebar -->
-    <!--div id="split-right" class="split-right collapse" >
+      <!-- Sidebar -->
+      <!--div id="split-right" class="split-right collapse" >
       <div class="right-container">
-        <div class="right-wrapper">
-          <div class="right-header">
-            <h1>Preview
-            </h1>
-          </div>
-          <div class="right-content">
-          {{> Template.dynamic template=field.type data=field}}
-        </div>
-      </div>
-    </div>
-    </div>
-    <button class="fab" data-toggle="collapse" data-target="#split-right"><i class="fa fa-search"></i></button-->
+      <div class="right-wrapper">
+      <div class="right-header">
+      <h1>Preview
+    </h1>
   </div>
+  <div class="right-content">
+  {{> Template.dynamic template=field.type data=field}}
+</div>
+</div>
+</div>
+</div>
+<button class="fab" data-toggle="collapse" data-target="#split-right"><i class="fa fa-search"></i></button-->
+    </div>
   </div>
 </template>

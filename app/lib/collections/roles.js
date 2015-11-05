@@ -6,3 +6,10 @@ Meteor.rolesList = function() {
   }
   return ret;
 }
+Meteor.roles.allow({
+	  insert: function (userId) { if(Roles.userIsInRole(userId, ["admin", "role-admin"])) return true; },
+	  remove: function (userId) { if(Roles.userIsInRole(userId, ["admin", "role-admin"])) return true; },
+    update: function (userId, role) {
+      if(Roles.userIsInRole(userId, ["admin", "role-admin"])) return true;
+    }
+});

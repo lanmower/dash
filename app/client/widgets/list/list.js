@@ -22,16 +22,12 @@ Template.listWidget.helpers({
     return Template.instance().destroyForm.get();
   },
   getSchema: function() {
-    console.log('get shchema', Template.instance().schema.get());
     return Template.instance().schema.get();
   },
   items: function() {
     var name = this.collectionName;
-    if(!Meteor.collections[name]) {
-      var collection = new Mongo.Collection(name);
-      Meteor.collections[name] = collection;
-    }
-    return Meteor.collections[name].find();
+    var collection = getCollection(name);
+    return collection.find();
   },
   cell: function(line, schema) {
     //var name = schema;
@@ -39,10 +35,7 @@ Template.listWidget.helpers({
     if(schema[line.type] == 'approval') {
       var approvers = line['approvers'];
       var field = line['field'];
-      console.log(approvers);
-      console.log(field);
     }
-    console.log(schema);
     if(Template[schema['type']].cell) return Template[schema['type']].cell(name, line, schema);
     return line[name];
   }

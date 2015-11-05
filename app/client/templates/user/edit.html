@@ -1,4 +1,3 @@
 <template name="EditUser">
-  <input data-bind="value: name" />
-  <hr>
+  {{> quickForm collection="Meteor.users" doc=this id="profileUpdateForm" type="update" omitFields="createdAt" buttonContent="Save Changes"}}
 </template>

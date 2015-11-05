@@ -14,7 +14,6 @@ Template.InsertField.onCreated(function(){
 AutoForm.hooks({
   insertItemForm: {
     onSuccess: function(formType, result) {
-      console.log(result);
       Router.go('editWidget', {"_id":Router.current().params.parent});
     }
   }

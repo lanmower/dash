@@ -15,9 +15,9 @@
           <td>{{cell .. this}}</td>
         {{/each}}
         <td>
-          {{#linkTo route="updateForm" widget=../formId }}
-              <i class="fa fa-pencil-square-o"></i>
-          {{/linkTo}}
+        {{#linkTo route="editForm" form=../form }}
+            <i class="fa fa-pencil-square-o"></i>
+        {{/linkTo}}
         </td>
       </tr>
     {{/each}}

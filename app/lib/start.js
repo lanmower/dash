@@ -24,6 +24,9 @@ var processType = function(data, type) {
 };
 
 Meteor.startup(function () {
+  if(Meteor.isClient){
+    Hooks.init();
+  }
   var ready = function() {
     if(Meteor.isServer) {
       var forms = Widgets.find({
