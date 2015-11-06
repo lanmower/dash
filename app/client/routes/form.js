@@ -28,3 +28,19 @@ Router.route('form/edit/:form/:_id', {
     };
   }
 });
+
+Router.route('form/insert/:form', {
+  title: 'Insert Form',
+  name: 'insertForm',
+  fastRender: true,
+  where: 'client',
+  waitOn: function() {
+    return [
+      Meteor.subscribe("widget", this.params.form)
+    ];
+  },
+  data: function () {
+    var form = Widgets.findOne({_id:this.params.form});
+    return form;
+  }
+});
