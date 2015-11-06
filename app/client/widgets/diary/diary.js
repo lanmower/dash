@@ -8,7 +8,8 @@ Template.diary.onCreated( function() {
         if(self.tod.get()) {
           Template.diary.helpers({
             diary: function() {
-              return Diaries.findOne({_id:self.tod.get()}).diary;
+              var diary = Diaries.findOne({_id:self.tod.get()})
+              if(diary) return diary.diary;
             }
           });
           Tracker.autorun(function () {
