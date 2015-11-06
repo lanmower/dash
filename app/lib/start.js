@@ -34,11 +34,9 @@ var processForm = function(id, form) {
     fields = Fields.find({parent: id});
     fields.forEach(function(item) {
       if(item.name) {
-        console.log("processing field:",item);
         schema[item.name] = schemaItem(item);
       }
     });
-    console.log("schema:",schema);
     form.collection.attachSchema(new SimpleSchema(schema));
 
     Meteor.publish(form.collectionName, function (self) {

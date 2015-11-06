@@ -150,5 +150,4 @@ schema.User = new SimpleSchema({
         optional: true
     }
 });
-
-Meteor.users.attachSchema(schema.User);
+//Meteor.users.attachSchema(schema.User);
