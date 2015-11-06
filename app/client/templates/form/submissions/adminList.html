@@ -1,0 +1,26 @@
+<template name="submissionsAdmin">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        {{#each getSchema}}
+          <th>{{label}}</th>
+        {{/each}}
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+    {{#each items}}
+      <tr>
+        {{#each getSchema}}
+          <td>{{cell .. this}}</td>
+        {{/each}}
+        <td>
+          {{#linkTo route="editForm" widget=../formId }}
+              <i class="fa fa-pencil-square-o"></i>
+          {{/linkTo}}
+        </td>
+      </tr>
+    {{/each}}
+    </tbody>
+  </table>
+</template>

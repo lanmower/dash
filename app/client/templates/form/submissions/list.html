@@ -1,0 +1,37 @@
+<template name="submissions">
+  <section class="content-header">
+    <h1 id="page_title" class="ui header page-header">
+      Edit Field
+      {{#if (can "remove" field)}}
+      {{> quickRemoveButton collection="Fields" _id=field._id beforeRemove=beforeRemove class="btn btn-danger"}}
+      {{/if}}
+    </h1>
+    {{> breadcrumb}}
+  </section>
+
+  {{#linkTo route="submitForm" form=_id}}Submit new{{/linkTo}}
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        {{#each getSchema}}
+          <th>{{label}}</th>
+        {{/each}}
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+    {{#each items}}
+      <tr>
+        {{#each getSchema}}
+          <td>{{cell .. this}}</td>
+        {{/each}}
+        <td>
+        {{#linkTo route="updateForm" form=../_id }}
+            <i class="fa fa-pencil-square-o"></i>
+        {{/linkTo}}
+        </td>
+      </tr>
+    {{/each}}
+    </tbody>
+  </table>
+</template>

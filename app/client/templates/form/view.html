@@ -1,0 +1,8 @@
+<template name="ViewForm">
+  <h1 id="form_title" class="ui header form-header">
+    {{form.title}}
+  </h1>
+  {{#each widgets}}
+    {{> Template.dynamic template=type data=this}}
+  {{/each}}
+</template>

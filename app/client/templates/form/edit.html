@@ -1,0 +1,40 @@
+<template name="EditForm">
+  <section class="content-header">
+  <h1 id="page_title" class="ui header page-header">
+    Edit Form
+    {{#if (can "update" form)}}
+      {{> quickRemoveButton collection="Forms" _id=form._id beforeRemove=beforeRemove class="btn btn-danger"}}
+    {{/if}}
+  </h1>
+  {{> breadcrumb}}
+  </section>
+  {{#if (can "update" form)}}
+    {{> quickForm collection="Forms" doc=form id="editFormForm" type="update" omitFields="createdBy" buttonContent="Update"}}
+  {{/if}}
+  <hr>
+  <h4>Fields</h4>
+  {{#linkTo route="insertField" parent=form._id}}<i class="fa fa-plus"></i> New field{{/linkTo}}
+
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>type</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+    {{#each fields}}
+      <tr>
+        <td>{{type}}</td>
+        <td>
+          {{#if (can "update" this)}}
+          {{#linkTo route='editField'}}
+            <i class="fa fa-pencil-square-o"></i>
+          {{/linkTo}}
+          {{/if}}
+        </td>
+      </tr>
+    {{/each}}
+    </tbody>
+  </table>
+</template>

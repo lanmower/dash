@@ -1,0 +1,23 @@
+<template name="FormsList">
+  {{#linkTo route="insertForm"}}<i class="fa fa-plus"></i> New Form{{/linkTo}}
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>title</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+    {{#each forms}}
+      <tr>
+        <td>{{title}}</td>
+        <td>
+          {{#linkTo route='editForm'}}
+            <i class="fa fa-pencil-square-o"></i>
+          {{/linkTo}}
+        </td>
+      </tr>
+    {{/each}}
+    </tbody>
+  </table>
+</template>
