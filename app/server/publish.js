@@ -16,9 +16,6 @@ Meteor.publish('diaries-admin', function () {
   return Diaries.find();
 });
 
-Meteor.publish('forms', function () {
-  return Forms.find();
-});
 Meteor.publish('roles', function () {
   if(Roles.userIsInRole(this.userId, "admin")) return Meteor.roles.find();
 });
@@ -78,6 +75,11 @@ Pages.additions = additions;
 Menus.additions = additions;
 Widgets.additions = additions;
 Fields.additions = additions;
+
+Meteor.publish('forms', function () {
+  var additions = Widgets.additions(this);
+  return Widgets.find({type:"formWidget",$or:additions});
+});
 
 Meteor.publish('menus', function () {
   var additions = Menus.additions(this);

@@ -4,6 +4,7 @@ Template.listWidget.created = function () {
   template.schema = new ReactiveVar(null);
 
   Meteor.subscribe(Template.currentData().collectionName);
+  Meteor.subscribe("forms");
 
   template.autorun(function () {
     template.destroyForm.set(true);
@@ -42,8 +43,21 @@ Template.listWidget.helpers({
 });
 
 Widgets.schemas.listWidget = {
-  collectionName:{
+  form:{
     type: String,
-    optional: false,
+    label: "Choose a form",
+    autoform: {
+      options: function() {
+        if (Template.instance().subscriptionsReady()) {
+          var forms = Widgets.find({"type":"formWidget"});
+          var ret = [];
+          forms.forEach(function(form) {
+            ret.push({label:form.title, value:form._id});
+          });
+          console.log(ret);
+          return ret;
+        }
+      }
+    }
   }
 };

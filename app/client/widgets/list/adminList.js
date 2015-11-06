@@ -4,19 +4,21 @@ Template.adminListWidget.created = function () {
   template.schema = new ReactiveVar(null);
 
   var form = Widgets.findOne({_id:Template.currentData().form});
-  var name = form.collectionName;
-  Meteor.subscribe(name+'-admin');
+  if(form) {
+    var name = form.collectionName;
+    Meteor.subscribe(name+'-admin');
 
-  template.autorun(function () {
-    template.destroyForm.set(true);
-    template.schema.set(listSchema(Template.currentData().form));
-  });
+    template.autorun(function () {
+      template.destroyForm.set(true);
+      template.schema.set(listSchema(Template.currentData().form));
+    });
 
-  template.autorun(function () {
-    if (template.destroyForm.get()) {
-      template.destroyForm.set(false);
-    }
-  });
+    template.autorun(function () {
+      if (template.destroyForm.get()) {
+        template.destroyForm.set(false);
+      }
+    });
+  }
 };
 
 Template.adminListWidget.helpers({
@@ -28,11 +30,11 @@ Template.adminListWidget.helpers({
   },
   items: function() {
     var form = Widgets.findOne({_id:this.form});
-    var name = form.collectionName;
-    var collection = getCollection(name);
-
-
-    return collection.find().fetch();
+    if(form) {
+      var name = form.collectionName;
+      var collection = getCollection(name);
+      return collection.find().fetch();
+    }
   },
   cell: function(line, schema) {
     //var name = schema;
@@ -47,8 +49,7 @@ Template.adminListWidget.helpers({
 });
 
 Widgets.schemas.adminListWidget = {
-  collectionName:{
+  form:{
     type: String,
-    optional: false,
   }
 };
