@@ -1,6 +1,6 @@
 Template.EditField.helpers({
   schema: function() {
-    var formSchema = createDisplaySchema(this.field.parent, this.field.type, Widgets);
+    var formSchema = createDisplaySchema(this.field.parent, this.field.type, Forms);
     formSchema.name = {type:String};
     formSchema.listable = {
       type: Boolean,

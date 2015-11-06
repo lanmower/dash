@@ -3,6 +3,7 @@ can = function(userId, item, action) {
   if(item.parent) {
     var parentType = item.parentType();
     var parent = parentType.findOne(item.parent);
+    console.log(item.parent);
     if(!parent.createdBy || (userId && (parent.createdBy == userId))) return true;
     for(var i in parent[action]) {
         if(Roles.userIsInRole(userId, item[action][i])) return true;

@@ -3,7 +3,7 @@ Fields.schemas = {};
 
 Fields.helpers({
   collectionType: function() {return Fields},
-  parentType: function() {return Widgets}
+  parentType: function() {return Forms}
 });
 
 Fields.allow({

@@ -78,8 +78,29 @@ Fields.additions = additions;
 
 Meteor.publish('forms', function () {
   var additions = Widgets.additions(this);
-  return Widgets.find({type:"formWidget",$or:additions});
+  return Forms.find({$or:additions});
 });
+
+Meteor.publishComposite('form', function(_id) {
+  var additions = Widgets.additions(this);
+  return {
+    find: function() {
+      return Forms.find({_id:_id,$or:additions});
+    },
+    children: [
+      {
+        find: function(form) {
+          return Fields.find({parent:form._id, $or:additions})
+        }
+      }
+    ]
+  }
+});
+
+//Meteor.publish('form', function (_id) {
+//  var additions = Widgets.additions(this);
+//  return Forms.find({_id:_id,$or:additions});
+//});
 
 Meteor.publish('menus', function () {
   var additions = Menus.additions(this);
@@ -111,7 +132,7 @@ Meteor.publishComposite('widget', function(id) {
         {
           find: function(widget){
             return Fields.find({$and:[
-              {'parent': widget._id},
+              {'parent': widget.form},
               {$or:fieldAdditions}
             ]});
           }
@@ -132,11 +153,11 @@ Meteor.publishComposite('field', function(id) {
       children: [
         {
           find: function(field) {
-            return Widgets.find({$and:[
+            return Forms.find({$and:[
               {'_id': field.parent},
               {$or:widgetAdditions}
             ]});
-          },
+          }
         }
       ]
     };

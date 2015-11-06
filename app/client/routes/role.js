@@ -11,12 +11,14 @@ Router.route('role/list', {
   fastRender: true,
   where: 'client'
 });
+
 Router.route('role/insert', {
 	parent: 'rolesList',
 	title: 'Insert Role',
   name: 'insertRole',
   where: 'client'
 });
+
 Router.route('role/edit/:_id', {
   name: 'editRole',
 	parent: 'rolesList',
