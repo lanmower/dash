@@ -1,0 +1,5 @@
+<template name="EditRole">
+  {{> quickForm collection="Meteor.roles" doc=obj id="editRoleForm" type="update" omitFields="createdBy" buttonContent="Update"}}
+  <hr>
+  {{> quickRemoveButton collection="Meteor.roles" _id=obj._id beforeRemove=beforeRemove class="btn btn-danger"}}
+</template>

@@ -1,0 +1,5 @@
+<template name="diaryList">
+  {{#each diaries}}
+    {{#linkTo route="viewDiary"}} {{date}} {{/linkTo}}
+  {{/each}}
+</template>

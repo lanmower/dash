@@ -1,0 +1,23 @@
+<template name="RolesList">
+  {{#linkTo route="insertRole"}}<i class="fa fa-plus"></i> New Role{{/linkTo}}
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+    {{#each roles}}
+      <tr>
+        <td>{{name}}</td>
+        <td>
+          {{#linkTo route='editRole'}}
+            <i class="fa fa-pencil-square-o"></i>
+          {{/linkTo}}
+        </td>
+      </tr>
+    {{/each}}
+    </tbody>
+  </table>
+</template>
