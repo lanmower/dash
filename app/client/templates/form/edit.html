@@ -24,14 +24,14 @@
     </thead>
     <tbody>
     {{#each fields}}
-      <tr>
+      <tr data-id='{{_id}}' data-listposition='{{listposition}}'>
+        <td><i class="sortable-handle mdi-action-view-headline pull-right"></i></td>
+        <td>{{name}}</td>
         <td>{{type}}</td>
         <td>
-          {{#if (can "update" this)}}
           {{#linkTo route='editField'}}
-            <i class="fa fa-pencil-square-o"></i>
+          <i class="fa fa-pencil-square-o"></i>
           {{/linkTo}}
-          {{/if}}
         </td>
       </tr>
     {{/each}}
