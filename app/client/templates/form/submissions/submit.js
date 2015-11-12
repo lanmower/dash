@@ -1,3 +1,11 @@
+AutoForm.hooks({
+  insertPageForm: {
+    onSuccess: function(formType, result) {
+      Router.go('pagesList');
+    }
+  }
+});
+
 Template.submitForm.created = function () {
   var template = this;
   template.destroyForm = new ReactiveVar(true);

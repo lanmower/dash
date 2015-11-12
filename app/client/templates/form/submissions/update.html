@@ -2,7 +2,7 @@
   {{#if schema}}
   <h1 id="page_title" class="ui header page-header">
     {{form.title}}
-    {{> quickRemoveButton collection=collection _id=item.id beforeRemove=beforeRemove class="btn btn-danger"}}
+    {{> quickRemoveButton collection=collection _id=item._id onSuccess=onSuccess onError=onError class="btn btn-danger"}}
   </h1>
   {{> quickForm collection=collection doc=item schema=schema id="updateForm" type="update" omitFields="createdBy" buttonContent="Submit"}}
   {{#each getFileTypes}}

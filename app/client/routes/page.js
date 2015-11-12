@@ -34,7 +34,8 @@ Router.route('page/edit/:_id', {
   data: function() {
     if(this.ready()){
       page = Pages.findOne({_id:this.params._id});
-      var widgets = Widgets.find({parent:page._id});
+    	var widgets;
+		  if(page) widgets = Widgets.find({parent:page._id});
       return {types:Types.find(), page:page, widgets:widgets};
     }
   },

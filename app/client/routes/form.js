@@ -92,7 +92,7 @@ Router.route('form/submit/:form', {
 });
 
 Router.route('form/list/:form', {
-  title: 'List Form',
+  title: 'Form submissions',
   name: 'submissions',
   fastRender: true,
   where: 'client',

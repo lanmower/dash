@@ -3,7 +3,7 @@
   <h1 id="page_title" class="ui header page-header">
     Edit Page
     {{#if (can "update" page)}}
-      {{> quickRemoveButton collection="Pages" _id=page._id beforeRemove=beforeRemove class="btn btn-danger"}}
+      {{> quickRemoveButton collection="Pages" _id=page._id onSuccess=onSuccess class="btn btn-danger"}}
     {{/if}}
   </h1>
   {{> breadcrumb}}

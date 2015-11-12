@@ -1,6 +1,19 @@
 Template.updateForm.helpers({
-  getFileTypes: function() {
-    var schema = Template.currentData.schema;
+  onSuccess:function() {
+    var self = this;
+    return function(result) {
+      console.log(result);
+      Router.go('submissions', {form:self.form._id});
+    }
+  },
+  onError:function() {
+    return function(result) {
+      console.log(result);
+      //Router.go('pagesList');
+    }
+  },
+    getFileTypes: function() {
+    var schema = this.schema;
     var files = [];
     for(var i in schema) {
       if(schema[i].autoform && schema[i].autoform.type == 'cfs-file') {
@@ -14,7 +27,7 @@ Template.updateForm.helpers({
   }
 });
 
-Template.updateForm.created = function () {
+/*Template.updateForm.created = function () {
   var template = this;
   console.log(Template.currentData());
-};
+};*/
