@@ -61,54 +61,50 @@ Meteor.schema = function() {
   return _.extend({},{
     createdBy: {
       type: String,
-      autoform: {
-          type: "hidden",
-          label: false
-      },
-      autoValue: function () {
+      autoValue: function() {
         if (this.isInsert) {
-          return Meteor.userId();
+          return this.userId;
         } else if (this.isUpsert) {
-          return {$setOnInsert: Meteor.userId()};
+          return {$setOnInsert: this.userId};
         } else {
           this.unset();
         }
-        return Meteor.userId();
+      }
+    },
+    updatedBy: {
+      type: String,
+      autoValue: function() {
+        if (this.isUpdate) {
+          return this.userId;
+        }
       },
+      denyInsert: true,
+      optional: true
     },
     createdAt: {
-       type: Date,
-       autoform: {
-         value: new Date(),
-         type: "hidden"
-       },
-       autoValue: function(doc, operation) {
-         if (this.isInsert) {
-           return new Date();
-         } else if (this.isUpsert) {
-           return {$setOnInsert: new Date()};
-         } else {
-           this.unset();
-         }
-       }
-   },
-
-   updatedAt: {
-       type: Date,
-       autoform: {
-         value: new Date(),
-         type: "hidden"
-       },
-       autoValue: function(doc, operation) {
-         if (this.isInsert) {
-           return new Date();
-         } else if (this.isUpsert) {
-           return {$setOnInsert: new Date()};
-         } else {
-           this.unset();
-         }
-       }
-   }
+    type: Date,
+    autoValue: function() {
+      if (this.isInsert) {
+        return new Date;
+      } else if (this.isUpsert) {
+        return {$setOnInsert: new Date};
+      } else {
+        this.unset();
+      }
+    }
+  },
+  // Force value to be current date (on server) upon update
+  // and don't allow it to be set upon insert.
+  updatedAt: {
+    type: Date,
+    autoValue: function() {
+      if (this.isUpdate) {
+        return new Date();
+      }
+    },
+    denyInsert: true,
+    optional: true
+  }
   });
 };
 

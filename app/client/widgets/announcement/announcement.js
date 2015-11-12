@@ -5,9 +5,11 @@ Widgets.schemas.announcement = {
   },
   body:{
     type: String,
-    afFieldInput: {
-      type: 'summernote',
-    },
     optional: false,
+    autoform: {
+      afFieldInput: {
+        type: 'summernote',
+      }
+    }
   },
 };
