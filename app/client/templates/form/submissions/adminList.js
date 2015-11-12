@@ -39,10 +39,7 @@ Template.submissionsAdmin.helpers({
   cell: function(line, schema) {
     //var name = schema;
     var name = schema['name'];
-    if(schema[line.type] == 'approval') {
-      var approvers = line['approvers'];
-      var field = line['field'];
-    }
+
     if(Template[schema['type']].cell) return Template[schema['type']].cell(name, line, schema);
     return line[name];
   }

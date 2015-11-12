@@ -23,7 +23,7 @@
     {{#each items}}
       <tr>
         {{#each getSchema}}
-          <td>{{cell .. this}}</td>
+          <td>{{{cell .. this}}}</td>
         {{/each}}
         <td>
         {{#linkTo route="updateForm" form=../_id }}

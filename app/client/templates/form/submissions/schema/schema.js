@@ -1,5 +1,5 @@
 var listSchemaItem = function(field) {
-  if(field.listable) return {name:field.name, label: field.title, type:field.type};
+  if(field.listable) return field;
 }
 
 listSchema = function(form) {
