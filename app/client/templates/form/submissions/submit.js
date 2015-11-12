@@ -1,7 +1,8 @@
 AutoForm.hooks({
-  insertPageForm: {
+  submitForm: {
     onSuccess: function(formType, result) {
-      Router.go('pagesList');
+      var route = Router.current().params.parent;
+      Router.go('submissions', {form:Router.current().params.form});
     }
   }
 });
