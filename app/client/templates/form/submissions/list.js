@@ -3,10 +3,10 @@ Template.submissions.created = function () {
   template.destroyForm = new ReactiveVar(true);
   template.schema = new ReactiveVar(null);
 
-  Meteor.subscribe(Template.currentData().collectionName);
-  Meteor.subscribe("forms");
 
   template.autorun(function () {
+    Meteor.subscribe(Template.currentData().collectionName);
+    Meteor.subscribe("forms");
     template.destroyForm.set(true);
     template.schema.set(listSchema(Template.currentData()));
   });
@@ -23,7 +23,7 @@ Template.submissions.helpers({
     return Template.instance().destroyForm.get();
   },
   getSchema: function() {
-    return Template.instance().schema.get();
+    if(Template.instance().schema) return Template.instance().schema.get();
   },
   items: function() {
     var name = this.collectionName;
