@@ -29,7 +29,17 @@
             <!-- User Account Menu -->
             {{> loginButtons}}
             {{else}}
-            {{> loginButtons}}
+            <li>
+-              <a href="#" onclick="Meteor.loginWithGoogle({requestPermissions:['https://www.googleapis.com/auth/drive',
++              <a href="#" onclick="Meteor.loginWithGoogle({requestPermissions:[
++              'https://www.googleapis.com/auth/userinfo.email',
++              'https://www.googleapis.com/auth/drive',
+              'https://www.googleapis.com/auth/calendar',
+              'https://www.googleapis.com/auth/userinfo.profile',
+-              'https://www.googleapis.com/auth/tasks'],  requestOfflineToken: true,
+-  forceApprovalPrompt: true})"><i class="fa fa-plus"></i>Sign in</a>
++              'https://www.googleapis.com/auth/tasks'],  requestOfflineToken: true})"><i class="fa fa-plus"></i>Sign in</a><!--forceApprovalPrompt: true-->
+            </li>
             {{/if}}
             <!--li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
