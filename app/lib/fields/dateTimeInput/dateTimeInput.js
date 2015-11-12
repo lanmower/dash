@@ -4,6 +4,14 @@ Widgets.schemas.dateTimeInput = {
       optional: false,
     }
   };
+
+  if(Meteor.isClient) {
+    Template.dateTimeInput.cell = function(name, item, schema) {
+      var time = item[name];
+      time.format('MMMM Do, YYYY');
+    }
+  }
+
 Fields.schemas.dateTimeInput = function(data) {
       return {
         type: Date,
