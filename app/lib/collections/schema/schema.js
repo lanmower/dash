@@ -66,13 +66,7 @@ Meteor.schema = function() {
           label: false
       },
       autoValue: function () {
-        if (this.isInsert) {
-          return Meteor.userId();
-        } else if (this.isUpsert) {
-          return {$setOnInsert: Meteor.userId()};
-        } else {
-          this.unset();
-        }
+        return Meteor.userId();
       },
     },
     createdAt: {
@@ -83,9 +77,9 @@ Meteor.schema = function() {
        },
        autoValue: function(doc, operation) {
          if (this.isInsert) {
-           return Meteor.userId();
+           return new Date();
          } else if (this.isUpsert) {
-           return {$setOnInsert: Meteor.userId()};
+           return {$setOnInsert: new Date()};
          } else {
            this.unset();
          }
