@@ -66,6 +66,13 @@ Meteor.schema = function() {
           label: false
       },
       autoValue: function () {
+        if (this.isInsert) {
+          return Meteor.userId();
+        } else if (this.isUpsert) {
+          return {$setOnInsert: Meteor.userId()};
+        } else {
+          this.unset();
+        }
         return Meteor.userId();
       },
     },

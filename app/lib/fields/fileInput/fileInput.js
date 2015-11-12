@@ -1,14 +1,15 @@
 Widgets.schemas.fileInput = {
     title:{
       type: String,
-      optional: false,
     }
   };
 Fields.schemas.fileInput = function(data) {
       return {
         "type":String,
+        optional:true,
         "autoform":{
           afFieldInput: {
+
             type: "cfs-file",
             collection: "files"
           }

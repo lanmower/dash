@@ -9,7 +9,7 @@ Fields.schemas.dateTimeInput = function(data) {
         type: Date,
         label: data.title,
         autoform: {
-          type: "bootstrap-datepicker"
+          type: "bootstrap-datetimepicker"
         }
       }
   };
