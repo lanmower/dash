@@ -33,7 +33,7 @@ body,html {
   background: white;
   display: inline-block;
   padding: 0px 0px 0px 0px;
-
+  margin-bottom:20px;
   -moz-box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.35);
 	-webkit-box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.35);
 	box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.35);
@@ -49,10 +49,10 @@ body,html {
 	-webkit-box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.1);
 	box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.1);
   margin: 0px;
-  width: 100px;
   background: #ABC4D6;
   color:white;
   padding:10px;
+  width: 100%;
   border: rgba(0,0,1,0.2) solid 2px;
 }
 
