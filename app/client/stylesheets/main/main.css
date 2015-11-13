@@ -50,7 +50,7 @@ body .content {
   overflow-y: auto;
   left: 0px;
   right: 0px;
-  padding-bottom:0px;
+  padding-bottom:50px;
   padding-top:0px;
 }
 .skin-blue .content-wrapper {
