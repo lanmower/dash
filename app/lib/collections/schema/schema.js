@@ -61,6 +61,10 @@ Meteor.schema = function() {
   return _.extend({},{
     createdBy: {
       type: String,
+      autoform: {
+          type: "hidden",
+          label: false
+      },
       autoValue: function() {
         if (this.isInsert) {
           return this.userId;
@@ -73,6 +77,10 @@ Meteor.schema = function() {
     },
     updatedBy: {
       type: String,
+      autoform: {
+          type: "hidden",
+          label: false
+      },
       autoValue: function() {
         if (this.isUpdate) {
           return this.userId;
@@ -83,6 +91,10 @@ Meteor.schema = function() {
     },
     createdAt: {
     type: Date,
+    autoform: {
+        type: "hidden",
+        label: false
+    },
     autoValue: function() {
       if (this.isInsert) {
         return new Date;
@@ -97,6 +109,10 @@ Meteor.schema = function() {
   // and don't allow it to be set upon insert.
   updatedAt: {
     type: Date,
+    autoform: {
+        type: "hidden",
+        label: false
+    },
     autoValue: function() {
       if (this.isUpdate) {
         return new Date();
