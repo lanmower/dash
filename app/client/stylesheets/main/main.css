@@ -22,12 +22,41 @@ body,html {
   }
 
 .fill {
-left:0px;
-right:0px;
-position: absolute;
-top:0px;
-bottom:0px;
+  left:0px;
+  right:0px;
+  position: absolute;
+  top:0px;
+  bottom:0px;
 }
+
+.announcement {
+  background: white;
+  display: inline-block;
+  padding: 0px 0px 0px 0px;
+
+  -moz-box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.47);
+	-webkit-box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.47);
+	box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.47);
+	/* For IE 8 */
+	-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=1, Direction=135, Color='#000000')";
+	/* For IE 5.5 - 7 */
+	filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#000000');
+}
+
+.announcement h3 {
+  -moz-box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.1);
+	-webkit-box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.1);
+	box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.1);
+  margin: 0px;
+  width: 100px;
+  background: lightblue;
+  padding:10px;
+}
+
+.announcement div {
+  padding:10px;
+}
+
 .skin-blue .wrapper{
   background-color: #ecf0f5;
 }
