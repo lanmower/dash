@@ -1,4 +1,6 @@
 <template name="InsertWidget">
+  {{pageTitle "Insert widget"}}
+
   {{#if Template.subscriptionsReady}}
     {{> quickForm collection="Widgets" schema=schema id="insertWidgetForm" type="insert" omitFields="createdBy" buttonContent="Create"}}
   {{/if}}

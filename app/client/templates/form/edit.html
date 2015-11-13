@@ -1,11 +1,10 @@
 <template name="EditForm">
   <section class="content-header">
-  <h1 id="page_title" class="ui header page-header">
-    Edit Form
-    {{#if (can "update" form)}}
-      {{> quickRemoveButton collection="Forms" _id=form._id class="btn btn-danger"}}
-    {{/if}}
-  </h1>
+  {{pageTitle "Edit form"}}
+
+  {{#if (can "update" form)}}
+    {{> quickRemoveButton collection="Forms" _id=form._id class="btn btn-danger"}}
+  {{/if}}
   {{> breadcrumb}}
   </section>
   {{#if (can "update" form)}}

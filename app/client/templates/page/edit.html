@@ -1,11 +1,9 @@
 <template name="EditPage">
   <section class="content-header">
-  <h1 id="page_title" class="ui header page-header">
-    Edit Page
-    {{#if (can "update" page)}}
-      {{> quickRemoveButton collection="Pages" _id=page._id onSuccess=onSuccess class="btn btn-danger"}}
-    {{/if}}
-  </h1>
+  {{pageTitle "Edit Page"}}
+  {{#if (can "update" page)}}
+    {{> quickRemoveButton collection="Pages" _id=page._id onSuccess=onSuccess class="btn btn-danger"}}
+  {{/if}}
   {{> breadcrumb}}
   </section>
   {{#if (can "update" page)}}

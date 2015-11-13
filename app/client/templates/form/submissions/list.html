@@ -1,11 +1,10 @@
 <template name="submissions">
   <section class="content-header">
-    <h1 id="page_title" class="ui header page-header">
-      {{title}}
-      {{#if (can "remove" field)}}
-      {{> quickRemoveButton collection="Fields" _id=field._id beforeRemove=beforeRemove class="btn btn-danger"}}
-      {{/if}}
-    </h1>
+    {{pageTitle title}}
+
+    {{#if (can "remove" field)}}
+    {{> quickRemoveButton collection="Fields" _id=field._id beforeRemove=beforeRemove class="btn btn-danger"}}
+    {{/if}}
     {{> breadcrumb}}
   </section>
 

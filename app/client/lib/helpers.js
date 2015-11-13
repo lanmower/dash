@@ -10,6 +10,11 @@ Template.registerHelper("debug", function(optionalValue) {
   }
 });
 
+Template.registerHelper("pageTitle", function(title) {
+  console.log(title);
+  Meteor.pageTitle.set(title);
+});
+
 
 Template.registerHelper("arrayify", function(obj){
     result = [];

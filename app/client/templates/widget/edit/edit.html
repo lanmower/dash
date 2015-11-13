@@ -4,12 +4,10 @@
   <div class="fill">
     <div class="contain" style="overflow-y:auto;padding:10px">
       <section class="content-header">
-        <h1 id="page_title" class="ui header page-header">
-          Edit Widget
-          {{#if (can "remove" widget)}}
-          {{> quickRemoveButton collection="Widgets" _id=widget._id beforeRemove=beforeRemove class="btn btn-danger"}}
-          {{/if}}
-        </h1>
+        {{pageTitle "Edit Widget"}}
+        {{#if (can "remove" widget)}}
+        {{> quickRemoveButton collection="Widgets" _id=widget._id beforeRemove=beforeRemove class="btn btn-danger"}}
+        {{/if}}
         {{> breadcrumb}}
       </section>
 

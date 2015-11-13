@@ -1,3 +1,5 @@
 <template name="InsertRole">
+  {{pageTitle "Insert role"}}
+
   {{> quickForm collection="Meteor.roles" id="insertRoleForm" type="insert" omitFields="createdBy" buttonContent="Create"}}
 </template>
