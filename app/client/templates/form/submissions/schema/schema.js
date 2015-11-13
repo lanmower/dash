@@ -2,7 +2,7 @@ var listSchemaItem = function(field) {
   if(field.listable) return field;
 }
 
-listSchema = function(form) {
+listSchema = function(form, admin) {
   var fields = Fields.find({parent:form._id},{sort: { listposition: 1 }});
   var schema = [];
   fields.forEach(function(field) {

@@ -106,3 +106,19 @@ Router.route('form/list/:form', {
     return form;
   }
 });
+
+Router.route('form/admin/:form', {
+  title: 'Form admin',
+  name: 'submissionsAdmin',
+  fastRender: true,
+  where: 'client',
+  waitOn: function() {
+    return [
+      Meteor.subscribe("form", this.params.form)
+    ];
+  },
+  data: function () {
+    var form = Forms.findOne({_id:this.params.form});
+    return form;
+  }
+});
