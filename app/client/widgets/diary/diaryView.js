@@ -1,5 +1,5 @@
 Template.viewDiary.helpers({
   date: function() {
-    return moment(Template.currentData().date).format("MMMM DD YYYY");
+    return moment(this.diary.date).format("MMMM DD YYYY");
   }
 });
