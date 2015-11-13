@@ -1,0 +1,128 @@
+/*****************************************************************************/
+/* main: Style */
+/*****************************************************************************/
+#navbarMessagesMenu li a p {
+    white-space: normal;
+    margin: 0px 0px 0px 0px;
+}
+#navbarMessagesMenu img {
+  margin-top: 9px;
+margin-right: 5px;
+margin-bottom: 0px;
+}
+
+
+body,html {
+  height:100%
+    background-color: #222d32;
+  }
+  .sidebar-menu li.header {
+      color: #4b646f;
+      background: #1a2226;
+  }
+
+.fill {
+  left:0px;
+  right:0px;
+  position: absolute;
+  top:0px;
+  bottom:0px;
+}
+
+.announcement {
+  background: white;
+  display: inline-block;
+  padding: 0px 0px 0px 0px;
+
+  -moz-box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.35);
+	-webkit-box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.35);
+	box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.35);
+	/* For IE 8 */
+	-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=1, Direction=135, Color='#000000')";
+	/* For IE 5.5 - 7 */
+	filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#000000');
+
+}
+
+.announcement h3 {
+  -moz-box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.1);
+	-webkit-box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.1);
+	box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.1);
+  margin: 0px;
+  width: 100px;
+  background: #ABC4D6;
+  color:white;
+  padding:10px;
+  border: rgba(0,0,1,0.2) solid 2px;
+}
+
+.page_title {
+  color: white;
+  font-size: 23px;
+  line-height: 48px;
+  float: left;
+}
+
+.announcement div {
+  padding:10px;
+}
+
+.skin-blue .wrapper{
+  background-color: #ecf0f5;
+}
+.main-footer {
+  bottom:0px;
+  left:0px;
+  right:0px;
+  height: 54px;
+  position:absolute;
+}
+.contain {
+  position:relative;
+  width:100%;
+  height:100%;
+}
+body .content {
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  overflow-y: auto;
+  padding-bottom:50px;
+  padding-top: 20px;
+}
+.skin-blue .content-wrapper {
+  bottom: 0px;
+  top: 50px;
+  position: absolute;
+  right: 0px;
+  left: 0px;
+  height: auto;
+  min-height:auto;
+}
+.wrapper .main-sidebar {
+  overflow: auto;
+height: auto;
+min-height: auto;
+top: 50px;
+padding-top: 0px;
+bottom: 0px;
+}
+.skin-blue {
+      height: 100%;
+}
+.messages-menu .offline {
+  background:#eee;
+  opacity: 0.6;
+  filter: alpha(opacity=60); /* For IE8 and earlier */
+}
+.messages-menu .offline:hover {
+  opacity: 0.9;
+  filter: alpha(opacity=90); /* For IE8 and earlier */
+}
+@media(max-width:768px) {
+  .skin-blue .content-wrapper {
+    top:100px;
+  }
+}
