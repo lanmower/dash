@@ -61,6 +61,7 @@ Router.route('form/update/:form/:_id', {
     var schema;
     if(form) {
       Meteor.subscribe(form.collectionName);
+			Meteor.subscribe(form.collectionName+'-admin');
       collection = getCollection(form.collectionName);
       item = collection.findOne(this.params._id);
       schema = new SimpleSchema(formSchema(form));

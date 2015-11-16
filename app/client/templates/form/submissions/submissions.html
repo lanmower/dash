@@ -1,18 +1,17 @@
-<template name="submissionsAdmin">
-  <section class="content-header">
+<template name="submissions">
     {{pageTitle title}}
-
+    {{#if canAdmin}}
+      {{#linkTo route="submissionsAdmin" form=currentForm}}Admin{{/linkTo}}
+    {{/if}}
     {{#if (can "remove" field)}}
     {{> quickRemoveButton collection="Fields" _id=field._id beforeRemove=beforeRemove class="btn btn-danger"}}
     {{/if}}
     {{> breadcrumb}}
-  </section>
 
   {{#linkTo route="submitForm" form=_id}}Submit new{{/linkTo}}
   <table class="table table-hover">
     <thead>
       <tr>
-        <th>Created by</th>
         {{#each getSchema}}
           <th>{{label}}</th>
         {{/each}}
@@ -22,9 +21,6 @@
     <tbody>
     {{#each items}}
       <tr>
-        <td>
-          {{user createdBy}}
-        </td>
         {{#each getSchema}}
           <td>{{{cell .. this}}}</td>
         {{/each}}

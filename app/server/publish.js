@@ -58,6 +58,7 @@ var additions = function(self) {
   ];
 
   if(self.userId) {
+    roles.push(Meteor.users.findOne(self.userId)._id);
     rules.push(
       {$or:[
         {"view": "@"}

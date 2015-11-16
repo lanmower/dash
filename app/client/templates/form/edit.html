@@ -1,12 +1,10 @@
 <template name="EditForm">
-  <section class="content-header">
   {{pageTitle "Edit form"}}
 
   {{#if (can "update" form)}}
     {{> quickRemoveButton collection="Forms" _id=form._id class="btn btn-danger"}}
   {{/if}}
   {{> breadcrumb}}
-  </section>
   {{#if (can "update" form)}}
     {{> quickForm collection="Forms" doc=form id="editFormForm" type="update" omitFields="createdBy" buttonContent="Update"}}
   {{/if}}

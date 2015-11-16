@@ -11,6 +11,12 @@ var thumbnailStore = new FS.Store.GridFS("thumbnail", {
         //.gravity('Center').crop(300, 300).quality(100).autoOrient().stream().pipe(writeStream);
     }
 });
+var mediaStore = new FS.Store.GridFS("media", {
+    //Create the thumbnail as we save to the store.
+    transformWrite: function(fileObj, readStream, writeStream) {
+        ffmpeg(readStream).audioCodec('libmp3lame').format('mp3').pipe(writeStream);
+    }
+});
 
 Files = new FS.Collection("files", {
   stores: [thumbnailStore,masterStore],
@@ -18,7 +24,7 @@ Files = new FS.Collection("files", {
       maxSize: 10485760, //in bytes
       allow: {
           contentTypes: ['image/*'],
-          extensions: ['png', 'jpg', 'jpeg', 'gif']
+          extensions: ['png', 'jpg', 'jpeg', 'gif', 'mp3']
       },
       onInvalid: function (message) {
           if(Meteor.isClient){

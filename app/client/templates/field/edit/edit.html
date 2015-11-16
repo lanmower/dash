@@ -1,13 +1,11 @@
 <template name="EditField">
   <div class="fill">
     <div class="contain" style="overflow-y:auto;padding:10px">
-      <section class="content-header">
         {{pageTitle "Edit Field"}}
         {{#if (can "remove" field)}}
         {{> quickRemoveButton collection="Fields" _id=field._id beforeRemove=beforeRemove class="btn btn-danger"}}
         {{/if}}
         {{> breadcrumb}}
-      </section>
       {{#if (can "update" field)}}
       {{> quickForm collection="Fields" doc=field schema=schema id="editFieldForm" type="update" omitFields="createdBy" buttonContent="Update"}}
       {{/if}}

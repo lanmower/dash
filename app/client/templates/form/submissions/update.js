@@ -12,7 +12,7 @@ Template.updateForm.helpers({
       //Router.go('pagesList');
     }
   },
-    getFileTypes: function() {
+  getFileTypes: function() {
     var schema = this.schema;
     var files = [];
     for(var i in schema) {
@@ -28,6 +28,6 @@ Template.updateForm.helpers({
 });
 
 /*Template.updateForm.created = function () {
-  var template = this;
-  console.log(Template.currentData());
+var template = this;
+console.log(Template.currentData());
 };*/

@@ -1,8 +1,6 @@
 <template name="submitForm">
-  <section class="content-header">
     {{pageTitle title}}
     {{> breadcrumb}}
-  </section>
   {{#if destroyForm}}
       {{! this is a wonky workaround for the fact that autoform doesn't handle reactively changing schema attribute, which should be fixed eventually}}
   {{else}}
