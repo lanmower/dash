@@ -19,12 +19,12 @@ var mediaStore = new FS.Store.GridFS("media", {
 });
 
 Files = new FS.Collection("files", {
-  stores: [thumbnailStore,masterStore],
+  stores: [mediaStore,thumbnailStore,masterStore],
   filter: {
       maxSize: 10485760, //in bytes
       allow: {
-          contentTypes: ['image/*'],
-          extensions: ['png', 'jpg', 'jpeg', 'gif', 'mp3']
+          contentTypes: ['image/*', 'audio/*'],
+          extensions: ['png', 'jpg', 'jpeg', 'gif','mp3']
       },
       onInvalid: function (message) {
           if(Meteor.isClient){
