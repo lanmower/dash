@@ -1,3 +1,34 @@
+/**
+ * Wrapper that handles errors that are thrown while transforming.
+ * It saves the error in the copy and emits stored.
+ * @param {string} storageName The name of the storage.
+ * @param {Function} transformFunction The transformation function.
+ * @returns {Function}
+ */
+var handleTransformErrors = function (storageName, transformFunction) {
+  return function (file, readStream, writeStream) {
+    var handleError = function (error) {
+      if (_.isObject(error) && error.errorType === 'Meteor.Error') {
+        error = _.pick(error, 'error', 'reason', 'details');
+      }
+      console.log('handleTransformError', error);
+      file.copies[storageName].error = error;
+      writeStream.emit('error', error);
+      readStream.unpipe(writeStream);
+      writeStream.emit('stored', {
+        fileKey: '',
+        size: 0,
+        storedAt: new Date()
+      });
+    };
+    try {
+      transformFunction(file, readStream, writeStream, handleError);
+    } catch (error) {
+      handleError(error);
+    }
+  };
+};
+
 //FS.debug = true
 var masterStore = new FS.Store.GridFS("filesStore");
 var thumbnailStore = new FS.Store.GridFS("thumbnail", {
@@ -14,6 +45,7 @@ var thumbnailStore = new FS.Store.GridFS("thumbnail", {
 var mediaStore = new FS.Store.GridFS("media", {
     //Create the thumbnail as we save to the store.
     transformWrite: function(fileObj, readStream, writeStream) {
+
         ffmpeg(readStream).audioCodec('libmp3lame').format('mp3').pipe(writeStream);
     }
 });
