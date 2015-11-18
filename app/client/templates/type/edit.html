@@ -1,6 +1,11 @@
 <template name="EditType">
   {{pageTitle "Edit Types"}}
-  {{> quickForm collection="Types" doc=obj id="editTypeForm" type="update" omitFields="createdBy" buttonContent="Update"}}
-  <hr>
-  {{> quickRemoveButton collection="Types" _id=obj._id beforeRemove=beforeRemove class="btn btn-danger"}}
+  <div class="box">
+    <div class="box-header with-border">
+      <span style="float:right">{{> quickRemoveButton collection="Types" _id=obj._id beforeRemove=beforeRemove class="btn btn-danger"}}</span>
+    </div>
+    <div class="box-body table-responsive">
+      {{> quickForm collection="Types" doc=obj id="editTypeForm" type="update" omitFields="createdBy" buttonContent="Update"}}
+    </div>
+  </div>
 </template>

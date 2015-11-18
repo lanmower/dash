@@ -1,6 +1,11 @@
 <template name="EditRole">
   {{pageTitle "Edit role"}}
-  {{> quickForm collection="Meteor.roles" doc=obj id="editRoleForm" type="update" omitFields="createdBy" buttonContent="Update"}}
-  <hr>
-  {{> quickRemoveButton collection="Meteor.roles" _id=obj._id beforeRemove=beforeRemove class="btn btn-danger"}}
+  <div class="box">
+    <div class="box-header with-border">
+      <span style="float:right">{{> quickRemoveButton collection="Meteor.roles" _id=obj._id beforeRemove=beforeRemove class="btn btn-danger"}}</span>
+    </div>
+    <div class="box-body table-responsive">
+      {{> quickForm collection="Meteor.roles" doc=obj id="editRoleForm" type="update" omitFields="createdBy" buttonContent="Update"}}
+    </div>
+  </div>
 </template>

@@ -1,15 +1,13 @@
 <template name="submissions">
   {{pageTitle title}}
-  {{#if (can "remove" field)}}
-  {{> quickRemoveButton collection="Fields" _id=field._id beforeRemove=beforeRemove class="btn btn-danger"}}
-  {{/if}}
-  {{> breadcrumb}}
-  {{#if canAdmin}}
-  {{#linkTo route="submissionsAdmin" form=currentForm}}Admin{{/linkTo}}
-  {{/if}}
-
-  {{#linkTo route="submitForm" form=_id}}Submit new{{/linkTo}}
+  <section class="content-header">{{> breadcrumb}}</section>
   <div class="box">
+    <div class="box-header with-border">
+      {{#if canAdmin}}
+      {{#linkTo route="submissionsAdmin" form=currentForm}}Admin{{/linkTo}}
+      {{/if}}
+      {{#linkTo route="submitForm" form=_id}}Submit new{{/linkTo}}
+    </div>
     <div class="box-body table-responsive no-padding">
       <table class="table table-hover">
         <thead>

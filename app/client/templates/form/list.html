@@ -1,7 +1,9 @@
 <template name="FormsList">
   {{pageTitle "Forms"}}
-  {{#linkTo route="insertForm"}}<i class="fa fa-plus"></i> New Form{{/linkTo}}
   <div class="box">
+    <div class="box-header with-border">
+    {{#linkTo route="insertForm"}}<i class="fa fa-plus"></i> New Form{{/linkTo}}
+  </div>
     <div class="box-body table-responsive no-padding">
   <table class="table table-hover">
     <thead>

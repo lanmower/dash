@@ -1,8 +1,10 @@
 <template name="RolesList">
   {{pageTitle "Roles"}}
 
-  {{#linkTo route="insertRole"}}<i class="fa fa-plus"></i> New Role{{/linkTo}}
   <div class="box">
+    <div class="box-header with-border">
+      {{#linkTo route="insertRole"}}<i class="fa fa-plus"></i> New Role{{/linkTo}}
+    </div>
     <div class="box-body table-responsive no-padding">
   <table class="table table-hover">
     <thead>

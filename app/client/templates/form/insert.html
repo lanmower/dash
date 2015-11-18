@@ -1,5 +1,9 @@
 <template name="InsertForm">
   {{pageTitle "Insert form"}}
 
-  {{> quickForm collection="Forms" id="insertFormForm" type="insert" omitFields="createdBy" buttonContent="Create"}}
+  <div class="box">
+    <div class="box-body table-responsive">
+      {{> quickForm collection="Forms" id="insertFormForm" type="insert" omitFields="createdBy" buttonContent="Create"}}
+    </div>
+  </div>
 </template>

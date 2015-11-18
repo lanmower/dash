@@ -1,5 +1,8 @@
 <template name="InsertRole">
   {{pageTitle "Insert role"}}
-
+  <div class="box">
+    <div class="box-body table-responsive no-padding">
   {{> quickForm collection="Meteor.roles" id="insertRoleForm" type="insert" omitFields="createdBy" buttonContent="Create"}}
+</div>
+</div>
 </template>

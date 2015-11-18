@@ -1,5 +1,9 @@
 <template name="EditUser">
   {{pageTitle "Edit user"}}
 
-  {{> quickForm collection="Meteor.users" doc=this id="profileUpdateForm" type="update" omitFields="createdAt" buttonContent="Save Changes"}}
+  <div class="box">
+    <div class="box-body table-responsive no-padding">
+      {{> quickForm collection="Meteor.users" doc=this id="profileUpdateForm" type="update" omitFields="createdAt" buttonContent="Save Changes"}}
+    </div>
+  </div>
 </template>

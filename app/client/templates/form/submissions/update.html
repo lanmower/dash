@@ -3,7 +3,7 @@
   {{pageTitle form.title}}
   <div class="box">
     <div class="box-header with-border">
-      {{> quickRemoveButton collection=collection _id=item._id onSuccess=onSuccess onError=onError class="btn btn-danger"}}
+      <span style="float:right">{{> quickRemoveButton collection=collection _id=item._id onSuccess=onSuccess onError=onError class="btn btn-danger"}}</span>
     </div>
     <div class="box-body table-responsive">
   {{> quickForm collection=collection doc=item schema=schema id="updateForm" type="update" omitFields="createdBy" buttonContent="Submit"}}

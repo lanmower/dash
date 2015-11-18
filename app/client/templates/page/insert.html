@@ -1,4 +1,8 @@
 <template name="InsertPage">
   {{pageTitle "Insert Page"}}
+  <div class="box">
+    <div class="box-body table-responsive">
   {{> quickForm collection="Pages" id="insertPageForm" type="insert" omitFields="createdBy" buttonContent="Create"}}
+</div>
+</div>
 </template>

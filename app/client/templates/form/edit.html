@@ -1,10 +1,15 @@
 <template name="EditForm">
   {{pageTitle "Edit form"}}
+  <section class="content-header">{{> breadcrumb}}</section>
 
-  {{#if (can "update" form)}}
-    {{> quickRemoveButton collection="Forms" _id=form._id class="btn btn-danger"}}
-  {{/if}}
-  {{> breadcrumb}}
+  <div class="box">
+    <div class="box-header with-border">
+      {{#if (can "update" form)}}
+        <span style="float:right">{{> quickRemoveButton collection="Forms" _id=form._id class="btn btn-danger"}}</span>
+      {{/if}}
+    </div>
+    <div class="box-body table-responsive">
+
   {{#if (can "update" form)}}
     {{> quickForm collection="Forms" doc=form id="editFormForm" type="update" omitFields="createdBy" buttonContent="Update"}}
   {{/if}}
@@ -36,6 +41,8 @@
     {{/each}}
     </tbody>
   </table>
+</div>
+</div>
 </div>
 </div>
 </template>

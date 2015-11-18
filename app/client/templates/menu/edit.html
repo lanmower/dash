@@ -1,6 +1,11 @@
 <template name="EditMenu">
   {{pageTitle "Edit menu"}}
-  {{> quickForm collection="Menus" doc=this.menu id="editMenuForm" type="update" omitFields="createdBy" buttonContent="Update"}}
-  <hr>
-  {{> quickRemoveButton collection="Menus" _id=this.menu._id beforeRemove=beforeRemove class="btn btn-danger"}}
+  <div class="box">
+    <div class="box-header with-border">
+        <span style="float:right">{{> quickRemoveButton collection="Menus" _id=this.menu._id beforeRemove=beforeRemove class="btn btn-danger"}}</span>
+    </div>
+    <div class="box-body table-responsive">
+    {{> quickForm collection="Menus" doc=this.menu id="editMenuForm" type="update" omitFields="createdBy" buttonContent="Update"}}
+  </div>
+</div>
 </template>
