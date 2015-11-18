@@ -98,10 +98,6 @@ Meteor.publishComposite('form', function(_id) {
   }
 });
 
-//Meteor.publish('form', function (_id) {
-//  var additions = Widgets.additions(this);
-//  return Forms.find({_id:_id,$or:additions});
-//});
 
 Meteor.publish('menus', function () {
   var additions = Menus.additions(this);

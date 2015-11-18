@@ -4,8 +4,8 @@
   {{> quickRemoveButton collection=collection _id=item._id onSuccess=onSuccess onError=onError class="btn btn-danger"}}
   {{> quickForm collection=collection doc=item schema=schema id="updateForm" type="update" omitFields="createdBy" buttonContent="Submit"}}
   {{#each getFileTypes}}
-    {{#with getFile}}
-      <a href="{{url}}">{{#if isImage}}<img alt="image missing" src="http://localhost:3000{{url store='thumbnail'}}"/>{{else}}Download{{/if}}</a>
+    {{#with getFile ..}}
+      <a href='{{url}}'>{{#if isImage}}<img alt="image missing" src="http://localhost:3000{{url store='thumbnail'}}"/>{{else}}Download{{/if}}</a>
     {{/with}}
   {{/each}}
   {{/if}}

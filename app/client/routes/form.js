@@ -30,7 +30,8 @@ Router.route('form/edit/:_id', {
   waitOn: function() {
     return [
       Meteor.subscribe("form", this.params._id),
-      Meteor.subscribe("types")
+      Meteor.subscribe("types"),
+			Meteor.subscribe("files")
     ];
   },
   data: function() {

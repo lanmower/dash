@@ -13,17 +13,20 @@ Template.updateForm.helpers({
     }
   },
   getFileTypes: function() {
-    var schema = this.schema;
+    var schema = this.schema.schema();
     var files = [];
     for(var i in schema) {
-      if(schema[i].autoform && schema[i].autoform.type == 'cfs-file') {
-        files.push[i];
+      if(schema[i].autoform && schema[i].autoform.afFieldInput && schema[i].autoform.afFieldInput.type == 'cfs-file') {
+        files.push(i);
       }
     }
+    console.log(files);
     return files;
   },
   getFile: function(parent) {
-    return File.find(parent.item[this]);
+    if(parent.item && parent.item[this]) {
+      return Files.findOne(parent.item[this]);
+    }
   }
 });
 
