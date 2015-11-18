@@ -1,12 +1,18 @@
 <template name="updateForm">
   {{#if schema}}
   {{pageTitle form.title}}
-  {{> quickRemoveButton collection=collection _id=item._id onSuccess=onSuccess onError=onError class="btn btn-danger"}}
+  <div class="box">
+    <div class="box-header with-border">
+      {{> quickRemoveButton collection=collection _id=item._id onSuccess=onSuccess onError=onError class="btn btn-danger"}}
+    </div>
+    <div class="box-body table-responsive">
   {{> quickForm collection=collection doc=item schema=schema id="updateForm" type="update" omitFields="createdBy" buttonContent="Submit"}}
   {{#each getFileTypes}}
     {{#with getFile ..}}
       <a href='{{url}}'><img alt="image missing" src="{{url store='thumbnail'}}"/></a>
     {{/with}}
   {{/each}}
+  </div>
+  </div>
   {{/if}}
 </template>
