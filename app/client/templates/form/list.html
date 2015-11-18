@@ -1,6 +1,8 @@
 <template name="FormsList">
   {{pageTitle "Forms"}}
   {{#linkTo route="insertForm"}}<i class="fa fa-plus"></i> New Form{{/linkTo}}
+  <div class="box">
+    <div class="box-body table-responsive no-padding">
   <table class="table table-hover">
     <thead>
       <tr>
@@ -21,4 +23,6 @@
     {{/each}}
     </tbody>
   </table>
+</div>
+</div>
 </template>

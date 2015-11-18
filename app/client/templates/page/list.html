@@ -1,6 +1,8 @@
 <template name="PagesList">
   {{pageTitle "Pages"}}
   {{#linkTo route="insertPage"}}<i class="fa fa-plus"></i> New Page{{/linkTo}}
+  <div class="box">
+    <div class="box-body table-responsive no-padding">
   <table class="table table-hover">
     <thead>
       <tr>
@@ -21,4 +23,6 @@
     {{/each}}
     </tbody>
   </table>
+</div>
+</div>
 </template>

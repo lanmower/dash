@@ -42,6 +42,9 @@ Template.submissions.helpers({
     var name = schema['name'];
     if(Template[schema['type']].cell) return Template[schema['type']].cell(name, line, schema);
     return line[name];
+  },
+  label: function() {
+    return this['title'];
   }
 });
 
