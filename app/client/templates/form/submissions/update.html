@@ -5,7 +5,7 @@
   {{> quickForm collection=collection doc=item schema=schema id="updateForm" type="update" omitFields="createdBy" buttonContent="Submit"}}
   {{#each getFileTypes}}
     {{#with getFile ..}}
-      <a href='{{url}}'>{{#if isImage}}<img alt="image missing" src="http://localhost:3000{{url store='thumbnail'}}"/>{{else}}Download{{/if}}</a>
+      <a href='{{url}}'><img alt="image missing" src="{{url store='thumbnail'}}"/></a>
     {{/with}}
   {{/each}}
   {{/if}}

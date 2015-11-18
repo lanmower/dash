@@ -1,12 +1,12 @@
 <template name="submissions">
     {{pageTitle title}}
-    {{#if canAdmin}}
-      {{#linkTo route="submissionsAdmin" form=currentForm}}Admin{{/linkTo}}
-    {{/if}}
     {{#if (can "remove" field)}}
     {{> quickRemoveButton collection="Fields" _id=field._id beforeRemove=beforeRemove class="btn btn-danger"}}
     {{/if}}
     {{> breadcrumb}}
+    {{#if canAdmin}}
+      {{#linkTo route="submissionsAdmin" form=currentForm}}Admin{{/linkTo}}
+    {{/if}}
 
   {{#linkTo route="submitForm" form=_id}}Submit new{{/linkTo}}
   <table class="table table-hover">
