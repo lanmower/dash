@@ -3,7 +3,7 @@ var masterStore = new FS.Store.GridFS("filesStore");
 var thumbnailStore = new FS.Store.GridFS("thumbnail", {
     //Create the thumbnail as we save to the store.
     transformWrite: function(fileObj, readStream, writeStream) {
-      if(fileObj.original.type != 'audio/mp3')
+      if(fileObj.original.type.startsWith("image/"))
         gm(readStream, fileObj.name()).resize(300,300,"^")
         .gravity('Center').crop(300, 300).quality(100).autoOrient().stream().pipe(writeStream);
         //gm(readStream, fileObj.name).resize(300,300,"^").pipe(writeStream);
@@ -24,8 +24,8 @@ Files = new FS.Collection("files", {
   filter: {
       maxSize: 4294967296, //in bytes
       allow: {
-          contentTypes: ['image/*', 'audio/*'],
-          extensions: ['png', 'jpg', 'jpeg', 'gif','mp3']
+          contentTypes: ['image/*', 'audio/*', 'application/pdf'],
+          extensions: ['png', 'jpg', 'jpeg', 'gif','mp3', 'pdf']
       },
       onInvalid: function (message) {
           if(Meteor.isClient){
