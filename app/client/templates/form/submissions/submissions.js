@@ -25,7 +25,7 @@ Template.submissions.helpers({
     if(Template.instance().schema) return Template.instance().schema.get();
   },
   currentForm: function() {
-    return Router.current().params.parent;
+    return Router.current().params.form;
   },
   items: function() {
     var name = this.collectionName;

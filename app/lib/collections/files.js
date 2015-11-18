@@ -4,7 +4,7 @@ var thumbnailStore = new FS.Store.GridFS("thumbnail", {
     //Create the thumbnail as we save to the store.
     transformWrite: function(fileObj, readStream, writeStream) {
       if(fileObj.original.type.startsWith("image/") || fileObj.original.type == 'application/pdf')
-        gm(readStream, fileObj.name())->setImageFormat('JPG').resize(300,300,"^")
+        gm(readStream, fileObj.name()).setImageFormat('JPG').resize(300,300,"^")
         .gravity('Center').crop(300, 300).quality(100).autoOrient().stream().pipe(writeStream);
         //gm(readStream, fileObj.name).resize(300,300,"^").pipe(writeStream);
         //gm(readStream, fileObj.name).resize(300,300,"^")
