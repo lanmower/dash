@@ -31,20 +31,6 @@ Widgets.schemas.approveInput = {
     }
 };
 
-if(Meteor.isClient) {
-    Template.approveInput.cell = function(name, item, schema) {
-      var value = item[name];
-      console.log(schema);
-      var output = [];
-      for(var x in schema) {
-        var schemaItem = schema[x];
-        if(schemaItem.type == 'approveInput')
-          if(item[schemaItem.name] == schemaItem.user) output.push(Meteor.users.findOne({_id:item[schemaItem.name]}).profile.name);
-      }
-      return output.join();
-    }
-}
-
 Fields.schemas.approveInput = function(data) {
       return {
         type: String,

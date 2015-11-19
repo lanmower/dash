@@ -22,7 +22,14 @@ Template.submissions.helpers({
     return Template.instance().destroyForm.get();
   },
   getSchema: function() {
-    if(Template.instance().schema) return Template.instance().schema.get();
+    var schema = [];
+    if(Template.instance().schema) {
+      var base = Template.instance().schema.get();
+      for(var x in base) {
+        if(base[x].listable) schema.push(base[x]);
+      }
+    }
+    return schema;
   },
   currentForm: function() {
     return Router.current().params.form;
