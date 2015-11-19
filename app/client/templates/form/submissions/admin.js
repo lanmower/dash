@@ -22,9 +22,13 @@ Template.submissionsAdmin.helpers({
     return Template.instance().destroyForm.get();
   },
   getSchema: function() {
-    var schema;
-    if(Template.instance().schema) schema = Template.instance().schema.get();
-
+    var schema = [];
+    if(Template.instance().schema) {
+      var base = Template.instance().schema.get();
+      for(var x in base) {
+        if(base[x].listable) schema.push(base[x]);
+      }
+    }
     return schema;
   },
   items: function() {
