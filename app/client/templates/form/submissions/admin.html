@@ -8,7 +8,7 @@
       <tr>
         <th>Created by</th>
         {{#each getSchema}}
-          <th>{{label}}</th>
+          <th>{{label .. this}}</th>
         {{/each}}
         <th></th>
       </tr>
