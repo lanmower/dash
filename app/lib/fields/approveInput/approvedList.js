@@ -13,7 +13,7 @@ if(Meteor.isClient) {
     }
 }
 
-Widgets.schemas.approveInput = {
+Widgets.schemas.approveList = {
     title:{
       type: String,
       optional: false,
