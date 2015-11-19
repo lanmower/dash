@@ -7,6 +7,7 @@ Router.route('field/edit/:_id', {
   waitOn: function() {
     return [
       Meteor.subscribe("types"),
+      Meteor.subscribe("users"),
       Meteor.subscribe("field", this.params._id)
     ];
   },
@@ -16,7 +17,6 @@ Router.route('field/edit/:_id', {
     if(field && Widgets.findOne({_id: field.parent})) {
       schema = new SimpleSchema(createDisplaySchema(field.parent, field.type, Widgets));
     }
-    console.log(field);
     return {field:field, schema:schema};
   }
 });

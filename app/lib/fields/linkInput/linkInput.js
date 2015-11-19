@@ -13,7 +13,8 @@ if(Meteor.isClient) {
     var val = item[name];
     console.log(name, item, schema);
     var label = val;
-    if(schema.titleref && item[schema.titleref]) label = item[schema.titleref]
+    var schemaItem = schema[name];
+    if(schemaItem.titleref && item[schemaItem.titleref]) label = item[schemaItem.titleref]
     return "<a href='"+val+"'>"+label+"</a>";
   }
 }
