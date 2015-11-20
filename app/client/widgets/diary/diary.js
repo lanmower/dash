@@ -1,52 +1,50 @@
 Template.diary.onCreated( function() {
   var self = this;
   self.tod = ReactiveVar(null);
-
+  var done = false;
   self.autorun(function() {
       self.subscribe('diaries');
     	if (Template.instance().subscriptionsReady()) {
+        if(!done) {
         if(self.tod.get()) {
+          done = true;
           Template.diary.helpers({
             diary: function() {
-              var diary = Diaries.findOne({_id:self.tod.get()})
+              var diary = Diaries.findOne({_id:self.tod.get()}, {reactive:false});
               if(diary) return diary.diary;
             }
           });
           Tracker.autorun(function () {
             var tag = self.find('.diary');
-            if(self.tod.get()) $(tag).code(Diaries.findOne({_id:self.tod.get()}).diary);
+            if(self.tod.get()) $(tag).code(Diaries.findOne({_id:self.tod.get()}, {reactive:false}).diary);
           });
         }
-        var ret = Diaries.findOne({user:Meteor.userId(), date:new Date().setHours(0,0,0,0)});
+        var ret = Diaries.findOne({user:Meteor.userId(), date:new Date().setHours(0,0,0,0)}, {reactive:false});
         if(!ret) {
-          console.log('inserting diary');
           var diary = Diaries.insert({user:Meteor.userId(), date:new Date().setHours(0,0,0,0)});
           self.tod.set(diary);
         }
         else {
-          console.log('setting diary');
           self.tod.set(ret._id);
         }
       }
     }
-  )
+  })
 });
 
 Template.diary.destroyed = function() {
   var tag = this.find('.diary');
   $(tag).destroy();
 }
+
 Template.diary.rendered = function() {
   var self = Template.instance();
   var typingTimer;
   var doneTypingInterval = 1000;
   var diary;
-  if(Meteor.diarySelection) rangy.restoreSelection(Meteor.diarySelection);
+
   var doneTyping = function() {
-    console.log(self.tod.get());
     Diaries.update({_id:self.tod.get()}, {'$set':{"diary":diary.toString()}});
-    Meteor.diarySelection = rangy.saveSelection();
-    console.log('typed');
   }
 
   var tag = this.find('.diary');
