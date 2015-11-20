@@ -2,7 +2,6 @@ Template.updateForm.helpers({
   onSuccess:function() {
     var self = this;
     return function(result) {
-      console.log(result);
       Router.go('submissions', {form:self.form._id});
     }
   },

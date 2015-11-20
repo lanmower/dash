@@ -4,11 +4,9 @@ if(Meteor.isClient) {
       var output = [];
       for(var x in schema) {
         var schemaItem = schema[x];
-        console.log(schemaItem);
         if(schemaItem.type == 'approveInput')
           if(item[schemaItem.name] == schemaItem.user) output.push(Meteor.users.findOne({_id:item[schemaItem.name]}).profile.name);
       }
-      console.log(output);
       return output.join();
     }
 }

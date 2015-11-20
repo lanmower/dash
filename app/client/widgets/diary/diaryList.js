@@ -12,7 +12,6 @@ Template.diaryList.helpers({
     return Diaries.find();
   },
   date: function() {
-    console.log('test');
     return moment(Template.currentData().date).format("MMMM DD YYYY");
   }
 });
