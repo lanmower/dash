@@ -41,9 +41,11 @@ Template.diary.rendered = function() {
   var typingTimer;
   var doneTypingInterval = 1000;
   var diary;
+  if(Meteor.diarySelection) rangy.restoreSelection(Meteor.diarySelection);
   var doneTyping = function() {
     console.log(self.tod.get());
     Diaries.update({_id:self.tod.get()}, {'$set':{"diary":diary.toString()}});
+    Meteor.diarySelection = rangy.saveSelection();
     console.log('typed');
   }
 
