@@ -13,12 +13,28 @@ Widgets.schemas.dateTimeInput = {
     }
   }
 
+if(Meteor.isClient) {
+  Template.dateTimeInput.helpers({
+    optsDatetimepicker: function() {
+      return {
+        //WHAT IS STORED (i.e in the database)
+        // formatValue: 'YYYY-MM-DD'
+        pikaday: {
+          //what is DISPLAYED (to the user)
+          // format: 'MMM D, YYYY',
+          // showTime: false,
+        }
+      }
+    }
+  });
+}
+
 Fields.schemas.dateTimeInput = function(data) {
       return {
-        type: Date,
+        type: String,
         label: data.title,
         autoform: {
-          type: "bootstrap-datetimepicker"
+          type: "datetimepicker"
         }
       }
   };
