@@ -9,8 +9,13 @@ DownloadAvatar = function(user) {
       });
     });
   }
-}
-
+};
+SetEmail = function(user) {
+  console.log('setting email');
+  if(user.services.google.email) {
+        Meteor.users.update({_id:user._id },{"$set":{'profile.email':user.services.google.email}});
+    };
+};
 Accounts.onCreateUser(function(options, user) {
   if(user.services.google.email) {
     Meteor.users.update({"_id":user.id}, {"$set":{"profile.email": user.services.google.email}});

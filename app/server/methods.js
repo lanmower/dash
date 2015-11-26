@@ -17,6 +17,24 @@ Meteor.methods({
   },
   setDiary: function(diary) {
   },
+  getMailLabels: function() {
+    var result = GoogleApi.get('gmail/v1/users/'+Meteor.user().profile.email+"/labels");
+    return result;
+  },
+  sendEmail: function (to, from, subject, text, html) {
+    check([to, from, subject, text], [String]);
+
+    // Let other method calls from the same client start running,
+    // without waiting for the email sending to complete.
+    this.unblock();
+
+    //actual email sending method
+    Email.send({to: to, from: from, subject: subject, text: text, html:html});
+  },
+    getMailMessages: function() {
+    var result = GoogleApi.get('gmail/v1/users/'+Meteor.user().profile.email+"/messages");
+    return result;
+  },
   /**
    * update a user's permissions
    *

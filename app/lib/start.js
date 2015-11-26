@@ -1,5 +1,8 @@
 if(Meteor.isClient) Meteor.widgetJs = {};
 Meteor.forms = {}
+_.templateSettings = {
+  interpolate: /\{\{(.+?)\}\}/g
+};
 
 var processType = function(data, type) {
   if(type.js) {
@@ -22,83 +25,98 @@ var processType = function(data, type) {
     }
   }
 };
-var processField = function(id, field) {
-  processForm(field.parent, Forms.find({_id:field.parent}));
-}
-var processForm = function(id, form) {
-  if(form.collectionName) {
-    if(Meteor.forms[form.collectionName]) return Meteor.forms[form.collectionName];
-
-    var schema = Meteor.schema();
-    form.collection = new Mongo.Collection(form.collectionName);
-    fields = Fields.find({parent: id});
-    fields.forEach(function(item) {
-      if(item.name) {
-        schema[item.name] = schemaItem(item);
-      }
-    });
-    form.collection.attachSchema(new SimpleSchema(schema));
-
-    Meteor.publish(form.collectionName, function (self) {
-      return form.collection.find({
-          createdBy: this.userId
+var processForm = function(id, formData) {
+  var form = Meteor.forms[id]?Meteor.forms[id]:{};
+  if(formData.collectionName) {
+    console.log("Processing form:"+id);
+    if(!form.collection) form.collection = new Mongo.Collection(formData.collectionName);
+    if(!form.fields) form.fields = Fields.find({parent: id});
+    if(!form.created) {
+      Meteor.publish(formData.collectionName, function (self) {
+        return form.collection.find({
+            createdBy: this.userId
+          });
+      });
+      Meteor.publish(formData.collectionName+"-admin", function (self) {
+        var skip = true;
+        if(Roles.userIsInRole(this.userId, "admin")) skip = false;
+        if(Roles.userIsInRole(this.userId, formData.collectionName+"-admin")) skip = false;
+        if(!skip) return form.collection.find({"_id": {$exists: true}});
+      });
+      console.log("Setting allow");
+      form.collection.allow({
+       insert: function (userId, submission) {
+          console.log("insert allowed");
+          return true;
+        },
+        update: function (userId, submission, fields, modifier) {
+          console.log("update allowed");
+          return true;
+        },
+        remove: function (userId, submission) {
+          console.log("delete allowed");
+          return true;
+        }
+      });
+      form.created = true;
+      console.log('adding approval notify hook');
+      form.collection.after.update(function(userId, doc) {
+        user = Meteor.users.findOne({_id:doc.createdBy});
+        form.fields.forEach(function(item) {
+          var min = 0;
+          if(item.type == "approveInput") {
+            console.log(item.type);
+            //schemaBuild[item.name] = schemaItem(item);
+            if(form[item.name] != "Rejected") ++min;
+            if(item.min == 2) {
+              console.log('approved, sending notification');
+              fields = {'name' : user.profile.name, 'email' : user.profile.email, 'doc' : doc, 'date' : Date(), 'href' : Meteor.absoluteUrl()+'form/update/'+id+'/'+doc._id};
+              var opts = {
+                to: user.profile.email,
+                from: 'admin@coas.co.za',
+                subject: _.template(item.mailSubject)(fields),
+                text: _.template(item.mailMessage)(fields),
+                html:_.template(item.mailMessageHtml)(fields)
+              };
+              console.log(opts);
+              Email.send(opts);
+            }
+          }
         });
-    });
-
-    Meteor.publish(form.collectionName+"-admin", function (self) {
-      var skip = true;
-      if(Roles.userIsInRole(this.userId, "admin")) skip = false;
-      if(Roles.userIsInRole(this.userId, form.collectionName+"-admin")) skip = false;
-      if(!skip) return form.collection.find({"_id": {$exists: true}});
-    });
-
-    form.collection.allow({
-      insert: function (userId, doc) {
-        return true;
-      },
-
-      update: function (userId, doc, fieldNames, modifier) {
-        return true;
-      },
-
-      remove: function (userId, doc) {
-        return true;
+      });
+    }
+    var schemaBuild = Meteor.schema();
+    form.fields.forEach(function(item) {
+      if(item.name) {
+        schemaBuild[item.name] = schemaItem(item);
       }
     });
-    Meteor.forms[form.collectionName] = form;
+    console.log("adding built schema to form", schemaBuild);
+    form.collection.attachSchema(new SimpleSchema(schemaBuild));
   }
+}
+
+var processField = function(id, field) {
+  processForm(field.parent._id, Forms.find({_id:field.parent}));
 }
 
 Meteor.startup(function () {
   if(Meteor.isClient){
+    Meteor.subscribe("types", {});
     Hooks.init();
   }
-  var ready = function() {
-    if(Meteor.isServer) {
-      var forms = Forms.find({
-        collectionName:{$exists:true}
-      }).observeChanges({
-        added: processForm
-      });
-
-      var fields = Fields.find({parent:{$exists:true}}).observeChanges({
-          added: processField,
-          changed: processField,
-          removed: processField
-        });
-    }
-    var types = Types.find().observeChanges({
-      changed: processType,
-      added: processType
-    });
-  }
-  if(Meteor.isClient) {
-    Meteor.subscribe("types", {
-      onReady: ready,
-      onError: function () { console.log("onError", Types.find().fetch()); }
-    });
-  }
   if(Meteor.isServer) {
-    ready();
+    Forms.find({}).observeChanges({
+        changed : processForm,
+        added : processForm
+    })
+    Fields.find({}).observeChanges({
+      changed : processField,
+      added : processField
+    });
   }
+  Types.find().observeChanges({
+    changed: processType,
+    added: processType
+  });
 });
