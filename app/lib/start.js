@@ -50,8 +50,12 @@ var processForm = function(id, formData) {
           return true;
         },
         update: function (userId, submission, fields, modifier) {
-          console.log("update allowed");
-          return true;
+          var allowed = 1;
+          Fields.find({parent: id,type:"approveInput"}).forEach(function (field) {
+            console.log(field.user, userId);
+            if(field.user != userId) fail = 1;
+          });
+          return allowed;
         },
         remove: function (userId, submission) {
           console.log("delete allowed");
@@ -63,12 +67,15 @@ var processForm = function(id, formData) {
       form.collection.after.update(function(userId, doc) {
         user = Meteor.users.findOne({_id:doc.createdBy});
         form.fields.forEach(function(item) {
-          var min = 0;
-          if(item.type == "approveInput") {
-            console.log(item.type);
-            //schemaBuild[item.name] = schemaItem(item);
-            if(form[item.name] != "Rejected") ++min;
-            if(item.min == 2) {
+
+          if(item.type == "approveNotification") {
+            var min = 0;
+            form.fields.forEach(function(field) {
+              if(field.type == "approveInput") {
+                if(doc[field.name] == field.user) ++min;
+              }
+            });
+            if(min == item.min) {
               console.log('approved, sending notification');
               fields = {'name' : user.profile.name, 'email' : user.profile.email, 'doc' : doc, 'date' : Date(), 'href' : Meteor.absoluteUrl()+'form/update/'+id+'/'+doc._id};
               var opts = {
@@ -97,7 +104,7 @@ var processForm = function(id, formData) {
 }
 
 var processField = function(id, field) {
-  processForm(field.parent._id, Forms.find({_id:field.parent}));
+  if(field.parent) processForm(field.parent._id, Forms.find({_id:field.parent}));
 }
 
 Meteor.startup(function () {

@@ -20,38 +20,6 @@ Widgets.schemas.approveInput = {
       type: String,
       optional: false,
     },
-    mailSubject:{
-      type: String,
-      optional: false,
-      autoform: {
-        afFieldInput: {
-          //value:"Your form submission has been approved"
-        }
-      }
-    },
-    mailMessage:{
-      type: String,
-      optional: false,
-      autoform: {
-        afFieldInput: {
-          //value:"Your form submission has been approved"
-        }
-      }
-    },
-    mailMessageHtml:{
-      type: String,
-      optional: false,
-      autoform: {
-        afFieldInput: {
-          type: 'summernote',
-          //value:"<h1>Your form submission has been approved<h1> Click <a>here</a>"
-        }
-      }
-    },
-    min:{
-      type: Number,
-      optional: false
-    },
     user:{
       type: String,
       allowedValues: allowed,
@@ -66,18 +34,13 @@ Widgets.schemas.approveInput = {
 Fields.schemas.approveInput = function(data) {
       return {
         type: String,
-        allowedValues: [data.user, "Rejected"],
+        allowedValues: ["Approved", "Rejected"],
         autoform: {
           afFieldInput: {
             options: function () {
-              return [{label:"Approved", value:Meteor.userId()},
+              return [{label:"Approved", value:"Approved"},
               {label:"Rejected", value:"Rejected"}];
             }
-          }
-        },
-        autoValue: function(val, val2) {
-          if (this.isUpdate) {
-            return;
           }
         },
         optional: true,
