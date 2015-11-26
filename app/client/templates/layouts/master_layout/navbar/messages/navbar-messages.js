@@ -18,7 +18,7 @@ Template.navbarMessages.helpers({
 Template.navbarMessage.helpers({
   userImage: function (id) {
     var user = Meteor.users.findOne({_id:id});
-    if(user) return user.profile.picture;
+    if(user && user.profile) return user.profile.picture;
   },
 });
 Template.navbarMessages.onCreated(function () {

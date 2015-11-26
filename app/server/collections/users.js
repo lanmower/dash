@@ -1,13 +1,14 @@
 DownloadAvatar = function(user) {
   if(user.services.google.picture) {
     var newFile = new FS.File();
-    newFile.attachData(user.services.google.picture, function(error) {
-        var file = Files.insert(newFile, function(error, fileObj) {
-        file = fileObj;
-        Meteor.users.update({_id:user._id },{"$set":{'profile.picture':file._id}});
-        user.profile.picture = file._id;
+    if(user.profile)
+      newFile.attachData(user.services.google.picture, function(error) {
+          var file = Files.insert(newFile, function(error, fileObj) {
+          file = fileObj;
+          Meteor.users.update({_id:user._id },{"$set":{'profile.picture':file._id}});
+          user.profile.picture = file._id;
+        });
       });
-    });
   }
 };
 SetEmail = function(user) {
@@ -31,7 +32,10 @@ Accounts.validateNewUser(function (user) {
     if(user.services.google.email.match(/coas\.co\.za$/)) {
         return true;
     }
-    throw new Meteor.Error(403, "You must sign in using a coas.co.za account");
+    if(user.services.google.email.match(/l-inc\.co\.za$/)) {
+        return true;
+    }
+    throw new Meteor.Error(403, "You must sign in with an authorized account");
 });
 
 Meteor.publish("me", function () {

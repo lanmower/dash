@@ -5,8 +5,10 @@ Widgets.schemas.textInput = {
     }
   };
 Fields.schemas.textInput = function(data) {
-      return {
+  var name = data.name
+  var output = {};
+  output[name] = {
         type: String,
         label: data.title
-      }
+      }; return output;
   };

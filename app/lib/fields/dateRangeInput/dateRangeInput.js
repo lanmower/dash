@@ -30,7 +30,9 @@ if(Meteor.isClient) {
 
 }
 Fields.schemas.dateRangeInput = function(data) {
-      return {
+  var name = data.name
+  var output = {};
+  output[name] = {
         type: [Date],
         label: data.title,
         autoform: {
@@ -48,5 +50,6 @@ Fields.schemas.dateRangeInput = function(data) {
                       timePickerSeconds: false
                     }
               }
-      }
+    };      return output;
+
   };

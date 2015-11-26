@@ -19,8 +19,11 @@ if(Meteor.isClient) {
   }
 }
 Fields.schemas.linkInput = function(data) {
-      return {
+  var name = data.name
+  var output = {};
+  output[name] = {
         type: String,
         label: data.title
-      }
+      };      return output;
+
   };

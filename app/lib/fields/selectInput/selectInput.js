@@ -12,10 +12,12 @@ Widgets.schemas.selectInput = {
    }
   };
 Fields.schemas.selectInput = function(data) {
-      return {
+  var name = data.name
+  var output = {};
+  output[name] = {
         type: String,
         allowedValues: data.options,
         optional: true,
         label: data.title
-      }
+      }; return output;
   };

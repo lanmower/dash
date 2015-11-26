@@ -5,12 +5,15 @@ Widgets.schemas.editorInput = {
     }
   };
 Fields.schemas.editorInput = function(data) {
-      return {
+  var name = data.name
+  var output = {};
+  output[name] = {
         "type": String,
         autoform: {
           afFieldInput: {
             type: 'summernote',
           }
         }
-      }
+      };
+      return output;
   };

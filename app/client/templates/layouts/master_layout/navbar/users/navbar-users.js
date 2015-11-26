@@ -4,7 +4,7 @@ Template.navbarUsers.helpers({
   },
   userImage: function (id) {
     var user = Meteor.users.findOne({_id:id});
-    if(user)return Meteor.users.findOne({_id:id}).profile.picture;
+    if(user && user.profile )return Meteor.users.findOne({_id:id}).profile.picture;
   },
 });
 Template.navbarUsers.viewmodel({

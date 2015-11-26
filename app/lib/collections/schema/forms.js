@@ -1,7 +1,9 @@
 //build schema item
 
 schemaItem = function(field) {
-  var name = field.name;
-  var type = field.type;
-  if(Fields.schemas[type]) return Fields.schemas[type](field);
+  var ret;
+  console.log(Fields.schemas[field.type](field));
+  if(Fields.schemas[field.type]) ret = Fields.schemas[field.type](field);
+  console.log(ret);
+  return ret;
 }

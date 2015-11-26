@@ -72,7 +72,7 @@ var processForm = function(id, formData) {
             var min = 0;
             form.fields.forEach(function(field) {
               if(field.type == "approveInput") {
-                if(doc[field.name] == field.user) ++min;
+                if(doc[field.name] == 'Approved') ++min;
               }
             });
             if(min == item.min) {
@@ -95,10 +95,13 @@ var processForm = function(id, formData) {
     var schemaBuild = Meteor.schema();
     form.fields.forEach(function(item) {
       if(item.name) {
-        schemaBuild[item.name] = schemaItem(item);
+        var si = schemaItem(item);
+        _.each(si, function(value, key, obj) {
+          schemaBuild[key] = value;
+        });
+        //schemaBuild[item.name] = si;
       }
     });
-    console.log("adding built schema to form", schemaBuild);
     form.collection.attachSchema(new SimpleSchema(schemaBuild));
   }
 }

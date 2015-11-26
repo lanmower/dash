@@ -4,15 +4,20 @@ Widgets.schemas.fileInput = {
     }
   };
 Fields.schemas.fileInput = function(data) {
-      return {
-        "type":String,
-        optional:true,
-        "autoform":{
-          afFieldInput: {
-
-            type: "cfs-file",
-            collection: "files"
-          }
+  var name = data.name
+  var output = {};
+  output[name] = {
+      type: String,
+      optional:true,
+      "autoform":{
+        afFieldInput: {
+          "type":"cfs-file",
+           collection: "files"
         }
       }
   };
+  //output[name+'.$'] = {
+  //};
+  return output;
+
+};

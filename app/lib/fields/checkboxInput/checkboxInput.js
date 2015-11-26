@@ -5,9 +5,13 @@ Widgets.schemas.checkboxInput = {
     }
   };
   Fields.schemas.checkboxInput = function(data) {
-    return {
+    var name = data.name
+    var output = {};
+    output[name] = {
       type: Boolean,
       optional: true,
       label: data.title?data.title:''
-    }
+  };
+  return output;
+
   };

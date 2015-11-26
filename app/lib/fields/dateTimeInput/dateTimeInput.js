@@ -30,11 +30,14 @@ if(Meteor.isClient) {
 }
 
 Fields.schemas.dateTimeInput = function(data) {
-      return {
+  var name = data.name
+  var output = {};
+  output[name] = {
         type: String,
         label: data.title,
         autoform: {
           type: "datetimepicker"
         }
-      }
+    };      return output;
+
   };

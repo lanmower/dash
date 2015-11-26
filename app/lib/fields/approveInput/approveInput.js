@@ -32,7 +32,9 @@ Widgets.schemas.approveInput = {
 };
 
 Fields.schemas.approveInput = function(data) {
-      return {
+  var name = data.name
+  var output = {};
+  output[name] = {
         type: String,
         allowedValues: ["Approved", "Rejected"],
         autoform: {
@@ -45,5 +47,6 @@ Fields.schemas.approveInput = function(data) {
         },
         optional: true,
         label: data.title
-      }
+      };
+      return output;
   };
