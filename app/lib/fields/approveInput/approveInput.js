@@ -50,13 +50,7 @@ Widgets.schemas.approveInput = {
     },
     min:{
       type: Number,
-      optional: false,
-      autoform: {
-        afFieldInput: {
-          type: 'summernote',
-          //value:"<h1>Your form submission has been approved<h1> Click <a>here</a>"
-        }
-      }
+      optional: false
     },
     user:{
       type: String,
