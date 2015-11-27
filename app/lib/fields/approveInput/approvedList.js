@@ -2,6 +2,7 @@ if(Meteor.isClient) {
     Template.approveList.cell = function(name, item, schema) {
       var value = item[name];
       var output = [];
+      console.log(schema);
       for(var x in schema) {
         var schemaItem = schema[x];
         if(schemaItem.type == 'approveInput')

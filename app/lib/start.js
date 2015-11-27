@@ -25,17 +25,23 @@ var processType = function(data, type) {
     }
   }
 };
-var processForm = function(id, formData) {
-  var form = Meteor.forms[id]?Meteor.forms[id]:{};
+
+processForm = function(id, formData) {
+  var form;
+  if(Meteor.forms[id]) form = Meteor.forms[id];
+  else {
+    form = {};
+    Meteor.forms[id] = form;
+  }
   if(formData.collectionName) {
     console.log("Processing form:"+id);
     if(!form.collection) form.collection = new Mongo.Collection(formData.collectionName);
-    if(!form.fields) form.fields = Fields.find({parent: id});
+    form.fields = Fields.find({parent: id});
     if(!form.created) {
       Meteor.publish(formData.collectionName, function (self) {
         return form.collection.find({
-            createdBy: this.userId
-          });
+          createdBy: this.userId
+        });
       });
       Meteor.publish(formData.collectionName+"-admin", function (self) {
         var skip = true;
@@ -45,7 +51,7 @@ var processForm = function(id, formData) {
       });
       console.log("Setting allow");
       form.collection.allow({
-       insert: function (userId, submission) {
+        insert: function (userId, submission) {
           console.log("insert allowed");
           return true;
         },
@@ -64,34 +70,20 @@ var processForm = function(id, formData) {
       });
       form.created = true;
       console.log('adding approval notify hook');
-      form.collection.after.update(function(userId, doc) {
-        user = Meteor.users.findOne({_id:doc.createdBy});
-        form.fields.forEach(function(item) {
+      var createHook = function(hookFunction, setFunction, form) {
+        setFunction(function(userId, doc) {
 
-          if(item.type == "approveNotification") {
-            var min = 0;
-            form.fields.forEach(function(field) {
-              if(field.type == "approveInput") {
-                if(doc[field.name] == 'Approved') ++min;
-              }
-            });
-            if(min == item.min) {
-              console.log('approved, sending notification');
-              fields = {'name' : user.profile.name, 'email' : user.profile.email, 'doc' : doc, 'date' : Date(), 'href' : Meteor.absoluteUrl()+'form/update/'+id+'/'+doc._id};
-              var opts = {
-                to: user.profile.email,
-                from: 'admin@coas.co.za',
-                subject: _.template(item.mailSubject)(fields),
-                text: _.template(item.mailMessage)(fields),
-                html:_.template(item.mailMessageHtml)(fields)
-              };
-              console.log(opts);
-              Email.send(opts);
-            }
-          }
+          _.each(form.fields.fetch(), function(item) {
+            if(!hookFunction[item.type]) return;
+            hookFunction[item.type](userId, doc, form, item);
+          });
+          return true;
         });
-      });
+      };
+      createHook(Fields.hooks.after.update, form.collection.after.update, form);
+      createHook(Fields.hooks.after.insert, form.collection.after.insert, form);
     }
+    console.log("Building schema");
     var schemaBuild = Meteor.schema();
     form.fields.forEach(function(item) {
       if(item.name) {
@@ -99,7 +91,6 @@ var processForm = function(id, formData) {
         _.each(si, function(value, key, obj) {
           schemaBuild[key] = value;
         });
-        //schemaBuild[item.name] = si;
       }
     });
     form.collection.attachSchema(new SimpleSchema(schemaBuild));
@@ -117,8 +108,8 @@ Meteor.startup(function () {
   }
   if(Meteor.isServer) {
     Forms.find({}).observeChanges({
-        changed : processForm,
-        added : processForm
+      changed : processForm,
+      added : processForm
     })
     Fields.find({}).observeChanges({
       changed : processField,

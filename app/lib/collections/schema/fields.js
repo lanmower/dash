@@ -1,5 +1,6 @@
 Fields = new Mongo.Collection("fields");
 Fields.schemas = {};
+Fields.hooks = {after:{update:{}, insert:{}, remove:{}}, before:{update:{}, insert:{}, remove:{}}};
 
 Fields.helpers({
   collectionType: function() {return Fields},
