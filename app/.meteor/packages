@@ -41,7 +41,6 @@ mpowaga:autoform-summernote
 nucleuside:live-update
 reactive-var
 cfs:gridfs
-cfs:autoform
 cfs:ui
 cfs:graphicsmagick
 fortawesome:fontawesome
@@ -60,3 +59,4 @@ notorii:autoform-datetimepicker
 richsilv:pikaday
 timdown:rangy
 email
+cfs:autoform
