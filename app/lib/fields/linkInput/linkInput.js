@@ -1,4 +1,5 @@
-Widgets.schemas.linkInput = {
+Widgets.schemas.linkInput = function() {
+  return {
   title:{
     type: String,
     optional: false,
@@ -7,6 +8,7 @@ Widgets.schemas.linkInput = {
     type: String,
     optional: false,
   }
+}
 };
 if(Meteor.isClient) {
   Template.linkInput.cell = function(name, item, schema) {

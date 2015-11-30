@@ -12,11 +12,13 @@ if(Meteor.isClient) {
     }
 }
 
-Widgets.schemas.approveList = {
+Widgets.schemas.approveList = function() {
+  return {
     title:{
       type: String,
       optional: false,
     }
+  }
 };
 
 Fields.schemas.approveList = function(data) {

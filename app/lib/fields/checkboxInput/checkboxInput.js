@@ -1,9 +1,11 @@
-Widgets.schemas.checkboxInput = {
+Widgets.schemas.checkboxInput = function() {
+  return {
     title:{
       type: String,
       optional: false,
     }
-  };
+  }
+};
   Fields.schemas.checkboxInput = function(data) {
     var name = data.name
     var output = {};

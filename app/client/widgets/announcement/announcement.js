@@ -1,15 +1,17 @@
-Widgets.schemas.announcement = {
-  header:{
-    type: String,
-    optional: false,
-  },
-  body:{
-    type: String,
-    optional: false,
-    autoform: {
-      afFieldInput: {
-        type: 'summernote',
+Widgets.schemas.announcement = function() {
+  return {
+    header:{
+      type: String,
+      optional: false,
+    },
+    body:{
+      type: String,
+      optional: false,
+      autoform: {
+        afFieldInput: {
+          type: 'summernote',
+        }
       }
     }
-  },
+  }
 };

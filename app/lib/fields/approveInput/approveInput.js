@@ -15,7 +15,8 @@ var allowed = function() {
   return ret;
 }
 
-Widgets.schemas.approveInput = {
+Widgets.schemas.approveInput = function() {
+  return {
     title:{
       type: String,
       optional: false,
@@ -29,6 +30,7 @@ Widgets.schemas.approveInput = {
         }
       }
     }
+  }
 };
 
 Fields.schemas.approveInput = function(data) {

@@ -1,9 +1,11 @@
-Widgets.schemas.dateTimeInput = {
+Widgets.schemas.dateTimeInput = function() {
+  return {
     title:{
       type: String,
       optional: false,
     }
-  };
+  }
+};
 
   if(Meteor.isClient) {
     Template.dateTimeInput.cell = function(name, item, schema) {

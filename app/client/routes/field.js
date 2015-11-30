@@ -15,6 +15,7 @@ Router.route('field/edit/:_id', {
     var schema = null;
     var field = Fields.findOne({_id: this.params._id});
     if(field && Widgets.findOne({_id: field.parent})) {
+      Meteor.subscribe('form', field.parent);
       schema = new SimpleSchema(createDisplaySchema(field.parent, field.type, Widgets));
     }
     return {field:field, schema:schema};

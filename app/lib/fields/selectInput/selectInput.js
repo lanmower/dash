@@ -1,4 +1,5 @@
-Widgets.schemas.selectInput = {
+Widgets.schemas.selectInput = function() {
+  return {
     title:{
       type: String,
       optional: false,
@@ -10,7 +11,8 @@ Widgets.schemas.selectInput = {
    "options.$": {
       type: String
    }
-  };
+  }
+};
 Fields.schemas.selectInput = function(data) {
   var name = data.name
   var output = {};

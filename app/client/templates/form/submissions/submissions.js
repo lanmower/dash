@@ -59,7 +59,8 @@ Template.submissions.helpers({
   }
 });
 
-Widgets.schemas.submissions = {
+Widgets.schemas.submissions = function() {
+  return {
   form:{
     type: String,
     label: "Choose a form",
@@ -76,4 +77,5 @@ Widgets.schemas.submissions = {
       }
     }
   }
+}
 };

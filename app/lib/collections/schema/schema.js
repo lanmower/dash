@@ -36,7 +36,7 @@ createDisplaySchema = function(parent, type, parentType) {
         };
 
   if(type && Widgets.schemas[type]) {
-    _.extend(tschema, Widgets.schemas[type]);
+    _.extend(tschema, Widgets.schemas[type](tschema, parent, type, this));
   }
   return tschema;
 }

@@ -54,7 +54,8 @@ Template.submissionsAdmin.helpers({
   }
 });
 
-Widgets.schemas.submissionsAdmin = {
+Widgets.schemas.submissionsAdmin = function() {
+  return {
   form:{
     type: String,
     label: "Choose a form",
@@ -71,4 +72,5 @@ Widgets.schemas.submissionsAdmin = {
       }
     }
   }
+}
 };

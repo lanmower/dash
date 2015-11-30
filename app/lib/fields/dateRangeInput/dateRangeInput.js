@@ -1,9 +1,11 @@
-Widgets.schemas.dateRangeInput = {
+Widgets.schemas.dateRangeInput = function() {
+  return {
     title:{
       type: String,
       optional: false,
     }
-  };
+  }
+};
 if(Meteor.isClient) {
   Template.dateRangeInput.cell = function(name, item, schema) {
     var time = item[name];
