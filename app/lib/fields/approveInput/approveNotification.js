@@ -71,9 +71,10 @@ Fields.schemas.approveNotification = function(data) {
       console.log('approved, sending notification');
 
       fields = {'name' : user.profile.name, 'email' : user.profile.email, 'doc' : doc, 'date' : Date(), 'href' : Meteor.absoluteUrl()+'form/update/'+form._id+'/'+doc._id};
-      if(item.email) fields['email'] = item.email;
+      var to = user.profile.email;
+      if(item.email) to = item.email;
       var opts = {
-        to: user.profile.email,
+        to: to,
         from: 'admin@coas.co.za',
         subject: _.template(item.mailSubject)(fields),
         text: _.template(item.mailMessage)(fields),
