@@ -2,7 +2,7 @@
   {{pageTitle title}}
   <section class="content-header">{{> breadcrumb}}</section>
   <div class="box">
-    <div class="box-body table-responsive no-padding">
+    <div class="box-body table-responsive">
       {{#if destroyForm}}
           {{! this is a wonky workaround for the fact that autoform doesn't handle reactively changing schema attribute, which should be fixed eventually}}
       {{else}}

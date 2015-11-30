@@ -29,7 +29,8 @@ Widgets.schemas.approveNotification = function() {
     }
   },
   email: {
-    type: String
+    type: String,
+    optional: true
   },
   min:{
     type: Number,
