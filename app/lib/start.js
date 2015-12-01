@@ -82,6 +82,7 @@ processForm = function(id, formData) {
       };
       createHook(Fields.hooks.after.update, form.collection.after.update, form);
       createHook(Fields.hooks.after.insert, form.collection.after.insert, form);
+
     }
     console.log("Building schema");
     var schemaBuild = Meteor.schema();
@@ -94,6 +95,13 @@ processForm = function(id, formData) {
       }
     });
     form.collection.attachSchema(new SimpleSchema(schemaBuild));
+    form.collection.find({
+      createdBy: this.userId
+    }).forEach(function(doc) {
+      _.each(form.fields, function(field) {
+        notify(this.userId, doc, form, field);
+      });
+    });
   }
 }
 
