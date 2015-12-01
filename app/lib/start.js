@@ -95,15 +95,30 @@ processForm = function(id, formData) {
       }
     });
     form.collection.attachSchema(new SimpleSchema(schemaBuild));
-    form.collection.find().forEach(function(doc) {
-      notify(doc.createdBy, doc, form,);
-    });
   }
 }
 
-var notify = function(userId, doc, form) {
+Meteor.methods({
+  'lib\notify': function (collectionName) {
+
+    if (this.isSimulation) {
+    //   // do some client stuff while waiting for
+    //   // result from server.
+    //   return;
+    }
+    _.each(Meteor.forms, function(form) {
+      form.collection.find().forEach(function(doc) {
+        notifyRequired(doc, form);
+      });
+    });
+    // server method logic
+  }
+});
+
+
+var notifyRequired = function(doc, form) {
   var min = 0;
-  var user = Meteor.users.findOne({_id:userId});
+  var user = Meteor.users.findOne({_id:doc.createdBy});
   var formFields = form.fields.fetch();
   _.each(form.fields, function(field) {
     if(!field.optional && !doc[field]) ++min;
@@ -112,7 +127,7 @@ var notify = function(userId, doc, form) {
     console.log('required, sending notification');
     fields = {'name' : user.profile.name, 'email' : user.profile.email, 'doc' : doc, 'date' : Date(), 'href' : Meteor.absoluteUrl()+'form/update/'+form._id+'/'+doc._id};
     Email.send({
-      to: to,
+      to: user.profile.email,
       from: 'admin@coas.co.za',
       subject: _.template("A form you've submitted requires additional information.")(fields),
       text: _.template("A form you've submitted requires additional information, please visit {{href}} to revise your submission.")(fields),
