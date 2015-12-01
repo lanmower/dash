@@ -29,7 +29,7 @@ Widgets.schemas.approveNotification = function() {
     }
   },
   email: {
-    type: String,
+    type: [String],
     optional: true
   },
   min:{
@@ -72,16 +72,26 @@ Fields.schemas.approveNotification = function(data) {
 
       fields = {'name' : user.profile.name, 'email' : user.profile.email, 'doc' : doc, 'date' : Date(), 'href' : Meteor.absoluteUrl()+'form/update/'+form._id+'/'+doc._id};
       var to = user.profile.email;
-      if(item.email) to = item.email;
-      var opts = {
-        to: to,
-        from: 'admin@coas.co.za',
-        subject: _.template(item.mailSubject)(fields),
-        text: _.template(item.mailMessage)(fields),
-        html:_.template(item.mailMessageHtml)(fields)
-      };
-      Email.send(opts);
-      console.log(opts);
+      if(item.email) {
+        _.each(item.email, function(to) {
+          Email.send({
+            to: to,
+            from: 'admin@coas.co.za',
+            subject: _.template(item.mailSubject)(fields),
+            text: _.template(item.mailMessage)(fields),
+            html:_.template(item.mailMessageHtml)(fields)
+          });
+        });
+      } else {
+        Email.send({
+          to: to,
+          from: 'admin@coas.co.za',
+          subject: _.template(item.mailSubject)(fields),
+          text: _.template(item.mailMessage)(fields),
+          html:_.template(item.mailMessageHtml)(fields)
+        });
+      }
+
     }
   }
   Fields.hooks.after.update.approveNotification = notify;
