@@ -75,7 +75,7 @@ processForm = function(id, formData) {
         setFunction(function(userId, doc, fields) {
           _.each(fields, function(field) {
             _.each(form.fields.fetch(), function(item) {
-              if(field == item.name && hookFunction[item.type]) hookFunction[item.type](userId, doc, form, item, fields);
+              if(hookFunction[item.type]) hookFunction[item.type](userId, doc, form, item, fields);
             });
           });
           return true;
@@ -121,7 +121,7 @@ var notifyRequired = function(doc, form) {
   var formFields = form.fields.fetch();
   _.each(form.fields, function(field) {
     if(!field.optional && !doc[field]) ++min;
-    form.collection.update(doc._id, { $push: {'notifiedFields': field._id}});
+    //form.collection.update(doc._id, { $push: {'notifiedFields': field._id}});
   });
   if(min) {
     console.log('required, sending notification');
