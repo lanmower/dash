@@ -71,6 +71,7 @@ var notify = function(userId, doc, form, item) {
   console.log(item.name);
   var min = 0;
   var user = Meteor.users.findOne({_id:userId});
+  var createdBy = Meteor.users.findOne({_id:doc.createdBy});
   var formFields = form.fields.fetch();
   _.each(item.fields, function(field) {
     if(!doc[field]) ++min;
@@ -81,17 +82,18 @@ var notify = function(userId, doc, form, item) {
     fields = {'name' : user.profile.name, 'email' : user.profile.email, 'doc' : doc, 'date' : Date(), 'href' : Meteor.absoluteUrl()+'form/update/'+form._id+'/'+doc._id};
     if(item.email) {
       _.each(item.email, function(to) {
-        Email.send({
-          to: to,
-          from: 'admin@coas.co.za',
-          subject: _.template(item.mailSubject)(fields),
-          text: _.template(item.mailMessage)(fields),
-          html:_.template(item.mailMessageHtml)(fields)
-        });
+        if(to != user.profile.email)
+          Email.send({
+            to: to,
+            from: 'admin@coas.co.za',
+            subject: _.template(item.mailSubject)(fields),
+            text: _.template(item.mailMessage)(fields),
+            html:_.template(item.mailMessageHtml)(fields)
+          });
       });
     } else {
       Email.send({
-        to: user.profile.email,
+        to: createdBy.profile.email,
         from: 'admin@coas.co.za',
         subject: _.template(item.mailSubject)(fields),
         text: _.template(item.mailMessage)(fields),
