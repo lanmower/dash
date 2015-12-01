@@ -79,16 +79,25 @@ var notify = function(userId, doc, form, item) {
     console.log('approved, sending notification');
 
     fields = {'name' : user.profile.name, 'email' : user.profile.email, 'doc' : doc, 'date' : Date(), 'href' : Meteor.absoluteUrl()+'form/update/'+form._id+'/'+doc._id};
-    if(item.email) fields['email'] = item.email;
-    var opts = {
-      to: user.profile.email,
-      from: 'admin@coas.co.za',
-      subject: _.template(item.mailSubject)(fields),
-      text: _.template(item.mailMessage)(fields),
-      html:_.template(item.mailMessageHtml)(fields)
-    };
-    Email.send(opts);
-    console.log(opts);
+    if(item.email) {
+      _.each(item.email, function(to) {
+        Email.send({
+          to: to,
+          from: 'admin@coas.co.za',
+          subject: _.template(item.mailSubject)(fields),
+          text: _.template(item.mailMessage)(fields),
+          html:_.template(item.mailMessageHtml)(fields)
+        });
+      });
+    } else {
+      Email.send({
+        to: to,
+        from: 'admin@coas.co.za',
+        subject: _.template(item.mailSubject)(fields),
+        text: _.template(item.mailMessage)(fields),
+        html:_.template(item.mailMessageHtml)(fields)
+      });
+    }
   }
 }
 Fields.hooks.after.update.fieldNotification = notify;
