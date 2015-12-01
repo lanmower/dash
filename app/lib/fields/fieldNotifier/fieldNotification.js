@@ -91,7 +91,7 @@ var notify = function(userId, doc, form, item) {
       });
     } else {
       Email.send({
-        to: to,
+        to: user.profile.email,
         from: 'admin@coas.co.za',
         subject: _.template(item.mailSubject)(fields),
         text: _.template(item.mailMessage)(fields),

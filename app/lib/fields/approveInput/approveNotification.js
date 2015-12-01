@@ -74,6 +74,7 @@ Fields.schemas.approveNotification = function(data) {
       var to = user.profile.email;
       if(item.email) {
         _.each(item.email, function(to) {
+          console.log(to);
           Email.send({
             to: to,
             from: 'admin@coas.co.za',

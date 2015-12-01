@@ -37,6 +37,7 @@ processForm = function(id, formData) {
     console.log("Processing form:"+id);
     if(!form.collection) form.collection = new Mongo.Collection(formData.collectionName);
     form.fields = Fields.find({parent: id});
+    form._id = id;
     if(!form.created) {
       Meteor.publish(formData.collectionName, function (self) {
         return form.collection.find({
@@ -71,11 +72,11 @@ processForm = function(id, formData) {
       form.created = true;
       console.log('adding approval notify hook');
       var createHook = function(hookFunction, setFunction, form) {
-        setFunction(function(userId, doc) {
-
-          _.each(form.fields.fetch(), function(item) {
-            if(!hookFunction[item.type]) return;
-            hookFunction[item.type](userId, doc, form, item);
+        setFunction(function(userId, doc, fields) {
+          _.each(fields, function(field) {
+            _.each(form.fields.fetch(), function(item) {
+              if(field == item.name && hookFunction[item.type]) hookFunction[item.type](userId, doc, form, item, fields);
+            });
           });
           return true;
         });
@@ -99,19 +100,17 @@ processForm = function(id, formData) {
 }
 
 Meteor.methods({
-  'lib\notify': function (collectionName) {
+  'lib\notify': function (_id) {
 
     if (this.isSimulation) {
     //   // do some client stuff while waiting for
     //   // result from server.
     //   return;
-    }
-    _.each(Meteor.forms, function(form) {
-      form.collection.find().forEach(function(doc) {
-        notifyRequired(doc, form);
+  } else
+    Meteor.forms[_id].collection.find().forEach(function(doc) {
+        var user = notifyRequired(doc, Meteor.forms[_id]);
       });
-    });
-    // server method logic
+
   }
 });
 
@@ -122,6 +121,7 @@ var notifyRequired = function(doc, form) {
   var formFields = form.fields.fetch();
   _.each(form.fields, function(field) {
     if(!field.optional && !doc[field]) ++min;
+    form.collection.update(doc._id, { $push: {'notifiedFields': field._id}});
   });
   if(min) {
     console.log('required, sending notification');
@@ -133,6 +133,7 @@ var notifyRequired = function(doc, form) {
       text: _.template("A form you've submitted requires additional information, please visit {{href}} to revise your submission.")(fields),
       html:_.template("<h1>A form you've submitted requires additional information</h1>. please click <a href='{{href}}'>here</a> to revise your submission.")(fields)
     });
+    return doc.createdBy;
   }
 }
 
