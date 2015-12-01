@@ -95,47 +95,29 @@ processForm = function(id, formData) {
       }
     });
     form.collection.attachSchema(new SimpleSchema(schemaBuild));
-    form.collection.find({
-      createdBy: this.userId
-    }).forEach(function(doc) {
-      _.each(form.fields, function(field) {
-        notify(this.userId, doc, form, field);
-      });
+    form.collection.find().forEach(function(doc) {
+      notify(doc.createdBy, doc, form,);
     });
   }
 }
 
-var notify = function(userId, doc, form, item) {
-  console.log(item.name);
+var notify = function(userId, doc, form) {
   var min = 0;
   var user = Meteor.users.findOne({_id:userId});
   var formFields = form.fields.fetch();
-  _.each(item.fields, function(field) {
-    if(item.optional == false && !doc[field]) ++min;
+  _.each(form.fields, function(field) {
+    if(!field.optional && !doc[field]) ++min;
   });
   if(min) {
     console.log('required, sending notification');
-
     fields = {'name' : user.profile.name, 'email' : user.profile.email, 'doc' : doc, 'date' : Date(), 'href' : Meteor.absoluteUrl()+'form/update/'+form._id+'/'+doc._id};
-    if(item.email) {
-      _.each(item.email, function(to) {
-        Email.send({
-          to: to,
-          from: 'admin@coas.co.za',
-          subject: _.template(item.mailSubject)(fields),
-          text: _.template(item.mailMessage)(fields),
-          html:_.template(item.mailMessageHtml)(fields)
-        });
-      });
-    } else {
-      Email.send({
-        to: to,
-        from: 'admin@coas.co.za',
-        subject: _.template(item.mailSubject)(fields),
-        text: _.template(item.mailMessage)(fields),
-        html:_.template(item.mailMessageHtml)(fields)
-      });
-    }
+    Email.send({
+      to: to,
+      from: 'admin@coas.co.za',
+      subject: _.template("A form you've submitted requires additional information.")(fields),
+      text: _.template("A form you've submitted requires additional information, please visit {{href}} to revise your submission.")(fields),
+      html:_.template("<h1>A form you've submitted requires additional information</h1>. please click <a href='{{href}}'>here</a> to revise your submission.")(fields)
+    });
   }
 }
 
