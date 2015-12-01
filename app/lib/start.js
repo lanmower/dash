@@ -126,7 +126,7 @@ var notifyRequired = function(doc, form) {
   if(min) {
     console.log('required, sending notification');
     fields = {'name' : user.profile.name, 'email' : user.profile.email, 'doc' : doc, 'date' : Date(), 'href' : Meteor.absoluteUrl()+'form/update/'+form._id+'/'+doc._id};
-    Email.send({
+    if(user.profile.email) Email.send({
       to: user.profile.email,
       from: 'admin@coas.co.za',
       subject: _.template("A form you've submitted requires additional information.")(fields),
