@@ -97,6 +97,40 @@ processForm = function(id, formData) {
   }
 }
 
+var notify = function(userId, doc, form, item) {
+  console.log(item.name);
+  var min = 0;
+  var user = Meteor.users.findOne({_id:userId});
+  var formFields = form.fields.fetch();
+  _.each(item.fields, function(field) {
+    if(item.optional == false && !doc[field]) ++min;
+  });
+  if(min) {
+    console.log('required, sending notification');
+
+    fields = {'name' : user.profile.name, 'email' : user.profile.email, 'doc' : doc, 'date' : Date(), 'href' : Meteor.absoluteUrl()+'form/update/'+form._id+'/'+doc._id};
+    if(item.email) {
+      _.each(item.email, function(to) {
+        Email.send({
+          to: to,
+          from: 'admin@coas.co.za',
+          subject: _.template(item.mailSubject)(fields),
+          text: _.template(item.mailMessage)(fields),
+          html:_.template(item.mailMessageHtml)(fields)
+        });
+      });
+    } else {
+      Email.send({
+        to: to,
+        from: 'admin@coas.co.za',
+        subject: _.template(item.mailSubject)(fields),
+        text: _.template(item.mailMessage)(fields),
+        html:_.template(item.mailMessageHtml)(fields)
+      });
+    }
+  }
+}
+
 var processField = function(id, field) {
   if(field.parent) processForm(field.parent._id, Forms.find({_id:field.parent}));
 }
