@@ -73,10 +73,10 @@ processForm = function(id, formData) {
       console.log('adding approval notify hook');
       var createHook = function(hookFunction, setFunction, form) {
         setFunction(function(userId, doc, fields) {
-          _.each(fields, function(field) {
-            _.each(form.fields.fetch(), function(item) {
-              if(hookFunction[item.type]) hookFunction[item.type](userId, doc, form, item, fields);
-            });
+          _.each(form.fields.fetch(), function(formField) {
+            if(fields.contain(formField.name))
+              if(hookFunction[item.type])
+                hookFunction[item.type](userId, doc, form, item, fields);
           });
           return true;
         });
