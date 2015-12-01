@@ -71,19 +71,20 @@ Fields.schemas.approveNotification = function(data) {
       console.log('approved, sending notification');
 
       fields = {'name' : user.profile.name, 'email' : user.profile.email, 'doc' : doc, 'date' : Date(), 'href' : Meteor.absoluteUrl()+'form/update/'+form._id+'/'+doc._id};
-      var to = user.profile.email;
       if(item.email) {
         _.each(item.email, function(to) {
-          console.log(to);
-          Email.send({
-            to: to,
-            from: 'admin@coas.co.za',
-            subject: _.template(item.mailSubject)(fields),
-            text: _.template(item.mailMessage)(fields),
-            html:_.template(item.mailMessageHtml)(fields)
-          });
+          if(to != user.profile.email) {
+            Email.send({
+              to: to,
+              from: 'admin@coas.co.za',
+              subject: _.template(item.mailSubject)(fields),
+              text: _.template(item.mailMessage)(fields),
+              html:_.template(item.mailMessageHtml)(fields)
+            });
+          }
         });
       } else {
+        var to = user.profile.email;
         Email.send({
           to: to,
           from: 'admin@coas.co.za',
