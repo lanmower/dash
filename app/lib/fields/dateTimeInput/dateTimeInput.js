@@ -20,11 +20,11 @@ if(Meteor.isClient) {
     optsDatetimepicker: function() {
       return {
         //WHAT IS STORED (i.e in the database)
-        formatValue: 'YYYY-MM-DD HH:MM',
+        //formatValue: 'YYYY-MM-DD HH:MM',
         pikaday: {
           //what is DISPLAYED (to the user)
            format: 'MMM D, YYYY HH:MM',
-          showTime: true,
+           showTime: true,
         }
       }
     }
