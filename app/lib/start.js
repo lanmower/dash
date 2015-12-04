@@ -74,7 +74,7 @@ processForm = function(id, formData) {
       var createHook = function(hookFunction, setFunction, form) {
         setFunction(function(userId, doc, fields) {
           _.each(form.fields.fetch(), function(formField) {
-            if(fields && fields.contains(formField.name))
+            if(fields && fields.indexOf(formField.name))
               if(hookFunction[item.type])
                 hookFunction[item.type](userId, doc, form, item, fields);
           });
