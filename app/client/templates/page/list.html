@@ -20,6 +20,7 @@
           {{#linkTo route='editPage'}}
             <i class="fa fa-pencil-square-o"></i>
           {{/linkTo}}
+          {{> quickRemoveButton collection="Pages" _id=this._id onSuccess=onSuccess class="btn btn-danger"}}        
         </td>
       </tr>
     {{/each}}
