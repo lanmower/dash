@@ -16,5 +16,12 @@ Widgets.schemas.announcement = function() {
   }
 };
 Fields.schemas.announcement = function(data) {
-  return {};
+  return {
+    autoform: {
+      afFieldInput: {
+        template:"announcement"
+      }
+    }
+  };
+
 };

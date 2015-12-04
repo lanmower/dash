@@ -54,19 +54,16 @@ Fields.schemas.approveNotification = function(data) {
   };
 
   var notify = function(userId, doc, form, item) {
-    console.log(item.name);
     var min = 0;
     var user = Meteor.users.findOne({_id:userId});
     var formFields = form.fields.fetch();
     _.each(formFields, function(field) {
       if(field.type == "approveInput") {
         if(doc[field.name] == 'Approved') {
-          console.log("Found approval ", field.name);
           ++min;
         }
       }
     });
-    console.log(min, item.min);
     if(min == item.min) {
       console.log('approved, sending notification');
 

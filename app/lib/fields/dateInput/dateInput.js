@@ -10,11 +10,11 @@ Fields.schemas.dateInput = function(data) {
   var name = data.name
   var output = {};
   output[name] = {
-        type: Date,
-        label: data.title,
-        autoform: {
-          type: "bootstrap-datepicker"
-        }
-    };      return output;
-
+      type: Date,
+      label: data.title,
+      autoform: {
+        type: "bootstrap-datepicker"
+      }
   };
+  return output;
+};

@@ -4,15 +4,13 @@ formSchema = function(form) {
 
   var schema = Meteor.schema();
   fields.forEach(function(field) {
-    if(field.name) {
+    //if(field.name) {
       var name = field.name;
       si = schemaItem(field);
-      console.log(si);
       _.each(si, function(value, key, obj) {
         schema[key] = value;
       });
-    }
+    //}
   });
-  console.log(schema);
   return schema;
 }

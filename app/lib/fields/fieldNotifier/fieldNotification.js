@@ -68,7 +68,6 @@ Fields.schemas.fieldNotification = function(data) {
 };
 
 var notify = function(userId, doc, form, item) {
-  console.log(item.name);
   var min = 0;
   var user = Meteor.users.findOne({_id:userId});
   var createdBy = Meteor.users.findOne({_id:doc.createdBy});
