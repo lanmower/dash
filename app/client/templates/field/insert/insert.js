@@ -12,10 +12,9 @@ Template.InsertField.onCreated(function(){
 });
 
 AutoForm.hooks({
-  insertItemForm: {
+  insertFieldForm: {
     onSuccess: function(formType, result) {
-      console.log(result);
-      Router.go('editForm', {"_id":Router.current().params.parent});
+      Router.go('editField', {"_id":result});
     }
   }
 });
