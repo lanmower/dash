@@ -1,5 +1,5 @@
 Router.route('field/edit/:_id', {
-  parent: 'editWidget',
+  parent: 'editForm',
   title: 'Edit Field',
   name: 'editField',
   fastRender: true,
@@ -23,7 +23,9 @@ Router.route('field/edit/:_id', {
 });
 
 Router.route('field/insert/:parent', {
-	parent: 'pagesList',
+	parent: function() {
+    return 'editForm'+this.params.parent;
+  },
 	title: 'Insert Field',
   waitOn: function() {
     return[

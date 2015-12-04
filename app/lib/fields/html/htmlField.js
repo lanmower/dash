@@ -20,9 +20,9 @@ Widgets.schemas.htmlField = function() {
     name:{
       type: String,
       optional: true,
-      autoform: {
-        type: "hidden"
-      }
+      //autoform: {
+      //  type: "hidden"
+      //}
     }
   }
 };
