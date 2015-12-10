@@ -1,3 +1,4 @@
+
 Template.submissions.created = function () {
   var template = this;
   template.destroyForm = new ReactiveVar(true);

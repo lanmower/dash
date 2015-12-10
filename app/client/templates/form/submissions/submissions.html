@@ -3,10 +3,10 @@
   <section class="content-header">{{> breadcrumb}}</section>
   <div class="box">
     <div class="box-header with-border">
+      {{#linkTo route="submitForm" form=_id}}<button class="btn btn-info" type="button">New submission</button>{{/linkTo}}
       {{#if canAdmin}}
-      {{#linkTo route="submissionsAdmin" form=currentForm}}Admin{{/linkTo}}
+      {{#linkTo route="submissionsAdmin" form=currentForm}}<button class="btn btn-danger" style="float:right" type="button">Admin</button>{{/linkTo}}
       {{/if}}
-      {{#linkTo route="submitForm" form=_id}}Submit new{{/linkTo}}
     </div>
     <div class="box-body table-responsive no-padding">
       <table class="table table-hover">
@@ -26,7 +26,7 @@
             {{/each}}
             <td>
               {{#linkTo route="updateForm" form=../_id }}
-              <button class="btn btn-info" type="button">Edit</button>
+              <button class="btn btn-info" style="float:right" type="button">Edit</button>
               {{/linkTo}}
             </td>
           </tr>
