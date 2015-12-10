@@ -1,14 +1,11 @@
 <template name="EditField">
   <div class="fill">
     <div class="contain" style="overflow-y:auto;padding:10px">
-        {{pageTitle "Edit Field"}}
-
-        <section class="content-header">{{> breadcrumb}}</section>
-
         <div class="box">
           <div class="box-header with-border">
+            <h3 class="box-title">Edit Field</h3>
             {{#if (can "remove" field)}}
-              <span style="float:right">{{> quickRemoveButton collection="Fields" _id=field._id class="btn btn-danger"}}</span>
+              <span style="float:right">{{> breadcrumb}}{{> quickRemoveButton collection="Fields" _id=field._id class="btn btn-danger"}}</span>
             {{/if}}
           </div>
           <div class="box-body table-responsive">

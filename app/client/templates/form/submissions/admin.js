@@ -53,24 +53,3 @@ Template.submissionsAdmin.helpers({
     return this['title'];
   }
 });
-
-Widgets.schemas.submissionsAdmin = function() {
-  return {
-  form:{
-    type: String,
-    label: "Choose a form",
-    autoform: {
-      options: function() {
-        if (Template.instance().subscriptionsReady()) {
-          var forms = Forms.find();
-          var ret = [];
-          forms.forEach(function(form) {
-            ret.push({label:form.title, value:form._id});
-          });
-          return ret;
-        }
-      }
-    }
-  }
-}
-};

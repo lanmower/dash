@@ -1,7 +1,11 @@
 <template name="submitForm">
-  {{pageTitle title}}
-  <section class="content-header">{{> breadcrumb}}</section>
   <div class="box">
+    <div class="box-header with-border">
+      <h3 class="box-title">Submit form</h3>
+      <span style="float:right">
+      {{> breadcrumb}}
+      </span>
+    </div>
     <div class="box-body table-responsive">
       {{#if destroyForm}}
           {{! this is a wonky workaround for the fact that autoform doesn't handle reactively changing schema attribute, which should be fixed eventually}}

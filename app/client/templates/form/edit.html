@@ -1,11 +1,12 @@
 <template name="EditForm">
-  {{pageTitle "Edit form"}}
-  <section class="content-header">{{> breadcrumb}}</section>
 
   <div class="box">
     <div class="box-header with-border">
+      <h3 class="box-title">Edit form</h3>
       {{#if (can "update" form)}}
+        <span style="float:right">{{> breadcrumb}}</span>
         <span style="float:right">{{> quickRemoveButton collection="Forms" _id=form._id class="btn btn-danger"}}</span>
+
       {{/if}}
     </div>
     <div class="box-body table-responsive">
@@ -17,8 +18,6 @@
   <h4>Fields</h4>
   {{#linkTo route="insertField" parent=form._id}}<i class="fa fa-plus"></i> New field{{/linkTo}}
 
-  <div class="box">
-    <div class="box-body table-responsive no-padding">
   <table id="items" class="table table-hover">
     <thead>
       <tr>
@@ -41,8 +40,6 @@
     {{/each}}
     </tbody>
   </table>
-</div>
-</div>
 </div>
 </div>
 </template>

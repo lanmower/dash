@@ -1,5 +1,4 @@
 <template name="ViewPage">
-  {{pageTitle page.title}}
   {{#each widgets}}
     {{> Template.dynamic template=type data=this}}
   {{/each}}
