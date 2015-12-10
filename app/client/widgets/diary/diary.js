@@ -1,4 +1,4 @@
-Meteor.widgetTypes.push("diary");
+Meteor.widgetTypes.push({label:"Diary", value:"diary"});
 Template.diary.onCreated( function() {
   var self = this;
   self.tod = ReactiveVar(null);

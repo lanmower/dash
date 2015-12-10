@@ -1,4 +1,4 @@
-Meteor.widgetTypes.push("announcement");
+Meteor.widgetTypes.push({label:"Announcement", value:"announcement"});
 Widgets.schemas.announcement = function() {
   return {
     header:{

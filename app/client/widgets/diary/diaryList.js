@@ -1,4 +1,4 @@
-Meteor.widgetTypes.push("diaryList");
+Meteor.widgetTypes.push({label:"Diary list", value:"diaryList"});
 Template.diaryList.onCreated( function() {
   var self = this;
 
