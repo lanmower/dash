@@ -1,3 +1,5 @@
+/*Meteor.fieldTypes.push("dateRangeInput");
+
 Widgets.schemas.dateRangeInput = function() {
   return {
     title:{
@@ -7,6 +9,7 @@ Widgets.schemas.dateRangeInput = function() {
   }
 };
 if(Meteor.isClient) {
+  Template.dateRangeInput = {};
   Template.dateRangeInput.cell = function(name, item, schema) {
     var time = item[name];
     var start = moment(time[0]);
@@ -55,3 +58,4 @@ Fields.schemas.dateRangeInput = function(data) {
     };      return output;
 
   };
+*/

@@ -1,3 +1,4 @@
+Meteor.fieldTypes.push({label:"Html field", value: "htmlField"});
 if(Meteor.isClient) {
   Template.afHtmlField.helpers({
     content: function() {

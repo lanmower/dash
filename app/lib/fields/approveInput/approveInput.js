@@ -1,3 +1,5 @@
+Meteor.fieldTypes.push({label:"Approve Input", value:"approveInput"});
+
 Meteor.userList = function() {
   var ret = [];
   var users = Meteor.users.find().fetch();

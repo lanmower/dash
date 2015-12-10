@@ -1,3 +1,4 @@
+Meteor.fieldTypes.push({label:"Link Input", value: "linkInput"});
 Widgets.schemas.linkInput = function() {
   return {
   title:{
@@ -11,6 +12,7 @@ Widgets.schemas.linkInput = function() {
 }
 };
 if(Meteor.isClient) {
+  Template.linkInput = {};
   Template.linkInput.cell = function(name, item, schema) {
     var val = item[name];
     var label = val;

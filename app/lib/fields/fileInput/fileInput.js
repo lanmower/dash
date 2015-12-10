@@ -1,3 +1,6 @@
+Meteor.fieldTypes.push({label:"File Input", value: "fileInput"});
+Meteor.fieldTypes.push({label:"File list", value: "fileList"});
+
 Widgets.schemas.fileInput = function() {
   return {
     title:{
@@ -5,6 +8,15 @@ Widgets.schemas.fileInput = function() {
     }
   }
 };
+
+Meteor.startup(function () {
+  if(Meteor.isClient) {
+    AutoForm.addInputType("fileList", {
+      template: "afFileList",
+    });
+  }
+});
+
 Fields.schemas.fileInput = function(data) {
   var name = data.name
   var output = {};

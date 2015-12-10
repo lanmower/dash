@@ -4,7 +4,6 @@ Router.route('widget/edit/:_id', {
   name: 'editWidget',
   waitOn: function() {
     return [
-      Meteor.subscribe("types"),
       Meteor.subscribe("widget", this.params._id),
     ];
   },
@@ -14,7 +13,7 @@ Router.route('widget/edit/:_id', {
     var schema = null;
 
     if(widget && Pages.findOne({_id: widget.parent})) {
-      schema = new SimpleSchema(createDisplaySchema(widget.parent, widget.type, Pages));
+      schema = new SimpleSchema(createDisplaySchema(widget.parent, widget.type, Pages, Meteor.widgetTypes));
     }
 
     return {widget:widget, schema:schema, fields:fields};
@@ -28,13 +27,12 @@ Router.route('widget/insert/:parent', {
 	title: 'Insert Widget',
   waitOn: function() {
     return[
-      Meteor.subscribe("types"),
     	Meteor.subscribe("widget", this.params.parent)]
   },
   data: function () {
     var page = Pages.findOne({_id: this.params.parent});
     if(page) {
-      var schema = new SimpleSchema(createDisplaySchema(page._id, null, Pages));
+      var schema = new SimpleSchema(createDisplaySchema(page._id, null, Pages, Meteor.widgetTypes));
       return page;
     }
   },

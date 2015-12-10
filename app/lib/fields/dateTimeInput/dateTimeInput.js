@@ -1,3 +1,5 @@
+Meteor.fieldTypes.push({label:"Date/Time Input", value: "dateTimeInput"});
+
 Widgets.schemas.dateTimeInput = function() {
   return {
     title:{
@@ -16,7 +18,7 @@ Widgets.schemas.dateTimeInput = function() {
   }
 
 if(Meteor.isClient) {
-  Template.dateTimeInput.helpers({
+  Template.afDatetimepicker.helpers({
     optsDatetimepicker: function() {
       return {
         //WHAT IS STORED (i.e in the database)
@@ -40,6 +42,7 @@ Fields.schemas.dateTimeInput = function(data) {
         autoform: {
           type: "datetimepicker"
         }
-    };      return output;
+    };
+    return output;
 
   };

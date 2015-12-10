@@ -27,8 +27,7 @@ Router.route('page/edit/:_id', {
   name: 'editPage',
   waitOn: function() {
     return [
-      Meteor.subscribe("page", this.params._id),
-      Meteor.subscribe("types")
+      Meteor.subscribe("page", this.params._id)
     ];
   },
   data: function() {
@@ -36,7 +35,7 @@ Router.route('page/edit/:_id', {
       page = Pages.findOne({_id:this.params._id});
     	var widgets;
 		  if(page) widgets = Widgets.find({parent:page._id});
-      return {types:Types.find(), page:page, widgets:widgets};
+      return {types:Meteor.widgetTypes, page:page, widgets:widgets};
     }
   },
   fastRender: true,

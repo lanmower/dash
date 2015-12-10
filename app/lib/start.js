@@ -4,28 +4,6 @@ _.templateSettings = {
   interpolate: /\{\{(.+?)\}\}/g
 };
 
-var processType = function(data, type) {
-  if(type.js) {
-    console.log("calling js:", type.js);
-    eval(type.js);
-  }
-  if(type.serverjs && Meteor.isServer) {
-    console.log("calling server js:", type.serverjs);
-    if(type.serverjs) eval(type.serverjs);
-  }
-  if(Meteor.isClient) {
-    if(type.template) {
-      console.log("pushing template:", type.template);
-      LiveUpdate.pushHtml(type.template);
-    }
-    if(type.clientjs) {
-      console.log("pushing client js:", type.clientjs);
-      LiveUpdate.pushJs(type.clientjs, Meteor.widgetJs[type.value] || "");
-      Meteor.widgetJs[type.value] = type.clientjs;
-    }
-  }
-};
-
 processForm = function(id, formData) {
   var form;
   if(Meteor.forms[id]) form = Meteor.forms[id];
@@ -70,13 +48,12 @@ processForm = function(id, formData) {
         }
       });
       form.created = true;
-      console.log('adding approval notify hook');
       var createHook = function(hookFunction, setFunction, form) {
         setFunction(function(userId, doc, fields) {
           _.each(form.fields.fetch(), function(formField) {
             if(fields && fields.indexOf(formField.name))
-              if(hookFunction[item.type])
-                hookFunction[item.type](userId, doc, form, item, fields);
+              if(hookFunction[formField.type])
+                hookFunction[formField.type](userId, doc, form, formField, fields);
           });
           return true;
         });
@@ -156,8 +133,5 @@ Meteor.startup(function () {
       added : processField
     });
   }
-  Types.find().observeChanges({
-    changed: processType,
-    added: processType
-  });
+
 });

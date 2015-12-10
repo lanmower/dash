@@ -30,7 +30,6 @@ Router.route('form/edit/:_id', {
   waitOn: function() {
     return [
       Meteor.subscribe("form", this.params._id),
-      Meteor.subscribe("types"),
 			Meteor.subscribe("files")
     ];
   },
@@ -38,7 +37,7 @@ Router.route('form/edit/:_id', {
     if(this.ready()){
       form = Forms.findOne({_id:this.params._id});
       var fields = Fields.find({parent:form._id});
-      return {types:Types.find(), form:form, fields:fields};
+      return {types:Meteor.fieldTypes, form:form, fields:fields};
     }
   },
   fastRender: true,

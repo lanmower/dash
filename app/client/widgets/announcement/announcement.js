@@ -1,3 +1,4 @@
+Meteor.widgetTypes.push("announcement");
 Widgets.schemas.announcement = function() {
   return {
     header:{
@@ -14,14 +15,4 @@ Widgets.schemas.announcement = function() {
       }
     }
   }
-};
-Fields.schemas.announcement = function(data) {
-  return {
-    autoform: {
-      afFieldInput: {
-        template:"announcement"
-      }
-    }
-  };
-
 };

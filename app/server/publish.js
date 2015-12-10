@@ -1,9 +1,6 @@
 Meteor.publish(null, function (){
   return Meteor.roles.find({})
 })
-Meteor.publish('types', function () {
-  return Types.find();
-});
 Meteor.publish('times', function () {
   return Times.find();
 });

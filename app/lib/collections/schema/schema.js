@@ -14,7 +14,7 @@ can = function(userId, item, action) {
 }
 
 //display items have type and parent, as well as field or widget additions
-createDisplaySchema = function(parent, type, parentType) {
+createDisplaySchema = function(parent, type, parentType, allTypes) {
   var tschema = Meteor.schema();
   _.extend(tschema, Meteor.protectSchema());
   tschema.parent = {
@@ -31,7 +31,7 @@ createDisplaySchema = function(parent, type, parentType) {
             // minCount: 1,
             autoform: {
               type: "select",
-              options: types(parent, parentType)
+              options: types(parent, parentType, allTypes)
             }
         };
 
@@ -44,9 +44,8 @@ createDisplaySchema = function(parent, type, parentType) {
 
 
 //find the types that the parent allows, build a label value array
-var types = function(parent, parentType) {
+var types = function(parent, parentType, allTypes) {
   var types = [];
-  var allTypes = Types.find().fetch();
   var parent = parentType.findOne({_id: parent});
   for(var type in parent.types) {
     var search = parent.types[type];

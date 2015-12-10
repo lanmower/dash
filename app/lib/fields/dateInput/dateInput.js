@@ -1,3 +1,5 @@
+Meteor.fieldTypes.push({label:"Date Input", value:"dateInput"});
+
 Widgets.schemas.dateInput = function() {
   return {
     title:{

@@ -1,3 +1,4 @@
+Meteor.fieldTypes.push({label:"Select Input", value: "selectInput"});
 Widgets.schemas.selectInput = function() {
   return {
     title:{

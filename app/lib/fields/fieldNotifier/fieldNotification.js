@@ -1,4 +1,4 @@
-
+Meteor.fieldTypes.push({label:"Field Notification", value: "fieldNotification"});
 Widgets.schemas.fieldNotification = function(tschema, parent, type, self) {
   return {
     mailSubject:{

@@ -19,7 +19,7 @@ Forms.attachSchema(new SimpleSchema(_.extend({
           afFieldInput: {
             multiple: true,
             options: function () {
-              return Types.find({}, {}).fetch();
+              return Meteor.fieldTypes;
             }
           }
         }

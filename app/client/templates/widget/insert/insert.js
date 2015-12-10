@@ -1,12 +1,11 @@
 Template.InsertWidget.helpers({
   schema: function() {
-    return new SimpleSchema(createDisplaySchema(Router.current().params.parent, null, Pages));
+    return new SimpleSchema(createDisplaySchema(Router.current().params.parent, null, Pages, Meteor.widgetTypes));
   }
 });
 
 Template.InsertWidget.onCreated(function(){
   var subs = this.subscribe("page",Router.current().params.parent);
-  Meteor.subscribe("types");
 });
 
 AutoForm.hooks({

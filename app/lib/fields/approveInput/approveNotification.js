@@ -1,3 +1,5 @@
+Meteor.fieldTypes.push({label:"Approve Notification", value:"approveNotification"});
+
 Widgets.schemas.approveNotification = function() {
   return {
   mailSubject:{

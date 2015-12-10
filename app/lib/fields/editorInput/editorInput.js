@@ -1,3 +1,5 @@
+Meteor.fieldTypes.push({label:"Editor Input", value: "editorInput"});
+
 Widgets.schemas.editorInput = function() {
   return {
     title:{

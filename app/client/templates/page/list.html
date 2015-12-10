@@ -18,7 +18,7 @@
         <td>{{title}}</td>
         <td>
           {{#linkTo route='editPage'}}
-            <i class="fa fa-pencil-square-o"></i>
+            <button class="btn btn-info" type="button">Edit</button>
           {{/linkTo}}
           {{> quickRemoveButton collection="Pages" _id=this._id onSuccess=onSuccess class="btn btn-danger"}}        
         </td>

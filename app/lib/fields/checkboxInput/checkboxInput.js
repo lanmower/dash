@@ -1,3 +1,5 @@
+Meteor.fieldTypes.push({label:"Checkbox Input", value:"checkboxInput"});
+
 Widgets.schemas.checkboxInput = function() {
   return {
     title:{
