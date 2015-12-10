@@ -16,9 +16,6 @@ Router.route('form/insert', {
 	parent: 'formsList',
 	title: 'Insert Form',
   name: 'insertForm',
-  waitOn: function() {
-    return Meteor.subscribe('types');
-  },
   fastRender: true,
   where: 'client'
 });

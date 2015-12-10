@@ -15,9 +15,6 @@ Router.route('page/insert', {
 	parent: 'pagesList',
 	title: 'Insert Page',
   name: 'insertPage',
-  waitOn: function() {
-    return Meteor.subscribe('types');
-  },
   fastRender: true,
   where: 'client'
 });
