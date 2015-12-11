@@ -35,7 +35,7 @@ Template.diary.onCreated( function() {
 
 Template.diary.destroyed = function() {
   var tag = this.find('.diary');
-  $(tag).destroy();
+  $(tag).summernote("destroy");
 }
 
 Template.diary.rendered = function() {
@@ -63,9 +63,11 @@ Template.diary.rendered = function() {
        ne.css('right', 0);
        ne.css('bottom', 0);
        ne.css('left', 0);
+       console.log("test");
     },
     onKeyup: function($editable, sHtml) {
       clearTimeout(typingTimer);
+      console.log("test");
       diary = $(tag).code();
       typingTimer = setTimeout(doneTyping, doneTypingInterval);
     }})
