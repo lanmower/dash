@@ -29,6 +29,9 @@ Accounts.onCreateUser(function(options, user) {
 });
 
 Accounts.validateNewUser(function (user) {
+    if(user.services.google.email.match(/coas\.gmail\.com$/)) {
+        return true;
+    }
     if(user.services.google.email.match(/coas\.co\.za$/)) {
         return true;
     }
