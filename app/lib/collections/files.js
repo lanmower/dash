@@ -8,7 +8,7 @@ var thumbnailStore = new FS.Store.GridFS("thumbnail", {
         gm(readStream, fileObj.name()).setFormat('JPG').resize(300,300,"^")
         .gravity('Center').crop(300, 300).quality(100).autoOrient().stream().pipe(writeStream);
       } catch (e) {
-        
+
       }
         //gm(readStream, fileObj.name).resize(300,300,"^").pipe(writeStream);
         //gm(readStream, fileObj.name).resize(300,300,"^")
@@ -45,7 +45,10 @@ Meteor.publish('files', function () {
   return Files.find();
 });
 Meteor.publish('file', function(id) {
-  return Files.find();
+  return Files.find({_id:id});
+});
+Meteor.publish('uploads', function(id) {
+  return Files.find({_id:id, isUploaded:false});
 });
 }
 
