@@ -57,7 +57,7 @@ Fields.schemas.approveNotification = function(data) {
 
   var notify = function(userId, doc, form, item) {
     var min = 0;
-    var user = Meteor.users.findOne({_id:userId});
+    var user = Meteor.users.findOne({_id:doc.createdBy});
     var formFields = form.fields.fetch();
     _.each(formFields, function(field) {
       if(field.type == "approveInput") {

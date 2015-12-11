@@ -4,29 +4,35 @@ Widgets.schemas.linkInput = function() {
   title:{
     type: String,
     optional: false,
-  },
-  titleref:{
-    type: String,
-    optional: false,
   }
 }
 };
 if(Meteor.isClient) {
   Template.linkInput = {};
   Template.linkInput.cell = function(name, item, schema) {
-    var val = item[name];
-    var label = val;
-    var schemaItem = schema[name];
-    if(schemaItem.titleref && item[schemaItem.titleref]) label = item[schemaItem.titleref]
-    return "<a href='"+val+"'>"+label+"</a>";
+    var output = "";
+    _.each(item[name],function(item) {
+      output += "<a href='"+item.value+"'>"+item.label+"</a><br/>"
+    });
+    return output;
   }
 }
 Fields.schemas.linkInput = function(data) {
   var name = data.name
   var output = {};
   output[name] = {
-        type: String,
+        type: [Object],
         label: data.title
-      };      return output;
+      };
+  output[name+'.$.label'] = {
+        type: String,
+        label: 'label'
+      };
+  output[name+'.$.link'] = {
+        type: String,
+        label: 'link'
+      };
+
+  return output;
 
   };
