@@ -1,0 +1,41 @@
+<template name="navbarUploads">
+  <li class="dropdown uploads-menu">
+    <!-- Menu toggle button -->
+    {{#each uploads}}
+        {{#unless this.isUploaded}}
+        {{> navbarUpload}}
+        {{/unless}}
+    {{/each}}
+    <a href="#" id="uploadsNotificationsTrigger" data-toggle="dropdown" >
+      <i class="fa fa-upload"></i>
+    </a>
+    <ul class="dropdown-menu">
+      <li>
+        <!-- inner menu: contains the messages -->
+        <ul id="uploadsMenu" class="menu">
+          {{#each uploads}}
+              {{#unless this.isUploaded}}
+              {{> navbarUpload}}
+              {{/unless}}
+          {{/each}}
+        </ul><!-- /.menu -->
+      </li>
+    </ul>
+  </li><!-- /.messages-menu -->
+</template>
+
+<template name="navbarUpload">
+<li><!-- start message -->
+  <a href="#">
+    <div class="pull-left">
+      image
+    </div>
+    <!-- Message title and timestamp -->
+    <h4>
+      {{> FS.UploadProgressBar}}
+    </h4>
+    <!-- The message -->
+    <p>{{this.original.name}}</p>
+  </a>
+</li><!-- end message -->
+</template>
