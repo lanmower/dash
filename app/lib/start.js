@@ -19,11 +19,13 @@ processForm = function(id, formData) {
     form._id = id;
     if(!form.created) {
       Meteor.publish(formData.collectionName, function (self) {
-        return form.collection.find({$or: {
-          createdBy: this.userId,
-          public: true
-        }
-        });
+        return form.collection.find({$or: [
+          {createdBy: this.userId},
+          {$and:[
+            {"public": true},
+            {"public": {$exists: true}}
+          ]}
+        ]});
       });
       Meteor.publish(formData.collectionName+"-admin", function (self) {
         var skip = true;
@@ -31,7 +33,6 @@ processForm = function(id, formData) {
         if(Roles.userIsInRole(this.userId, formData.collectionName+"-admin")) skip = false;
         if(!skip) return form.collection.find({"_id": {$exists: true}});
       });
-      console.log("Setting allow");
       form.collection.allow({
         insert: function (userId, submission) {
           console.log("insert allowed");
@@ -63,8 +64,8 @@ processForm = function(id, formData) {
       };
       createHook(Fields.hooks.after.update, form.collection.after.update, form);
       createHook(Fields.hooks.after.insert, form.collection.after.insert, form);
-
     }
+
     console.log("Building schema");
     var schemaBuild = Meteor.schema();
     form.fields.forEach(function(item) {
@@ -134,10 +135,7 @@ Meteor.startup(function () {
     Forms.find({}).forEach(function(item) {
       processForm(item._id, item);
     });
-    Forms.find({}).observeChanges({
-      changed : restartServer,
-      added : restartServer
-    })
+    Forms.find({}).observeChanges({})
     Fields.find({}).observeChanges({
       changed : restartServer,
       added : restartServer
