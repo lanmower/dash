@@ -37,14 +37,12 @@ raix:handlebar-helpers
 natestrauser:jquery-scrollto
 dburles:collection-helpers
 meteorhacks:kadira
-mpowaga:autoform-summernote
 nucleuside:live-update
 reactive-var
 cfs:gridfs
 cfs:ui
 cfs:graphicsmagick
 fortawesome:fontawesome
-summernote:standalone
 matb33:collection-hooks
 differential:event-hooks
 mdg:geolocation
@@ -60,3 +58,4 @@ timdown:rangy
 email
 cfs:autoform
 raix:ui-dropped-event
+mpowaga:autoform-summernote

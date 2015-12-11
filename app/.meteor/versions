@@ -138,7 +138,7 @@ spacebars@1.0.7
 spacebars-compiler@1.0.7
 standard-minifiers@1.0.2
 stylus@2.511.1
-summernote:standalone@0.7.0
+summernote:standalone@0.6.16
 templating@1.1.5
 templating-tools@1.0.0
 timdown:rangy@1.2.3
