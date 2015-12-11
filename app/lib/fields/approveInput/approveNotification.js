@@ -69,7 +69,7 @@ Fields.schemas.approveNotification = function(data) {
     if(min == item.min) {
       console.log('approved, sending notification');
 
-      fields = {'name' : user.profile.name, 'email' : user.profile.email, 'doc' : doc, 'date' : Date(), 'href' : Meteor._relativeToSiteRootUrl('form/update/'+form._id+'/'+doc._id)};
+      fields = {'name' : user.profile.name, 'email' : user.profile.email, 'doc' : doc, 'date' : Date(), 'href' : 'http://www.beanscount.co.za/form/update/'+form._id+'/'+doc._id};
       if(item.email) {
         _.each(item.email, function(to) {
           if(to != user.profile.email) {
