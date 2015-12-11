@@ -35,6 +35,10 @@ Template.updateForm.helpers({
     if(parent.item && parent.item[this]) {
       return Files.findOne(parent.item[this]);
     }
+  },
+  userName: function(id) {
+    user = Meteor.users.findOne({_id:id});
+    if(user) return user.profile.name;
   }
 });
 
