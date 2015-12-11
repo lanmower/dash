@@ -2,7 +2,11 @@ AutoForm.hooks({
   updateForm: {
     onSuccess: function(formType, result) {
       var route = Router.current().params.parent;
-      Router.go('submissions', {form:Router.current().params.form});
+      var form = Forms.findOne({_id:Router.current().params.form});
+      if(Roles.userIsInRole(Meteor.userId(), 'admin') ||
+      Roles.userIsInRole(Meteor.userId(), form.collectionName+'admin'))
+        return Router.go('submissionsAdmin', {form:Router.current().params.form});
+        Router.go('submissions', {form:Router.current().params.form});
     }
   }
 });
