@@ -1,3 +1,4 @@
+var started;
 if(Meteor.isClient) Meteor.widgetJs = {};
 Meteor.forms = {}
 _.templateSettings = {
@@ -18,8 +19,10 @@ processForm = function(id, formData) {
     form._id = id;
     if(!form.created) {
       Meteor.publish(formData.collectionName, function (self) {
-        return form.collection.find({
-          createdBy: this.userId
+        return form.collection.find({$or: {
+          createdBy: this.userId,
+          public: true
+        }
         });
       });
       Meteor.publish(formData.collectionName+"-admin", function (self) {
@@ -118,20 +121,28 @@ var processField = function(id, field) {
   if(field.parent) processForm(field.parent._id, Forms.find({_id:field.parent}));
 }
 
+function restartServer() {
+  if(started) process.exit();
+}
+
 Meteor.startup(function () {
   if(Meteor.isClient){
     Meteor.subscribe("types", {});
     Hooks.init();
   }
   if(Meteor.isServer) {
+    Forms.find({}).forEach(function(item) {
+      processForm(item._id, item);
+    });
     Forms.find({}).observeChanges({
-      changed : processForm,
-      added : processForm
+      changed : restartServer,
+      added : restartServer
     })
     Fields.find({}).observeChanges({
-      changed : processField,
-      added : processField
+      changed : restartServer,
+      added : restartServer
     });
+    started = true;
   }
 
 });
