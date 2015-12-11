@@ -10,8 +10,8 @@ Widgets.schemas.linkInput = function() {
 if(Meteor.isClient) {
   Template.linkInput = {};
   Template.linkInput.cell = function(name, item, schema) {
-    var output = "";
-    _.each(item[name],function(item) {
+    var output = item[name].label+"<br/>";
+    _.each(item[name].links,function(item) {
       output += "<a href='"+item.value+"'>"+item.label+"</a><br/>"
     });
     return output;
@@ -21,14 +21,22 @@ Fields.schemas.linkInput = function(data) {
   var name = data.name
   var output = {};
   output[name] = {
-        type: [Object],
+        type: Object,
         label: data.title
       };
-  output[name+'.$.label'] = {
+  output[name+'.label'] = {
+        type: String,
+        label: 'Title'
+      };
+  output[name+'.links'] = {
+        type: Object,
+        label: 'Links'
+      };
+  output[name+'.links.$.label'] = {
         type: String,
         label: 'label'
       };
-  output[name+'.$.link'] = {
+  output[name+'.links.$.link'] = {
         type: String,
         label: 'link'
       };
