@@ -106,7 +106,7 @@ var notifyRequired = function(doc, form) {
   });
   if(min) {
     console.log('required, sending notification');
-    fields = {'name' : user.profile.name, 'email' : user.profile.email, 'doc' : doc, 'date' : Date(), 'href' : Meteor.absoluteUrl()+'form/update/'+form._id+'/'+doc._id};
+    fields = {'name' : user.profile.name, 'email' : user.profile.email, 'doc' : doc, 'date' : Date(), 'href' : , 'href' : 'http://www.beanscount.co.za/form/update/'+form._id+'/'+doc._id};
     if(user.profile.email) Email.send({
       to: user.profile.email,
       from: 'admin@coas.co.za',
