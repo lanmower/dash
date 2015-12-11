@@ -29,7 +29,7 @@ Fields.schemas.linkInput = function(data) {
         label: 'Title'
       };
   output[name+'.links'] = {
-        type: Object,
+        type: [Object],
         label: 'Links'
       };
   output[name+'.links.$.label'] = {
