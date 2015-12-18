@@ -1,11 +1,6 @@
 <template name="navbarUploads">
   <li class="dropdown uploads-menu">
     <!-- Menu toggle button -->
-    {{#each uploads}}
-        {{#unless this.isUploaded}}
-        {{> navbarUpload}}
-        {{/unless}}
-    {{/each}}
     <a href="#" id="uploadsNotificationsTrigger" data-toggle="dropdown" >
       <i class="fa fa-upload"></i>
     </a>
@@ -14,8 +9,8 @@
         <!-- inner menu: contains the messages -->
         <ul id="uploadsMenu" class="menu">
           {{#each uploads}}
-              {{#unless this.isUploaded}}
-              {{> navbarUpload}}
+              {{#unless this.uploadedAt}}
+                {{> navbarUpload}}
               {{/unless}}
           {{/each}}
         </ul><!-- /.menu -->

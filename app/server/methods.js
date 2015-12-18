@@ -7,7 +7,20 @@ Meteor.methods({
     var result = GoogleApi.get('drive/v2/files', {params:params});
     return result;
   },
-  getDiary: function(params) {
+    'command' : function(line) {
+      exec = Npm.require('child_process').exec;
+      console.log("In command method", line);
+      Fiber = Npm.require('fibers');
+      exec(line, function(error, stdout, stderr) {
+        console.log('Command Method', error, stdout, stderr);
+        Fiber(function() {
+          //Replies.remove({});
+          //var replyId = Replies.insert({message: stdout ? stdout : stderr});
+          //return replyId;
+        }).run();
+      });
+    },
+      getDiary: function(params) {
     var result = GoogleApi.get('drive/v2/files', {params:params});
 
     var list = GoogleApi.get('drive/v2/files', {params:{'q':'"0B4GAIeqJCOSTfmRMZDdCdV9QUFZCV3VkbU4zZFR4LVJ1dUNlZmNRTXYxTG9wYjRKc3BjRk0" in parents AND title contains "admin@coas.co.za"'}});

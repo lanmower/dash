@@ -36,7 +36,6 @@ check
 raix:handlebar-helpers
 natestrauser:jquery-scrollto
 dburles:collection-helpers
-meteorhacks:kadira
 nucleuside:live-update
 reactive-var
 cfs:gridfs

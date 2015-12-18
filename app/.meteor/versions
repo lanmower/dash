@@ -90,8 +90,6 @@ mdg:geolocation@1.1.0
 mdg:validation-error@0.1.0
 meteor@1.1.10
 meteor-base@1.0.1
-meteorhacks:kadira@2.26.3
-meteorhacks:meteorx@1.4.1
 mfactory:admin-lte@0.0.2
 minifiers@1.1.7
 minimongo@1.0.10

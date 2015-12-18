@@ -1,6 +1,6 @@
 Template.navbarUploads.helpers({
   uploads: function() {
-    return Files.find({uploadedAt:{$exists:true}}).fetch();
+    return Files.find().fetch();
   }
 });
 Template.navbarUploads.created = function(){
