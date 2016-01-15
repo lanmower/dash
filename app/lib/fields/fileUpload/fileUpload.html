@@ -1,0 +1,17 @@
+<template name="afFileUpload">
+  Upload files: <input type="file" name="{{name}}" class="fileInput" multiple/>
+  <table>
+    <tr>
+      <th>Title</th>
+      <th></th>
+    </tr>
+  {{#each audio}}
+  <tr>
+    <td>Audio</td>
+    <td>{{#if metadata.converted}}
+      Converted
+    {{/if}}</td>
+  </tr>
+  {{/each}}
+</table>
+</template>

@@ -1,0 +1,10 @@
+<template name="playlistplayer">
+  <video class="video-js vjs-default-skin" controls data-setup="" width="440" height="180"></video>
+  <ul>
+  {{#each (medialist)}}
+    <li>
+      {{src}}
+    </li>
+  {{/each}}
+  </ul>
+</template>
