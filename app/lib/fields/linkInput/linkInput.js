@@ -12,7 +12,7 @@ if(Meteor.isClient) {
   Template.linkInput.cell = function(name, item, schema) {
     var output = item[name].label+"<br/>";
     _.each(item[name].links,function(link) {
-      output += "<a href='"+link.link+"'>"+item.label+"</a><br/>"
+      output += "<a href='"+link.link+"'>"+link.label+"</a><br/>"
     });
     return output;
   }
