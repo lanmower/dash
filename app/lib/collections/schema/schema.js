@@ -134,7 +134,6 @@ Meteor.protectSchema = function() {
             afFieldInput: {
               multiple: true,
               options: function () {
-                console.log('test');
                 return Meteor.rolesList();
               }
             }

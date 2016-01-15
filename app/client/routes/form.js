@@ -20,19 +20,18 @@ Router.route('form/insert', {
   where: 'client'
 });
 
-Router.route('form/edit/:_id', {
+Router.route('form/edit/:form', {
 	parent: 'formsList',
 	title: 'Edit Form',
   name: 'editForm',
   waitOn: function() {
     return [
-      Meteor.subscribe("form", this.params._id),
-			Meteor.subscribe("files")
+      Meteor.subscribe("form", this.params.form)
     ];
   },
   data: function() {
     if(this.ready()){
-      form = Forms.findOne({_id:this.params._id});
+      form = Forms.findOne({_id:this.params.form});
       var fields = Fields.find({parent:form._id});
       return {types:Meteor.fieldTypes, form:form, fields:fields};
     }
@@ -61,62 +60,64 @@ Router.route('form/update/:form/:_id', {
 			Meteor.subscribe(form.collectionName+'-admin');
       collection = getCollection(form.collectionName);
       item = collection.findOne(this.params._id);
-      schema = new SimpleSchema(formSchema(form));
+			var fschema = formSchema(form);
+      schema = new SimpleSchema(fschema);
     }
     return {
       form: form,
       item: item,
       collection: collection,
       id: this.params._id,
-      schema: schema
+      schema: schema,
+			formSchema: fschema
     };
   }
 });
 
-Router.route('form/submit/:form', {
+Router.route('form/submit/:_id', {
   title: 'Submit Form',
   name: 'submitForm',
   fastRender: true,
   where: 'client',
   waitOn: function() {
     return [
-      Meteor.subscribe("form", this.params.form)
+      Meteor.subscribe("form", this.params._id)
     ];
   },
   data: function () {
-    var form = Forms.findOne({_id:this.params.form});
+    var form = Forms.findOne({_id:this.params._id});
     return form;
   }
 });
 
-Router.route('form/list/:form', {
+Router.route('form/list/:_id', {
   title: 'Form submissions',
   name: 'submissions',
   fastRender: true,
   where: 'client',
   waitOn: function() {
     return [
-      Meteor.subscribe("form", this.params.form)
+      Meteor.subscribe("form", this.params._id)
     ];
   },
   data: function () {
-    var form = Forms.findOne({_id:this.params.form});
+    var form = Forms.findOne({_id:this.params._id});
     return form;
   }
 });
 
-Router.route('form/admin/:form', {
+Router.route('form/admin/:_id', {
   title: 'Form admin',
   name: 'submissionsAdmin',
   fastRender: true,
   where: 'client',
   waitOn: function() {
     return [
-      Meteor.subscribe("form", this.params.form)
+      Meteor.subscribe("form", this.params._id)
     ];
   },
   data: function () {
-    var form = Forms.findOne({_id:this.params.form});
+    var form = Forms.findOne({_id:this.params._id});
     return form;
   }
 });

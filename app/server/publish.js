@@ -88,7 +88,7 @@ Meteor.publishComposite('form', function(_id) {
     children: [
       {
         find: function(form) {
-          return Fields.find({parent:form._id, $or:additions})
+          return Fields.find({parent:form._id, $or:additions}, {sort: {listposition: 1}})
         }
       }
     ]
@@ -122,14 +122,6 @@ Meteor.publishComposite('widget', function(id) {
               {$or:pageAdditions}
             ]});
           },
-        },
-        {
-          find: function(widget){
-            return Fields.find({$and:[
-              {'parent': widget.form},
-              {$or:fieldAdditions}
-            ]});
-          }
         }
       ]
     };

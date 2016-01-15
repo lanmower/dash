@@ -5,10 +5,12 @@ Template.submissions.created = function () {
   template.schema = new ReactiveVar(null);
 
   template.autorun(function () {
-    Meteor.subscribe(Template.currentData().collectionName);
-    Meteor.subscribe("forms");
-    template.destroyForm.set(true);
-    template.schema.set(listSchema(Template.currentData()));
+    if(Template.currentData()) {
+      Meteor.subscribe(Template.currentData().collectionName);
+      Meteor.subscribe("forms");
+      template.destroyForm.set(true);
+      template.schema.set(listSchema(Template.currentData()));
+    }
   });
 
   template.autorun(function () {

@@ -20,38 +20,11 @@ Meteor.publishComposite('pageByPath', function(path) {
         find: function(page) {
           return Widgets.find({$and:[
             {'parent': page._id},
-            {$or:additions}
+            {$or:additions,
+            sort: {listposition: -1}
+            }
           ]});
-        },
-        children: [
-          {
-            find: function(widget) {
-              return Fields.find({$and:[
-                {'parent': widget._id},
-                {$or:additions}
-              ]});
-            },
-          },
-          {
-            find: function(widget) {
-              return Widgets.find({$and:[
-                {'_id': widget.form},
-                {$or:additions}
-              ]});
-            },
-            children: [
-              {
-                find: function(widget) {
-                  return Fields.find({$and:[
-                    {'parent': widget._id},
-                    {$or:additions}
-                  ]});
-                },
-              }
-            ],
-          }
-
-        ],
+        }
       }
     ]
   };
@@ -71,19 +44,10 @@ Meteor.publishComposite('page', function(id) {
           find: function(page) {
             return Widgets.find({$and:[
               {'parent': page._id},
-              {$or:additions}
+              {$or:additions,            sort: {listposition: -1}
+}
             ]});
           },
-          children: [
-            {
-              find: function(widget) {
-                return Fields.find({$and:[
-                  {'parent': widget._id},
-                  {$or:additions}
-                ]});
-              },
-            }
-          ]
         },
       ]
   };

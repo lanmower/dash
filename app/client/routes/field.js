@@ -1,4 +1,4 @@
-Router.route('field/edit/:_id', {
+Router.route('field/edit/:form/:_id', {
   parent: 'editForm',
   title: 'Edit Field',
   name: 'editField',
@@ -28,14 +28,11 @@ Router.route('field/insert/:parent', {
 	title: 'Insert Field',
   waitOn: function() {
     return[
-    	Meteor.subscribe("widget", this.params.parent)]
+    	Meteor.subscribe("form", this.params.parent)]
   },
   data: function () {
-    var widget = Widgets.findOne({_id: this.params.parent});
-    if(widget) {
-      var schema = new SimpleSchema(createDisplaySchema(widget._id, null, Widgets, Meteor.fieldTypes));
-      return widget;
-    }
+    var form = Forms.findOne({_id: this.params.parent});
+    return form;
   },
   name: 'insertField',
   fastRender: true,

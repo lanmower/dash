@@ -5,8 +5,8 @@ AutoForm.hooks({
       var form = Forms.findOne({_id:Router.current().params.form});
       if(Roles.userIsInRole(Meteor.userId(), 'admin') ||
       Roles.userIsInRole(Meteor.userId(), form.collectionName+'admin'))
-        return Router.go('submissionsAdmin', {form:Router.current().params.form});
-        Router.go('submissions', {form:Router.current().params.form});
+        return Router.go('submissionsAdmin', {_id:Router.current().params.form});
+        Router.go('submissions', {_id:Router.current().params.form});
     }
   }
 });
@@ -32,7 +32,6 @@ Template.updateForm.helpers({
         files.push(i);
       }
     }
-    console.log(files);
     return files;
   },
   getFile: function(parent) {

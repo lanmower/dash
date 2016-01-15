@@ -6,14 +6,10 @@ Template.InsertField.helpers({
   }
 });
 
-Template.InsertField.onCreated(function(){
-  var subs = this.subscribe("form",Router.current().params.parent);
-});
-
 AutoForm.hooks({
   insertFieldForm: {
     onSuccess: function(formType, result) {
-      Router.go('editField', {"_id":result});
+      Router.go('editField', {"form":Router.current().params.parent,"_id":result});
     }
   }
 });

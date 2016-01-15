@@ -1,7 +1,7 @@
 AutoForm.hooks({
   submitForm: {
     onSuccess: function(formType, result) {
-      Router.go('submissions', {form:Router.current().params.form});
+      Router.go('submissions', {_id:Router.current().params._id});
     }
   }
 });

@@ -66,18 +66,22 @@ processForm = function(id, formData) {
       createHook(Fields.hooks.after.insert, form.collection.after.insert, form);
     }
 
-    console.log("Building schema");
-    var schemaBuild = Meteor.schema();
-    form.fields.forEach(function(item) {
-      if(item.name) {
-        var si = schemaItem(item);
-        _.each(si, function(value, key, obj) {
-          schemaBuild[key] = value;
-        });
-      }
-    });
-    form.collection.attachSchema(new SimpleSchema(schemaBuild));
+    form.collection.attachSchema(buildSchema(form));
   }
+}
+
+var buildSchema = function(form) {
+  console.log("Building schema");
+  var schema = Meteor.schema();
+  form.fields.forEach(function(item) {
+    if(item.name) {
+      var si = schemaItem(item);
+      _.each(si, function(value, key, obj) {
+        schema[key] = value;
+      });
+    }
+  });
+  return new SimpleSchema(schema);
 }
 
 Meteor.methods({
@@ -106,7 +110,7 @@ var notifyRequired = function(doc, form) {
   });
   if(min) {
     console.log('required, sending notification');
-    fields = {'name' : user.profile.name, 'email' : user.profile.email, 'doc' : doc, 'date' : Date(), 'href' :'http://www.beanscount.co.za/form/update/'+form._id+'/'+doc._id};
+    fields = {'name' : user.profile.name, 'email' : user.profile.email, 'doc' : doc, 'date' : Date(), 'href' :Meteor.absoluteUrl()+'form/update/'+form._id+'/'+doc._id};
     if(user.profile.email) Email.send({
       to: user.profile.email,
       from: 'admin@coas.co.za',
@@ -118,12 +122,10 @@ var notifyRequired = function(doc, form) {
   }
 }
 
-var processField = function(id, field) {
-  if(field.parent) processForm(field.parent._id, Forms.find({_id:field.parent}));
-}
-
-function restartServer() {
-  if(started) process.exit();
+var updateField = function(id, field) {
+  form = null;
+  if(field.parent) form = Forms.findOne({_id:field.parent});
+  if(form) form.collection.attachSchema(buildSchema(form), {replace:true});
 }
 
 Meteor.startup(function () {
@@ -137,8 +139,8 @@ Meteor.startup(function () {
     });
     Forms.find({}).observeChanges({})
     Fields.find({}).observeChanges({
-      changed : restartServer,
-      added : restartServer
+      //changed : updateField,
+      //added : updateField
     });
     started = true;
   }
