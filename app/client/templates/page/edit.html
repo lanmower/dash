@@ -5,8 +5,8 @@
       {{#if (can "update" page)}}
       <span style="float:right">
         {{> quickRemoveButton collection="Pages" _id=page._id onSuccess=onSuccess class="btn btn-danger"}}
-        <section class="content-header">{{> breadcrumb}}</section>
       </span>
+      <section style="float:right">{{> breadcrumb}}</section>
       {{/if}}
     </div>
     <div class="box-body table-responsive">
