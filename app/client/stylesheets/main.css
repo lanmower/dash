@@ -115,9 +115,17 @@ width:430px;
 }
 
 .control-sidebar-bg, .control-sidebar {
-    width: 400px !important;
+    width: 440px !important;
+    right: 0px !important;
 }
 
 .control-sidebar>.tab-content {
   padding: 0px !important;
+}
+
+/* Hide the control bar when the video is playing and the user is inactive  */
+.vjs-default-skin.vjs-has-started.vjs-user-inactive.vjs-playing .vjs-control-bar {
+  display: block !important;
+  visibility: visible !important;
+  opacity:1 !important;
 }

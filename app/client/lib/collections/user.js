@@ -15,11 +15,15 @@ schema.UserProfile = new SimpleSchema({
         type: String,
         optional: true
     },
-    firstName: {
+    roles: {
         type: String,
         optional: true
     },
-    lastName: {
+    titles: {
+        type: String,
+        optional: true
+    },
+    phone: {
         type: String,
         optional: true
     },
@@ -41,8 +45,13 @@ schema.UserProfile = new SimpleSchema({
         regEx: SimpleSchema.RegEx.Url,
         optional: true
     },
-    bio: {
+    signature: {
         type: String,
+        autoform: {
+          afFieldInput: {
+            type: 'summernote',
+          }
+        },
         optional: true
     },
     country: {

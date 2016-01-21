@@ -138,8 +138,8 @@ Files = new FS.Collection("files", {
 col = Files;
 
 if(Meteor.isServer){
-  Meteor.publish('files', function () {
-    return Files.find();
+  Meteor.publish('files', function (id, col, field) {
+    return Files.find({"metadata.parentId":id,"metadata.collectionName":col,"metadata.field":field});
   });
   Meteor.publish('file', function(id) {
     return Files.find({_id:id});

@@ -7,6 +7,11 @@ Widgets.schemas.fileUpload = function() {
     }
   }
 };
+var getTitle = function(file) {
+  if(file.metadata.id3 && file.metadata.id3.title) return file.metadata.id3.title;
+  if(file.metadata.filename) return file.metadata.filename;
+  return file.original.name;
+}
 
 if(Meteor.isClient) {
   Template.afFileUpload.helpers({
@@ -20,6 +25,9 @@ if(Meteor.isClient) {
         },
         'metadata.type': 'audio'
       });
+    },
+    title: function() {
+      return getTitle(this);
     }
   });
 
@@ -29,6 +37,12 @@ if(Meteor.isClient) {
     });
 
     Template.afFileUpload.events({
+      'click .playTrack': function(event, template) {
+        console.log(event,template);
+        var pl = playlist.get();
+        pl.push({type:"audio/mp3",title:getTitle(this),src:this.url()});
+        playlist.set(pl);
+      },
       'change .fileInput': function(event, template) {
         targetField = template.data.name; //Template.parentData(4).fields[Template.parentData(4).fields.indexOf(Template.parentData(4).name)+1]
         doc = Router.current().data().item;

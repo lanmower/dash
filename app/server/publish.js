@@ -90,8 +90,34 @@ Meteor.publishComposite('form', function(_id) {
         find: function(form) {
           return Fields.find({parent:form._id, $or:additions}, {sort: {listposition: 1}})
         }
-      }
-    ]
+      },
+      /*{
+        find: function(form) {
+          return Meteor.forms[form._id].collection.find({$or: [
+            {createdBy: this.userId},
+            {$and:[
+              {"public": true},
+              {"public": {$exists: true}}
+            ]}
+          ]});
+        },
+        children: [
+          {
+          find: function(item, parent) {
+            form = Meteor.forms[parent._id];
+            var fields = [];
+            console.log({parent: parent._id,type:"fileUpload"});
+            Fields.find({parent: parent._id,type:"fileUpload"}).forEach(function (field) {
+              console.log('test');
+              fields.push(field.name);
+            });
+            console.log({"metadata.parentId":item._id, "metadata.collectionName":form.collectionName,"metadata.field":{$in:fields}});
+            return Files.find({"metadata.parentId":item._id, "metadata.collectionName":form.collectionName,"metadata.field":{$in:fields}});
+          }
+          }
+        ]
+      }*/
+    ],
   }
 });
 

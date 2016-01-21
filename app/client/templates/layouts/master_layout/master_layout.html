@@ -33,6 +33,7 @@
               <li>
                 <a href="#" onclick="Meteor.loginWithGoogle({requestPermissions:[
                   'https://www.googleapis.com/auth/userinfo.email',
+                  'https://apps-apis.google.com/a/feeds/emailsettings/2.0/',
                   'https://www.googleapis.com/auth/drive',
                   'https://www.googleapis.com/auth/calendar',
                   'https://www.googleapis.com/auth/userinfo.profile',
@@ -124,7 +125,8 @@
 
 <!--footer class="main-footer">
 </footer-->
-<aside class="control-sidebar control-sidebar-dark">
+<aside class="control-sidebar control-sidebar-dark" style="display:none">
+  {{> playlistplayer list=(list) global=true}}
 </aside>
 <!-- Main Footer -->
 {{/AdminLTE}}

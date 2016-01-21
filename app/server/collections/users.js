@@ -66,18 +66,22 @@ schema.UserCountry = new SimpleSchema({
 });
 
 schema.UserProfile = new SimpleSchema({
-    name: {
-        type: String,
-        optional: true
-    },
-    firstName: {
-        type: String,
-        optional: true
-    },
-    lastName: {
-        type: String,
-        optional: true
-    },
+  name: {
+      type: String,
+      optional: true
+  },
+  roles: {
+      type: String,
+      optional: true
+  },
+  titles: {
+      type: String,
+      optional: true
+  },
+  phone: {
+      type: String,
+      optional: true
+  },
     birthday: {
         type: Date,
         optional: true
@@ -100,8 +104,13 @@ schema.UserProfile = new SimpleSchema({
         regEx: SimpleSchema.RegEx.Url,
         optional: true
     },
-    bio: {
+    signature: {
         type: String,
+        autoform: {
+          afFieldInput: {
+            type: 'summernote',
+          }
+        },
         optional: true
     },
     country: {

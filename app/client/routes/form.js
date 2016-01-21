@@ -45,10 +45,13 @@ Router.route('form/update/:form/:_id', {
   name: 'updateForm',
   fastRender: true,
   where: 'client',
-  waitOn: function() {
-    return [
-      Meteor.subscribe("form", this.params.form)
-    ];
+  subscriptions: function() {
+    this.subscribe("form", this.params.form, function() {
+			var form = Forms.findOne({_id:Router.current().params.form});
+			if(!form) return;
+			Meteor.subscribe(form.collectionName);
+  		Meteor.subscribe(form.collectionName+'-admin');
+		}).wait();
   },
   data: function () {
     var form = Forms.findOne({_id:this.params.form});
@@ -56,8 +59,6 @@ Router.route('form/update/:form/:_id', {
     var item;
     var schema;
     if(form) {
-      Meteor.subscribe(form.collectionName);
-			Meteor.subscribe(form.collectionName+'-admin');
       collection = getCollection(form.collectionName);
       item = collection.findOne(this.params._id);
 			var fschema = formSchema(form);
@@ -68,8 +69,7 @@ Router.route('form/update/:form/:_id', {
       item: item,
       collection: collection,
       id: this.params._id,
-      schema: schema,
-			formSchema: fschema
+      schema: schema
     };
   }
 });

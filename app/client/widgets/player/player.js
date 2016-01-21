@@ -1,34 +1,66 @@
 Meteor.widgetTypes.push({label:"Player", value:"playlistplayer"});
-
+player = null;
+currentId = new ReactiveVar({current:0});
 Template.playlistplayer.helpers({
   medialist: function() {
-    return Template.instance().list;
+    return Template.currentData().list.get();
+  },
+  isActive: function(index) {
+    return index == currentId.get().current ? 'active':'';
   }
+
 });
 
-Template.playlistplayer.onCreated(function(){
-  if(this.data && this.data.list)
-    this.list = this.data.list;
-  else this.list = [
-      { type: "video/mp4", src: "http://www.example.com/path/to/video.mp4" },
-    ];
-    console.log('test');
-});
 Template.playlistplayer.rendered = function() {
   var self = Template.instance();
   var tag = this.find('video');
-  this.player = videojs(tag);
+  this.player = videojs(tag, {"inactivityTimeout": 0 });
+  if(Template.currentData().global) {
+    player = this.player;
+  }
+  var data = Template.currentData();
 
+  this.player.on("ended", function(){
+    var list = data.list.get();
+
+    current = parseInt(currentId.get().current);
+    if(list.length > current+1) {
+      currentId.set({current:current+1});
+    }
+  });
+
+  Tracker.autorun(function () {
+    var list = data.list.get();
+    if(list.length && list.length-1 < currentId.get().current) {
+      currentId.set({current:list.length-1});
+    }
+    if(self.player.paused() && list.length) {
+      item = list[currentId.get().current];
+      if(item.type="audio/mp3") self.player.height(27);
+      else self.player.height(180);
+      self.player.src([
+          list[currentId.get().current]
+      ]);
+      self.player.play();
+      $('.control-sidebar').show();
+    }
+  });
 };
 
 Template.playlistplayer.events({
+    'click .remove': function(event, instance) {
+      event.stopPropagation();
+      var list = Template.currentData().list;
+      var output = list.get()
+      var index = event.currentTarget.parentElement.dataset.id;
+      var current =currentId.get().current;
+      if(index == current) self.player.pause();
+      if(index < current) currentId.set({current:current-1})
+      output.splice(index, 1);
+      list.set(output);
+    },
     'click li': function(event, instance){
-      instance.player.src([
-  { type: "video/mp4", src: $content_path+$target+".mp4" },
-  { type: "video/webm", src: $content_path+$target+".webm" },
-  { type: "video/ogg", src: $content_path+$target+".ogv" }
-]);
-instance.player.load();
-        // code goes here
+      self.player.pause();
+      currentId.set({current:event.currentTarget.dataset.id});
     }
 });
