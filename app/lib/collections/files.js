@@ -1,5 +1,6 @@
 //"fluent-ffmpeg": "https://github.com/fluent-ffmpeg/node-fluent-ffmpeg/archive/05196c7a70df68067c6dfcaf84e8a73194bf9a30.tar.gz"
-FS.debug = true
+FS.debug = true;
+FS.config.uploadChunkSize = 262144;
 var col = null;
 if(Meteor.isServer) {
   var Transcoder = Meteor.npmRequire("stream-transcoder");
