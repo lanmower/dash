@@ -40,7 +40,7 @@ if(Meteor.isClient) {
       'click .playTrack': function(event, template) {
         console.log(event,template);
         var pl = playlist.get();
-        pl.push({type:"audio/mp3",title:getTitle(this),src:this.url()});
+        pl.push({type:"audio/mp3",title:getTitle(this),src:this.url('media')});
         playlist.set(pl);
       },
       'change .fileInput': function(event, template) {
