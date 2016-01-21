@@ -45,13 +45,13 @@ Router.route('form/update/:form/:_id', {
   name: 'updateForm',
   fastRender: true,
   where: 'client',
-  subscriptions: function() {
+  waitOn: function() {
     this.subscribe("form", this.params.form, function() {
 			var form = Forms.findOne({_id:Router.current().params.form});
 			if(!form) return;
 			Meteor.subscribe(form.collectionName);
   		Meteor.subscribe(form.collectionName+'-admin');
-		}).wait();
+		});
   },
   data: function () {
     var form = Forms.findOne({_id:this.params.form});
