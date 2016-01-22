@@ -46,7 +46,10 @@ Router.route('form/update/:form/:_id', {
   fastRender: true,
   where: 'client',
   waitOn: function() {
-    return this.subscribe("form", this.params.form);
+    return [
+			this.subscribe("form", this.params.form),
+			this.subscribe("submission", this.params.form, this.params._id)
+		];
   },
   data: function () {
     var form = Forms.findOne({_id:this.params.form});

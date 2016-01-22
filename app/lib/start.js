@@ -5,6 +5,20 @@ _.templateSettings = {
   interpolate: /\{\{(.+?)\}\}/g
 };
 
+if(Meteor.isServer)  {
+  Meteor.publish("formFiles", function (form, id) {
+    var form = Meteor.forms[form];
+    fields = [];
+    Fields.find({parent: form._id,type:"fileUpload"}).forEach(function (field) {
+      fields.push(field.name);
+    });
+    return Files.find({"metadata.parentId":id, "metadata.collectionName":form.collectionName,"metadata.field":{$in:fields}});
+  });
+  Meteor.publish("submission", function (form, id) {
+    return Meteor.forms[form].collection.find(id);
+  });
+}
+
 processForm = function(id, formData) {
   var form;
   if(Meteor.forms[id]) form = Meteor.forms[id];
@@ -19,53 +33,21 @@ processForm = function(id, formData) {
     form._id = id;
     form.collectionName = formData.collectionName;
     if(!form.created) {
-      Meteor.publishComposite(formData.collectionName, function (self) {
-        return {
-          find: function() {
-            return form.collection.find({$or: [
-              {createdBy: this.userId},
-              {$and:[
-                {"public": true},
-                {"public": {$exists: true}}
-              ]}
-            ]});
-          },
-          children: [
-            {
-              find: function(item) {
-                fields = [];
-                Fields.find({parent: form._id,type:"fileUpload"}).forEach(function (field) {
-                  fields.push(field.name);
-                });
-                console.log({"metadata.parentId":item._id, "metadata.collectionName":formData.collectionName,"metadata.field":{$in:fields}});
-                return Files.find({"metadata.parentId":item._id, "metadata.collectionName":formData.collectionName,"metadata.field":{$in:fields}});
-              }
-            }
-          ]
+      Meteor.publish(formData.collectionName, function (self) {
+          return form.collection.find({$or: [
+            {createdBy: this.userId},
+            {$and:[
+              {"public": true},
+              {"public": {$exists: true}}
+            ]}
+          ]});
         }
-
-
-      });
-      Meteor.publishComposite(formData.collectionName+"-admin", function (self) {
-        return {
-          find: function() {
-            var skip = true;
-            if(Roles.userIsInRole(this.userId, "admin")) skip = false;
-            if(Roles.userIsInRole(this.userId, formData.collectionName+"-admin")) skip = false;
-            if(!skip) return form.collection.find({"_id": {$exists: true}});
-          },
-          children: [
-            {
-              find: function(item) {
-                fields = [];
-                Fields.find({parent: form._id,type:"fileUpload"}).forEach(function (field) {
-                  fields.push(field.name);
-                });
-                return Files.find({"metadata.parentId":item._id, "metadata.collectionName":formData.collectionName,"metadata.field":{$in:fields}});
-              }
-            }
-          ]
-        }
+      );
+      Meteor.publish(formData.collectionName+"-admin", function (self) {
+          var skip = true;
+          if(Roles.userIsInRole(this.userId, "admin")) skip = false;
+          if(Roles.userIsInRole(this.userId, formData.collectionName+"-admin")) skip = false;
+          if(!skip) return form.collection.find({"_id": {$exists: true}});
       });
       form.collection.allow({
         insert: function (userId, submission) {

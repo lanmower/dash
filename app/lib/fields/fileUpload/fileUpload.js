@@ -16,12 +16,8 @@ var getTitle = function(file) {
 if(Meteor.isClient) {
 
   Template.afFileUpload.onCreated(function () {
-    Template.instance().autorun(function () {
-      var form = Forms.findOne({_id:Router.current().params.form});
-      if(!form) return;
-      Meteor.subscribe(form.collectionName);
-      Meteor.subscribe(form.collectionName+'-admin');
-    });
+
+    Meteor.subscribe('formFiles', Router.current().params.form, Router.current().params._id);
   });
 
   Template.afFileUpload.helpers({
