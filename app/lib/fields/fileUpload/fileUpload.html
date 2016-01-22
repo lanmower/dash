@@ -1,4 +1,15 @@
+<template name="afFileUploadImages">
+  <div class="slick">
+    {{#each files}}
+    <div>
+      <img src="{{this.url store='thumbs'}}"/>
+    </div>
+    {{/each}}
+  </div>
+</template>
+
 <template name="afFileUpload">
+  {{#if isUpdate}}
   <input type="file" name="{{name}}" style="visibility:hidden;position:absolute;top:0;left:0" class="fileInput" multiple/>
   <input type=button value="Upload files" class="btn btn-primary" onclick="$(this).prev().click()">
   <table class="table table-hover">
@@ -6,12 +17,24 @@
       <th>Title</th>
       <th></th>
     </tr>
-  {{#each audio}}
+    {{#each audio}}
+    <tr>
+      <td>{{title}}</td>
+      <td><a href="{{this.url download=true}}" target="_blank">download</a></td>
+      {{#if metadata.converted}}<td class="playTrack">play</td>{{/if}}
+    </tr>
+    {{/each}}
+  </table>
+  <table class="table table-hover">
   <tr>
-    <td>{{title}}</td>
-    <td><a href="{{this.url download=true}}">download</a></td>
-    {{#if metadata.converted}}<td class="playTrack">play</td>{{/if}}
+    <th>Videos</th>
+  </tr>
+  {{#each video}}
+  <tr>
+    <td><a href="{{this.url download=true}}">download</a>      {{#if metadata.converted}}<a class="playVideo">play</a>{{/if}}</td>
   </tr>
   {{/each}}
 </table>
+  {{> afFileUploadImages images=(image)}}
+  {{/if}}
 </template>

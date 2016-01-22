@@ -22,6 +22,14 @@
         }
       }
     },
+    "fluent-ffmpeg": {
+      "version": "2.0.1",
+      "dependencies": {
+        "async": {
+          "version": "1.5.2"
+        }
+      }
+    },
     "musicmetadata": {
       "version": "2.0.2",
       "dependencies": {

@@ -96,6 +96,9 @@ processForm = function(id, formData) {
           return true;
         });
       };
+      form.collection.before.remove(function (userId, doc) {
+        Files.find({"metadata.collectionName":form.collectionName, 'metadata.parentId':doc._id}).forEach(function(doc) {doc.remove()});
+      });
       createHook(Fields.hooks.after.update, form.collection.after.update, form);
       createHook(Fields.hooks.after.insert, form.collection.after.insert, form);
     }

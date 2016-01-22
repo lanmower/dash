@@ -63,6 +63,7 @@ es5-shim@4.1.14
 fastclick@1.0.7
 fish:ffmpeg@1.0.0
 fortawesome:fontawesome@4.5.0
+fourseven:scss@3.4.1
 geojson-utils@1.0.4
 google@1.1.7
 hot-code-push@1.0.0
@@ -148,6 +149,7 @@ stylus@2.511.1
 summernote:standalone@0.6.16
 templating@1.1.5
 templating-tools@1.0.0
+timbrandin:slick@1.5.9
 timdown:rangy@1.2.3
 tracker@1.0.9
 twbs:bootstrap@3.3.6

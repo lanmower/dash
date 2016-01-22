@@ -36,7 +36,8 @@ Template.playlistplayer.rendered = function() {
     }
     if(self.player.paused() && list.length) {
       item = list[currentId.get().current];
-      if(item.type="audio/mp3") self.player.height(27);
+      console.log(item.type, self.player.height());
+      if(item.type=="audio/mp3") self.player.height(27);
       else self.player.height(180);
       self.player.src([
           list[currentId.get().current]

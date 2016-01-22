@@ -46,12 +46,36 @@ Router.route('form/update/:form/:_id', {
   fastRender: true,
   where: 'client',
   waitOn: function() {
-    this.subscribe("form", this.params.form, function() {
-			var form = Forms.findOne({_id:Router.current().params.form});
-			if(!form) return;
-			Meteor.subscribe(form.collectionName);
-  		Meteor.subscribe(form.collectionName+'-admin');
-		});
+    return this.subscribe("form", this.params.form);
+  },
+  data: function () {
+    var form = Forms.findOne({_id:this.params.form});
+    var collection;
+    var item;
+    var schema;
+    if(form) {
+      collection = getCollection(form.collectionName);
+      item = collection.findOne(this.params._id);
+			var fschema = formSchema(form);
+      schema = new SimpleSchema(fschema);
+    }
+    return {
+      form: form,
+      item: item,
+      collection: collection,
+      id: this.params._id,
+      schema: schema
+    };
+  }
+});
+
+Router.route('form/updateAdmin/:form/:_id', {
+  title: 'Update Form',
+  name: 'updateAdminForm',
+  fastRender: true,
+  where: 'client',
+  waitOn: function() {
+    return this.subscribe("form", this.params.form);
   },
   data: function () {
     var form = Forms.findOne({_id:this.params.form});

@@ -8,11 +8,6 @@
     <div class="box-body table-responsive">
 
   {{> quickForm collection=collection doc=item schema=schema id="updateForm" type="update" omitFields="createdBy" buttonContent="Submit"}}
-  {{#each getFileTypes}}
-    {{#with getFile ..}}
-      <a href='{{url}}'><img alt="image missing" src="{{url store='thumbnail'}}"/></a>
-    {{/with}}
-  {{/each}}
   </div>
   </div>
   {{/if}}

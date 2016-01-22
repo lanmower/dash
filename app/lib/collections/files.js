@@ -1,13 +1,30 @@
 //"fluent-ffmpeg": "https://github.com/fluent-ffmpeg/node-fluent-ffmpeg/archive/05196c7a70df68067c6dfcaf84e8a73194bf9a30.tar.gz"
-FS.debug = true;
+FS.debug = false;
 FS.config.uploadChunkSize = 262144;
 var col = null;
+var absolutePath;
 if(Meteor.isServer) {
   var Transcoder = Meteor.npmRequire("stream-transcoder");
+  var ffmpeg = Meteor.npmRequire("fluent-ffmpeg");
   var Fiber = Meteor.npmRequire('fibers');
   var queue = new PowerQueue({
      autostart: true
    });
+
+   var path = Npm.require('path');
+   var pathname="";
+   if (__meteor_bootstrap__ && __meteor_bootstrap__.serverDir) {
+       pathname = path.join(__meteor_bootstrap__.serverDir, "../../../cfs/files/files");
+     }
+   if (pathname.split(path.sep)[0] === '~') {
+     var homepath = process.env.HOME || process.env.HOMEPATH || process.env.USERPROFILE;
+     if (homepath) {
+       pathname = pathname.replace('~', homepath);
+     } else {
+       throw new Error('FS.Store.FileSystem unable to resolve "~" in path');
+     }
+   }
+   absolutePath = path.resolve(pathname);
 
 }
 
@@ -42,8 +59,6 @@ var mediaStore = new FS.Store.FileSystem("media", {
     //});
 
     if(fileObj.original.type == 'audio/mp3') {
-      if(!col) return false;
-      col.update({_id:fileObj._id},{$set:{'metadata.type':'audio'}});
       queue.add(function(done) {
         new Transcoder(readStream)
       	    .audioCodec('libmp3lame')
@@ -70,24 +85,26 @@ var mediaStore = new FS.Store.FileSystem("media", {
     fileObj.original.type == 'video/m4v' ||
     fileObj.original.type == 'video/webm') {
       if(!col) return false;
-      col.update({_id:fileObj._id},{$set:{'metadata.type':'video'}});
       queue.add(function(done) {
-        new Transcoder(readStream)
-        	    .maxSize(320, 240)
-        	    .videoCodec('h264')
-        	    .videoBitrate(800 * 1000)
-        	    .fps(25)
-        	    .audioCodec('libfaac')
-        	    .sampleRate(44100)
-        	    .channels(2)
-        	    .audioBitrate(128 * 1000)
-        	    .format('mp4')
-        	    .on('finish', function() {
+        var url=absolutePath+"/"+masterStore.adapter.fileKey(Files.findOne());
+        console.log(url);
+        ffmpeg(url).videoCodec('libx264')
+              .videoBitrate(800 * 1000)
+              .size('?x100')
+              .audioCodec('aac')
+              .audioBitrate(128 * 1000)
+              .format('flv')
+              //.custom('i', fileObj.url())
+              .on('end', function() {
+                console.log('finished');
                 Fiber(function() {
                   col.update({_id:fileObj._id},{$set:{'metadata.converted':true}});
                   done();
                 }).run();
-        	    }).stream().pipe(writeStream);
+              }).on('error', function(err) {
+                done();
+                console.log('an error happened: ' + err.message);
+              }).pipe(writeStream, {end:true});
       });
     }
   }
@@ -95,7 +112,22 @@ var mediaStore = new FS.Store.FileSystem("media", {
 
 metaStore = new FS.Store.FileSystem("meta", {
   transformWrite: function(fileObj, readStream, writeStream) {
+    if(!col) return false;
+    if(fileObj.original.type == 'video/mp4' ||
+    fileObj.original.type == 'video/ogv' ||
+    fileObj.original.type == 'application/x-troff-msvideo' ||
+    fileObj.original.type == 'video/mpeg' ||
+    fileObj.original.type == 'video/x-msvideo' ||
+    fileObj.original.type == 'video/m4v' ||
+    fileObj.original.type == 'video/webm') {
+      col.update({_id:fileObj._id},{$set:{'metadata.type':'video'}});
+    }
+    if(fileObj.original.type.startsWith("image/")) col.update({_id:fileObj._id},{$set:{'metadata.type':'image'}});
+    if(fileObj.original.type == 'application/pdf') col.update({_id:fileObj._id},{$set:{'metadata.type':'document'}});
     //return false;
+    if(fileObj.original.type == 'audio/mp3') {
+       col.update({_id:fileObj._id},{$set:{'metadata.type':'audio'}});
+    }
     if(fileObj.original.type == 'audio/mp3') {
       if(!col) return false;
       var mm = Meteor.npmRequire('musicmetadata');
@@ -119,7 +151,7 @@ metaStore = new FS.Store.FileSystem("meta", {
 });
 
 Files = new FS.Collection("files", {
-  stores: [masterStore,thumbnailStore, mediaStore, metaStore],
+  stores: [masterStore,thumbnailStore, metaStore, mediaStore],
   filter: {
     maxSize: 4294967296, //in bytes
     allow: {
