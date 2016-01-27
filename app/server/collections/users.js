@@ -30,7 +30,7 @@ Accounts.onCreateUser(function(options, user) {
 
 Accounts.validateNewUser(function (user) {
     config = Config.find({key:"limitToEmailDomain"});
-    if(config.count) {
+    if(config.count()) {
       config.forEach(function(item) {
         if(user.services.google.email.match(item.value)) {
             return true;
