@@ -22,7 +22,7 @@ if(Meteor.isClient) {
 
   var getFind = function(name, type) {
     if(!Router.current().data() || !Router.current().data().form) return;
-    return Files.find (){
+    return Files.find ({
       'metadata.field': this.name,
       'metadata.parentId': Router.current().params._id,
       'metadata.collectionName': Router.current().data().form.collectionName,
