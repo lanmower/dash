@@ -4,7 +4,7 @@ Router.route('config/list', {
   //waitOn: function() {return Meteor.subscribe("config")},
   data: function() {
     return {
-      config:Config.find()
+      configs:Config.find()
     }
   },
 	title: 'List Configs',
