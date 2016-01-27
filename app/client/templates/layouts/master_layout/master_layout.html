@@ -27,7 +27,9 @@
               {{> navbarMessages}}
               {{> navbarUsers}}
               <!-- User Account Menu -->
-              {{> loginButtons}}
+              <li>
+                <a href="#" onclick="Meteor.logout()"><i class="fa fa-minus"></i>Sign out</a><!--forceApprovalPrompt: true-->
+              </li>
               {{else}}
               {{#if configured}}
               <!--li>
@@ -42,9 +44,6 @@
                 </li-->
                 {{> loginButtons}}
                 {{else}}
-                <li>
-                  <a href="#" onclick="Meteor.logout()"><i class="fa fa-minus"></i>Sign out</a><!--forceApprovalPrompt: true-->
-                </li>
                 {{/if}}
                 {{/if}}
                 <!--li class="dropdown user user-menu">
