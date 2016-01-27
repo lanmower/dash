@@ -67,6 +67,7 @@ processForm = function(id, formData) {
           return true;
         }
       });
+
       form.created = true;
       var createHook = function(hookFunction, setFunction, form) {
         setFunction(function(userId, doc, fields) {
@@ -144,7 +145,7 @@ var notifyRequired = function(doc, form) {
 
 var updateField = function(id, field) {
   form = null;
-  if(field.parent) form = Forms.findOne({_id:field.parent});
+  if(field.parent) form = Meteor.forms[field.parent];
   if(form) form.collection.attachSchema(buildSchema(form), {replace:true});
 }
 
@@ -154,14 +155,28 @@ Meteor.startup(function () {
     Hooks.init();
   }
   if(Meteor.isServer) {
-    Forms.find({}).forEach(function(item) {
-      processForm(item._id, item);
-    });
-    Forms.find({}).observeChanges({})
+    //Forms.find({}).forEach(function(item) {
+      //processForm(item._id, item);
+    //});
+    Forms.find({}).observeChanges({
+      added : processForm
+    })
     Fields.find({}).observeChanges({
-      //changed : updateField,
-      //added : updateField
+      changed : updateField,
+      added : updateField
     });
+    SearchSource.defineSource('forms', function(id, searchText, options) {
+      var options = {sort: {isoScore: -1}, limit: 20};
+
+      if(searchText) {
+        var regExp = buildRegExp(searchText);
+        var selector = {packageName: regExp, description: regExp};
+        return Meteor.forms[id].find(selector, options).fetch();
+      } else {
+        return Meteor.forms[id].find({}, options).fetch();
+      }
+    });
+
     started = true;
   }
 

@@ -22,8 +22,14 @@ if(Meteor.isClient) {
 
   var getFind = function(name, type) {
     if(!Router.current().data() || !Router.current().data().form) return;
+    console.log({
+      'metadata.field': name,
+      'metadata.parentId': Router.current().params._id,
+      'metadata.collectionName': Router.current().data().form.collectionName,
+      'metadata.type': type
+    });
     return Files.find ({
-      'metadata.field': this.name,
+      'metadata.field': name,
       'metadata.parentId': Router.current().params._id,
       'metadata.collectionName': Router.current().data().form.collectionName,
       'metadata.type': type
@@ -40,7 +46,7 @@ if(Meteor.isClient) {
     video: function() {
       return getFind(this.name,'video');
     },
-    imageCount: function() {
+    videoCount: function() {
       return getFind(this.name,'video').count();
     },
     audio: function() {

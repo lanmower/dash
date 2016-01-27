@@ -138,3 +138,8 @@ width:430px;
   visibility: visible !important;
   opacity:1 !important;
 }
+
+.box-header li {
+  display:inline-block;
+  float:right;
+}

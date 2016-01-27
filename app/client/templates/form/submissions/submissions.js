@@ -20,6 +20,17 @@ Template.submissions.created = function () {
   });
 };
 
+Template.submissions.events({
+  "change .form-search": function() {
+    console.log('test');
+    var options = {
+      keepHistory: 1000 * 60 * 5,
+      localSearch: true
+    };
+    var fields = ['title'];
+    FormSearch = new SearchSource('forms', Router.current().params._id, fields, options);
+  }
+});
 Template.submissions.helpers({
   destroyForm: function() {
     return Template.instance().destroyForm.get();

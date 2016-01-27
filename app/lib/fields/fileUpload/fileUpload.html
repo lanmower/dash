@@ -16,7 +16,7 @@
     </tr>
     {{#each files}}
     <tr>
-      <td>{{title}}</td>
+      <td>{{metadata.id3.title}}</td>
       <td><a href="{{this.url download=true}}" target="_blank">download</a></td>
       {{#if metadata.converted}}<td class="playTrack">play</td>{{/if}}
     </tr>
