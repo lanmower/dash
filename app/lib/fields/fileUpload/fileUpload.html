@@ -1,4 +1,4 @@
-<template name="afFileUploadImages">
+<template name="afFileUploadImage">
   <div class="slick">
     {{#each files}}
     <div>
@@ -8,16 +8,13 @@
   </div>
 </template>
 
-<template name="afFileUpload">
-  {{#if isUpdate}}
-  <input type="file" name="{{name}}" style="visibility:hidden;position:absolute;top:0;left:0" class="fileInput" multiple/>
-  <input type=button value="Upload files" class="btn btn-primary" onclick="$(this).prev().click()">
+<template name="afFileUploadImage">
   <table class="table table-hover">
     <tr>
       <th>Title</th>
       <th></th>
     </tr>
-    {{#each audio}}
+    {{#each files}}
     <tr>
       <td>{{title}}</td>
       <td><a href="{{this.url download=true}}" target="_blank">download</a></td>
@@ -25,16 +22,28 @@
     </tr>
     {{/each}}
   </table>
+</template>
+
+<template name="afFileUploadVideo">
   <table class="table table-hover">
   <tr>
     <th>Videos</th>
   </tr>
-  {{#each video}}
+  {{#each files}}
   <tr>
     <td><a href="{{this.url download=true}}">download</a>      {{#if metadata.converted}}<a class="playVideo">play</a>{{/if}}</td>
   </tr>
   {{/each}}
-</table>
-  {{> afFileUploadImages images=(image)}}
+  </table>
+</template>
+
+<template name="afFileUpload">
+  {{#if isUpdate}}
+  <input type="file" name="{{name}}" style="visibility:hidden;position:absolute;top:0;left:0" class="fileInput" multiple/>
+  <input type=button value="Upload files" class="btn btn-primary" onclick="$(this).prev().click()">
+
+{{> afFileUploadAudio files=(audio)}}
+{{> afFileUploadVideo files=(video)}}
+  {{> afFileUploadImage files=(image)}}
   {{/if}}
 </template>

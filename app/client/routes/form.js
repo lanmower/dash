@@ -41,7 +41,7 @@ Router.route('form/edit/:form', {
 });
 
 Router.route('form/update/:form/:_id', {
-  title: 'Update Form',
+  title: 'Update',
   name: 'updateForm',
   fastRender: true,
   where: 'client',
@@ -73,7 +73,7 @@ Router.route('form/update/:form/:_id', {
 });
 
 Router.route('form/updateAdmin/:form/:_id', {
-  title: 'Update Form',
+  title: 'Update',
   name: 'updateAdminForm',
   fastRender: true,
   where: 'client',
@@ -102,7 +102,7 @@ Router.route('form/updateAdmin/:form/:_id', {
 });
 
 Router.route('form/submit/:_id', {
-  title: 'Submit Form',
+  title: 'Submit',
   name: 'submitForm',
   fastRender: true,
   where: 'client',
@@ -118,7 +118,7 @@ Router.route('form/submit/:_id', {
 });
 
 Router.route('form/list/:_id', {
-  title: 'Form submissions',
+  title: 'Submissions',
   name: 'submissions',
   fastRender: true,
   where: 'client',
@@ -134,7 +134,7 @@ Router.route('form/list/:_id', {
 });
 
 Router.route('form/admin/:_id', {
-  title: 'Form admin',
+  title: 'Admin',
   name: 'submissionsAdmin',
   fastRender: true,
   where: 'client',
