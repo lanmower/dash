@@ -57,7 +57,7 @@ if(Meteor.isClient) {
     }
   });
 
-  Template.afFileUploadImages.onRendered(function() {
+  Template.afFileUploadImage.onRendered(function() {
     var self = this;
     Template.afFileUploadImages.helpers({
       files : function() {
