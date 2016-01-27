@@ -4,16 +4,13 @@
     {
       "host": "beanscount.co.za",
      "username": "root",
-      "password": "Tonystark123",
+      "password": "Tonystark123"
       // or pem file (ssh based authentication)
       // WARNING: Keys protected by a passphrase are not supported
       //"pem": "~/.ssh/id_rsa"
       // Also, for non-standard ssh port use this
       //"sshOptions": { "port" : 49154 },
       // server specific environment variables
-      "env": {   "PORT": 8000,
-    "ROOT_URL": "http://beanscount.co.za"
- }
     }
   ],
 
@@ -24,7 +21,7 @@
   "setupMongo": true,
 
   // Application name (no spaces).
-  "appName": "dash",
+  "appName": "beanscount",
 
   // Location of app (local directory). This can reference '~' as the users home directory.
   // i.e., "app": "~/Meteor/my-app",
