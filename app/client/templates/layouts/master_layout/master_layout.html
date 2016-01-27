@@ -40,9 +40,7 @@
                   'https://www.googleapis.com/auth/tasks',
                   'https://mail.google.com/'], loginStyle: 'redirect',  requestOfflineToken: true})//forceApprovalPrompt: true"><i class="fa fa-plus"></i>Sign in</a>
                 </li-->
-                <li>
                 {{> loginButtons}}
-                </li>
                 {{else}}
                 <li>
                   <a href="#" onclick="Meteor.logout()"><i class="fa fa-minus"></i>Sign out</a><!--forceApprovalPrompt: true-->
