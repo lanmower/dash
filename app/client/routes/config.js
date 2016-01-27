@@ -15,6 +15,7 @@ Router.route('config/insert', {
 	parent: 'configList',
 	title: 'Insert Config',
   name: 'insertConfig',
+	fastRender: true,
   where: 'client'
 });
 Router.route('config/edit/:_id', {
