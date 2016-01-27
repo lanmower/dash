@@ -22,12 +22,6 @@ if(Meteor.isClient) {
 
   var getFind = function(name, type) {
     if(!Router.current().data() || !Router.current().data().form) return;
-    console.log({
-      'metadata.field': name,
-      'metadata.parentId': Router.current().params._id,
-      'metadata.collectionName': Router.current().data().form.collectionName,
-      'metadata.type': type
-    });
     return Files.find ({
       'metadata.field': name,
       'metadata.parentId': Router.current().params._id,
@@ -85,13 +79,11 @@ if(Meteor.isClient) {
 
   Template.afFileUpload.events({
     'click .playTrack': function(event, template) {
-      console.log(event,template);
       var pl = playlist.get();
       pl.push({type:"audio/mp3",title:getTitle(this),src:this.url('media')});
       playlist.set(pl);
     },
     'click .playVideo': function(event, template) {
-      console.log(event,template);
       var pl = playlist.get();
       pl.push({type:"video/mp4",title:getTitle(this),src:this.url('media')});
       playlist.set(pl);

@@ -22,7 +22,6 @@ Template.submissions.created = function () {
 
 Template.submissions.events({
   "change .form-search": function() {
-    console.log('test');
     var options = {
       keepHistory: 1000 * 60 * 5,
       localSearch: true
