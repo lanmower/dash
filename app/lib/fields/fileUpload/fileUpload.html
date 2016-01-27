@@ -41,9 +41,16 @@
   {{#if isUpdate}}
   <input type="file" name="{{name}}" style="visibility:hidden;position:absolute;top:0;left:0" class="fileInput" multiple/>
   <input type=button value="Upload files" class="btn btn-primary" onclick="$(this).prev().click()">
+    {{#if audioCount}}
+    {{> afFileUploadAudio files=(audio)}}
+    {{/if}}
 
-{{> afFileUploadAudio files=(audio)}}
-{{> afFileUploadVideo files=(video)}}
-  {{> afFileUploadImage files=(image)}}
+    {{#if videoCount}}
+    {{> afFileUploadVideo files=(video)}}
+    {{/if}}
+
+    {{#if imageCount}}
+    {{> afFileUploadImage files=(image)}}
+    {{/if}}
   {{/if}}
 </template>
