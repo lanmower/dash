@@ -29,16 +29,17 @@ Accounts.onCreateUser(function(options, user) {
 });
 
 Accounts.validateNewUser(function (user) {
-    if(user.services.google.email.match(/coas\.gmail\.com$/)) {
-        return true;
+    config = Config.find({key:"limitToEmailDomain"});
+    if(config.count) {
+      config.forEach(function(item) {
+        if(user.services.google.email.match(item.value)) {
+            return true;
+        }
+      });
+      throw new Meteor.Error(403, "You must sign in with an authorized account");
+    } else {
+      return true;
     }
-    if(user.services.google.email.match(/coas\.co\.za$/)) {
-        return true;
-    }
-    if(user.services.google.email.match(/l-inc\.co\.za$/)) {
-        return true;
-    }
-    throw new Meteor.Error(403, "You must sign in with an authorized account");
 });
 
 Meteor.publish("me", function () {
