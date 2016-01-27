@@ -3,28 +3,15 @@
   "servers": [
     {
       "host": "beanscount.co.za",
-<<<<<<< HEAD
-      "username": "root",
-      "password": "Tonystark123",
-=======
      "username": "root",
       "password": "Tonystark123"
->>>>>>> 19d06af395d499aa47794a5e1b087e963f9a5d39
       // or pem file (ssh based authentication)
       // WARNING: Keys protected by a passphrase are not supported
       //"pem": "~/.ssh/id_rsa"
       // Also, for non-standard ssh port use this
       //"sshOptions": { "port" : 49154 },
       // server specific environment variables
-<<<<<<< HEAD
-      "env": {
-    "PORT": 8001,
-    "ROOT_URL": "http://m2m.beanscount.co.za"
-  }
-}
-=======
     }
->>>>>>> 19d06af395d499aa47794a5e1b087e963f9a5d39
   ],
 
   // WARNING: Node.js is required! Only skip if you already have Node.js installed on server.
@@ -34,11 +21,7 @@
   "setupMongo": true,
 
   // Application name (no spaces).
-<<<<<<< HEAD
-  "appName": "m2m",
-=======
-  "appName": "beanscount",
->>>>>>> 19d06af395d499aa47794a5e1b087e963f9a5d39
+  "appName": "m2m_beanscount",
 
   // Location of app (local directory). This can reference '~' as the users home directory.
   // i.e., "app": "~/Meteor/my-app",
