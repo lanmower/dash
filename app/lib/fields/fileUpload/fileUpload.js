@@ -93,6 +93,7 @@ if(Meteor.isClient) {
     'change .fileInput': function(event, template) {
       targetField = template.data.name; //Template.parentData(4).fields[Template.parentData(4).fields.indexOf(Template.parentData(4).name)+1]
       doc = Router.current().data().item;
+      $("#uploadsNotificationsTrigger").click();
       FS.Utility.eachFile(event, function(file) {
         var newFile = new FS.File(file);
         newFile.metadata = {
@@ -103,7 +104,8 @@ if(Meteor.isClient) {
         };
         Files.insert(newFile, function (err, fileObj) {
           if(err) console.log("error", err);
-          if(fileObj) console.log("insertion of", fileObj);
+          if(fileObj) {
+          }
           // Inserted new doc with ID fileObj._id, and kicked off the data upload using HTTP
         });
       });

@@ -10,6 +10,10 @@ Template.navbarUploads.created = function(){
 }
 Template.navbarUploads.events = {
   "click .clear": function() {
+    var list = FS.HTTP.uploadQueue.processList.fetch();
+    _.each(list, function(item) {
+      item.queue.cancel();
+    });
     Files.find().forEach(function(item) {
       if (!item.isUploaded()) {
             Files.remove({_id: item._id});
