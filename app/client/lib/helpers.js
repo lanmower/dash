@@ -29,6 +29,15 @@ Template.registerHelper("file", function(_id){
     if(file) return file.url();
 });
 
+Template.registerHelper("config", function(key){
+    config = Config.findOne({key:key});
+    console.log(key);
+    if(config) {
+      //console.log(config.value);
+      return config.value;
+    }
+});
+
 Template.registerHelper("fromNow", function(dateToPass) {
   return moment(dateToPass).fromNow();
 });

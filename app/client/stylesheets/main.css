@@ -48,7 +48,7 @@ box-shadow: 3px 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 
-.skin-blue .wrapper{
+.wrapper{
   background-color: #ecf0f5;
 }
 .main-footer {
@@ -63,9 +63,8 @@ box-shadow: 3px 2px 5px rgba(0, 0, 0, 0.3);
   width:100%;
   height:100%;
 }
-body .content {
+.content {
   position: absolute;
-  top: 0px;
   bottom: 0px;
   left: 0px;
   right: 0px;
@@ -73,7 +72,7 @@ body .content {
   padding-bottom:50px;
   padding-top: 20px;
 }
-.skin-blue .content-wrapper {
+.content-wrapper {
   bottom: 0px;
   top: 50px;
   position: absolute;
@@ -84,13 +83,12 @@ body .content {
 }
 .wrapper .main-sidebar {
   overflow: auto;
-height: auto;
-min-height: auto;
-top: 50px;
-padding-top: 0px;
-bottom: 0px;
+  height: auto;
+  min-height: auto;
+  padding-top: 0px;
+  bottom: 0px;
 }
-.skin-blue {
+.skin-blue,.skin-yellow {
       height: 100%;
 }
 .messages-menu .offline {
@@ -103,8 +101,19 @@ bottom: 0px;
   filter: alpha(opacity=90); /* For IE8 and earlier */
 }
 @media(max-width:768px) {
-  .skin-blue .content-wrapper {
-    top:100px;
+  .content {
+    top: 50px;
+  }
+  .wrapper .main-sidebar {
+    top: 0px;
+  }
+}
+@media(min-width:768px) {
+  .content {
+    top: 0px;
+  }
+  .wrapper .main-sidebar {
+    top: 50px;
   }
 }
 

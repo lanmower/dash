@@ -1,15 +1,15 @@
 <template name="MasterLayout">
   <div class="fill">
     <div class="contain">
-      {{#AdminLTE skin="blue"}}
+      {{#AdminLTE skin=(config 'skin')}}
       <header class="main-header">
 
         <!-- Logo -->
         <a href="index2.html" class="logo">
           <!-- mini logo for sidebar mini 50x50 pixels -->
-          <span class="logo-mini">CA</span>
+          <span class="logo-mini">MM</span>
           <!-- logo for regular state and mobile devices -->
-          <span class="logo-lg"><b>Coastal Accounting</b></span>
+          <span class="logo-lg"><b>{{config 'siteName'}}</b></span>
         </a>
 
         <!-- Header Navbar -->
@@ -30,7 +30,7 @@
               {{> loginButtons}}
               {{else}}
               {{#if configured}}
-              <li>
+              <!--li>
                 <a href="#" onclick="Meteor.loginWithGoogle({requestPermissions:[
                   'https://www.googleapis.com/auth/userinfo.email',
                   'https://apps-apis.google.com/a/feeds/emailsettings/2.0/',
@@ -38,10 +38,15 @@
                   'https://www.googleapis.com/auth/calendar',
                   'https://www.googleapis.com/auth/userinfo.profile',
                   'https://www.googleapis.com/auth/tasks',
-                  'https://mail.google.com/'], loginStyle: 'redirect',  requestOfflineToken: true})"><i class="fa fa-plus"></i>Sign in</a><!--forceApprovalPrompt: true-->
+                  'https://mail.google.com/'], loginStyle: 'redirect',  requestOfflineToken: true})//forceApprovalPrompt: true"><i class="fa fa-plus"></i>Sign in</a>
+                </li-->
+                <li>
+                {{> loginButtons}}
                 </li>
                 {{else}}
-                {{> loginButtons}}
+                <li>
+                  <a href="#" onclick="Meteor.logout()"><i class="fa fa-minus"></i>Sign out</a><!--forceApprovalPrompt: true-->
+                </li>
                 {{/if}}
                 {{/if}}
                 <!--li class="dropdown user user-menu">
