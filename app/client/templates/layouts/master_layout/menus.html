@@ -7,16 +7,20 @@
         <li>{{#linkTo route="pagesList"}}Pages{{/linkTo}}</li>
         <li>{{#linkTo route="menusList"}}Menus{{/linkTo}}</li>
         <li>{{#linkTo route="usersList"}}Users{{/linkTo}}</li>
-        <li>{{#linkTo route="typesList"}}Types{{/linkTo}}</li>
+        <li>{{#linkTo route="rolesList"}}Roles{{/linkTo}}</li>
+        <li>{{#linkTo route="formsList"}}Forms{{/linkTo}}</li>
+        <li>{{#linkTo route="formsList"}}Config{{/linkTo}}</li>
     </ul>
   </li>
   {{/if}}
+
   {{#each menus}}
   <li class="treeview">
     <a href="#"><i class="fa fa-link"></i> <span>{{title}}</span> <i class="fa fa-angle-left pull-right"></i></a>
     <ul class="treeview-menu">
       {{#each item}}
-        <li><a href="{{path}}">{{title}}</a></li>
+        <li><a href="{{path}}" class="hidden-lg" onclick="$('.sidebar-toggle').click()">{{title}}</a>
+        <a href="{{path}}" class="hidden-sm hidden-md hidden-xs">{{title}}</a></li>
       {{/each}}
     </ul>
   </li>

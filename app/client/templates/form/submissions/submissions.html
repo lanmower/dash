@@ -1,0 +1,45 @@
+<template name="submissions">
+  <div class="box">
+    <div class="box-header with-border">
+      <h3 class="box-title">{{title}}</h3>
+
+    <span style="float:right">
+      {{#if canAdmin}}
+      {{#linkTo route="submissionsAdmin" form=currentForm}}<button class="btn btn-danger" type="button">Admin</button>{{/linkTo}}
+      {{/if}}
+    </span>
+    <span style="float:right">
+    {{#linkTo route="submitForm" form=_id}}<button class="btn btn-info" type="button">New submission</button>{{/linkTo}}
+    </span>
+    <span style="float:right">
+    {{> breadcrumb}}
+    </span>
+    </div>
+    <div class="box-body table-responsive no-padding">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            {{#each getSchema}}
+            <th>{{label .. this}}</th>
+            {{/each}}
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each items}}
+          <tr>
+            {{#each getSchema}}
+            <td>{{{cell .. this}}}</td>
+            {{/each}}
+            <td>
+              {{#linkTo route="updateForm" form=../_id }}
+              <button class="btn btn-info" style="float:right" type="button">Edit</button>
+              {{/linkTo}}
+            </td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</template>

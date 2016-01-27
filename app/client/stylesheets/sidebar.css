@@ -12,7 +12,8 @@
       position: absolute;
       right: 0px;
       left: 0px;
-      height:100%;
+      bottom: 0px;
+      top: 39px;
 }
 .right-header h1 {
   margin:0px;
@@ -33,10 +34,12 @@
 .right-wrapper {
   z-index: 1;
   background-color: #ecf0f5;
-  position: absolute;
-  right: 0px;
-  top: 0px;
-  bottom: 0px;
+  position: fixed;
+  right: 30px;
+  top: 100px;
+  bottom: 20px;
+  width: 50%;
+  overflow:hidden;
   border-style: solid;
   border-width: 1px;
   border-color: #4F5467;
@@ -45,7 +48,6 @@
   -moz-transition: all 0.5s ease;
   -o-transition: all 0.5s ease;
   transition: all 0.5s ease;
-  width: 100%;
 }
 
 .split-left {
@@ -71,8 +73,11 @@
 }
 
 .nooverflow {
-min-height: 250px;
-height:100%;
+  position: absolute;
+      top: 0px;
+      bottom: 0px;
+      left: 0px;
+      right: 0px;
 }
 
 .fab {
@@ -102,4 +107,7 @@ height:100%;
 }
 .modal-backdrop {
   z-index:799;
+}
+body .content-header .breadcrumb {
+      top: -10px;
 }

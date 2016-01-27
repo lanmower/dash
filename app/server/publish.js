@@ -1,19 +1,26 @@
 Meteor.publish(null, function (){
   return Meteor.roles.find({})
-})
-Meteor.publish('types', function () {
-  return Types.find();
 });
+Meteor.publish(null, function (){
+  return Config.find({});
+});
+
 Meteor.publish('times', function () {
   return Times.find();
 });
 Meteor.publish('diaries', function () {
   return Diaries.find({user:this.userId});
 });
-
-Meteor.publish('forms', function () {
-  return Forms.find();
+Meteor.publish('diaries-admin', function () {
+  if(Roles.userIsInRole(this.userId, "admin") ||
+     Roles.userIsInRole(this.userId, "diaries-admin")) return Meteor.roles.find();
+  return Diaries.find();
 });
+
+Meteor.publish('roles', function () {
+  if(Roles.userIsInRole(this.userId, "admin")) return Meteor.roles.find();
+});
+
 
 Meteor.publish('messages', function () {
   roles = Roles.getRolesForUser(this.userId);
@@ -37,15 +44,10 @@ var additions = function(self) {
 
   //if user test against user roles, can see viewable updatable and removable items
   roles = Roles.getRolesForUser(self.userId);
-
-  return [
-    {$and:[
-      {"public": true},
-      {"public": {$exists: true}}
-    ]},
-    {$and:[
-      {"signedIn": true},
-      {"signedIn": {$exists: true}}
+  var rules = [
+    {$or:[
+      {"view": {$size: 0}},
+      {"view": {$exists: false}}
     ]},
     {view: {$in:roles}},
     {update: {$in:roles}},
@@ -55,11 +57,74 @@ var additions = function(self) {
       {createdBy: {$exists: true}}
     ]}
   ];
+
+  if(self.userId) {
+    roles.push(Meteor.users.findOne(self.userId)._id);
+    rules.push(
+      {$or:[
+        {"view": "@"}
+      ]}
+    );
+  }
+
+  if(Roles.userIsInRole(self.userId, "admin"))
+    rules.push({_id: {$exists: true}});
+
+  return rules;
 };
+
 Pages.additions = additions;
 Menus.additions = additions;
 Widgets.additions = additions;
 Fields.additions = additions;
+
+Meteor.publish('forms', function () {
+  var additions = Widgets.additions(this);
+  return Forms.find({$or:additions});
+});
+
+Meteor.publishComposite('form', function(_id) {
+  var additions = Widgets.additions(this);
+  return {
+    find: function() {
+      return Forms.find({_id:_id,$or:additions});
+    },
+    children: [
+      {
+        find: function(form) {
+          return Fields.find({parent:form._id, $or:additions}, {sort: {listposition: 1}})
+        }
+      },
+      /*{
+        find: function(form) {
+          return Meteor.forms[form._id].collection.find({$or: [
+            {createdBy: this.userId},
+            {$and:[
+              {"public": true},
+              {"public": {$exists: true}}
+            ]}
+          ]});
+        },
+        children: [
+          {
+          find: function(item, parent) {
+            form = Meteor.forms[parent._id];
+            var fields = [];
+            console.log({parent: parent._id,type:"fileUpload"});
+            Fields.find({parent: parent._id,type:"fileUpload"}).forEach(function (field) {
+              console.log('test');
+              fields.push(field.name);
+            });
+            console.log({"metadata.parentId":item._id, "metadata.collectionName":form.collectionName,"metadata.field":{$in:fields}});
+            return Files.find({"metadata.parentId":item._id, "metadata.collectionName":form.collectionName,"metadata.field":{$in:fields}});
+          }
+          }
+        ]
+      }*/
+    ],
+  }
+});
+
 
 Meteor.publish('menus', function () {
   var additions = Menus.additions(this);
@@ -76,34 +141,22 @@ Meteor.publishComposite('widget', function(id) {
   var fieldAdditions = Fields.additions(this);
   return {
     find: function() {
-      console.log("subscribe widget:", id);
       return Widgets.find({_id:id},
         {$or:additions});
       },
       children: [
         {
           find: function(widget) {
-            console.log("add page:", widget.parent);
             return Pages.find({$and:[
               {'_id': widget.parent},
               {$or:pageAdditions}
             ]});
           },
-        },
-        {
-          find: function(widget){
-            console.log("add fields for widget:", widget._id);
-            return Fields.find({$and:[
-              {'parent': widget._id},
-              {$or:fieldAdditions}
-            ]});
-          }
         }
       ]
     };
   }
 );
-
 Meteor.publishComposite('field', function(id) {
   var additions = Fields.additions(this);
   var widgetAdditions = Widgets.additions(this);
@@ -116,12 +169,11 @@ Meteor.publishComposite('field', function(id) {
       children: [
         {
           find: function(field) {
-            console.log("adding widget to field:", field.parent)
-            return Widgets.find({$and:[
+            return Forms.find({$and:[
               {'_id': field.parent},
               {$or:widgetAdditions}
             ]});
-          },
+          }
         }
       ]
     };

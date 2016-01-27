@@ -1,7 +1,4 @@
 <template name="ViewPage">
-  <h1 id="page_title" class="ui header page-header">
-    {{page.title}}
-  </h1>
   {{#each widgets}}
     {{> Template.dynamic template=type data=this}}
   {{/each}}

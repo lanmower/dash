@@ -19,7 +19,21 @@ Menus.attachSchema(new SimpleSchema(_.extend({
       type: String,
       label: "Path",
       max: 200
-  }
+  },
+'item.$.view':{
+        type: [String],
+        optional: true,
+        // minCount: 1,
+        autoform: {
+          type: "universe-select",
+          afFieldInput: {
+            multiple: true,
+            options: function () {
+              return Meteor.rolesList();
+            }
+          }
+        }
+    }
 }, Meteor.schema(), Meteor.protectSchema())));
 
 if (Meteor.isServer) {

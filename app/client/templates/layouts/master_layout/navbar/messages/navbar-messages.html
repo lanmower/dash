@@ -21,7 +21,7 @@
         </ul><!-- /.menu -->
       </li>
       <li class="footer">
-        <input type="text" data-bind="value: message, returnKey: sendMessage " style="width:245px;display:inline-block"/>
+        <input type="text" data-bind="value: message, returnKey: sendMessage " style="width:244px;display:inline-block"/>
         <a href="#" data-bind="click: sendMessage" style="width:30px;height:28px;display:inline-block"><i class="fa fa-paper-plane"></i></a>
       </li>
     </ul>
@@ -38,7 +38,7 @@
     <!-- Message title and timestamp -->
     <h4>
       {{subject}}
-      <small><i class="fa fa-clock-o"></i>{{fromNow createdAt}}</small>
+      <small style="position: relative;margin-left: 128px;"><i class="fa fa-clock-o"></i>{{fromNow createdAt}}</small>
     </h4>
     <!-- The message -->
     <p>{{body}}</p>

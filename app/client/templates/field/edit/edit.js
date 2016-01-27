@@ -1,7 +1,13 @@
 Template.EditField.helpers({
   schema: function() {
-    var formSchema = createDisplaySchema(this.field.parent, this.field.type, Widgets);
-    formSchema.name = {type:String};
-    return formSchema;
+    var formSchema = {name:{type:String}};
+    _.extend(
+      formSchema,
+      createDisplaySchema(this.field.parent, this.field.type, Forms, Meteor.fieldTypes));
+    formSchema.listable = {
+      type: Boolean,
+      label: "Display in list?"
+    };
+    return new SimpleSchema(formSchema);
   }
 });

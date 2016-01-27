@@ -1,0 +1,72 @@
+{
+  "dependencies": {
+    "atom": {
+      "version": "0.0.1"
+    },
+    "combined-stream2": {
+      "version": "1.1.1",
+      "dependencies": {
+        "debug": {
+          "version": "2.2.0",
+          "dependencies": {
+            "ms": {
+              "version": "0.7.1"
+            }
+          }
+        },
+        "bluebird": {
+          "version": "2.10.2"
+        },
+        "stream-length": {
+          "version": "1.0.2"
+        }
+      }
+    },
+    "fluent-ffmpeg": {
+      "version": "2.0.1",
+      "dependencies": {
+        "async": {
+          "version": "1.5.2"
+        }
+      }
+    },
+    "musicmetadata": {
+      "version": "2.0.2",
+      "dependencies": {
+        "deep-equal": {
+          "version": "0.2.1"
+        },
+        "filereader-stream": {
+          "version": "0.2.0",
+          "dependencies": {
+            "inherits": {
+              "version": "1.0.0"
+            }
+          }
+        },
+        "strtok2": {
+          "version": "1.0.1"
+        },
+        "sum-component": {
+          "version": "0.1.1",
+          "dependencies": {
+            "to-function": {
+              "version": "2.0.6",
+              "dependencies": {
+                "component-props": {
+                  "version": "1.1.1"
+                }
+              }
+            }
+          }
+        },
+        "through": {
+          "version": "2.3.8"
+        }
+      }
+    },
+    "stream-transcoder": {
+      "version": "0.0.5"
+    }
+  }
+}

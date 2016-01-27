@@ -1,8 +1,17 @@
 /*****************************************************************************/
 /* main: Style */
 /*****************************************************************************/
-.main {
+#navbarMessagesMenu li a p {
+    white-space: normal;
+    margin: 0px 0px 0px 0px;
 }
+#navbarMessagesMenu img {
+  margin-top: 9px;
+margin-right: 5px;
+margin-bottom: 0px;
+}
+
+
 body,html {
   height:100%
     background-color: #222d32;
@@ -13,13 +22,33 @@ body,html {
   }
 
 .fill {
-left:0px;
-right:0px;
-position: absolute;
-top:0px;
-bottom:0px;
+  left:0px;
+  right:0px;
+  position: absolute;
+  top:0px;
+  bottom:0px;
 }
-.skin-blue .wrapper{
+.main-header {
+-moz-box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.3);
+-webkit-box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.3);
+box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.3);
+}
+.main-sidebar {
+-moz-box-shadow: 3px 2px 5px rgba(0, 0, 0, 0.3);
+-webkit-box-shadow: 3px 2px 5px rgba(0, 0, 0, 0.3);
+box-shadow: 3px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+
+.page_title {
+  color: white;
+  font-size: 23px;
+  line-height: 48px;
+  float: left;
+}
+
+
+.wrapper{
   background-color: #ecf0f5;
 }
 .main-footer {
@@ -34,17 +63,16 @@ bottom:0px;
   width:100%;
   height:100%;
 }
-body .content {
+.content {
   position: absolute;
-  top: 0px;
   bottom: 0px;
-  overflow-y: scroll;
   left: 0px;
   right: 0px;
-  padding-bottom:0px;
-  padding-top:0px;
+  overflow-y: auto;
+  padding-bottom:50px;
+  padding-top: 20px;
 }
-.skin-blue .content-wrapper {
+.content-wrapper {
   bottom: 0px;
   top: 50px;
   position: absolute;
@@ -55,13 +83,12 @@ body .content {
 }
 .wrapper .main-sidebar {
   overflow: auto;
-height: auto;
-min-height: auto;
-top: 50px;
-padding-top: 0px;
-bottom: 0px;
+  height: auto;
+  min-height: auto;
+  padding-top: 0px;
+  bottom: 0px;
 }
-.skin-blue {
+.skin-blue,.skin-yellow {
       height: 100%;
 }
 .messages-menu .offline {
@@ -74,7 +101,40 @@ bottom: 0px;
   filter: alpha(opacity=90); /* For IE8 and earlier */
 }
 @media(max-width:768px) {
-  .skin-blue .content-wrapper {
-    top:100px;
+  .content {
+    top: 50px;
   }
+  .wrapper .main-sidebar {
+    top: 0px;
+  }
+}
+@media(min-width:768px) {
+  .content {
+    top: 0px;
+  }
+  .wrapper .main-sidebar {
+    top: 50px;
+  }
+}
+
+#mediawrapper{
+margin-left: auto;
+margin-right:auto;
+width:430px;
+}
+
+.control-sidebar-bg, .control-sidebar {
+    width: 440px !important;
+    right: 0px !important;
+}
+
+.control-sidebar>.tab-content {
+  padding: 0px !important;
+}
+
+/* Hide the control bar when the video is playing and the user is inactive  */
+.vjs-default-skin.vjs-has-started.vjs-user-inactive.vjs-playing .vjs-control-bar {
+  display: block !important;
+  visibility: visible !important;
+  opacity:1 !important;
 }

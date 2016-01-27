@@ -1,7 +1,10 @@
+
+
 Accounts.ui.config({
     requestPermissions: {
         google:['https://www.googleapis.com/auth/drive',
-        'https://www.googleapis.com/auth/userinfo.profile'],
+        'https://www.googleapis.com/auth/userinfo.profile',
+      'https://www.googleapis.com/auth/userinfo.email'],
     },
     //forceApprovalPrompt: {google: true},
     requestOfflineToken: {google: true}
@@ -9,7 +12,7 @@ Accounts.ui.config({
     //extraSignupFields: []
 });
 
-userGeoLocation = new ReactiveVar(null);
+/*userGeoLocation = new ReactiveVar(null);
 Meteor.startup(function () {                                                                    // 36
   Hooks.init();
   Tracker.autorun(function (computation) {
@@ -19,3 +22,4 @@ Meteor.startup(function () {                                                    
     }
   });
 });
+*/

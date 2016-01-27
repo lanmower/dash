@@ -10,6 +10,11 @@ Template.registerHelper("debug", function(optionalValue) {
   }
 });
 
+Template.registerHelper("pageTitle", function(title) {
+  console.log(title);
+  Meteor.pageTitle.set(title);
+});
+
 
 Template.registerHelper("arrayify", function(obj){
     result = [];
@@ -22,6 +27,15 @@ Template.registerHelper("arrayify", function(obj){
 Template.registerHelper("file", function(_id){
     file = Files.findOne({_id:_id});
     if(file) return file.url();
+});
+
+Template.registerHelper("config", function(key){
+    config = Config.findOne({key:key});
+    console.log(key);
+    if(config) {
+      //console.log(config.value);
+      return config.value;
+    }
 });
 
 Template.registerHelper("fromNow", function(dateToPass) {

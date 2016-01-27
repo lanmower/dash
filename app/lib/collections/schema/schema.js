@@ -4,18 +4,19 @@ can = function(userId, item, action) {
     var parentType = item.parentType();
     var parent = parentType.findOne(item.parent);
     if(!parent.createdBy || (userId && (parent.createdBy == userId))) return true;
-    for(i in parent[action]) {
+    for(var i in parent[action]) {
         if(Roles.userIsInRole(userId, item[action][i])) return true;
     }
   }
-  for(i in item[action]) {
+  for(var i in item[action]) {
       if(Roles.userIsInRole(userId, item[action][i])) return true;
   }
 }
 
 //display items have type and parent, as well as field or widget additions
-createDisplaySchema = function(parent, type, parentType) {
+createDisplaySchema = function(parent, type, parentType, allTypes) {
   var tschema = Meteor.schema();
+  _.extend(tschema, Meteor.protectSchema());
   tschema.parent = {
     type: String,
     optional:false,
@@ -30,22 +31,21 @@ createDisplaySchema = function(parent, type, parentType) {
             // minCount: 1,
             autoform: {
               type: "select",
-              options: types(parent, parentType)
+              options: types(parent, parentType, allTypes)
             }
         };
 
   if(type && Widgets.schemas[type]) {
-    _.extend(tschema, Widgets.schemas[type]);
+    _.extend(tschema, Widgets.schemas[type](tschema, parent, type, this));
   }
-  return new SimpleSchema(tschema);
+  return tschema;
 }
 
 
 
 //find the types that the parent allows, build a label value array
-var types = function(parent, parentType) {
+var types = function(parent, parentType, allTypes) {
   var types = [];
-  var allTypes = Types.find().fetch();
   var parent = parentType.findOne({_id: parent});
   for(var type in parent.types) {
     var search = parent.types[type];
@@ -64,58 +64,67 @@ Meteor.schema = function() {
           type: "hidden",
           label: false
       },
-      autoValue: function () {
-        return Meteor.userId()
+      autoValue: function() {
+        if (this.isInsert) {
+          return this.userId;
+        } else if (this.isUpsert) {
+          return {$setOnInsert: this.userId};
+        } else {
+          this.unset();
+        }
+      }
+    },
+    updatedBy: {
+      type: String,
+      autoform: {
+          type: "hidden",
+          label: false
       },
+      autoValue: function() {
+        if (this.isUpdate) {
+          return this.userId;
+        }
+      },
+      denyInsert: true,
+      optional: true
     },
     createdAt: {
-       type: Date,
-       autoform: {
-         value: new Date(),
-         type: "hidden"
-       },
-       autoValue: function(doc, operation) {
-         if (this.isInsert) {
-           return new Date();
-         } else if (this.isUpsert) {
-           return {$setOnInsert: new Date()};
-         } else {
-           this.unset();
-         }
-       }
-   },
-
-   updatedAt: {
-       type: Date,
-       autoform: {
-         value: new Date(),
-         type: "hidden"
-       },
-       autoValue: function(doc, operation) {
-         if (this.isInsert) {
-           return new Date();
-         } else if (this.isUpsert) {
-           return {$setOnInsert: new Date()};
-         } else {
-           this.unset();
-         }
-       }
-   }
+    type: Date,
+    autoform: {
+        type: "hidden",
+        label: false
+    },
+    autoValue: function() {
+      if (this.isInsert) {
+        return new Date;
+      } else if (this.isUpsert) {
+        return {$setOnInsert: new Date};
+      } else {
+        this.unset();
+      }
+    }
+  },
+  // Force value to be current date (on server) upon update
+  // and don't allow it to be set upon insert.
+  updatedAt: {
+    type: Date,
+    autoform: {
+        type: "hidden",
+        label: false
+    },
+    autoValue: function() {
+      if (this.isUpdate) {
+        return new Date();
+      }
+    },
+    denyInsert: true,
+    optional: true
+  }
   });
 };
 
 Meteor.protectSchema = function() {
   return _.extend({},{
-    public:{
-      type: Boolean,
-      label: "Visible: Public",
-      max: 200
-    },
-    signedIn:{
-      type: Boolean,
-      label: "Visible: Signed in",
-      max: 200
-    },
     view:{
           type: [String],
           optional: true,

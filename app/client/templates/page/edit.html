@@ -1,40 +1,48 @@
 <template name="EditPage">
-  <section class="content-header">
-  <h1 id="page_title" class="ui header page-header">
-    Edit Page
-    {{#if (can "update" page)}}
-      {{> quickRemoveButton collection="Pages" _id=page._id beforeRemove=beforeRemove class="btn btn-danger"}}
-    {{/if}}
-  </h1>
-  {{> breadcrumb}}
-  </section>
-  {{#if (can "update" page)}}
-    {{> quickForm collection="Pages" doc=page id="editPageForm" type="update" omitFields="createdBy" buttonContent="Update"}}
-  {{/if}}
-  <hr>
-  <h4>Widgets</h4>
-  {{#linkTo route="insertWidget" parent=page._id}}<i class="fa fa-plus"></i> New Widget{{/linkTo}}
+  <div class="box">
+    <div class="box-header with-border">
+      <h3 class="box-title">Edit page</h3>
+      {{#if (can "update" page)}}
+      <span style="float:right">
+        {{> quickRemoveButton collection="Pages" _id=page._id onSuccess=onSuccess class="btn btn-danger"}}
+      </span>
+      <section style="float:right">{{> breadcrumb}}</section>
+      {{/if}}
+    </div>
+    <div class="box-body table-responsive">
+      {{#if (can "update" page)}}
+      {{> quickForm collection="Pages" doc=page id="editPageForm" type="update" omitFields="createdBy" buttonContent="Update"}}
+      {{/if}}
+      <hr>
+      <h4>Widgets</h4>
+      {{#linkTo route="insertWidget" parent=page._id}}<i class="fa fa-plus"></i> New Widget{{/linkTo}}
+      <div class="box">
+        <div class="box-body table-responsive no-padding">
 
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th>type</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-    {{#each widgets}}
-      <tr>
-        <td>{{type}}</td>
-        <td>
-          {{#if (can "update" this)}}
-          {{#linkTo route='editWidget'}}
-            <i class="fa fa-pencil-square-o"></i>
-          {{/linkTo}}
-          {{/if}}
-        </td>
-      </tr>
-    {{/each}}
-    </tbody>
-  </table>
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>type</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each widgets}}
+              <tr>
+                <td>{{type}}</td>
+                <td>
+                  {{#if (can "update" this)}}
+                  {{#linkTo route='editWidget'}}
+                  <button class="btn btn-info" type="button">Edit</button>
+                  {{/linkTo}}
+                  {{/if}}
+                </td>
+              </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>

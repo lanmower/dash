@@ -1,5 +1,7 @@
 <template name="TimesList">
   {{#linkTo route="insertTime"}}<i class="fa fa-plus"></i> Punch{{/linkTo}}
+  <div class="box">
+    <div class="box-body table-responsive no-padding">
   <table class="table table-hover">
     <thead>
       <tr>
@@ -17,11 +19,13 @@
         <td>{{location}}</td>
         <td>
           {{#linkTo route='editTime'}}
-            <i class="fa fa-pencil-square-o"></i>
+            <button class="btn btn-info" type="button">Edit</button>
           {{/linkTo}}
         </td>
       </tr>
     {{/each}}
     </tbody>
   </table>
+</div>
+</div>
 </template>

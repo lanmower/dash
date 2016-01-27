@@ -1,5 +1,4 @@
-Widgets = new Mongo.Collection("widgets");
-Widgets.schemas = {};
+
 Widgets.helpers({
   collectionType: function() {return Widgets},
   parentType: function() {return Pages}
