@@ -8,9 +8,10 @@ Widgets.schemas.textInput = function() {
     },
     optional:{
       type: Boolean,
-      optional: false,
+    },
+    searchable:{
+      type: Boolean,
     }
-
   }
 };
 Fields.schemas.textInput = function(data) {

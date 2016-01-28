@@ -149,12 +149,48 @@ var updateField = function(id, field) {
   if(form) form.collection.attachSchema(buildSchema(form), {replace:true});
 }
 
+
 Meteor.startup(function () {
   if(Meteor.isClient){
     Meteor.subscribe("types", {});
     Hooks.init();
   }
   if(Meteor.isServer) {
+    Meteor.publish('formSearch', function(form, query) {
+      //check(query, String);
+      var or=[];
+      if (_.isEmpty(query)) {
+        return Meteor.forms[form].collection.find({}, {
+          limit: 20
+        });
+      }
+
+      Meteor.forms[form].fields.forEach(function(item) {
+        var name = item.name;
+        if(item.searchable) {
+          var fields={}
+          fields[name] = { $regex: RegExp.escape(query), $options: 'i' };
+          or.push(fields);
+        }
+      });
+
+      var mediaForms = Files.find({$and:[
+          {"metadata.id3.title": { $regex: RegExp.escape(query), $options: 'i' }},
+          {"metadata.collectionName": Meteor.forms[form].collectionName}
+        ]}).map(function (file) {
+          return file.metadata.parentId;
+      });
+      or.push({"_id": {
+        "$in": mediaForms
+      }});
+      console.log(query,Meteor.forms[form].collection.find({$or:or}, {
+        limit: 20
+      }).fetch());
+      return Meteor.forms[form].collection.find({$or:or}, {
+        limit: 20
+      });
+  });
+
     //Forms.find({}).forEach(function(item) {
       //processForm(item._id, item);
     //});
@@ -164,17 +200,6 @@ Meteor.startup(function () {
     Fields.find({}).observeChanges({
       changed : updateField,
       added : updateField
-    });
-    SearchSource.defineSource('forms', function(id, searchText, options) {
-      var options = {sort: {isoScore: -1}, limit: 20};
-
-      if(searchText) {
-        var regExp = buildRegExp(searchText);
-        var selector = {packageName: regExp, description: regExp};
-        return Meteor.forms[id].find(selector, options).fetch();
-      } else {
-        return Meteor.forms[id].find({}, options).fetch();
-      }
     });
 
     started = true;

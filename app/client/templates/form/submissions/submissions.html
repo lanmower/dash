@@ -7,7 +7,7 @@
       <li>
       <form action="#" method="get" class="form" style="width:200px">
         <div class="input-group">
-          <input type="text" name="q" class="form-control form-search" placeholder="Search...">
+          <input type="text" name="q" class="form-control form-search" placeholder="Search..." value="{{searchQuery}}">
           <span class="input-group-btn">
             <button type="submit" name="search" id="search-btn" class="btn btn-flat" ><i class="fa fa-search"></i></button>
           </span>
@@ -46,7 +46,7 @@
             {{/each}}
             <td>
               {{#linkTo route="updateForm" form=../_id }}
-              <button class="btn btn-info" style="float:right" type="button">Edit</button>
+              <button class="btn btn-info" style="float:right" type="button">Open</button>
               {{/linkTo}}
             </td>
           </tr>

@@ -1,34 +1,29 @@
+var searchQuery = null;
 
 Template.submissions.created = function () {
   var template = this;
-  template.destroyForm = new ReactiveVar(true);
   template.schema = new ReactiveVar(null);
 
   template.autorun(function () {
     if(Template.currentData()) {
-      Meteor.subscribe(Template.currentData().collectionName);
+      //Meteor.subscribe(Template.currentData().collectionName);
       Meteor.subscribe("forms");
-      template.destroyForm.set(true);
       template.schema.set(listSchema(Template.currentData()));
     }
   });
 
-  template.autorun(function () {
-    if (template.destroyForm.get()) {
-      template.destroyForm.set(false);
-    }
-  });
+  searchQuery = Meteor.subscribe('formSearch', Router.current().params._id, "");
 };
-
 Template.submissions.events({
-  "change .form-search": function() {
-    var options = {
-      keepHistory: 1000 * 60 * 5,
-      localSearch: true
-    };
-    var fields = ['title'];
-    FormSearch = new SearchSource('forms', Router.current().params._id, fields, options);
-  }
+  "submit .form": function(event) {
+    return false;
+  },
+  'keyup .form input': _.debounce(function(event, template) {
+    event.preventDefault();
+    Session.set('searchQuery', template.find('.form input').value);
+    if(searchQuery) searchQuery.stop();
+    searchQuery = Meteor.subscribe('formSearch', Router.current().params._id, Session.get('searchQuery'));
+  }, 300)
 });
 Template.submissions.helpers({
   destroyForm: function() {
@@ -42,6 +37,7 @@ Template.submissions.helpers({
         if(base[x].listable) schema.push(base[x]);
       }
     }
+    console.log('test');
     return schema;
   },
   currentForm: function() {
@@ -50,7 +46,10 @@ Template.submissions.helpers({
   items: function() {
     var name = this.collectionName;
     var collection = getCollection(name);
-    return collection.find();
+    return collection.find({});
+  },
+  searchQuery: function() {
+    return Session.get("searchQuery");
   },
   canAdmin: function() {
     if(Roles.userIsInRole(Meteor.userId(), "admin")) return true;
@@ -71,24 +70,3 @@ Template.submissions.helpers({
     return this['title'];
   }
 });
-
-Widgets.schemas.submissions = function() {
-  return {
-  form:{
-    type: String,
-    label: "Choose a form",
-    autoform: {
-      options: function() {
-        if (Template.instance().subscriptionsReady()) {
-          var forms = Forms.find();
-          var ret = [];
-          forms.forEach(function(form) {
-            ret.push({label:form.title, value:form._id});
-          });
-          return ret;
-        }
-      }
-    }
-  }
-}
-};
