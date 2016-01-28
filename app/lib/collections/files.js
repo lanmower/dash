@@ -84,6 +84,11 @@ var mediaStore = new FS.Store.FileSystem("media", {
           fileObj.original.type == 'video/mpeg' ||
           fileObj.original.type == 'video/x-msvideo' ||
           fileObj.original.type == 'video/m4v' ||
+          fileObj.original.type == 'video/avi' ||
+          fileObj.original.type == 'application/x-troff-msvideo' ||
+          fileObj.original.type == 'video/msvideo' ||
+          fileObj.original.type == 'video/x-msvideo' ||
+          fileObj.original.type == 'video/m4v' ||
           fileObj.original.type == 'video/webm') {
                 ffm.videoCodec('libx264')
                 .videoBitrate(800 * 1000)
@@ -126,12 +131,18 @@ metaStore = new FS.Store.FileSystem("meta", {
   transformWrite: function(fileObj, readStream, writeStream) {
     if(!col) return false;
     if(fileObj.original.type == 'video/mp4' ||
-    fileObj.original.type == 'video/ogv' ||
-    fileObj.original.type == 'application/x-troff-msvideo' ||
-    fileObj.original.type == 'video/mpeg' ||
-    fileObj.original.type == 'video/x-msvideo' ||
-    fileObj.original.type == 'video/m4v' ||
-    fileObj.original.type == 'video/webm') {
+      fileObj.original.type == 'video/ogv' ||
+      fileObj.original.type == 'application/x-troff-msvideo' ||
+      fileObj.original.type == 'video/mpeg' ||
+      fileObj.original.type == 'video/x-msvideo' ||
+      fileObj.original.type == 'video/m4v' ||
+      fileObj.original.type == 'video/avi' ||
+      fileObj.original.type == 'application/x-troff-msvideo' ||
+      fileObj.original.type == 'video/msvideo' ||
+      fileObj.original.type == 'video/x-msvideo' ||
+      fileObj.original.type == 'video/m4v' ||
+      fileObj.original.type == 'video/webm') {
+
       col.update({_id:fileObj._id},{$set:{'metadata.type':'video'}});
     }
     if(fileObj.original.type.startsWith("image/")) col.update({_id:fileObj._id},{$set:{'metadata.type':'image'}});
@@ -168,7 +179,7 @@ Files = new FS.Collection("files", {
     maxSize: 4294967296, //in bytes
     allow: {
       contentTypes: ['image/*', 'audio/*', 'video/*', 'application/pdf'],
-      extensions: ['png', 'jpg', 'jpeg', 'gif','mp3', 'pdf', 'mp4']
+      extensions: ['png', 'jpg', 'jpeg', 'gif','mp3', 'pdf', 'mp4', 'avi']
     },
     onInvalid: function (message) {
       if(Meteor.isClient){
