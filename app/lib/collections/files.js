@@ -101,11 +101,12 @@ var mediaStore = new FS.Store.FileSystem("media", {
               done();
             }).run();
     	    }).on('progress', function(progress) {
-            //console.log('Processing: ',fileObj.original.name, progress.percent + '% done');
             if(++count > 10) {
               count = 0;
+              perc = progress.percent;
+              if(perc > 100 )perc = 100;
               Fiber(function() {
-                col.update({_id:fileObj._id},{$set:{"metadata.conversionProgress":Math.round(progress.percent)}});
+                col.update({_id:fileObj._id},{$set:{"metadata.conversionProgress":Math.round(perc)}});
               }).run();
             }
           }).on('end', function() {
