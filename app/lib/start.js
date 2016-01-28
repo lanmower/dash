@@ -91,7 +91,7 @@ processForm = function(id, formData) {
 }
 
 var buildSchema = function(form) {
-  console.log("Building schema");
+  console.log("Building schema", form.collectionName);
   var schema = Meteor.schema();
   form.fields.forEach(function(item) {
     if(item.name) {
@@ -144,9 +144,11 @@ var notifyRequired = function(doc, form) {
 }
 
 var updateField = function(id, field) {
-  form = null;
-  if(field.parent) form = Meteor.forms[field.parent];
-  if(form) form.collection.attachSchema(buildSchema(form), {replace:true});
+  origfield = Fields.findOne({_id:id});
+  if(origfield.parent) {
+    var form = Meteor.forms[origfield.parent];
+    if(form) form.collection.attachSchema(buildSchema(form), {replace:true});
+  }
 }
 
 
@@ -199,7 +201,6 @@ Meteor.startup(function () {
     })
     Fields.find({}).observeChanges({
       changed : updateField,
-      added : updateField
     });
 
     started = true;
