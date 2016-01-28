@@ -3,8 +3,8 @@ Template.diary.onCreated( function() {
   var self = this;
   self.tod = ReactiveVar(null);
   var done = false;
+  self.subscribe('diaries');
   self.autorun(function() {
-      self.subscribe('diaries');
     	if (Template.instance().subscriptionsReady()) {
         if(!done) {
         if(self.tod.get()) {
@@ -15,10 +15,8 @@ Template.diary.onCreated( function() {
               if(diary) return diary.diary;
             }
           });
-          Tracker.autorun(function () {
-            var tag = self.find('.diary');
-            if(self.tod.get()) $(tag).code(Diaries.findOne({_id:self.tod.get()}, {reactive:false}).diary);
-          });
+          var tag = self.find('.diary');
+          $(tag).code(Diaries.findOne({_id:self.tod.get()}, {reactive:false}).diary);
         }
         var ret = Diaries.findOne({user:Meteor.userId(), date:new Date().setHours(0,0,0,0)}, {reactive:false});
         if(!ret) {
@@ -44,13 +42,12 @@ Template.diary.rendered = function() {
   var doneTypingInterval = 1000;
   var diary;
 
-  var doneTyping = function() {
-    Diaries.update({_id:self.tod.get()}, {'$set':{"diary":diary.toString()}});
-  }
-
+  console.log('test');
   var tag = this.find('.diary');
+  console.log(tag);
   $(tag).summernote({
-    oninit: function() {
+  callbacks: {
+      oninit: function() {
        var ne = $('div.note-editable');
        var ned = $('div.note-editor');
        ned.css('position', 'absolute');
@@ -65,10 +62,10 @@ Template.diary.rendered = function() {
        ne.css('left', 0);
        console.log("test");
     },
-    onKeyup: function($editable, sHtml) {
-      clearTimeout(typingTimer);
-      console.log("test");
+    onKeyup: _.debounce(function(event, template) {
       diary = $(tag).code();
-      typingTimer = setTimeout(doneTyping, doneTypingInterval);
-    }})
+      Diaries.update({_id:self.tod.get()}, {'$set':{"diary":diary.toString()}});
+    }, doneTypingInterval)
+  }
+})
 };
