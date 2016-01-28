@@ -18,7 +18,16 @@
     <tr>
       <td>{{metadata.id3.title}}</td>
       <td><a href="{{this.url download=true}}" target="_blank">download</a></td>
-      {{#if metadata.converted}}<td class="playTrack">play</td>{{/if}}
+      {{#if metadata.converted}}
+        <td class="playTrack">play</td>
+      {{else}}
+        {{#if metadata.conversionProgress}}
+          Converting: {{metadata.conversionProgress}}%
+          {{else}}
+          {{#if metadata.conversionError}} Conversion error. {{metadata.conversionError}}
+          {{else}}Queued for conversion.{{/if}}
+        {{/if}}
+      {{/if}}
     </tr>
     {{/each}}
   </table>

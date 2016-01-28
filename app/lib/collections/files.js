@@ -7,7 +7,7 @@ if(Meteor.isServer) {
   var Transcoder = Meteor.npmRequire("stream-transcoder");
   var ffmpeg = Meteor.npmRequire("fluent-ffmpeg");
   var Fiber = Meteor.npmRequire('fibers');
-  var queue = new PowerQueue({
+  queue = new PowerQueue({
      autostart: true
    });
 
@@ -49,6 +49,7 @@ var thumbnailStore = new FS.Store.FileSystem("thumbs", {
     //.gravity('Center').crop(300, 300).quality(100).autoOrient().stream().pipe(writeStream);
   }
 });
+transformedMedia = [];
 var mediaStore = new FS.Store.FileSystem("media", {
   //Create the thumbnail as we save to the store.
   transformWrite: function(fileObj, readStream, writeStream) {
@@ -57,56 +58,66 @@ var mediaStore = new FS.Store.FileSystem("media", {
     //  console.log(err);
     //  console.log(metadata);
     //});
+    if(typeof Files !== 'undefined') {
+    } else return false;
 
-    if(fileObj.original.type == 'audio/mp3') {
-      queue.add(function(done) {
-        new Transcoder(readStream)
-      	    .audioCodec('libmp3lame')
-      	    .audioBitrate(128 * 1000)
-      	    .format('mp3')
-            .on('error', function(error ) {
-              Fiber(function() {
-                col.update({_id:fileObj._id},{$set:{'metadata.conversionError':error}});
-                done();
-              }).run();
-      	    }).on('finish', function() {
-              Fiber(function() {
-                col.update({_id:fileObj._id},{$set:{'metadata.converted':true}});
-                done();
-              }).run();
-      	    }).stream().pipe(writeStream);
-      });
+
+    if(_.contains(transformedMedia, fileObj._id)) {
+      return false;
     }
-    if(fileObj.original.type == 'video/mp4' ||
-    fileObj.original.type == 'video/ogv' ||
-    fileObj.original.type == 'application/x-troff-msvideo' ||
-    fileObj.original.type == 'video/mpeg' ||
-    fileObj.original.type == 'video/x-msvideo' ||
-    fileObj.original.type == 'video/m4v' ||
-    fileObj.original.type == 'video/webm') {
+    transformedMedia.push(fileObj._id);
       if(!col) return false;
       queue.add(function(done) {
-        var url=absolutePath+"/"+masterStore.adapter.fileKey(Files.findOne());
-        console.log(url);
-        ffmpeg(url).videoCodec('libx264')
-              .videoBitrate(800 * 1000)
-              .size('?x100')
-              .audioCodec('aac')
-              .audioBitrate(128 * 1000)
-              .format('flv')
-              //.custom('i', fileObj.url())
-              .on('end', function() {
-                console.log('finished');
-                Fiber(function() {
-                  col.update({_id:fileObj._id},{$set:{'metadata.converted':true}});
-                  done();
-                }).run();
-              }).on('error', function(err) {
-                done();
-                console.log('an error happened: ' + err.message);
-              }).pipe(writeStream, {end:true});
+        var url=absolutePath+"/"+masterStore.adapter.fileKey(fileObj);
+        var count = 0;
+        var run = false;
+        ffm = ffmpeg(url);
+        if(fileObj.original.type == 'audio/mp3') {
+          ffm.audioCodec('libmp3lame')
+      	    .audioBitrate(128 * 1000)
+      	    .format('mp3');
+            run = true;
+          }
+        if(fileObj.original.type == 'video/mp4' ||
+          fileObj.original.type == 'video/ogv' ||
+          fileObj.original.type == 'application/x-troff-msvideo' ||
+          fileObj.original.type == 'video/mpeg' ||
+          fileObj.original.type == 'video/x-msvideo' ||
+          fileObj.original.type == 'video/m4v' ||
+          fileObj.original.type == 'video/webm') {
+                ffm.videoCodec('libx264')
+                .videoBitrate(800 * 1000)
+                .size('?x100')
+                .audioCodec('aac')
+                .audioBitrate(128 * 1000)
+                .format('flv');
+                run = true;
+              }
+
+          if(run)ffm.on('error', function(err, stdout, stderr) {
+            Fiber(function() {
+              col.update({_id:fileObj._id},{$set:{'metadata.conversionError':err.message}});
+              if (transformedMedia.indexOf(fileObj._id) > -1) transformedMedia.splice(transformedMedia.indexOf(fileObj._id), 1);
+              done();
+            }).run();
+    	    }).on('progress', function(progress) {
+            //console.log('Processing: ',fileObj.original.name, progress.percent + '% done');
+            if(++count > 10) {
+              count = 0;
+              Fiber(function() {
+                col.update({_id:fileObj._id},{$set:{"metadata.conversionProgress":Math.round(progress.percent)}});
+              }).run();
+            }
+          }).on('end', function() {
+            Fiber(function() {
+              col.update({_id:fileObj._id},{$set:{'metadata.converted':true}});
+              if (transformedMedia.indexOf(fileObj._id) > -1) transformedMedia.splice(transformedMedia.indexOf(fileObj._id), 1);
+              done();
+            }).run();
+    	    }).stream().pipe(writeStream, {end:true});
       });
-    }
+
+    return true;
   }
 });
 

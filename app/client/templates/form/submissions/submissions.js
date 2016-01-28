@@ -12,7 +12,9 @@ Template.submissions.created = function () {
     }
   });
 
-  searchQuery = Meteor.subscribe('formSearch', Router.current().params._id, "");
+  template.autorun(function(){
+    searchQuery = Meteor.subscribe('formSearch', Router.current().params._id, Session.get('searchQuery'));
+  });
 };
 Template.submissions.events({
   "submit .form": function(event) {
@@ -21,8 +23,6 @@ Template.submissions.events({
   'keyup .form input': _.debounce(function(event, template) {
     event.preventDefault();
     Session.set('searchQuery', template.find('.form input').value);
-    if(searchQuery) searchQuery.stop();
-    searchQuery = Meteor.subscribe('formSearch', Router.current().params._id, Session.get('searchQuery'));
   }, 300)
 });
 Template.submissions.helpers({
@@ -37,7 +37,6 @@ Template.submissions.helpers({
         if(base[x].listable) schema.push(base[x]);
       }
     }
-    console.log('test');
     return schema;
   },
   currentForm: function() {
