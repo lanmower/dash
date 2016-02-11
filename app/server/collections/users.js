@@ -18,7 +18,7 @@ SetEmail = function(user) {
     };
 };
 Accounts.onCreateUser(function(options, user) {
-  if(user.services.google.email) {
+  if(user.services && user.services.google && user.services.google.email) {
     Meteor.users.update({"_id":user.id}, {"$set":{"profile.email": user.services.google.email}});
     DownloadAvatar(user);
   }

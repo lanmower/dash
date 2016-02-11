@@ -38,7 +38,7 @@ Router.route('page/edit/:_id', {
   fastRender: true,
   where: 'client'
 });
-Router.route('/:path', {
+Router.route('/page/:path', {
 	parent: 'home',
 	//title: 'Edit Page',
   name: 'viewPageByPath',

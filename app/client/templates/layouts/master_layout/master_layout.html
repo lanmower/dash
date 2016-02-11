@@ -42,10 +42,13 @@
                   'https://www.googleapis.com/auth/tasks',
                   'https://mail.google.com/'], loginStyle: 'redirect',  requestOfflineToken: true})//forceApprovalPrompt: true"><i class="fa fa-plus"></i>Sign in</a>
                 </li-->
+                <li>
+                {{> atNavButton}}
+                </li>
+              {{else}}
                 {{> loginButtons}}
-                {{else}}
-                {{/if}}
-                {{/if}}
+              {{/if}}
+            {{/if}}
                 <!--li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <img src="{{userImage}}" class="user-image" alt="User Image">
