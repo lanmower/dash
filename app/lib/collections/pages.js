@@ -16,20 +16,21 @@ Pages.attachSchema(new SimpleSchema(_.extend({
   },
   types:{
         type: [String],
-        optional: true,
-        // minCount: 1,
         autoform: {
           type: "universe-select",
           afFieldInput: {
             multiple: true,
             options: function () {
-              return Meteor.widgetTypes;
+              return Meteor.fieldTypes;
             }
           }
         }
     },
-
-  }, Meteor.schema(), Meteor.protectSchema()
+    "types.$": {
+          type: String,
+          optional: true,
+      },
+}, Meteor.schema()
 )));
 
 Pages.allow({

@@ -186,10 +186,13 @@ Meteor.startup(function () {
       or.push({"_id": {
         "$in": mediaForms
       }});
-      console.log(query,Meteor.forms[form].collection.find({$or:or}, {
-        limit: 20
-      }).fetch());
-      return Meteor.forms[form].collection.find({$or:or}, {
+      return Meteor.forms[form].collection.find({$and:[{$or:or},{$or: [
+        {createdBy: this.userId},
+        {$and:[
+          {"public": true},
+          {"public": {$exists: true}}
+        ]}
+      ]}]}, {
         limit: 20
       });
   });

@@ -28,7 +28,8 @@
             </thead>
             <tbody>
               {{#each widgets}}
-              <tr>
+              <tr data-id='{{_id}}' data-listposition='{{listposition}}'>
+                <td><i class="fa-sort pull-right"></i></td>
                 <td>{{type}}</td>
                 <td>
                   {{#if (can "update" this)}}
