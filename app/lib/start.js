@@ -160,10 +160,18 @@ Meteor.startup(function () {
   }
   if(Meteor.isServer) {
     Meteor.publish('formSearch', function(form, query) {
+
+      var protection = {$or: [
+        {createdBy: this.userId},
+        {$and:[
+          {"public": true},
+          {"public": {$exists: true}}
+        ]}
+      ]}
       //check(query, String);
       var or=[];
       if (_.isEmpty(query)) {
-        return Meteor.forms[form].collection.find({}, {
+        return Meteor.forms[form].collection.find(protection, {
           limit: 20
         });
       }
@@ -186,13 +194,16 @@ Meteor.startup(function () {
       or.push({"_id": {
         "$in": mediaForms
       }});
-      return Meteor.forms[form].collection.find({$and:[{$or:or},{$or: [
+      console.log({$and:[{$or:or},{$or: [
         {createdBy: this.userId},
         {$and:[
           {"public": true},
           {"public": {$exists: true}}
         ]}
       ]}]}, {
+        limit: 20
+      });
+      return Meteor.forms[form].collection.find({$and:[{$or:or},protection]}, {
         limit: 20
       });
   });

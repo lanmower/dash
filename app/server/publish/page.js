@@ -25,9 +25,7 @@ Meteor.publishComposite('pageByPath', function(path) {
                 {$or:additions  }
               ]
         },
-        {sort: {
-          listposition: -1
-        }}
+        {sort: {listposition: 1}}
         );
         }
       }
@@ -53,11 +51,8 @@ Meteor.publishComposite('page', function(id) {
                   {'parent': page._id},
                   {$or:additions}
                 ]
-              },
-              {sort: {
-                listposition: -1
-              }}
-            );
+              }
+, {sort: {listposition: 1}}            );
         }
         }
       ]

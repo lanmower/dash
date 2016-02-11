@@ -19,7 +19,7 @@
       <div class="box">
         <div class="box-body table-responsive no-padding">
 
-          <table class="table table-hover">
+          <table id="items" class="table table-hover">
             <thead>
               <tr>
                 <th>type</th>
@@ -29,7 +29,7 @@
             <tbody>
               {{#each widgets}}
               <tr data-id='{{_id}}' data-listposition='{{listposition}}'>
-                <td><i class="fa-sort pull-right"></i></td>
+                <td><i class="fa fa-sort pull-right"></i></td>
                 <td>{{type}}</td>
                 <td>
                   {{#if (can "update" this)}}

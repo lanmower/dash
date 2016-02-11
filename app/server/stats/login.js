@@ -7,11 +7,14 @@ Hooks.onLoggedIn = function (userId) {
     DownloadAvatar(Meteor.user());
   };
   SetEmail(Meteor.user());
-  if(!Meteor.user().profile.name ||
+  if(
   (Meteor.user().services.google.name && Meteor.user().profile.name != Meteor.user().services.google.name)
   ) {
     Meteor.users.update({_id:userId },{"$set":{'profile.name': Meteor.user().services.google.name}});
+  } else if(!Meteor.user().profile || !Meteor.user().profile.name) {
+    Meteor.users.update({_id:userId },{"$set":{'profile.name': 'asdf'}});
   }
+
 
 
   Events.insert({event:"login",userId:Meteor.userId(),time:new Date()});
