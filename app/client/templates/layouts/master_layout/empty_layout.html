@@ -1,0 +1,14 @@
+<template name="emptyLayout">
+  <div class="fill">
+    <div class="contain">
+      {{#AdminLTE skin=(config 'skin')}}
+      <!-- Content Wrapper. Contains page content -->
+      <div class="content box">
+          {{> yield}}
+      </div>
+
+      {{/AdminLTE}}
+    </div>
+  </div>
+  {{>subInfo}}
+</template>
