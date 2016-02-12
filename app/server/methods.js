@@ -13,6 +13,11 @@ String.prototype.EncodeXMLEscapeChars = function () {
     }
     return OutPut;
 };
+decodeRawData = function(body){
+  if(body)
+   return (new Buffer(body.replace(/-/g, '+').replace(/_/g, '/'), "base64")).toString();
+};
+
 
 Meteor.methods({
   getFiles: function(params) {
@@ -57,6 +62,7 @@ Meteor.methods({
         }
     return "";
   },
+
   getDiary: function(params) {
 
   var list = GoogleApi.get('drive/v2/files', {params:{'q':'"0B4GAIeqJCOSTfmRMZDdCdV9QUFZCV3VkbU4zZFR4LVJ1dUNlZmNRTXYxTG9wYjRKc3BjRk0" in parents AND title contains "admin@coas.co.za"'}});
@@ -80,8 +86,56 @@ Meteor.methods({
     //actual email sending method
     Email.send({to: to, from: from, subject: subject, text: text, html:html});
   },
-    getMailMessages: function() {
+  listMailMessages: function() {
     var result = GoogleApi.get('gmail/v1/users/'+Meteor.user().profile.email+"/messages");
+    return result;
+  },
+  getMailMessage: function(id) {
+    var result = GoogleApi.get('gmail/v1/users/'+Meteor.user().profile.email+"/messages/"+id);
+    var retval = {};
+
+    if(result.payload.body.size) retval.plainBody = {mimeType:"text/plain",data:decodeRawData(result.payload.body.data)};
+    else console.log(result);
+    for(i in result.payload.headers) {
+      if(result.payload.headers[i].name == "Subject") retval.subject = result.payload.headers[i].value;
+      if(result.payload.headers[i].name == "From") retval.from = result.payload.headers[i].value;
+      if(result.payload.headers[i].name == "To") retval.to = result.payload.headers[i].value;
+    }
+    for(i in result.payload.parts) {
+      if(result.payload.parts[i].mimeType == "text/html") {
+        retval.htmlBody = {mimeType:"text/html",data:decodeRawData(result.payload.parts[i].body.data)};
+      }
+      if(result.payload.parts[i].mimeType == "text/plain") {
+        retval.plainBody = {mimeType:"text/html",data:decodeRawData(result.payload.parts[i].body.data)};
+      }
+    }
+    retval.id = result.id;
+    return retval;
+  },
+  getMailMessages: function(ids) {
+    var result;
+    var user = Meteor.user();
+    var Batchelor = Meteor.npmRequire("batchelor");
+    var batch = new Batchelor({
+      'uri':'https://www.googleapis.com/batch',
+      'method':'GET',
+      'auth': {
+          'bearer': user.services.google.accessToken
+      },
+      'headers': {
+          'Content-Type': 'multipart/mixed'
+      }
+    });
+    batch.add({
+        'method':'GET',
+        'path':'gmail/v1/users/'+Meteor.user().profile.email+"/messages"
+    })
+    var result = batch.run(function(err, response) {
+      result = response;
+      console.log(err);
+      console.log(response);
+    });
+    console.log("done");
     return result;
   },
   /**

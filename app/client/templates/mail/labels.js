@@ -11,14 +11,12 @@ Template.mailLabels.created = function () {
         output.push(data[x]);
       }
       template.labels.set(output[0]);
-      console.log(template.labels.get());
     });
   });
 };
 
 Template.mailLabels.helpers({
   labels: function() {
-    console.log('test');
     return Template.instance().labels.get();
   }
 });

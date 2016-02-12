@@ -4,7 +4,7 @@ Template.mailMessages.created = function () {
   template.messages = new ReactiveVar();
 
   template.autorun(function () {
-    Meteor.call('getMailMessages', function(err, data) {
+    Meteor.call('listMailMessages', function(err, data) {
       if (err) console.log(err);
       var output = [];
       for(var x in data) {
@@ -18,7 +18,6 @@ Template.mailMessages.created = function () {
 
 Template.mailMessages.helpers({
   messages: function() {
-    console.log('test');
     return Template.instance().messages.get();
   }
 });
