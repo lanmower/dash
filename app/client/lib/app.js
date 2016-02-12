@@ -2,7 +2,6 @@ Accounts.ui.config(
   {
     requestOfflineToken: {google: true},
     forceApprovalPrompt: {google: true},
-    loginStyle: 'redirect',
     requestPermissions:
     {google:
     ['https://www.googleapis.com/auth/userinfo.email',
@@ -15,10 +14,7 @@ Accounts.ui.config(
     }
 });
 
-ServiceConfiguration.configurations.update(
-  {service: 'google'},
-  {$set: {loginStyle: 'redirect'}}
-);
+
 /*userGeoLocation = new ReactiveVar(null);
 Meteor.startup(function () {                                                                    // 36
   Hooks.init();

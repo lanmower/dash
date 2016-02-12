@@ -20,6 +20,7 @@ AccountsTemplates.configure({
     overrideLoginErrors: true,
     enablePasswordChange: true,
     sendVerificationEmail: false,
+		focusFirstInput: true,
 
     enforceEmailVerification: true,
     confirmPassword: true,
@@ -30,7 +31,7 @@ AccountsTemplates.configure({
     //homeRoutePath: '/',
     //showAddRemoveServices: false,
     //showPlaceholders: true,
-
+		socialLoginStyle: "redirect",
     negativeValidation: true,
     positiveValidation:true,
     negativeFeedback: false,
