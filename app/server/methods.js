@@ -95,18 +95,21 @@ Meteor.methods({
     var retval = {};
 
     if(result.payload.body.size) retval.plainBody = {mimeType:"text/plain",data:decodeRawData(result.payload.body.data)};
-    else console.log(result);
     for(i in result.payload.headers) {
       if(result.payload.headers[i].name == "Subject") retval.subject = result.payload.headers[i].value;
       if(result.payload.headers[i].name == "From") retval.from = result.payload.headers[i].value;
       if(result.payload.headers[i].name == "To") retval.to = result.payload.headers[i].value;
     }
     for(i in result.payload.parts) {
-      if(result.payload.parts[i].mimeType == "text/html") {
-        retval.htmlBody = {mimeType:"text/html",data:decodeRawData(result.payload.parts[i].body.data)};
+      if(result.payload.parts[i].mimeType == "multipart/alternative") {
+        for(var j in result.payload.parts[i].parts) {
+          retval.htmlBody = decodeRawData(result.payload.parts[i].parts[j].body.data);
+        }
       }
       if(result.payload.parts[i].mimeType == "text/plain") {
-        retval.plainBody = {mimeType:"text/html",data:decodeRawData(result.payload.parts[i].body.data)};
+        for(var j in result.payload.parts[i].parts) {
+          retval.plainBody = decodeRawData(result.payload.parts[i].parts[j].body.data);
+        }
       }
     }
     retval.id = result.id;

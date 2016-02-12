@@ -7,3 +7,14 @@ Router.route('mail/list', {
   fastRender: true,
   where: 'client'
 });
+
+Router.route('mail/view/:id', {
+	parent: 'home',
+  name: 'mailMessageView',
+  data: function() {
+		return {id:this.params.id};
+  },
+	title: 'Read Message',
+  fastRender: true,
+  where: 'client'
+});
