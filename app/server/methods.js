@@ -17,7 +17,32 @@ decodeRawData = function(body){
   if(body)
    return (new Buffer(body.replace(/-/g, '+').replace(/_/g, '/'), "base64")).toString();
 };
+var getMailMessage= function(id) {
+  var result = GoogleApi.get('gmail/v1/users/'+Meteor.user().profile.email+"/messages/"+id);
+  var retval = {};
 
+  if(result.payload.body.size) retval.plainBody = {mimeType:"text/plain",data:decodeRawData(result.payload.body.data)};
+  for(i in result.payload.headers) {
+    if(result.payload.headers[i].name == "Subject") retval.subject = result.payload.headers[i].value;
+    if(result.payload.headers[i].name == "From") retval.from = result.payload.headers[i].value;
+    if(result.payload.headers[i].name == "To") retval.to = result.payload.headers[i].value;
+  }
+  for(i in result.payload.parts) {
+    if(result.payload.parts[i].mimeType == "multipart/alternative") {
+      for(var j in result.payload.parts[i].parts) {
+        retval.htmlBody = decodeRawData(result.payload.parts[i].parts[j].body.data);
+      }
+    }
+    if(result.payload.parts[i].mimeType == "text/plain") {
+      for(var j in result.payload.parts[i].parts) {
+        retval.plainBody = decodeRawData(result.payload.parts[i].parts[j].body.data);
+      }
+    }
+  }
+  retval.id = result.id;
+  return retval;
+
+}
 
 Meteor.methods({
   getFiles: function(params) {
@@ -88,33 +113,13 @@ Meteor.methods({
   },
   listMailMessages: function() {
     var result = GoogleApi.get('gmail/v1/users/'+Meteor.user().profile.email+"/messages");
+    for(var i in result.messages) {
+      var id = result.messages[i].id;
+      result.messages[i] = getMailMessage(id);
+    }
     return result;
   },
-  getMailMessage: function(id) {
-    var result = GoogleApi.get('gmail/v1/users/'+Meteor.user().profile.email+"/messages/"+id);
-    var retval = {};
-
-    if(result.payload.body.size) retval.plainBody = {mimeType:"text/plain",data:decodeRawData(result.payload.body.data)};
-    for(i in result.payload.headers) {
-      if(result.payload.headers[i].name == "Subject") retval.subject = result.payload.headers[i].value;
-      if(result.payload.headers[i].name == "From") retval.from = result.payload.headers[i].value;
-      if(result.payload.headers[i].name == "To") retval.to = result.payload.headers[i].value;
-    }
-    for(i in result.payload.parts) {
-      if(result.payload.parts[i].mimeType == "multipart/alternative") {
-        for(var j in result.payload.parts[i].parts) {
-          retval.htmlBody = decodeRawData(result.payload.parts[i].parts[j].body.data);
-        }
-      }
-      if(result.payload.parts[i].mimeType == "text/plain") {
-        for(var j in result.payload.parts[i].parts) {
-          retval.plainBody = decodeRawData(result.payload.parts[i].parts[j].body.data);
-        }
-      }
-    }
-    retval.id = result.id;
-    return retval;
-  },
+  getMailMessage: getMailMessage,
   getMailMessages: function(ids) {
     var result;
     var user = Meteor.user();
