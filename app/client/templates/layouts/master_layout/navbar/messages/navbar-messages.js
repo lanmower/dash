@@ -22,8 +22,8 @@ Template.navbarMessage.helpers({
   },
 });
 Template.navbarMessages.onCreated(function () {
-  Meteor.subscribe("messages");
-  Meteor.subscribe("users");
+  this.subscribe("messages");
+  this.subscribe("users");
 });
 Template.navbarMessages.open = false;
 Template.navbarMessage.rendered = function(){

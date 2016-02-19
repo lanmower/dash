@@ -7,13 +7,13 @@ Template.submissions.created = function () {
   template.autorun(function () {
     if(Template.currentData()) {
       //Meteor.subscribe(Template.currentData().collectionName);
-      Meteor.subscribe("forms");
+      template.subscribe("forms");
       template.schema.set(listSchema(Template.currentData()));
     }
   });
 
   template.autorun(function(){
-    searchQuery = Meteor.subscribe('formSearch', Router.current().params._id, Session.get('searchQuery'));
+    searchQuery = template.subscribe('formSearch', Router.current().params._id, Session.get('searchQuery'));
   });
 };
 Template.submissions.events({

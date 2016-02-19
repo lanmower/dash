@@ -32,6 +32,7 @@ AccountsTemplates.configure({
     //showAddRemoveServices: false,
     //showPlaceholders: true,
 		socialLoginStyle: "redirect",
+		forceApprovalPrompt: true,
     negativeValidation: true,
     positiveValidation:true,
     negativeFeedback: false,

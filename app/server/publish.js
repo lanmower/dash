@@ -83,6 +83,14 @@ Meteor.publish('forms', function () {
   return Forms.find({$or:additions});
 });
 
+Meteor.publish('gmailMsg', function(id) {
+  return gmail.find({_id:id});
+});
+
+Meteor.publish('gmailSearch', function(uid, q) {
+  return [gmailSearch.find({user:uid, query:q}), gmail.find({user:uid, query:q})];
+});
+
 Meteor.publishComposite('form', function(_id) {
   var additions = Widgets.additions(this);
   return {

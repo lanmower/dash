@@ -14,5 +14,5 @@ Template.navbarUsers.viewmodel({
   },
 });
 Template.navbarUsers.onCreated(function () {
-  Meteor.subscribe("users");
+  this.subscribe("users");
 });

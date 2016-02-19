@@ -5,7 +5,7 @@
 
       <div class="box-tools pull-right">
         <div class="has-feedback">
-          <input type="text" class="form-control input-sm" placeholder="Search Mail">
+          <input type="text" class="form-control input-sm" id="mailSearch" placeholder="Search Mail">
           <span class="glyphicon glyphicon-search form-control-feedback"></span>
         </div>
       </div>
@@ -13,8 +13,7 @@
     </div>
     <!-- /.box-header -->
     <div class="box-body no-padding">
-      <div class="mailbox-controls">
-        <!-- Check all button -->
+      <!--div class="mailbox-controls">
         <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i>
         </button>
         <div class="btn-group">
@@ -22,7 +21,6 @@
           <button type="button" class="btn btn-default btn-sm"><i class="fa fa-reply"></i></button>
           <button type="button" class="btn btn-default btn-sm"><i class="fa fa-share"></i></button>
         </div>
-        <!-- /.btn-group -->
         <button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button>
         <div class="pull-right">
           1-50/200
@@ -30,22 +28,14 @@
             <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></button>
             <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></button>
           </div>
-          <!-- /.btn-group -->
         </div>
-        <!-- /.pull-right -->
-      </div>
+      </div-->
       <div class="table-responsive mailbox-messages">
         <table class="table table-hover table-striped">
           <tbody>
             {{#each messages}}
-            <tr>
-              <td><input type="checkbox"></td>
-              <td class="mailbox-star"><a href="https://mail.google.com/#inbox/{{id}}" target="_blank">Open in GMail</a></td>
-              <td class="mailbox-name">{{#linkTo route="mailMessageView" id=id}} {{message.from}} {{/linkTo}}</td>
-              <td class="mailbox-subject">{{message.subject}}</td>
-              <td class="mailbox-attachment"></td>
-              <td class="mailbox-date">5 mins ago</td>
-            </tr>
+
+              {{ > mailMessage}}
             {{/each}}
           </tbody>
         </table>
@@ -54,9 +44,8 @@
       <!-- /.mail-box-messages -->
     </div>
     <!-- /.box-body -->
-    <div class="box-footer no-padding">
+    <!--div class="box-footer no-padding">
       <div class="mailbox-controls">
-        <!-- Check all button -->
         <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i>
         </button>
         <div class="btn-group">
@@ -64,7 +53,6 @@
           <button type="button" class="btn btn-default btn-sm"><i class="fa fa-reply"></i></button>
           <button type="button" class="btn btn-default btn-sm"><i class="fa fa-share"></i></button>
         </div>
-        <!-- /.btn-group -->
         <button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button>
         <div class="pull-right">
           1-50/200
@@ -72,11 +60,22 @@
             <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></button>
             <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></button>
           </div>
-          <!-- /.btn-group -->
         </div>
-        <!-- /.pull-right -->
       </div>
-    </div>
+    </div-->
   </div>
   <!-- /. box -->
+</template>
+<template name="mailMessage">
+  <tr>
+    {{debug}}
+    {{#with message}}
+    <td><input type="checkbox"></td>
+    <td class="mailbox-star"><a href="https://mail.google.com/#inbox/{{_id}}" target="_blank">Open in GMail</a></td>
+    <td class="mailbox-name">{{#linkTo route="mailMessageView"}} {{from}} {{/linkTo}}</td>
+    <td class="mailbox-subject">{{subject}}</td>
+    <td class="mailbox-attachment"></td>
+    <td class="mailbox-date">5 mins ago</td>
+    {{/with}}
+  </tr>
 </template>

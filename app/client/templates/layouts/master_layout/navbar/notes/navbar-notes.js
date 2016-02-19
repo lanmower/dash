@@ -2,7 +2,7 @@ Template.navbarNotes.helpers({
 });
 
 Template.navbarNotes.onCreated(function () {
-  Meteor.subscribe("notes");
+  this.subscribe("notes");
 });
 
 Template.navbarNotes.open = false;

@@ -4,8 +4,8 @@ Template.submissionsAdmin.created = function () {
   template.schema = new ReactiveVar(null);
 
   template.autorun(function () {
-    Meteor.subscribe(Template.currentData().collectionName+"-admin");
-    Meteor.subscribe("forms");
+    template.subscribe(Template.currentData().collectionName+"-admin");
+    template.subscribe("forms");
     template.destroyForm.set(true);
     template.schema.set(listSchema(Template.currentData(), true));
   });

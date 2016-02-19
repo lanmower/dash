@@ -17,6 +17,6 @@ Template.mediaSearch.events({
     event.preventDefault();
     Session.set('searchQuery', template.find('.form input').value);
     if(searchQuery) searchQuery.stop();
-    searchQuery = Meteor.subscribe('formSearch', "6vFSoRFbXZJufbMPi", Session.get('searchQuery'));
+    searchQuery = this.subscribe('formSearch', "6vFSoRFbXZJufbMPi", Session.get('searchQuery'));
   }, 300)
 });

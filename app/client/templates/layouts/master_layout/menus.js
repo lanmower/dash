@@ -5,5 +5,5 @@ Template.Menus.helpers({
 });
 
 Template.Menus.onCreated(function () {
-  Meteor.subscribe("menus");
+  this.subscribe("menus");
 });

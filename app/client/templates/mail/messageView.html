@@ -29,7 +29,6 @@
                 <button type="button" class="btn btn-default btn-sm" data-toggle="tooltip" title="Print">
                   <i class="fa fa-print"></i></button>
               </div>
-              {{debug message}}
               <!-- /.mailbox-controls -->
               <div class="mailbox-read-message">
                 {{#if message.htmlBody}}
@@ -37,7 +36,6 @@
                 {{else}}
                   <pre>{{message.plainBody}}</pre>
                 {{/if}}
-
               </div>
               <!-- /.mailbox-read-message -->
             </div>

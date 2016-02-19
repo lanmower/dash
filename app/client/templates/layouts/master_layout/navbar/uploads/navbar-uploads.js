@@ -4,8 +4,9 @@ Template.navbarUploads.helpers({
   }
 });
 Template.navbarUploads.created = function(){
+  var template = this;
   this.autorun(function() {
-    Meteor.subscribe("uploads");
+    template.subscribe("uploads");
   });
 }
 Template.navbarUploads.events( {

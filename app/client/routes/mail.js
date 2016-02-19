@@ -1,19 +1,39 @@
-Router.route('mail/list', {
+Router.route('mail/list/:user/:q?', {
 	parent: 'home',
   name: 'mailList',
-  data: function() {
+
+	subscriptions: function() {
+		return Meteor.subscribe('gmailSearch', Router.current().data().user,Router.current().params.q);
+	},
+	data: function() {
+		var user = this.params.user||Meteor.userId();
+		var messages = gmailSearch.findOne({user:user, query:this.params.q});
+		if(messages) {
+			return {
+				user: user,
+				messages: messages.search.messages,
+			}
+		}
+		else {return {user:user, messages:null}};
   },
-	title: 'Inbox',
+ 	title: 'Inbox',
   fastRender: true,
   where: 'client'
 });
 
-Router.route('mail/view/:id', {
+Router.route('mail/view/:user/:_id', {
 	parent: 'home',
   name: 'mailMessageView',
+	subscriptions: function() {
+		return Meteor.subscribe('gmailMsg', this.params._id);
+	},
   data: function() {
-		return {id:this.params.id};
-  },
+			return {
+				id: this.params._id,
+				user: this.params.user,
+				message: gmail.findOne({_id:this.params._id})
+		  };
+	},
 	title: 'Read Message',
   fastRender: true,
   where: 'client'
