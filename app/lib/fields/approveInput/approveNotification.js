@@ -58,6 +58,7 @@ Fields.schemas.approveNotification = function(data) {
 var notify = function(userId, doc, form, item) {
   var min = 0;
   var user = Meteor.users.findOne({_id:doc.createdBy});
+  var submitter = Meteor.users.findOne({_id:userId});
   var formFields = form.fields.fetch();
   _.each(formFields, function(field) {
     if(field.type == "approveInput") {
@@ -70,7 +71,7 @@ var notify = function(userId, doc, form, item) {
   if(min == item.min) {
     console.log('sending notification');
 
-    fields = {'name' : user.profile.name, 'email' : user.profile.email, 'doc' : doc, 'date' : Date(), 'href' : Meteor.absoluteUrl()+'form/update/'+form._id+'/'+doc._id};
+    fields = {'submitter' : submitter, 'name' : user.profile.name, 'submitterName' : submitter.profile.name, 'email' : user.profile.email, 'submitterEmail' : submitter.profile.email, 'doc' : doc, 'date' : Date(), 'href' : Meteor.absoluteUrl()+'form/update/'+form._id+'/'+doc._id};
     if(item.email) {
       _.each(item.email, function(to) {
         if(to != user.profile.email) {
