@@ -59,7 +59,7 @@ Meteor.methods({
         //options.data = {signature:"test"};
         var list = GoogleApi.get('drive/v2/files', {params:{'q':''}});
 
-        Meteor.http.call("PUT", "https://apps-apis.google.com/a/feeds/emailsettings/2.0/coas.co.za/admin/signature", options, function(error, result) {
+        Meteor.http.call("PUT", "https://apps-apis.google.com/a/feeds/emailsettings/2.0/coas.co.za/"+alias+"/signature", options, function(error, result) {
           console.log(error, result, options);
         });
       } else {
