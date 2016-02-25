@@ -71,7 +71,7 @@ var notify = function(userId, doc, form, item) {
   if(min == item.min) {
     console.log('sending notification');
 
-    fields = {'submitter' : submitter, 'name' : user.profile.name, 'submitterName' : submitter.profile.name, 'email' : user.profile.email, 'submitterEmail' : submitter.profile.email, 'doc' : doc, 'date' : Date(), 'href' : Meteor.absoluteUrl()+'form/update/'+form._id+'/'+doc._id};
+    fields = {'submitter' : submitter, 'name' : user.profile.name,'date' : moment(item.createdAt).format('MMMM Do, YYYY'), 'submitterName' : submitter.profile.name, 'email' : user.profile.email, 'submitterEmail' : submitter.profile.email, 'doc' : doc, 'date' : Date(), 'href' : Meteor.absoluteUrl()+'form/update/'+form._id+'/'+doc._id};
     if(item.email) {
       _.each(item.email, function(to) {
         if(to != user.profile.email) {
