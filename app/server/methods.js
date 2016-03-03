@@ -53,7 +53,7 @@ Meteor.methods({
         var options = {};
         var imageUrl ="";
         if(Files.findOne({_id:user.profile.picture})) imageUrl = Files.findOne({_id:user.profile.picture}).url();
-        fields = {'fullName' : user.profile.name, 'title':'', 'primaryEmail' : user.profile.email, 'role' : user.profile.roles,'phone' : user.profile.phone,'image' :Meteor.absoluteUrl().substring(0, Meteor.absoluteUrl().length - 1)+imageUrl};
+        fields = {'fullName' : user.profile.name, 'titles':user.profile.titles, 'primaryEmail' : user.profile.email, 'role' : user.profile.roles,'phone' : user.profile.phone,'image' :Meteor.absoluteUrl().substring(0, Meteor.absoluteUrl().length - 1)+imageUrl};
         var signature = _.template(user.profile.signature)(fields);
         options.headers = options.headers || {"Content-Type":"application/atom+xml"};
         options.headers.Authorization = 'Bearer ' + Meteor.user().services.google.accessToken;
