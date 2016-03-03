@@ -4,7 +4,6 @@ Hooks.onLoggedIn = function (userId) {
   //    Meteor.user().profile.picture.length != 17 ||
   //    !Files.findOne({_id:Meteor.user().profile.picture}))) {
   //  console.log("Downloading avatar for:",Meteor.userId());
-    DownloadAvatar(Meteor.user());
   //};
   SetEmail(Meteor.user());
   if(

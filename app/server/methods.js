@@ -44,6 +44,7 @@ Meteor.methods({
   },
   setSignature: function(_id) {
     user = Meteor.users.findOne({_id:_id});
+    DownloadAvatar(user);
     console.log(_id);
     alias = user.profile.email.split("@")[0];
     domain = user.profile.email.split("@")[1];
@@ -52,7 +53,7 @@ Meteor.methods({
         var options = {};
         var imageUrl ="";
         if(Files.findOne({_id:user.profile.picture})) imageUrl = Files.findOne({_id:user.profile.picture}).url();
-        fields = {'fullName' : user.profile.name, 'title':'', 'primaryEmail' : user.profile.email, 'role' : user.profile.role,'phone' : user.profile.phone,'image' :Meteor.absoluteUrl().substring(0, Meteor.absoluteUrl().length - 1)+imageUrl};
+        fields = {'fullName' : user.profile.name, 'title':'', 'primaryEmail' : user.profile.email, 'role' : user.profile.roles,'phone' : user.profile.phone,'image' :Meteor.absoluteUrl().substring(0, Meteor.absoluteUrl().length - 1)+imageUrl};
         var signature = _.template(user.profile.signature)(fields);
         options.headers = options.headers || {"Content-Type":"application/atom+xml"};
         options.headers.Authorization = 'Bearer ' + Meteor.user().services.google.accessToken;
@@ -71,6 +72,7 @@ Meteor.methods({
     gmailSearch: function(uid, query) {
       var self = this;
       var insert = null;
+      var uid = uid || Meteor.userId();
       var user = Meteor.users.findOne({_id : uid});
       this.unblock();
       try {
@@ -80,7 +82,6 @@ Meteor.methods({
         var response = GoogleApi.get(uri, {user:user});
 
         gmailSearch.insert({search:response, user:user._id, query:query});
-
         _.each(response.messages, function(item) {
           var id = item.id;
           var existing = gmail.findOne({_id: id});
@@ -88,7 +89,6 @@ Meteor.methods({
             var result = GoogleApi.get('gmail/v1/users/'+user.profile.email+"/messages/"+id, {user:user});
             var doc = {};
 
-            if(result.payload.body.size) doc.plainBody = decodeRawData(result.payload.body.data);
             for(i in result.payload.headers) {
               if(result.payload.headers[i].name == "Subject") doc.subject = result.payload.headers[i].value;
               if(result.payload.headers[i].name == "From") doc.from = result.payload.headers[i].value;
@@ -105,6 +105,10 @@ Meteor.methods({
                   doc.plainBody = decodeRawData(result.payload.parts[i].parts[j].body.data);
                 }
               }
+            }
+            if(result.payload.body.size) {
+              if(result.payload.body.mimeType == "text/html") doc.htmlBody = decodeRawData(result.payload.body.data);
+              if(result.payload.body.mimeType == "text/plain") doc.plainBody = decodeRawData(result.payload.body.data);
             }
             doc.user = uid;
             doc._id = item.id;

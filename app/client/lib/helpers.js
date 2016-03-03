@@ -53,6 +53,7 @@ Template.registerHelper("getCollection", function() {
   return getCollection(this.collectionName);
 });
 
+
 Template.registerHelper("can", function(action, impactedDocument, fieldNames) {
   if(!impactedDocument) return false;
   if(!fieldNames.isArray) fieldNames = null;

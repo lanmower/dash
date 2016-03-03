@@ -29,6 +29,13 @@
             <button class="btn btn-info" type="button">Edit</button>
           {{/linkTo}}
         </td>
+        <td>
+          {{#if isInRole 'gmail-admin'}}
+            {{#linkTo route='mailList' user=_id}}
+              <button class="btn btn-info" type="button">Gmail Messages</button>
+            {{/linkTo}}
+          {{/if}}
+        </td>
       </tr>
     {{/each}}
     </tbody>
