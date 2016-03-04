@@ -1,4 +1,5 @@
-DownloadAvatar = function(user) {
+DownloadAvatar = function(userId) {
+  var user=Meteor.users.findOne(userId);
   if(user.services.google.picture) {
     var newFile = new FS.File();
     if(user.profile)

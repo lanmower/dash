@@ -69,6 +69,9 @@ Meteor.methods({
       }
       return "";
     },
+    downloadAvatar: function(userId) {
+      DownloadAvatar(userId)
+    },
     gmailSearch: function(uid, query) {
       var self = this;
       var insert = null;
