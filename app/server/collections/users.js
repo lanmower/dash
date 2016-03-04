@@ -9,6 +9,8 @@ DownloadAvatar = function(userId) {
     var newFile = new FS.File();
     if(user.profile)
       newFile.attachData(user.services.google.picture, function(error) {
+        if(error) console.log(error);
+        else {
           var file = Files.insert(newFile, function(error, fileObj) {
             if(error) console.log(error);
             else {
@@ -17,6 +19,7 @@ DownloadAvatar = function(userId) {
               user.profile.picture = file._id;
             }
           });
+        }
       });
   }
 };
