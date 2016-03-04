@@ -1,5 +1,6 @@
 ANDROID_HOME=/root/Android/Sdk
 PATH=$PATH:/root/Android/Sdk/tools:/root/Android/Sdk/platform-tools
+git pull
 cp -R /opt/beanscount/current/cfs/files/* /store/files
 mupx deploy 
 cp -R /store/files/* /opt/beanscount/current/cfs/files
