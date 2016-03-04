@@ -14,7 +14,6 @@ Template.registerHelper("pageTitle", function(title) {
   Meteor.pageTitle.set(title);
 });
 
-
 Template.registerHelper("arrayify", function(obj){
     result = [];
     for (var key in obj){

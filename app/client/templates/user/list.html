@@ -36,6 +36,11 @@
             {{/linkTo}}
           {{/if}}
         </td>
+        <td>
+          {{#callable name="downloadAvatar" userId=_id}}
+            <button class="btn btn-info" type="button">Download Avatar</button>
+          {{/callable}}
+        </td>
       </tr>
     {{/each}}
     </tbody>

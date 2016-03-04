@@ -70,7 +70,9 @@ Meteor.methods({
       return "";
     },
     downloadAvatar: function(userId) {
-      DownloadAvatar(userId)
+      console.log("Downloading avatar for:"+userId);
+      DownloadAvatar(userId);
+
     },
     gmailSearch: function(uid, query) {
       var self = this;

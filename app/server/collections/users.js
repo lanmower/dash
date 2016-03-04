@@ -1,14 +1,22 @@
 DownloadAvatar = function(userId) {
   var user=Meteor.users.findOne(userId);
+  if(user.profile.picture) {
+    console.log('Removing old avatar for:',userId);
+    var file = Files.findOne(user.profile.picture);
+    if(file) Files.remove(user.profile.picture);
+  }
   if(user.services.google.picture) {
     var newFile = new FS.File();
     if(user.profile)
       newFile.attachData(user.services.google.picture, function(error) {
           var file = Files.insert(newFile, function(error, fileObj) {
-          file = fileObj;
-          Meteor.users.update({_id:user._id },{"$set":{'profile.picture':file._id}});
-          user.profile.picture = file._id;
-        });
+            if(error) console.log(error);
+            else {
+              file = fileObj;
+              Meteor.users.update({_id:user._id },{"$set":{'profile.picture':file._id}});
+              user.profile.picture = file._id;
+            }
+          });
       });
   }
 };
