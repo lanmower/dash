@@ -1,5 +1,7 @@
 ANDROID_HOME=/root/Android/Sdk
 PATH=$PATH:/root/Android/Sdk/tools:/root/Android/Sdk/platform-tools
+cp -R /opt/beanscount/current/cfs/files/* /store/files
 mupx deploy 
+cp -R /store/files/* /opt/beanscount/current/cfs/files
 #iron build apk --server=beanscount.co.za
 # iron run android-device --mobile-server=http://beanscount.co.za --verbose
