@@ -71,8 +71,8 @@ Meteor.methods({
     },
     downloadAvatar: function(userId) {
       console.log("Downloading avatar for:"+userId);
+      this.unblock();
       DownloadAvatar(userId);
-
     },
     gmailSearch: function(uid, query) {
       var self = this;
@@ -127,9 +127,7 @@ Meteor.methods({
       console.log(error);
     }
   },
-
   getDiary: function(params) {
-
     var list = GoogleApi.get('drive/v2/files', {params:{'q':'"0B4GAIeqJCOSTfmRMZDdCdV9QUFZCV3VkbU4zZFR4LVJ1dUNlZmNRTXYxTG9wYjRKc3BjRk0" in parents AND title contains "admin@coas.co.za"'}});
     var todayPath = GoogleApi.get('drive/v2/files', {params:{'q':'"'+list.items[0].id+'" in parents AND title contains "today"'}});
     var today = GoogleApi.get('drive/v2/files', {params:{'q':'"'+todayPath.items[0].id+'" in parents AND title contains "today"'}});

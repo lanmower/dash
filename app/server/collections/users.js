@@ -7,9 +7,11 @@ DownloadAvatar = function(userId) {
   }
   if(user.services.google.picture) {
     var newFile = new FS.File();
-    if(user.profile)
+    if(user.profile) {
       newFile.attachData(user.services.google.picture, function(error) {
-        if(error) console.log(error);
+        if(error) {
+          console.log(error);
+        }
         else {
           var file = Files.insert(newFile, function(error, fileObj) {
             if(error) console.log(error);
@@ -21,6 +23,7 @@ DownloadAvatar = function(userId) {
           });
         }
       });
+    }
   }
 };
 SetEmail = function(user) {
