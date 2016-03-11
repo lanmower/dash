@@ -12,7 +12,16 @@
         <li>{{#linkTo route="configList"}}Config{{/linkTo}}</li>
     </ul>
   </li>
+  {{else}}
+  <li class="treeview">
+    <a href="#"><i class="fa fa-link"></i> <span>Site</span> <i class="fa fa-angle-left pull-right"></i></a>
+    <ul class="treeview-menu">
+        <li>{{#linkTo route="usersList"}}Users{{/linkTo}}</li>
+        <li>{{#linkTo route="formsList"}}Forms{{/linkTo}}</li>
+    </ul>
+  </li>
   {{/if}}
+
 
   {{#each menus}}
   <li class="treeview">

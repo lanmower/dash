@@ -41,6 +41,9 @@ Template.registerHelper("fromNow", function(dateToPass) {
 Meteor.collections = {};
 
 getCollection = function(name) {
+  if(!Forms.findOne({collectionName:name})) {
+     throw new Meteor.Error(404,"Not found.");
+  }
   if(!Meteor.collections[name]) {
     var collection = new Mongo.Collection(name);
     Meteor.collections[name] = collection;

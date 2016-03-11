@@ -43,9 +43,9 @@ Meteor.methods({
     });
   },
   setSignature: function(_id) {
+    var Future = Npm.require( 'fibers/future' );
+
     user = Meteor.users.findOne({_id:_id});
-    DownloadAvatar(user);
-    console.log(_id);
     alias = user.profile.email.split("@")[0];
     domain = user.profile.email.split("@")[1];
     if (user && user.services && user.services.google &&
@@ -60,14 +60,19 @@ Meteor.methods({
         options.content = '<?xml version="1.0" encoding="utf-8"?><atom:entry xmlns:atom="http://www.w3.org/2005/Atom" xmlns:apps="http://schemas.google.com/apps/2006"><apps:property name="signature" value="'+signature.EncodeXMLEscapeChars()+'" /></atom:entry>';
         //options.data = {signature:"test"};
         var list = GoogleApi.get('drive/v2/files', {params:{'q':''}});
+        var future = new Future();
 
-        Meteor.http.call("PUT", "https://apps-apis.google.com/a/feeds/emailsettings/2.0/coas.co.za/"+alias+"/signature", options, function(error, result) {
-          console.log(error, result, options);
+        Meteor.http.call("PUT", "https://apps-apis.google.com/a/feeds/emailsettings/2.0/coas.co.za/"+alias+"/signature", options, function( error, response ) {
+          if ( error ) {
+            future.return( error );
+          } else {
+            future.return( true );
+          }
         });
       } else {
         callback(new Meteor.Error(403, "Auth token not found. Connect your google account"));
       }
-      return "";
+      return future.wait();
     },
     downloadAvatar: function(userId) {
       console.log("Downloading avatar for:"+userId);
@@ -106,19 +111,21 @@ Meteor.methods({
                 }
               }
               if(result.payload.parts[i].mimeType == "text/plain") {
-                for(var j in result.payload.parts[i].parts) {
-                  doc.plainBody = decodeRawData(result.payload.parts[i].parts[j].body.data);
-                }
+                doc.plainBody = decodeRawData(result.payload.parts[i].body.data);
+              }
+              if(result.payload.parts[i].mimeType == "text/html") {
+                doc.htmlBody = decodeRawData(result.payload.parts[i].body.data);
               }
             }
             if(result.payload.body.size) {
-              if(result.payload.body.mimeType == "text/html") doc.htmlBody = decodeRawData(result.payload.body.data);
-              if(result.payload.body.mimeType == "text/plain") doc.plainBody = decodeRawData(result.payload.body.data);
+              if(result.payload.mimeType == "text/html") doc.htmlBody = decodeRawData(result.payload.body.data);
+              if(result.payload.mimeType == "text/plain") doc.plainBody = decodeRawData(result.payload.body.data);
             }
             doc.user = uid;
             doc._id = item.id;
             doc.user = uid;
             doc.query = query;
+            doc.original = result;
             gmail.insert(doc);
           }
         }

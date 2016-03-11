@@ -139,7 +139,10 @@ width:430px;
   opacity:1 !important;
 }
 
+.breadcrumb {
+      float: right;
+}
+
 .box-header li {
   display:inline-block;
-  float:right;
 }

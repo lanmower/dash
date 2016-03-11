@@ -1,5 +1,4 @@
 Meteor.fieldTypes.push({label:"Approve Notification", value:"approveNotification"});
-
 Widgets.schemas.approveNotification = function() {
   return {
     mailSubject:{
@@ -60,18 +59,25 @@ var notify = function(userId, doc, form, item) {
   var user = Meteor.users.findOne({_id:doc.createdBy});
   var submitter = Meteor.users.findOne({_id:userId});
   var formFields = form.fields.fetch();
+  var userInput;
   _.each(formFields, function(field) {
     if(field.type == "approveInput") {
       if(doc[field.name] == 'Approved') {
         ++min;
+      }
+      if(field.user == userId) {
+        userInput = field;
       }
     }
   });
   console.log("min", min);
   if(min == item.min) {
     console.log('sending notification');
-
-    fields = {'submitter' : submitter, 'name' : user.profile.name,'createdAt' : moment(item.createdAt).format('MMMM Do, YYYY'), 'submitterName' : submitter.profile.name, 'email' : user.profile.email, 'submitterEmail' : submitter.profile.email, 'doc' : doc, 'date' : Date(), 'href' : Meteor.absoluteUrl()+'form/update/'+form._id+'/'+doc._id};
+    var href = Meteor.absoluteUrl()+'form/update/'+form._id+'/'+doc._id;
+    var approveHref = userInput?Meteor.absoluteUrl()+'form/approve/'+form._id+'/'+doc._id+"/"+userInput._id+"/true":null;
+    var rejectHref = userInput?Meteor.absoluteUrl()+'form/approve/'+form._id+'/'+doc._id+"/"+userInput._id+"/false":null;
+    fields = {'submitter' : submitter, 'name' : user.profile.name,'createdAt' : moment(item.createdAt).format('MMMM Do, YYYY'), 'submitterName' : submitter.profile.name, 'email' : user.profile.email, 'submitterEmail' : submitter.profile.email, 'doc' : doc, 'date' : Date(), 'href' : href, 'approveHref' : approveHref, 'rejectHref' : rejectHref};
+    fields = _.extend(fields, doc);
     if(item.email) {
       _.each(item.email, function(to) {
         if(to != user.profile.email) {

@@ -35,6 +35,7 @@ Widgets.schemas.approveInput = function() {
   }
 };
 
+SimpleSchema.messages({notAllowed: "Not allowed"});
 Fields.schemas.approveInput = function(data) {
   var name = data.name
   var output = {};
@@ -46,11 +47,23 @@ Fields.schemas.approveInput = function(data) {
             options: function () {
               return [{label:"Approved", value:"Approved"},
               {label:"Rejected", value:"Rejected"}];
+            },
+            type: function() {
+              return (Meteor.userId() == data.user)?"select":"hidden";
             }
+          },
+          label: function() {
+                return (Meteor.userId() == data.user)?true:false;
           }
         },
         optional: true,
-        label: data.title
+        label: data.title,
+        custom: function () {
+          if (this.isSet && Meteor.userId() != data.user) {
+            return "notAllowed";
+          }
+          return true;
+        }
       };
       return output;
   };

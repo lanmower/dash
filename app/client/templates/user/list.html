@@ -24,22 +24,24 @@
         <td>{{profile.email}}</td>
         <td>{{#if status.online}}<i class="fa fa-circle text-success"></i> Online{{else}}<i class="fa fa-circle text-warning"></i> Offline{{/if}}</td>
         <td>{{profile.name}}</td>
+        {{#if isInRole 'user-admin'}}
         <td>
           {{#linkTo route='editUser'}}
             <button class="btn btn-info" type="button">Edit</button>
           {{/linkTo}}
         </td>
         <td>
+          {{#callable name="downloadAvatar" userId=_id}}
+            <button class="btn btn-info" type="button">Download Avatar</button>
+          {{/callable}}
+        </td>
+        {{/if}}
+        <td>
           {{#if isInRole 'gmail-admin'}}
             {{#linkTo route='mailList' user=_id}}
               <button class="btn btn-info" type="button">Gmail Messages</button>
             {{/linkTo}}
           {{/if}}
-        </td>
-        <td>
-          {{#callable name="downloadAvatar" userId=_id}}
-            <button class="btn btn-info" type="button">Download Avatar</button>
-          {{/callable}}
         </td>
       </tr>
     {{/each}}
