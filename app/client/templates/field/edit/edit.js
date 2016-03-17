@@ -1,4 +1,4 @@
-Template.EditField.helpers({
+/*Template.EditField.helpers({
   schema: function() {
     var formSchema = {name:{type:String}};
     _.extend(
@@ -10,4 +10,4 @@ Template.EditField.helpers({
     };
     return new SimpleSchema(formSchema);
   }
-});
+});*/
