@@ -55,6 +55,7 @@ Fields.schemas.approveNotification = function(data) {
 };
 
 var notify = function(userId, doc, form, item) {
+  console.log('test');
   var min = 0;
   var user = Meteor.users.findOne({_id:doc.createdBy});
   var submitter = Meteor.users.findOne({_id:userId});

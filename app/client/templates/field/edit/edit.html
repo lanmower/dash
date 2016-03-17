@@ -12,10 +12,10 @@
           <div class="box-body table-responsive">
 
       {{#if (can "update" field)}}
-      {{> quickForm collection="Fields" doc=field schema=schema id="editFieldForm" type="update" omitFields="createdBy" buttonContent="Update"}}
+        {{> quickForm collection="Fields" doc=field schema=schema id="editFieldForm" type="update" omitFields="createdBy" buttonContent="Update"}}
+      {{else}}
+        You do not have permission to update this field.
       {{/if}}
-      {{schema}}
-      {{field}}
       <!-- Sidebar -->
       <!--div id="split-right" class="split-right collapse" >
       <div class="right-container">

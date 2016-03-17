@@ -52,7 +52,7 @@ processForm = function(id, formData) {
       });
       form.collection.allow({
         insert: function (userId, submission) {
-          console.log("insert allowed");
+           console.log("insert allowed");
           return true;
         },
         update: function (userId, submission, fields, modifier) {
@@ -72,10 +72,9 @@ processForm = function(id, formData) {
       form.created = true;
       var createHook = function(hookFunction, setFunction, form) {
         setFunction(function(userId, doc, fields) {
+          console.log("set function:", form._id);
           _.each(form.fields.fetch(), function(formField) {
-            if(fields && fields.indexOf(formField.name))
-            if(hookFunction[formField.type])
-            hookFunction[formField.type](userId, doc, form, formField, fields);
+            if(hookFunction[formField.type]) hookFunction[formField.type](userId, doc, form, formField, fields);
           });
           return true;
         });
