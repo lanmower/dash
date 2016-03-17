@@ -11,13 +11,19 @@ Router.route('field/edit/:form/:_id', {
     ];
   },
   data: function () {
-    var schema = null;
     var field = Fields.findOne({_id: this.params._id});
-    if(field && Widgets.findOne({_id: field.parent})) {
-      Meteor.subscribe('form', field.parent);
-      schema = new SimpleSchema(createDisplaySchema(field.parent, field.type, Widgets, Meteor.fieldTypes));
+    if(field) {
+      var formSchema = {name:{type:String}};
+      _.extend(
+        formSchema,
+        createDisplaySchema(field.parent, field.type, Forms, Meteor.fieldTypes));
+      formSchema.listable = {
+        type: Boolean,
+        label: "Display in list?"
+      };
+      return {field:field, schema:new SimpleSchema(formSchema)};
     }
-    return {field:field, schema:schema};
+
   }
 });
 
