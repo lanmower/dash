@@ -55,7 +55,6 @@ Fields.schemas.approveNotification = function(data) {
 };
 
 var notify = function(userId, doc, form, item) {
-  console.log('test');
   var min = 0;
   var user = Meteor.users.findOne({_id:doc.createdBy});
   var submitter = Meteor.users.findOne({_id:userId});
@@ -68,35 +67,36 @@ var notify = function(userId, doc, form, item) {
     }
   });
   console.log("min", min);
+  console.log("min", item.min);
   if(min == item.min) {
     console.log('sending notification');
     if(item.email) {
       _.each(item.email, function(to) {
         var toUser = Meteor.users.findOne({"profile.email":to});
+        var userInput = null;
         if(toUser) {
-          var userInput = null;
           _.each(formFields, function(field) {
             if(field.type == "approveInput") {
+              console.log(field.user, toUser);
               if(field.user == toUser._id) {
                 userInput = field;
               }
             }
           });
-          var approveHref = userInput?Meteor.absoluteUrl()+'form/approve/'+form._id+'/'+doc._id+"/"+userInput._id+"/true":null;
-          var rejectHref = userInput?Meteor.absoluteUrl()+'form/approve/'+form._id+'/'+doc._id+"/"+userInput._id+"/false":null;
-
-          var href = Meteor.absoluteUrl()+'form/update/'+form._id+'/'+doc._id;
-          fields = {'submitter' : submitter, 'name' : user.profile.name,'createdAt' : moment(item.createdAt).format('MMMM Do, YYYY'), 'submitterName' : submitter.profile.name, 'email' : user.profile.email, 'submitterEmail' : submitter.profile.email, 'doc' : doc, 'date' : Date(), 'href' : href, 'approveHref' : approveHref, 'rejectHref' : rejectHref};
-          fields = _.extend(fields, doc);
-          if(to != user.profile.email) {
-            Email.send({
-              to: to,
-              from: 'admin@coas.co.za',
-              subject: _.template(item.mailSubject)(fields),
-              text: _.template(item.mailMessage)(fields),
-              html:_.template(item.mailMessageHtml)(fields)
-            });
-          }
+        }
+        var approveHref = userInput?Meteor.absoluteUrl()+'form/approve/'+form._id+'/'+doc._id+"/"+userInput._id+"/true":null;
+        var rejectHref = userInput?Meteor.absoluteUrl()+'form/approve/'+form._id+'/'+doc._id+"/"+userInput._id+"/false":null;
+        var href = Meteor.absoluteUrl()+'form/update/'+form._id+'/'+doc._id;
+        fields = {'submitter' : submitter, 'name' : user.profile.name,'createdAt' : moment(item.createdAt).format('MMMM Do, YYYY'), 'submitterName' : submitter.profile.name, 'email' : user.profile.email, 'submitterEmail' : submitter.profile.email, 'doc' : doc, 'date' : Date(), 'href' : href, 'approveHref' : approveHref, 'rejectHref' : rejectHref};
+        fields = _.extend(fields, doc);
+        if(to != user.profile.email) {
+          Email.send({
+            to: to,
+            from: 'admin@coas.co.za',
+            subject: _.template(item.mailSubject)(fields),
+            text: _.template(item.mailMessage)(fields),
+            html:_.template(item.mailMessageHtml)(fields)
+          });
         }
       });
     } else {

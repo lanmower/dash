@@ -1,7 +1,9 @@
+AutoForm.debug();
+
 Accounts.ui.config(
   {
     requestOfflineToken: {google: true},
-    forceApprovalPrompt: {google: true},
+    //forceApprovalPrompt: {google: true},
     requestPermissions:
     {google:
     ['https://www.googleapis.com/auth/userinfo.email',

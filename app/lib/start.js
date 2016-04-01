@@ -73,8 +73,9 @@ processForm = function(id, formData) {
       var createHook = function(hookFunction, setFunction, form) {
         setFunction(function(userId, doc, fields) {
           console.log("set function:", form._id);
+          var user = userId;
           _.each(form.fields.fetch(), function(formField) {
-            if(hookFunction[formField.type]) hookFunction[formField.type](userId, doc, form, formField, fields);
+            if(hookFunction[formField.type]) hookFunction[formField.type](user, doc, form, formField, fields);
           });
           return true;
         });

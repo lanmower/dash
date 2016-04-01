@@ -1,0 +1,30 @@
+<template name="afApproveInput">
+  {{#if canAdmin}}
+  {{#linkTo route="approveForm" form=getForm _id=getId field=getName setting=true}}Approve{{/linkTo}}
+  {{#linkTo route="approveForm" form=getForm _id=getId field=getName setting=false}}Reject{{/linkTo}}
+  {{/if}}
+  <div>
+  {{#if approvalsCount}}
+  Approved by:
+  <ul>
+  {{#each approvals}}
+    <li>
+      {{name}}
+    </li>
+  {{/each}}
+  </ul>
+  {{/if}}
+  </div>
+  <div>
+  {{#if rejections}}
+  Rejected by:
+  <ul>
+  {{#each rejections}}
+    <li>
+      {{name}}
+    </li>
+  {{/each}}
+  </ul>
+  {{/if}}
+  </div>
+</template>

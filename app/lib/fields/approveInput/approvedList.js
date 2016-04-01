@@ -1,39 +1,26 @@
-Meteor.fieldTypes.push({label:"Approve List", value:"approveList"});
-
 if(Meteor.isClient) {
-    Template.approveList = {};
-    Template.approveList.cell = function(name, item, schema) {
+  Template.approveInput={};
+    Template.approveInput.cell = function(name, item, schema) {
+      var router = Router.current();
       var value = item[name];
-      var output = [];
+      var output = "";
+      var subscription = router.subscribe('approvals-form', router.params._id);
 
-      for(var x in schema) {
-        var schemaItem = schema[x];
-        if(schemaItem.type == 'approveInput')
-          if(item[schemaItem.name] == 'Approved') output.push(Meteor.users.findOne({_id:schemaItem.user}).profile.name);
+      var approvals = Approvals.find({form:router.params._id, doc:item._id, field:name, value:true}).fetch();
+      var toutput = [];
+      for(var x in approvals) {
+        var approval = approvals[x];
+        toutput.push(Meteor.users.findOne({_id:approval.user}).profile.name);
       }
-      return output.join();
+      if(toutput.length) output += "Accepted by: "+toutput.join();
+      toutput = [];
+      var rejections = Approvals.find({form:router.params._id, doc:item._id, field:name, value:false}).fetch();
+      for(var x in rejections) {
+        var rejection = rejections[x];
+        toutput.push(Meteor.users.findOne({_id:rejection.user}).profile.name);
+      }
+      if(output.length) output += " ";
+      if(toutput.length) output += "Rejected by: "+toutput.join();
+      return output;
     }
 }
-
-Widgets.schemas.approveList = function() {
-  return {
-    title:{
-      type: String,
-      optional: false,
-    }
-  }
-};
-
-Fields.schemas.approveList = function(data) {
-  var name = data.name
-  var output = {};
-  output[name] = {
-        type: String,
-        optional: true,
-        autoform: {
-          type: "hidden"
-        }
-    };
-    return output;
-
-  };

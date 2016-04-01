@@ -5,6 +5,8 @@ Meteor.publish(null, function (){
   return Config.find({});
 });
 
+
+
 Meteor.publish('times', function () {
   return Times.find();
 });
@@ -81,6 +83,12 @@ Fields.additions = additions;
 Meteor.publish('forms', function () {
   var additions = Widgets.additions(this);
   return Forms.find({$or:additions});
+});
+Meteor.publish('approvals', function (form, field, doc) {
+  return Approvals.find({form:form, field:field, doc:doc});
+});
+Meteor.publish('approvals-form', function (form) {
+  return Approvals.find({form:form});
 });
 
 Meteor.publish('gmailMsg', function(id) {

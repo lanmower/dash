@@ -59,8 +59,6 @@ Meteor.methods({
         options.headers.Authorization = 'Bearer ' + Meteor.user().services.google.accessToken;
         options.content = '<?xml version="1.0" encoding="utf-8"?><atom:entry xmlns:atom="http://www.w3.org/2005/Atom" xmlns:apps="http://schemas.google.com/apps/2006"><apps:property name="signature" value="'+signature.EncodeXMLEscapeChars()+'" /></atom:entry>';
         //options.data = {signature:"test"};
-        var list = GoogleApi.get('drive/v2/files', {params:{'q':''}});
-        var future = new Future();
 
         Meteor.http.call("PUT", "https://apps-apis.google.com/a/feeds/emailsettings/2.0/coas.co.za/"+alias+"/signature", options, function( error, response ) {
           if ( error ) {
@@ -172,6 +170,25 @@ Meteor.methods({
 
     Roles.setUserRoles(targetUserId, roles, group);
     return "Done";
+  },
+  approve: function(fieldName, formId, _id, userId, setting) {
+    var fields = Fields.find({form:formId, name:fieldName});
+    //var setting = (setting == true)?true:false;
+
+    var form = Forms.findOne(formId);
+    var field = Fields.findOne({parent:formId, name:fieldName});
+    if(form && field) {
+      var selector = {form:formId, field:fieldName, doc:_id, user:userId};
+      var approval = Approvals.findOne(selector);
+
+      if(approval) {
+        Approvals.update(approval._id, {$set:{value:setting}});
+        console.log(approval._id,{$set:{value:setting}});
+      } else {
+        Approvals.insert(_.extend(selector,{value:setting}));
+      }
+    }
+    Fields.hooks.after.update.approveInput(userId, Meteor.forms[formId].collection.findOne(_id), Meteor.forms[formId], field);
   },
   'server\method_name': function () {
     // server method logic

@@ -1,0 +1,22 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "mobile-config.js",
+  "dependencies": {
+    "batchelor": "^2.0.1",
+    "emitter": "0.0.5",
+    "fluent-ffmpeg": "^2.0.1",
+    "jquery": "^2.2.2",
+    "meteor-node-stubs": "^0.2.1",
+    "musicmetadata": "^2.0.2",
+    "props": "^0.3.0",
+    "stream": "^0.0.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

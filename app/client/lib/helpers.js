@@ -23,12 +23,12 @@ Template.registerHelper("arrayify", function(obj){
 });
 
 Template.registerHelper("file", function(_id){
-    file = Files.findOne({_id:_id});
+    var file = Files.findOne({_id:_id});
     if(file) return file.url();
 });
 
 Template.registerHelper("config", function(key){
-    config = Config.findOne({key:key});
+    var config = Config.findOne({key:key});
     if(config) {
       return config.value;
     }

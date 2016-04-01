@@ -146,9 +146,7 @@ Fields.schemas.fileUpload = function(data) {
         label: "",
         optional: true,
         autoform: {
-          //afFieldInput: {
-            type: 'hidden',
-          //}
+          type: 'hidden',
           afFieldInput: {
             label: "",
             type: 'fileUploadHtml',

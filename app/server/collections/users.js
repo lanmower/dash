@@ -1,5 +1,6 @@
 DownloadAvatar = function(userId) {
   var user=Meteor.users.findOne(userId);
+  if(!user) return;
   if(user.profile.picture) {
     console.log('Removing old avatar for:',userId);
     var file = Files.findOne(user.profile.picture);

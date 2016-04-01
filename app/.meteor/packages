@@ -12,7 +12,6 @@ session                 # Client-side reactive dictionary for your app
 jquery                  # Helpful client-side library
 tracker                 # Meteor's client-side reactive programming library
 
-standard-minifiers      # JS/CSS minifiers run for production mode
 es5-shim                # ECMAScript 5 compatibility for older browsers.
 ecmascript              # Enable ECMAScript2015+ syntax in app code
 
@@ -43,7 +42,6 @@ cfs:graphicsmagick
 fortawesome:fontawesome
 matb33:collection-hooks
 differential:event-hooks
-mdg:geolocation
 rajit:bootstrap3-datepicker
 mrt:jquery-ui-sortable
 raix:push
@@ -53,15 +51,7 @@ email
 cfs:autoform
 raix:ui-dropped-event
 mpowaga:autoform-summernote
-
-
-
-
 fish:ffmpeg
-meteorhacks:npm
-
-
-npm-container
 notorii:autoform-datetimepicker
 percolate:synced-cron
 cfs:power-queue
@@ -75,3 +65,5 @@ meteorhacks:search-source
 ciwolsey:sub-status
 useraccounts:bootstrap
 useraccounts:iron-routing
+standard-minifier-css
+standard-minifier-js

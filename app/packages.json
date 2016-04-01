@@ -1,8 +1,0 @@
-{
-  "fluent-ffmpeg": "2.0.1",
-  "stream-transcoder": "0.0.5",
-  "combined-stream2": "1.1.1",
-  "musicmetadata":"2.0.2",
-  "batchelor":"2.0.1",
-  "atom":"0.0.1"
- }
