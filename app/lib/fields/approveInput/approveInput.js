@@ -185,16 +185,15 @@ Fields.schemas.approveInput = function(field) {
   var notifyUpdate = function(userId, doc, form, field) {
 
     max = Approvals.find({form:form._id, field:field.name, doc:doc._id, value:true}).count();
-    console.log("Max:"+max);
-    console.log("Doc.max:",field.max);
     var owner = Meteor.users.findOne(doc.createdBy);
     if(max < doc.max) {
+      sendIt(field, owner.profile.email, doc, form, userId, field.ownerApprovalSubject, field.ownerApprovalMessage, field.ownerApprovalMessageHtml);
     } else {
       sendIt(field, owner.profile.email, doc, form, userId, field.ownerCompleteSubject, field.ownerCompleteMessage, field.ownerCompleteMessageHtml);
     }
     _.each(field.admins, function(adminId) {
       var admin = Meteor.users.findOne(adminId);
-      if(!_.contains(doc[field.name], adminId))
+      if(!Approvals.find({form:form._id, field:field.name, doc:doc._id, value:true, user:admin._id}).count())
         sendIt(field, admin.profile.email, doc, form, userId, field.adminPendingSubject, field.adminPendingMessage, field.adminPendingMessageHtml);
     });
   }
@@ -217,6 +216,7 @@ var sendIt = function(field, to, doc, form, userId, subject, message, messageHtm
   var approveHref = field?Meteor.absoluteUrl()+'form/approve/'+form._id+'/'+doc._id+"/"+field._id+"/true":null;
   var rejectHref = field?Meteor.absoluteUrl()+'form/approve/'+form._id+'/'+doc._id+"/"+field._id+"/false":null;
   var href = Meteor.absoluteUrl()+'form/update/'+form._id+'/'+doc._id;
+  console.log('href',href);
   fields = {'user' : user, 'name' : user.profile.name,'createdAt' : moment(field.createdAt).format('MMMM Do, YYYY'), 'userName' : user.profile.name, 'email' : user.profile.email, 'userEmail' : user.profile.email, 'doc' : doc, 'date' : Date(), 'href' : href, 'approveHref' : approveHref, 'rejectHref' : rejectHref};
   fields = _.extend(fields, doc);
   Email.send({
