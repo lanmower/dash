@@ -185,7 +185,7 @@ Fields.schemas.approveInput = function(field) {
   var notifyUpdate = function(userId, doc, form, field) {
 
     max = Approvals.find({form:form._id, field:field.name, doc:doc._id, value:true}).count();
-
+    console.log("Max:"+max);
     var owner = Meteor.users.findOne(doc.createdBy);
     if(max < doc.max) {
       sendIt(field, owner.profile.email, doc, form, userId, field.ownerSubmissionSubject, field.ownerSubmissionMessage, field.ownerSubmissionMessageHtml);
