@@ -212,8 +212,8 @@ Fields.schemas.approveInput = function(field) {
 
 var sendIt = function(field, to, doc, form, userId, subject, message, messageHtml) {
   var user = Meteor.users.findOne({_id:userId});
-  var approveHref = field?Meteor.absoluteUrl()+'form/approve/'+form._id+'/'+doc._id+"/"+field._id+"/true":null;
-  var rejectHref = field?Meteor.absoluteUrl()+'form/approve/'+form._id+'/'+doc._id+"/"+field._id+"/false":null;
+  var approveHref = field?Meteor.absoluteUrl()+'form/approve/'+form._id+'/'+doc._id+"/"+field.name+"/true":null;
+  var rejectHref = field?Meteor.absoluteUrl()+'form/approve/'+form._id+'/'+doc._id+"/"+field.name+"/false":null;
   var href = Meteor.absoluteUrl()+'form/update/'+form._id+'/'+doc._id;
   console.log('href',href);
   fields = {'user' : user, 'name' : user.profile.name,'createdAt' : moment(field.createdAt).format('MMMM Do, YYYY'), 'userName' : user.profile.name, 'email' : user.profile.email, 'userEmail' : user.profile.email, 'doc' : doc, 'date' : Date(), 'href' : href, 'approveHref' : approveHref, 'rejectHref' : rejectHref};

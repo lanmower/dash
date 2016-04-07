@@ -42,9 +42,7 @@ Template.diary.rendered = function() {
   var doneTypingInterval = 1000;
   var diary;
 
-  console.log('test');
   var tag = this.find('.diary');
-  console.log(tag);
   $(tag).summernote({
   callbacks: {
       oninit: function() {
@@ -60,7 +58,6 @@ Template.diary.rendered = function() {
        ne.css('right', 0);
        ne.css('bottom', 0);
        ne.css('left', 0);
-       console.log("test");
     },
     onKeyup: _.debounce(function(event, template) {
       console.log('save');
