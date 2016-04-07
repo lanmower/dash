@@ -16,7 +16,7 @@ Template.diary.onCreated( function() {
             }
           });
           var tag = self.find('.diary');
-          $(tag).code(Diaries.findOne({_id:self.tod.get()}, {reactive:false}).diary);
+          $(tag).summernote('code', Diaries.findOne({_id:self.tod.get()}, {reactive:false}).diary);
         }
         var ret = Diaries.findOne({user:Meteor.userId(), date:new Date().setHours(0,0,0,0)}, {reactive:false});
         if(!ret) {
