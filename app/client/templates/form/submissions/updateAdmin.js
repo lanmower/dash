@@ -1,7 +1,7 @@
 AutoForm.hooks({
   updateAdminForm: {
     onSuccess: function(formType, result) {
-      return Router.go('submissionsAdmin', {_id:Router.current().params.form});
+      Router.go('submissionsAdmin', {_id:Router.current().params.form});
     }
   }
 });

@@ -7,12 +7,6 @@ AutoForm.hooks({
 });
 
 Template.updateForm.helpers({
-  onSuccess:function() {
-    var self = this;
-    return function(result) {
-      Router.go('submissions', {_id:self.form._id});
-    }
-  },
   onError:function() {
     return function(result) {
       console.log(result);

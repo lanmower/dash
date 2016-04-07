@@ -78,10 +78,11 @@ Router.route('form/updateAdmin/:form/:_id', {
   fastRender: true,
   where: 'client',
   waitOn: function() {
-    return this.subscribe("form", this.params.form);
+		this.subscribe("form", this.params.form),
+		this.subscribe("submission", this.params.form, this.params._id)
   },
   data: function () {
-    var form = Forms.findOne({_id:this.params.form});
+		var form = Forms.findOne({_id:this.params.form});
     var collection;
     var item;
     var schema;
