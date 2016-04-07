@@ -186,7 +186,7 @@ Fields.schemas.approveInput = function(field) {
 
     max = Approvals.find({form:form._id, field:field.name, doc:doc._id, value:true}).count();
     console.log("Max:"+max);
-    console.log("Doc.max:"+doc.max);
+    console.log("Doc.max:",field.max);
     var owner = Meteor.users.findOne(doc.createdBy);
     if(max < doc.max) {
     } else {
