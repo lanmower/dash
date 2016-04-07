@@ -211,7 +211,6 @@ Fields.schemas.approveInput = function(field) {
   }
 
 var sendIt = function(field, to, doc, form, userId, subject, message, messageHtml) {
-  console.log('sending');
   var user = Meteor.users.findOne({_id:userId});
   var approveHref = field?Meteor.absoluteUrl()+'form/approve/'+form._id+'/'+doc._id+"/"+field._id+"/true":null;
   var rejectHref = field?Meteor.absoluteUrl()+'form/approve/'+form._id+'/'+doc._id+"/"+field._id+"/false":null;
@@ -219,6 +218,7 @@ var sendIt = function(field, to, doc, form, userId, subject, message, messageHtm
   console.log('href',href);
   fields = {'user' : user, 'name' : user.profile.name,'createdAt' : moment(field.createdAt).format('MMMM Do, YYYY'), 'userName' : user.profile.name, 'email' : user.profile.email, 'userEmail' : user.profile.email, 'doc' : doc, 'date' : Date(), 'href' : href, 'approveHref' : approveHref, 'rejectHref' : rejectHref};
   fields = _.extend(fields, doc);
+  console.log('sending',_.template(messageHtml)(fields));
   Email.send({
     to: to,
     from: 'admin@coas.co.za',

@@ -64,7 +64,7 @@ Template.diary.rendered = function() {
     },
     onKeyup: _.debounce(function(event, template) {
       console.log('save');
-      diary = $(tag).code();
+      diary = $(tag).summernote('code');
       Diaries.update({_id:self.tod.get()}, {'$set':{"diary":diary.toString()}});
     }, doneTypingInterval)
   }
