@@ -1,3 +1,4 @@
+import Future from 'fibers/future';
 /*****************************************************************************/
 /*  Server Methods */
 /*****************************************************************************/
@@ -43,7 +44,6 @@ Meteor.methods({
     });
   },
   setSignature: function(_id) {
-    var Future = Npm.require( 'fibers/future' );
 
     user = Meteor.users.findOne({_id:_id});
     alias = user.profile.email.split("@")[0];
