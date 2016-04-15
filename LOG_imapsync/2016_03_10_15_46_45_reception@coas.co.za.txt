@@ -1,0 +1,41 @@
+Transfer started at Thu Mar 10 15:46:45 2016
+PID is 5362
+Log file is LOG_imapsync/2016_03_10_15_46_45_reception@coas.co.za.txt  ( to change it, use --logfile filepath ; or use --nolog to turn off logging )
+$RCSfile: imapsync,v $ $Revision: 1.644 $ $Date: 2015/07/17 01:22:52 $ 
+Here is a [linux] system (Linux beanscount 3.19.0-23-generic #24~14.04.1-Ubuntu SMP Wed Jul 8 11:15:13 UTC 2015 x86_64)
+With perl 5.18.2 Mail::IMAPClient  3.35
+Command line used:
+/usr/bin/imapsync --host1 imap.gmail.com --user1 farzana@coas.co.za --password1 MASKED --prefix2 [farzana] --host2 imap.gmail.com --user2 reception@coas.co.za --password2 MASKED --syncinternaldates --ssl1 -ssl2 --noauthmd5 --split1 100 --split2 100 --port1 993 --port2 993 --exclude All Mail|Spam --allowsizemismatch
+Temp directory is /tmp  ( to change it use --tmpdir dirpath )
+PID file is /tmp/imapsync.pid ( to change it use --pidfile filepath ; to avoid it use --pidfile "" )
+Modules version list:
+Mail::IMAPClient     3.35
+IO::Socket           1.36
+IO::Socket::IP       ?
+IO::Socket::INET     1.33
+IO::Socket::SSL      1.965
+Net::SSLeay          1.58
+Compress::Zlib       2.063
+Digest::MD5          2.52
+Digest::HMAC_MD5     1.01
+Digest::HMAC_SHA1    1.03
+Term::ReadKey        2.31
+File::Spec           3.40
+Time::HiRes          1.9725
+Unicode::String      2.09
+IO::Tee              0.64
+File::Copy::Recursive 0.38
+Authen::NTLM         1.09
+URI::Escape          3.31
+Data::Uniqid         0.12
+JSON::WebToken       ?
+( use --no-modules_version to turn off printing this Perl modules list )
+Info: turned ON syncinternaldates, will set the internal dates (arrival dates) on host2 same as host1.
+Info: will try to use LOGIN authentication on host1
+Info: will try to use LOGIN authentication on host2
+Info: imap connexions timeout is 120 seconds
+Host1: IMAP server [imap.gmail.com] port [993] user [farzana@coas.co.za]
+Host2: IMAP server [imap.gmail.com] port [993] user [reception@coas.co.za]
+Host1: * OK Gimap ready for requests from 197.242.148.67 g103mb205942163wli
+Host1: imap.gmail.com says it has NO CAPABILITY for AUTHENTICATE LOGIN
+Failure: error login on [imap.gmail.com] with user [farzana@coas.co.za] auth [LOGIN]: 2 NO [AUTHENTICATIONFAILED] Invalid credentials (Failure)
