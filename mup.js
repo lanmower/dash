@@ -2,7 +2,7 @@ module.exports = {
   servers: {
     one: {
       host: 'beanscount.co.za',
-      username: 'root'
+      username: 'root',
       // pem:
       password: 'almagest'
       // or leave blank for authenticate from ssh-agent
@@ -11,7 +11,7 @@ module.exports = {
 
   meteor: {
     name: 'beanscount',
-    path: '/usr/src/dash',
+    path: '/usr/src/dash/app',
     servers: {
       one: {} //list of servers to deploy, from the 'servers' list
     },
