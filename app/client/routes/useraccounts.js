@@ -52,4 +52,4 @@ AccountsTemplates.configureRoute('signUp');
 AccountsTemplates.configureRoute('verifyEmail');
 
 // Protect all Routes
-Router.plugin('ensureSignedIn');
+//Router.plugin('ensureSignedIn');

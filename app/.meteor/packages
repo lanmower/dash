@@ -59,11 +59,9 @@ cfs:filesystem
 arsnebula:appupdate
 jrudio:videojs
 timbrandin:slick
-accounts-password
 meteorhacks:fast-render
 meteorhacks:search-source
 ciwolsey:sub-status
-useraccounts:bootstrap
 useraccounts:iron-routing
 standard-minifier-css
 standard-minifier-js
