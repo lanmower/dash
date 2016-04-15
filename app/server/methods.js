@@ -1,4 +1,4 @@
-import future from 'fibers/future';
+import Future from 'fibers/future';
 /*****************************************************************************/
 /*  Server Methods */
 /*****************************************************************************/
@@ -45,6 +45,7 @@ Meteor.methods({
   },
   setSignature: function(_id) {
 
+    var future = new Future();
     user = Meteor.users.findOne({_id:_id});
     alias = user.profile.email.split("@")[0];
     domain = user.profile.email.split("@")[1];
@@ -62,7 +63,7 @@ Meteor.methods({
 
         Meteor.http.call("PUT", "https://apps-apis.google.com/a/feeds/emailsettings/2.0/coas.co.za/"+alias+"/signature", options, function( error, response ) {
           if ( error ) {
-            future.return( error );
+            future().return( error );
           } else {
             future.return( true );
           }
