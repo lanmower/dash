@@ -15,3 +15,12 @@ Meteor.users.allow({
       return user.id == userId;
     }
 });
+
+Meteor.usersList = function() {
+  users = Meteor.users.find().fetch();
+  var ret = [];
+  for(var x in users) {
+    ret.push({label:users[x].profile.name, value:users[x]._id});
+  }
+  return ret;
+}
