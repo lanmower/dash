@@ -27,10 +27,10 @@ Template.registerHelper("file", function(_id){
     if(file) return file.url();
 });
 
-Template.registerHelper("config", function(key){
-    var config = Config.findOne({key:key});
+Template.registerHelper("setting", function(key){
+    var config = Meteor.settings.public[key];
     if(config) {
-      return config.value;
+      return config;
     }
 });
 

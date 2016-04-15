@@ -46,14 +46,14 @@ Accounts.onCreateUser(function(options, user) {
 });
 
 Accounts.validateNewUser(function (user) {
-    config = Config.find({key:"limitToEmailDomain"});
+    config = Meteor.settings.emailDomains;
     if(config.count()) {
       config.forEach(function(item) {
         if(user.services.google.email.match(item.value)) {
             return true;
         }
       });
-      throw new Meteor.Error(403, "You must sign in with an authorized account");
+      throw new Meteor.Error(403, "You must sign up with an authorized account");
     } else {
       return true;
     }

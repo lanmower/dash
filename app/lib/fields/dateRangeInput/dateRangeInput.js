@@ -1,4 +1,4 @@
-Meteor.fieldTypes.push({label:"Date/Time Input", value: "dateRangeInput"});
+Meteor.fieldTypes.push({label:"Date range Input", value: "dateRangeInput"});
 
 Widgets.schemas.dateRangeInput = function() {
   return {
@@ -13,7 +13,7 @@ Widgets.schemas.dateRangeInput = function() {
     Template.dateRangeInput.cell = function(name, item, schema) {
       var start = item[name+"-start"];
       var end = item[name+"-end"];
-      return moment(start).format('MMMM Do, YYYY')+moment(end).format('MMMM Do, YYYY');
+      return moment(start).format('MMMM Do, YYYY')+" to "+moment(end).format('MMMM Do, YYYY');
     }
   }
 
@@ -22,14 +22,14 @@ Fields.schemas.dateRangeInput = function(data) {
   var output = {};
   output[name+"-start"] = {
         type: String,
-        label: data.title,
+        label: data.title+" start.",
         autoform: {
           type: "datetimepicker"
         }
     };
     output[name+"-end"] = {
           type: String,
-          label: data.title,
+          label: data.title+" end.",
           autoform: {
             type: "datetimepicker"
           }

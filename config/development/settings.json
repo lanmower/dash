@@ -1,6 +1,10 @@
 {
   "public": {
+    "skin":"blue",
+    "siteName":"Coastal Accounting"
   },
+  "emailDomains":[
+    "coas.co.za"
+  ]
 
-  "sample": "value"
 }
