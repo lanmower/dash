@@ -20,14 +20,14 @@ Widgets.schemas.dateRangeInput = function() {
 Fields.schemas.dateRangeInput = function(data) {
   var name = data.name
   var output = {};
-  output[name+"-start"] = {
+  output[name+"Start"] = {
         type: String,
         label: data.title+" start.",
         autoform: {
           type: "datetimepicker"
         }
     };
-    output[name+"-end"] = {
+    output[name+"End"] = {
           type: String,
           label: data.title+" end.",
           autoform: {
