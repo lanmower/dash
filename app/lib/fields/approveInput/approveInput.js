@@ -115,36 +115,39 @@ var getApprovals = function(approvals) {
 if(Meteor.isClient) {
   Template.afApproveInput.helpers({
     canAdmin: function() {
+      console.log(this);
       var field = Fields.findOne({parent:Router.current().params.form, name:this.name});
       return _.contains(field.admins, Meteor.userId());
     },
     approvals: function() {
       var router = Router.current();
-      var approvals = Approvals.find({form:router.params.form, doc:router.params._id, field:this.name, value:true}).fetch();
+      var field = Fields.findOne({parent:Router.current().params.form, name:this.name});
+      var approvals = Approvals.find({doc:router.params._id, field:field._id, value:true}).fetch();
       return getApprovals(approvals);
     },
     rejections: function() {
       var router = Router.current();
-      var approvals = Approvals.find({form:router.params.form, doc:router.params._id, field:this.name, value:false}).fetch();
+      var field = Fields.findOne({parent:Router.current().params.form, name:this.name});
+      var approvals = Approvals.find({doc:router.params._id, field:field._id, value:false}).fetch();
       return getApprovals(approvals);
     },
     approvalsCount: function() {
       var router = Router.current();
-      var subscription = router.subscribe('approvals', router.params.form, this.name, router.params._id);
-      return Approvals.find({form:router.params.form, doc:router.params._id, field:this.name, value:true}).count();
+      var field = Fields.findOne({parent:Router.current().params.form, name:this.name});
+      var subscription = router.subscribe('approvals', field._id, router.params._id);
+      return Approvals.find({doc:router.params._id, field:field._id, value:true}).count();
     },
     rejectionsCount: function() {
       var router = Router.current();
-      return Approvals.find({form:router.params.form, doc:router.params._id, field:this.name, value:false}).count();
+      var field = Fields.findOne({parent:Router.current().params.form, name:this.name});
+      return Approvals.find({doc:router.params._id, field:field._id, value:false}).count();
     },
     getId: function() {
       return Router.current().params._id;
     },
-    getForm: function() {
-      return Router.current().params.form;
-    },
-    getName: function() {
-      return this.name;
+    getField: function() {
+      var field = Fields.findOne({parent:Router.current().params.form, name:this.name});
+      return field._id;
     }
   });
   Meteor.startup(function () {
@@ -183,8 +186,9 @@ Fields.schemas.approveInput = function(field) {
   };
 
   var notifyUpdate = function(userId, doc, form, field) {
+    console.log(field);
 
-    var approvals = Approvals.find({form:form._id, field:field.name, doc:doc._id, value:true}).count();
+    var approvals = Approvals.find({field:field._id, doc:doc._id, value:true}).count();
     var owner = Meteor.users.findOne(doc.createdBy);
     if(approvals > doc.max) {
       sendIt(field, owner.profile.email, doc, form, userId, field.ownerApprovalSubject, field.ownerApprovalMessage, field.ownerApprovalMessageHtml);
@@ -193,7 +197,7 @@ Fields.schemas.approveInput = function(field) {
     }
     _.each(field.admins, function(adminId) {
       var admin = Meteor.users.findOne(adminId);
-      if(!Approvals.find({form:form._id, field:field.name, doc:doc._id, value:true, user:admin._id}).count())
+      if(!Approvals.find({field:field._id, doc:doc._id, value:true, user:admin._id}).count())
         sendIt(field, admin.profile.email, doc, form, userId, field.adminPendingSubject, field.adminPendingMessage, field.adminPendingMessageHtml);
     });
   }
@@ -212,8 +216,8 @@ Fields.schemas.approveInput = function(field) {
 
 var sendIt = function(field, to, doc, form, userId, subject, message, messageHtml) {
   var user = Meteor.users.findOne({_id:userId});
-  var approveHref = field?Meteor.absoluteUrl()+'form/approve/'+form._id+'/'+doc._id+"/"+field.name+"/true":null;
-  var rejectHref = field?Meteor.absoluteUrl()+'form/approve/'+form._id+'/'+doc._id+"/"+field.name+"/false":null;
+  var approveHref = field?Meteor.absoluteUrl()+'form/approve/'+doc._id+"/"+field._id+"/true":null;
+  var rejectHref = field?Meteor.absoluteUrl()+'form/approve/'+doc._id+"/"+field._id+"/false":null;
   var href = Meteor.absoluteUrl()+'form/update/'+form._id+'/'+doc._id;
   console.log('href',href);
   fields = {'user' : user, 'name' : user.profile.name,'createdAt' : moment(field.createdAt).format('MMMM Do, YYYY'), 'userName' : user.profile.name, 'email' : user.profile.email, 'userEmail' : user.profile.email, 'doc' : doc, 'date' : Date(), 'href' : href, 'approveHref' : approveHref, 'rejectHref' : rejectHref};

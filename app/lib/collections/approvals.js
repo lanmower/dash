@@ -4,10 +4,6 @@ Approvals.helpers({
 });
 
 Approvals.attachSchema(new SimpleSchema(_.extend({
-  form:{
-    type: String,
-    optional: false,
-  },
   field:{
     type: String,
     optional: false,

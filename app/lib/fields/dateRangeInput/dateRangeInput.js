@@ -10,7 +10,7 @@ Widgets.schemas.dateRangeInput = function() {
 };
 
   if(Meteor.isClient) {
-    Template.dateRangeInput.cell = function(name, item, schema) {
+    Template.dateRangeInput.cell = function(name, item, schema, field) {
       var start = item[name+"-start"];
       var end = item[name+"-end"];
       return moment(start).format('MMMM Do, YYYY')+" to "+moment(end).format('MMMM Do, YYYY');

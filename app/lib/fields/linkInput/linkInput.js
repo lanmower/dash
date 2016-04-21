@@ -9,7 +9,7 @@ Widgets.schemas.linkInput = function() {
 };
 if(Meteor.isClient) {
   Template.linkInput = {};
-  Template.linkInput.cell = function(name, item, schema) {
+  Template.linkInput.cell = function(name, item, schema, field) {
     var output = item[name].label+"<br/>";
     _.each(item[name].links,function(link) {
       output += "<a href='"+link.link+"'>"+link.label+"</a><br/>"

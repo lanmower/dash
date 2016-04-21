@@ -83,11 +83,16 @@ Meteor.publish('forms', function () {
   var additions = Widgets.additions(this);
   return Forms.find({$or:additions});
 });
-Meteor.publish('approvals', function (form, field, doc) {
-  return Approvals.find({form:form, field:field, doc:doc});
+Meteor.publish('approvals', function (field, doc) {
+  return Approvals.find({field:field, doc:doc});
 });
 Meteor.publish('approvals-form', function (form) {
-  return Approvals.find({form:form});
+  var fields = Fields.find({parent:form});
+  fieldIds = [];
+  _.each(fields, function(item) {
+    fieldIds.push(item._id);
+  });
+  return Approvals.find({field:{$in:fieldIds}});
 });
 
 Meteor.publish('gmailMsg', function(id) {
@@ -131,7 +136,7 @@ Meteor.publishComposite('form', function(_id) {
               fields.push(field.name);
             });
             console.log({"metadata.parentId":item._id, "metadata.collectionName":form.collectionName,"metadata.field":{$in:fields}});
-            return Files.find({"metadata.parentId":item._id, "metadata.collectionName":form.collectionName,"metadata.field":{$in:fields}});
+            return Files.find({"metadata.parentId":item._id, "metadata.collectionName":form.collectionName,"metadata.field":{:fields}});
           }
           }
         ]

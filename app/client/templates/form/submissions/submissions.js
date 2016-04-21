@@ -56,13 +56,15 @@ Template.submissions.helpers({
     return false;
   },
   cell: function(line, schema) {
+    var form = Router.current().params.form;
     var name = schema['name'];
+    var field = Fields.findOne({parent:form, name:name});
     var allSchema = Template.instance().schema.get();
     var schemaOut = {};
     for(var x in allSchema) {
       schemaOut[allSchema[x].name] = allSchema[x];
     }
-    if(Template[schema['type']]&& Template[schema['type']].cell) return Template[schema['type']].cell(name, line, schemaOut);
+    if(Template[schema['type']]&& Template[schema['type']].cell) return Template[schema['type']].cell(name, line, schemaOut, field);
     return line[name];
   },
   label: function() {

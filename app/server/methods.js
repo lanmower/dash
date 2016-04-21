@@ -172,24 +172,24 @@ Meteor.methods({
     Roles.setUserRoles(targetUserId, roles, group);
     return "Done";
   },
-  approve: function(fieldName, formId, _id, userId, setting) {
-    var fields = Fields.find({form:formId, name:fieldName});
+  approve: function(fieldId, docId, userId, setting) {
     //var setting = (setting == true)?true:false;
-
-    var form = Forms.findOne(formId);
-    var field = Fields.findOne({parent:formId, name:fieldName});
+    var retval;
+    var field = Fields.findOne({_id:fieldId});
+    var form = Forms.findOne(field.parent);
     if(form && field) {
-      var selector = {form:formId, field:fieldName, doc:_id, user:userId};
+      var selector = {field:fieldId, doc:docId, user:userId};
       var approval = Approvals.findOne(selector);
 
       if(approval) {
         Approvals.update(approval._id, {$set:{value:setting}});
-        console.log(approval._id,{$set:{value:setting}});
       } else {
+        console.log(docId, fieldId, userId);
         Approvals.insert(_.extend(selector,{value:setting}));
       }
+      retval = true;
     }
-    Fields.hooks.after.update.approveInput(userId, Meteor.forms[formId].collection.findOne(_id), Meteor.forms[formId], field);
+    Fields.hooks.after.update.approveInput(userId, Meteor.forms[form._id].collection.findOne(docId), Meteor.forms[form._id], field);
   },
   'server\method_name': function () {
     // server method logic

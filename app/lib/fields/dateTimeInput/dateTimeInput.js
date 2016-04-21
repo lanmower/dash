@@ -10,7 +10,7 @@ Widgets.schemas.dateTimeInput = function() {
 };
 
   if(Meteor.isClient) {
-    Template.dateTimeInput.cell = function(name, item, schema) {
+    Template.dateTimeInput.cell = function(name, item, schema, field) {
       var time = item[name];
       console.log(time, item, name, schema);
       return moment(time).format('MMMM Do, YYYY');
