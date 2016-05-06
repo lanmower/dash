@@ -1,35 +1,28 @@
 module.exports = {
   servers: {
     one: {
-      host: 'beanscount.co.za',
+      host: 'beanscount.co.za',	
       username: 'root',
-      // pem:
-      password: 'almagest'
-      // or leave blank for authenticate from ssh-agent
-    }
+      password: 'almagest',
+      // pem: './mykey',
+    },
   },
 
   meteor: {
     name: 'beanscount',
-    path: '/usr/src/dash/app',
+    path: './app',
     servers: {
-      one: {} //list of servers to deploy, from the 'servers' list
+      one: {},
     },
     env: {
-      ROOT_URL: 'beanscount.co.za',
+      PORT: 8000,
+      ROOT_URL: 'http://beanscount.co.za',
       MONGO_URL: 'mongodb://localhost/beanscount'
     },
-    //logs: { //optional
-    //  driver: 'syslog',
-    //  opts: {
-    //    url:'udp://syslogserverurl.com:1234'
-    //  }
-    //}
-    //dockerImage: 'madushan1000/meteord-test', //optional
-    deployCheckWaitTime: 60 //default 10
+ "deployCheckWaitTime": 120,
   },
 
-  mongo: { //optional
+  mongo: {
     oplog: true,
     port: 27017,
     servers: {
