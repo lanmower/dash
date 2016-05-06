@@ -190,10 +190,10 @@ Fields.schemas.approveInput = function(field) {
 
     var approvals = Approvals.find({field:field._id, doc:doc._id, value:true}).count();
     var owner = Meteor.users.findOne(doc.createdBy);
-    if(approvals > doc.max) {
-      sendIt(field, owner.profile.email, doc, form, userId, field.ownerApprovalSubject, field.ownerApprovalMessage, field.ownerApprovalMessageHtml);
+    if(approvals > field.max) {
+      sendIt(field, owner.profile.email, doc, form, doc.createdBy, field.ownerApprovalSubject, field.ownerApprovalMessage, field.ownerApprovalMessageHtml);
     } else {
-      sendIt(field, owner.profile.email, doc, form, userId, field.ownerCompleteSubject, field.ownerCompleteMessage, field.ownerCompleteMessageHtml);
+      sendIt(field, owner.profile.email, doc, form, doc.createdBy, field.ownerCompleteSubject, field.ownerCompleteMessage, field.ownerCompleteMessageHtml);
     }
     _.each(field.admins, function(adminId) {
       var admin = Meteor.users.findOne(adminId);

@@ -22,5 +22,6 @@ Fields.schemas.selectInput = function(data) {
         allowedValues: data.options,
         optional: true,
         label: data.title
-      }; return output;
+    };
+    return output;
   };

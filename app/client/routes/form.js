@@ -102,50 +102,50 @@ Router.route('form/updateAdmin/:form/:_id', {
   }
 });
 
-Router.route('form/submit/:_id', {
+Router.route('form/submit/:form', {
   title: 'Submit',
   name: 'submitForm',
   fastRender: true,
   where: 'client',
   waitOn: function() {
     return [
-      Meteor.subscribe("form", this.params._id)
+      Meteor.subscribe("form", this.params.form)
     ];
   },
   data: function () {
-    var form = Forms.findOne({_id:this.params._id});
+    var form = Forms.findOne({_id:this.params.form});
     return form;
   }
 });
 
-Router.route('form/list/:_id', {
+Router.route('form/list/:form', {
   title: 'Submissions',
   name: 'submissions',
   fastRender: true,
   where: 'client',
   waitOn: function() {
     return [
-      Meteor.subscribe("form", this.params._id)
+      Meteor.subscribe("form", this.params.form)
     ];
   },
   data: function () {
-    var form = Forms.findOne({_id:this.params._id});
+    var form = Forms.findOne({_id:this.params.form});
     return form;
   }
 });
 
-Router.route('form/admin/:_id', {
+Router.route('form/admin/:form', {
   title: 'Admin',
   name: 'submissionsAdmin',
   fastRender: true,
   where: 'client',
   waitOn: function() {
     return [
-      Meteor.subscribe("form", this.params._id)
+      Meteor.subscribe("form", this.params.form)
     ];
   },
   data: function () {
-    var form = Forms.findOne({_id:this.params._id});
+    var form = Forms.findOne({_id:this.params.form});
     return form;
   }
 });

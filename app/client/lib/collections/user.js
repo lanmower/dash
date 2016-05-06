@@ -57,6 +57,12 @@ schema.UserProfile = new SimpleSchema({
     country: {
         type: schema.UserCountry,
         optional: true
+    },
+    employmentStartDate: {
+      type: String,
+      autoform: {
+        type: "datetimepicker"
+      }
     }
 });
 

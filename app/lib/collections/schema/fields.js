@@ -1,6 +1,6 @@
 Fields = new Mongo.Collection("fields");
 Fields.schemas = {};
-Fields.hooks = {after:{update:{}, insert:{}, remove:{}}, before:{update:{}, insert:{}, remove:{}}};
+Fields.hooks = {after:{update:{}, insert:{}, remove:{}, startup:{}}, before:{update:{}, insert:{}, remove:{}}};
 
 Fields.helpers({
   collectionType: function() {return Fields},
@@ -9,15 +9,15 @@ Fields.helpers({
 
 Fields.allow({
   insert: function (userId, widget) {
-      return can(userId, widget, 'insert');
+      return true;//can(userId, widget, 'insert');
   },
   update: function (userId, widget, fields, modifier) {
-    return can(userId, widget, 'update');
+    return true;// can(userId, widget, 'update');
   },
   remove: function (userId, widget) {
-    return can(userId, widget, 'remove');
+    return true;// can(userId, widget, 'remove');
   }
 });
-Fields.before.insert(function (userId, doc) {
+/*Fields.before.insert(function (userId, doc) {
   doc.createdBy = userId;
-});
+});*/

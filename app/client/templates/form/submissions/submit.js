@@ -1,7 +1,7 @@
 AutoForm.hooks({
   submitForm: {
     onSuccess: function(formType, result) {
-      Router.go('submissions', {_id:Router.current().params._id});
+      Router.go('submissions', {form:Router.current().params.form});
     }
   }
 });
@@ -15,6 +15,7 @@ Template.submitForm.created = function () {
     template.destroyForm.set(true);
     if(Template.currentData()) {
       template.schema.set(formSchema(Template.currentData()));
+      console.log(template.schema.get());
     }
   });
 
@@ -29,6 +30,10 @@ Template.submitForm.helpers({
   destroyForm: function() {
     if(Template.instance().destroyForm)
     return Template.instance().destroyForm.get();
+  },
+  getCollection: function() {
+    var form = Forms.findOne({_id:Router.current().params.form});
+    return getCollection(form.collectionName);
   },
   getSchema: function() {
     if(Template.instance().schema) {

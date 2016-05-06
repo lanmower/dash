@@ -21,14 +21,14 @@ Fields.schemas.dateRangeInput = function(data) {
   var name = data.name
   var output = {};
   output[name+"Start"] = {
-        type: String,
+        type: Date,
         label: data.title+" start.",
         autoform: {
           type: "datetimepicker"
         }
     };
     output[name+"End"] = {
-          type: String,
+          type: Date,
           label: data.title+" end.",
           autoform: {
             type: "datetimepicker"

@@ -17,7 +17,7 @@ if(Meteor.isClient) {
 
   Template.afFileUpload.onCreated(function () {
 
-    Meteor.subscribe('formFiles', Router.current().params.form, Router.current().params._id);
+    this.subscribe('formFiles', Router.current().params.form, Router.current().params._id);
   });
 
   var getFind = function(name, type) {

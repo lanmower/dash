@@ -10,6 +10,16 @@ Template.registerHelper("debug", function(optionalValue) {
   }
 });
 
+_.extend(Blaze.View.prototype,{
+  closest: function(searchedViewName){
+    currentView = this;
+    while (currentView && currentView.name != searchedViewName){
+      currentView = currentView.parentView;
+    }
+    return currentView;
+  }
+});
+
 Template.registerHelper("pageTitle", function(title) {
   Meteor.pageTitle.set(title);
 });
@@ -42,7 +52,7 @@ Meteor.collections = {};
 
 getCollection = function(name) {
   if(!Forms.findOne({collectionName:name})) {
-     throw new Meteor.Error(404,"Not found.");
+     throw new Meteor.Error(404,name+" not found.");
   }
   if(!Meteor.collections[name]) {
     var collection = new Mongo.Collection(name);
@@ -73,5 +83,6 @@ Meteor.can = function(action, impactedDocument, fieldNames) {
       allowed = true;
     }
   });
+  console.log('testing allowed', allowed);
   return allowed;
 };

@@ -80,6 +80,7 @@ Widgets.additions = additions;
 Fields.additions = additions;
 
 Meteor.publish('forms', function () {
+  console.log("Subscribing all forms");
   var additions = Widgets.additions(this);
   return Forms.find({$or:additions});
 });
@@ -105,6 +106,7 @@ Meteor.publish('gmailSearch', function(uid, q) {
 
 Meteor.publishComposite('form', function(_id) {
   var additions = Widgets.additions(this);
+  console.log("Subscribing form",_id);
   return {
     find: function() {
       return Forms.find({_id:_id,$or:additions});

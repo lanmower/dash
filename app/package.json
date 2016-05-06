@@ -9,6 +9,7 @@
     "fibers": "^1.0.10",
     "fluent-ffmpeg": "^2.0.1",
     "jquery": "^2.2.2",
+    "later": "^1.2.0",
     "meteor-node-stubs": "^0.2.1",
     "musicmetadata": "^2.0.2",
     "props": "^0.3.0",

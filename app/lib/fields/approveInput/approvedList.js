@@ -3,7 +3,7 @@ if(Meteor.isClient) {
     Template.approveInput.cell = function(name, item, schema, field) {
       var router = Router.current();
       var output = "";
-      var field = Fields.findOne({parent:Router.current().params._id, name:name});
+      var field = Fields.findOne({parent:Router.current().params.form, name:name});
       var subscription = router.subscribe('approvals', field._id, item._id);
       var approvals = Approvals.find({doc:item._id, field:field._id, value:true}).fetch();
       var toutput = [];

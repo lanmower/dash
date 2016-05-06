@@ -13,7 +13,7 @@ Template.submissions.created = function () {
   });
 
   template.autorun(function(){
-    searchQuery = template.subscribe('formSearch', Router.current().params._id, Session.get('searchQuery'));
+    searchQuery = template.subscribe('formSearch', Router.current().params.form, Session.get('searchQuery'));
   });
 };
 Template.submissions.events({
