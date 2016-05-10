@@ -1,6 +1,6 @@
 AutoForm.debug();
 
-Accounts.ui.config(
+/*Accounts.ui.config(
   {
     requestOfflineToken: {google: true},
     forceApprovalPrompt: {google: true},
@@ -14,7 +14,7 @@ Accounts.ui.config(
       'https://www.googleapis.com/auth/tasks',
       'https://mail.google.com/']
     }
-});
+});*/
 
 
 /*userGeoLocation = new ReactiveVar(null);

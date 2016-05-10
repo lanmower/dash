@@ -21,7 +21,6 @@ aldeed:autoform
 aldeed:delete-button
 momentjs:moment
 accounts-google
-ian:accounts-ui-bootstrap-3
 ejson
 vazco:universe-autoform-select
 alanning:roles
