@@ -7,7 +7,7 @@ Hooks.onLoggedIn = function (userId) {
   //};
   SetEmail(Meteor.user());
   if(
-  (Meteor.user().services.google.name && Meteor.user().profile.name != Meteor.user().services.google.name)
+  (Meteor.user().services && Meteor.user().services.google && Meteor.user().services.google.name && Meteor.user().profile.name != Meteor.user().services.google.name)
   ) {
     Meteor.users.update({_id:userId },{"$set":{'profile.name': Meteor.user().services.google.name}});
   } else if(!Meteor.user().profile || !Meteor.user().profile.name) {
