@@ -14,7 +14,6 @@ aldeed:simple-schema@1.5.3
 allow-deny@1.0.4
 arsnebula:appupdate@1.0.6
 arsnebula:classx@2.0.5
-artwells:accounts-guest@0.1.13
 autoupdate@1.2.9
 babel-compiler@6.6.4
 babel-runtime@0.1.8
@@ -24,8 +23,6 @@ blaze@2.1.7
 blaze-html-templates@1.0.4
 blaze-tools@1.0.8
 boilerplate-generator@1.0.8
-brettle:accounts-login-state@0.0.4
-brettle:accounts-patch-ui@0.1.12
 caching-compiler@1.0.4
 caching-html-compiler@1.0.6
 callback-hook@1.0.8
