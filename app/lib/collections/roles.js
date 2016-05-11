@@ -7,7 +7,7 @@ Meteor.rolesList = function() {
     ret.push({label:roles[x].name, value:roles[x].name});
   }
   for(var x in users) {
-    ret.push({label:users[x].profile.name, value:users[x]._id});
+    if(users[x].profile && users[x].profile.name) ret.push({label:users[x].profile.name, value:users[x]._id});
   }
   return ret;
 }

@@ -29,7 +29,7 @@ DownloadAvatar = function(userId) {
 };
 SetEmail = function(user) {
   console.log('setting email');
-  if(user.services.google.email) {
+  if(user.services && user.services.google && user.services.google.email) {
     if(!user.profile || user.services.google.email != user.profile.email)
         Meteor.users.update({_id:user._id },{"$set":{'profile.email':user.services.google.email}});
   };

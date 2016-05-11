@@ -20,7 +20,7 @@ Meteor.usersList = function() {
   users = Meteor.users.find().fetch();
   var ret = [];
   for(var x in users) {
-    ret.push({label:users[x].profile.name, value:users[x]._id});
+    if(users[x].profile && users[x].profile.name) ret.push({label:users[x].profile.name, value:users[x]._id});
   }
   return ret;
 }
