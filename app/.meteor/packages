@@ -64,5 +64,5 @@ ciwolsey:sub-status
 useraccounts:iron-routing
 standard-minifier-css
 standard-minifier-js
-accounts-ui
 accounts-password
+useraccounts:bootstrap

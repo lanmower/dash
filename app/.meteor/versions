@@ -2,8 +2,6 @@ accounts-base@1.2.7
 accounts-google@1.0.9
 accounts-oauth@1.1.12
 accounts-password@1.1.8
-accounts-ui@1.1.9
-accounts-ui-unstyled@1.1.12
 alanning:roles@1.2.15
 aldeed:autoform@5.8.1
 aldeed:collection2@2.9.1
@@ -169,6 +167,7 @@ twbs:bootstrap@3.3.6
 ui@1.0.11
 underscore@1.0.8
 url@1.0.9
+useraccounts:bootstrap@1.14.2
 useraccounts:core@1.14.2
 useraccounts:iron-routing@1.14.2
 vazco:universe-autoform-select@0.3.8
