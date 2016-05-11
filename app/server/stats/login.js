@@ -11,7 +11,7 @@ Hooks.onLoggedIn = function (userId) {
   ) {
     Meteor.users.update({_id:userId },{"$set":{'profile.name': Meteor.user().services.google.name}});
   } else if(!Meteor.user().profile || !Meteor.user().profile.name) {
-    Meteor.users.update({_id:userId },{"$set":{'profile.name': 'asdf'}});
+    Meteor.users.update({_id:userId },{"$set":{'profile.name': ''}});
   }
 
 

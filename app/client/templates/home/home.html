@@ -1,4 +1,5 @@
 <template name="Home">
-  <div class="home">
-  </div>
+  {{#each widgets}}
+    {{> Template.dynamic template=type data=this}}
+  {{/each}}
 </template>
