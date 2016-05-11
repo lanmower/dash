@@ -47,10 +47,19 @@ Accounts.onCreateUser(function(options, user) {
 
 Accounts.validateNewUser(function (user) {
     config = Meteor.settings.emailDomains;
-    if(config.count()) {
+    console.log(config);
+    console.log(user);
+    if(config.length) {
       config.forEach(function(item) {
-        if(user.services.google.email.match(item.value)) {
+        if(user.services.google && user.services.google.email.match(item.value)) {
             return true;
+        }
+        if(user.emails) {
+            var pass = false;
+            _.each(user.emails, function(email) {
+               if(email.address.match(item.value)) pass = true;
+            });
+            if(pass)return true;
         }
       });
       throw new Meteor.Error(403, "You must sign up with an authorized account");

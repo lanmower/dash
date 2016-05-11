@@ -24,7 +24,7 @@
               <!-- Messages: style can be found in dropdown.less-->
               {{#if currentUser}}
               {{> navbarUploads}}
-              {{> navbarMessages}}
+              <!--{{> navbarMessages}}-->
               {{> navbarUsers}}
               <!-- User Account Menu -->
               <li>
@@ -42,11 +42,13 @@
                   'https://www.googleapis.com/auth/tasks',
                   'https://mail.google.com/'], loginStyle: 'redirect',  requestOfflineToken: true})//forceApprovalPrompt: true"><i class="fa fa-plus"></i>Sign in</a>
                 </li-->
-                <li>
-                {{> loginButtons}}
-                </li>
+                  <li>
+                    {{#linkTo route="login"}}<a href="#" ><i class="fa fa-plus"></i>&nbsp;Sign in</a>{{/linkTo}}
+                  </li>
               {{else}}
-                {{> loginButtons}}
+                <li>
+                  {{#linkTo route="login"}}<a href="#" style="color:inherit;"><i class="fa fa-plus"></i>&nbsp;Sign in</a>{{/linkTo}}
+                </li>
               {{/if}}
             {{/if}}
                 <!--li class="dropdown user user-menu">
