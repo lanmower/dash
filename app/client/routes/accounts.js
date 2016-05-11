@@ -4,5 +4,8 @@ Router.route('/login', {
   name: 'login',
   template: 'login',
   fastRender: true,
-  where: 'client'
+  where: 'client',
+  data: function () {
+		if(Meteor.userId()) Router.go('/');
+  }
 });
