@@ -1,299 +1,95 @@
 0 info it worked if it ends with ok
-1 verbose cli [ 'C:\\Program Files\\nodejs\\\\node.exe',
-1 verbose cli   'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
-1 verbose cli   'install',
-1 verbose cli   '--save',
-1 verbose cli   'fibers' ]
-2 info using npm@2.5.1
-3 info using node@v0.12.1
-4 verbose node symlink C:\Program Files\nodejs\\node.exe
-5 silly cache add args [ 'fibers', null ]
-6 verbose cache add spec fibers
-7 silly cache add parsed spec { raw: 'fibers',
-7 silly cache add   scope: null,
-7 silly cache add   name: 'fibers',
-7 silly cache add   rawSpec: '',
-7 silly cache add   spec: '*',
-7 silly cache add   type: 'range' }
-8 verbose addNamed fibers@*
-9 silly addNamed semver.valid null
-10 silly addNamed semver.validRange *
-11 silly addNameRange { name: 'fibers', range: '*', hasData: false }
-12 silly mapToRegistry name fibers
-13 silly mapToRegistry using default registry
-14 silly mapToRegistry registry https://registry.npmjs.org/
-15 silly mapToRegistry uri https://registry.npmjs.org/fibers
-16 verbose addNameRange registry:https://registry.npmjs.org/fibers not in flight; fetching
-17 verbose request uri https://registry.npmjs.org/fibers
-18 verbose request no auth needed
-19 info attempt registry request try #1 at 11:02:36 AM
-20 verbose request id debf7589cd03a9fe
-21 verbose etag "7X5ATW0F53IFUHZ09MXDON8YD"
-22 http request GET https://registry.npmjs.org/fibers
-23 http 304 https://registry.npmjs.org/fibers
-24 silly get cb [ 304,
-24 silly get   { date: 'Thu, 14 Apr 2016 09:02:33 GMT',
-24 silly get     via: '1.1 varnish',
-24 silly get     'cache-control': 'max-age=300',
-24 silly get     etag: '"7X5ATW0F53IFUHZ09MXDON8YD"',
-24 silly get     age: '0',
-24 silly get     connection: 'keep-alive',
-24 silly get     'x-served-by': 'cache-lhr6330-LHR',
-24 silly get     'x-cache': 'HIT',
-24 silly get     'x-cache-hits': '1',
-24 silly get     'x-timer': 'S1460624553.625597,VS0,VE182',
-24 silly get     vary: 'Accept-Encoding' } ]
-25 verbose etag https://registry.npmjs.org/fibers from cache
-26 verbose get saving fibers to C:\Users\thinkpad\AppData\Roaming\npm-cache\registry.npmjs.org\fibers\.cache.json
-27 silly addNameRange number 2 { name: 'fibers', range: '*', hasData: true }
-28 silly addNameRange versions [ 'fibers',
-28 silly addNameRange   [ '0.1.0',
-28 silly addNameRange     '0.1.1',
-28 silly addNameRange     '0.1.2',
-28 silly addNameRange     '0.1.3',
-28 silly addNameRange     '0.1.4',
-28 silly addNameRange     '0.1.6',
-28 silly addNameRange     '0.1.7',
-28 silly addNameRange     '0.1.8',
-28 silly addNameRange     '0.2.0',
-28 silly addNameRange     '0.2.1',
-28 silly addNameRange     '0.2.2',
-28 silly addNameRange     '0.2.3',
-28 silly addNameRange     '0.2.4',
-28 silly addNameRange     '0.2.5',
-28 silly addNameRange     '0.2.6',
-28 silly addNameRange     '0.5.0',
-28 silly addNameRange     '0.6.0',
-28 silly addNameRange     '0.5.1',
-28 silly addNameRange     '0.6.1',
-28 silly addNameRange     '0.6.2',
-28 silly addNameRange     '0.6.3',
-28 silly addNameRange     '0.6.4',
-28 silly addNameRange     '0.6.5',
-28 silly addNameRange     '0.6.6',
-28 silly addNameRange     '0.6.7',
-28 silly addNameRange     '0.6.8',
-28 silly addNameRange     '0.6.9',
-28 silly addNameRange     '1.0.0',
-28 silly addNameRange     '1.0.1',
-28 silly addNameRange     '1.0.2',
-28 silly addNameRange     '1.0.4',
-28 silly addNameRange     '1.0.5',
-28 silly addNameRange     '1.0.6-b',
-28 silly addNameRange     '1.0.7',
-28 silly addNameRange     '1.0.8',
-28 silly addNameRange     '1.0.9',
-28 silly addNameRange     '1.0.10' ] ]
-29 verbose addNamed fibers@1.0.10
-30 silly addNamed semver.valid 1.0.10
-31 silly addNamed semver.validRange 1.0.10
-32 silly cache afterAdd fibers@1.0.10
-33 verbose afterAdd C:\Users\thinkpad\AppData\Roaming\npm-cache\fibers\1.0.10\package\package.json not in flight; writing
-34 verbose afterAdd C:\Users\thinkpad\AppData\Roaming\npm-cache\fibers\1.0.10\package\package.json written
-35 silly install resolved [ { name: 'fibers',
-35 silly install resolved     version: '1.0.10',
-35 silly install resolved     description: 'Cooperative multi-tasking for Javascript',
-35 silly install resolved     keywords:
-35 silly install resolved      [ 'fiber',
-35 silly install resolved        'fibers',
-35 silly install resolved        'coroutine',
-35 silly install resolved        'thread',
-35 silly install resolved        'async',
-35 silly install resolved        'parallel',
-35 silly install resolved        'worker',
-35 silly install resolved        'future',
-35 silly install resolved        'promise' ],
-35 silly install resolved     homepage: 'https://github.com/laverdet/node-fibers',
-35 silly install resolved     author:
-35 silly install resolved      { name: 'Marcel Laverdet',
-35 silly install resolved        email: 'marcel@laverdet.com',
-35 silly install resolved        url: 'https://github.com/laverdet/' },
-35 silly install resolved     main: 'fibers',
-35 silly install resolved     scripts:
-35 silly install resolved      { install: 'node build.js || nodejs build.js',
-35 silly install resolved        test: 'node test.js || nodejs test.js' },
-35 silly install resolved     repository:
-35 silly install resolved      { type: 'git',
-35 silly install resolved        url: 'git://github.com/laverdet/node-fibers.git' },
-35 silly install resolved     license: 'MIT',
-35 silly install resolved     engines: { node: '>=0.5.2' },
-35 silly install resolved     gitHead: '4e31a39d35635251e8680301dccf7d186396f739',
-35 silly install resolved     bugs: { url: 'https://github.com/laverdet/node-fibers/issues' },
-35 silly install resolved     _id: 'fibers@1.0.10',
-35 silly install resolved     _shasum: '0ccea7287e5dafd2626c2c9d3f15113a1b5829cd',
-35 silly install resolved     _from: 'fibers@*',
-35 silly install resolved     _npmVersion: '2.14.4',
-35 silly install resolved     _nodeVersion: '4.1.1',
-35 silly install resolved     _npmUser: { name: 'laverdet', email: 'marcel.npm@laverdet.com' },
-35 silly install resolved     maintainers: [ [Object] ],
-35 silly install resolved     dist:
-35 silly install resolved      { shasum: '0ccea7287e5dafd2626c2c9d3f15113a1b5829cd',
-35 silly install resolved        tarball: 'https://registry.npmjs.org/fibers/-/fibers-1.0.10.tgz' },
-35 silly install resolved     _npmOperationalInternal:
-35 silly install resolved      { host: 'packages-5-east.internal.npmjs.com',
-35 silly install resolved        tmp: 'tmp/fibers-1.0.10.tgz_1456365159038_0.8597446731291711' },
-35 silly install resolved     directories: {},
-35 silly install resolved     _resolved: 'https://registry.npmjs.org/fibers/-/fibers-1.0.10.tgz',
-35 silly install resolved     readme: 'ERROR: No README data found!' } ]
-36 info install fibers@1.0.10 into C:\dev\dashboard
-37 info installOne fibers@1.0.10
-38 verbose installOne of fibers to C:\dev\dashboard not in flight; installing
-39 verbose lock using C:\Users\thinkpad\AppData\Roaming\npm-cache\_locks\fibers-981156d423dd8e39.lock for C:\dev\dashboard\node_modules\fibers
-40 silly install write writing fibers 1.0.10 to C:\dev\dashboard\node_modules\fibers
-41 silly cache addNamed cb fibers@1.0.10
-42 verbose unbuild node_modules\fibers
-43 verbose gentlyRm vacuuming C:\dev\dashboard\node_modules\fibers
-44 verbose tar unpack C:\Users\thinkpad\AppData\Roaming\npm-cache\fibers\1.0.10\package.tgz
-45 verbose tar unpacking to C:\dev\dashboard\node_modules\fibers
-46 verbose gentlyRm vacuuming C:\dev\dashboard\node_modules\fibers
-47 silly gunzTarPerm modes [ '777', '666' ]
-48 silly gunzTarPerm extractEntry package.json
-49 silly gunzTarPerm modified mode [ 'package.json', 420, 438 ]
-50 silly gunzTarPerm extractEntry .npmignore
-51 silly gunzTarPerm modified mode [ '.npmignore', 420, 438 ]
-52 silly gunzTarPerm extractEntry README.md
-53 silly gunzTarPerm modified mode [ 'README.md', 420, 438 ]
-54 silly gunzTarPerm extractEntry LICENSE
-55 silly gunzTarPerm modified mode [ 'LICENSE', 420, 438 ]
-56 silly gunzTarPerm extractEntry quick-test.js
-57 silly gunzTarPerm modified mode [ 'quick-test.js', 420, 438 ]
-58 silly gunzTarPerm extractEntry future.js
-59 silly gunzTarPerm modified mode [ 'future.js', 420, 438 ]
-60 silly gunzTarPerm extractEntry build.js
-61 silly gunzTarPerm modified mode [ 'build.js', 493, 511 ]
-62 silly gunzTarPerm extractEntry test.js
-63 silly gunzTarPerm modified mode [ 'test.js', 493, 511 ]
-64 silly gunzTarPerm extractEntry fibers.js
-65 silly gunzTarPerm modified mode [ 'fibers.js', 420, 438 ]
-66 silly gunzTarPerm extractEntry note.txt
-67 silly gunzTarPerm modified mode [ 'note.txt', 420, 438 ]
-68 silly gunzTarPerm extractEntry binding.gyp
-69 silly gunzTarPerm modified mode [ 'binding.gyp', 420, 438 ]
-70 silly gunzTarPerm extractEntry bin/.npmignore
-71 silly gunzTarPerm modified mode [ 'bin/.npmignore', 420, 438 ]
-72 silly gunzTarPerm extractEntry bin/win32-x64-v8-4.6/fibers.node
-73 silly gunzTarPerm modified mode [ 'bin/win32-x64-v8-4.6/fibers.node', 420, 438 ]
-74 silly gunzTarPerm extractEntry bin/darwin-ia32-v8-4.6/fibers.node
-75 silly gunzTarPerm modified mode [ 'bin/darwin-ia32-v8-4.6/fibers.node', 493, 511 ]
-76 silly gunzTarPerm extractEntry bin/darwin-x64-v8-4.5/fibers.node
-77 silly gunzTarPerm modified mode [ 'bin/darwin-x64-v8-4.5/fibers.node', 493, 511 ]
-78 silly gunzTarPerm extractEntry bin/darwin-x64-v8-4.6/fibers.node
-79 silly gunzTarPerm modified mode [ 'bin/darwin-x64-v8-4.6/fibers.node', 493, 511 ]
-80 silly gunzTarPerm extractEntry bin/linux-ia32-v8-4.5/fibers.node
-81 silly gunzTarPerm modified mode [ 'bin/linux-ia32-v8-4.5/fibers.node', 493, 511 ]
-82 silly gunzTarPerm extractEntry bin/linux-ia32-v8-4.6/fibers.node
-83 silly gunzTarPerm modified mode [ 'bin/linux-ia32-v8-4.6/fibers.node', 493, 511 ]
-84 silly gunzTarPerm extractEntry bin/darwin-ia32-v8-4.5/fibers.node
-85 silly gunzTarPerm modified mode [ 'bin/darwin-ia32-v8-4.5/fibers.node', 493, 511 ]
-86 silly gunzTarPerm extractEntry bin/linux-x64-v8-4.6/fibers.node
-87 silly gunzTarPerm modified mode [ 'bin/linux-x64-v8-4.6/fibers.node', 493, 511 ]
-88 silly gunzTarPerm extractEntry bin/repl
-89 silly gunzTarPerm modified mode [ 'bin/repl', 493, 511 ]
-90 silly gunzTarPerm extractEntry bin/win32-ia32-v8-4.5/fibers.node
-91 silly gunzTarPerm modified mode [ 'bin/win32-ia32-v8-4.5/fibers.node', 420, 438 ]
-92 silly gunzTarPerm extractEntry bin/win32-ia32-v8-4.6/fibers.node
-93 silly gunzTarPerm modified mode [ 'bin/win32-ia32-v8-4.6/fibers.node', 420, 438 ]
-94 silly gunzTarPerm extractEntry bin/win32-x64-v8-4.5/fibers.node
-95 silly gunzTarPerm modified mode [ 'bin/win32-x64-v8-4.5/fibers.node', 420, 438 ]
-96 silly gunzTarPerm extractEntry bin/linux-x64-v8-4.5/fibers.node
-97 silly gunzTarPerm modified mode [ 'bin/linux-x64-v8-4.5/fibers.node', 493, 511 ]
-98 silly gunzTarPerm extractEntry src/coroutine.cc
-99 silly gunzTarPerm modified mode [ 'src/coroutine.cc', 420, 438 ]
-100 silly gunzTarPerm extractEntry src/coroutine.h
-101 silly gunzTarPerm modified mode [ 'src/coroutine.h', 420, 438 ]
-102 silly gunzTarPerm extractEntry src/fibers.cc
-103 silly gunzTarPerm modified mode [ 'src/fibers.cc', 420, 438 ]
-104 silly gunzTarPerm extractEntry src/libcoro/README
-105 silly gunzTarPerm modified mode [ 'src/libcoro/README', 420, 438 ]
-106 silly gunzTarPerm extractEntry src/libcoro/LICENSE
-107 silly gunzTarPerm modified mode [ 'src/libcoro/LICENSE', 420, 438 ]
-108 silly gunzTarPerm extractEntry src/libcoro/conftest.c
-109 silly gunzTarPerm modified mode [ 'src/libcoro/conftest.c', 420, 438 ]
-110 silly gunzTarPerm extractEntry src/libcoro/coro.c
-111 silly gunzTarPerm modified mode [ 'src/libcoro/coro.c', 420, 438 ]
-112 silly gunzTarPerm extractEntry src/libcoro/coro.h
-113 silly gunzTarPerm modified mode [ 'src/libcoro/coro.h', 420, 438 ]
-114 silly gunzTarPerm extractEntry test/already-running.js
-115 silly gunzTarPerm modified mode [ 'test/already-running.js', 420, 438 ]
-116 silly gunzTarPerm extractEntry test/exit.js
-117 silly gunzTarPerm modified mode [ 'test/exit.js', 420, 438 ]
-118 silly gunzTarPerm extractEntry test/fibonacci.js
-119 silly gunzTarPerm modified mode [ 'test/fibonacci.js', 420, 438 ]
-120 silly gunzTarPerm extractEntry test/finish-multiple.js
-121 silly gunzTarPerm modified mode [ 'test/finish-multiple.js', 420, 438 ]
-122 silly gunzTarPerm extractEntry test/future-exception.js
-123 silly gunzTarPerm modified mode [ 'test/future-exception.js', 420, 438 ]
-124 silly gunzTarPerm extractEntry test/exec.js
-125 silly gunzTarPerm modified mode [ 'test/exec.js', 420, 438 ]
-126 silly gunzTarPerm extractEntry test/illegal-yield.js
-127 silly gunzTarPerm modified mode [ 'test/illegal-yield.js', 420, 438 ]
-128 silly gunzTarPerm extractEntry test/pool.js
-129 silly gunzTarPerm modified mode [ 'test/pool.js', 420, 438 ]
-130 silly gunzTarPerm extractEntry test/process-title.js
-131 silly gunzTarPerm modified mode [ 'test/process-title.js', 420, 438 ]
-132 silly gunzTarPerm extractEntry test/stack-overflow.js
-133 silly gunzTarPerm modified mode [ 'test/stack-overflow.js', 420, 438 ]
-134 silly gunzTarPerm extractEntry test/stack-overflow2.js
-135 silly gunzTarPerm modified mode [ 'test/stack-overflow2.js', 493, 511 ]
-136 silly gunzTarPerm extractEntry test/current.js
-137 silly gunzTarPerm modified mode [ 'test/current.js', 420, 438 ]
-138 silly gunzTarPerm extractEntry test/stack-overflow3.js
-139 silly gunzTarPerm modified mode [ 'test/stack-overflow3.js', 420, 438 ]
-140 silly gunzTarPerm extractEntry test/child-process.js
-141 silly gunzTarPerm modified mode [ 'test/child-process.js', 420, 438 ]
-142 silly gunzTarPerm extractEntry test/started.js
-143 silly gunzTarPerm modified mode [ 'test/started.js', 420, 438 ]
-144 silly gunzTarPerm extractEntry test/bad-context.js
-145 silly gunzTarPerm modified mode [ 'test/bad-context.js', 420, 438 ]
-146 silly gunzTarPerm extractEntry test/unwind.js
-147 silly gunzTarPerm modified mode [ 'test/unwind.js', 420, 438 ]
-148 silly gunzTarPerm extractEntry test/future.js
-149 silly gunzTarPerm modified mode [ 'test/future.js', 420, 438 ]
-150 info preinstall fibers@1.0.10
-151 silly install resolved []
-152 verbose about to build C:\dev\dashboard\node_modules\fibers
-153 info build C:\dev\dashboard\node_modules\fibers
-154 verbose linkStuff [ false, false, false, 'C:\\dev\\dashboard\\node_modules' ]
-155 info linkStuff fibers@1.0.10
-156 verbose linkBins fibers@1.0.10
-157 verbose linkMans fibers@1.0.10
-158 verbose rebuildBundles fibers@1.0.10
-159 info install fibers@1.0.10
-160 verbose unsafe-perm in lifecycle true
-161 info fibers@1.0.10 Failed to exec install script
-162 verbose unlock done using C:\Users\thinkpad\AppData\Roaming\npm-cache\_locks\fibers-981156d423dd8e39.lock for C:\dev\dashboard\node_modules\fibers
-163 verbose stack Error: fibers@1.0.10 install: `node build.js || nodejs build.js`
-163 verbose stack Exit status 1
-163 verbose stack     at EventEmitter.<anonymous> (C:\Program Files\nodejs\node_modules\npm\lib\utils\lifecycle.js:213:16)
-163 verbose stack     at EventEmitter.emit (events.js:110:17)
-163 verbose stack     at ChildProcess.<anonymous> (C:\Program Files\nodejs\node_modules\npm\lib\utils\spawn.js:14:12)
-163 verbose stack     at ChildProcess.emit (events.js:110:17)
-163 verbose stack     at maybeClose (child_process.js:1008:16)
-163 verbose stack     at Process.ChildProcess._handle.onexit (child_process.js:1080:5)
-164 verbose pkgid fibers@1.0.10
-165 verbose cwd C:\dev\dashboard
-166 error Windows_NT 6.3.9600
-167 error argv "C:\\Program Files\\nodejs\\\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install" "--save" "fibers"
-168 error node v0.12.1
-169 error npm  v2.5.1
-170 error code ELIFECYCLE
-171 error fibers@1.0.10 install: `node build.js || nodejs build.js`
-171 error Exit status 1
-172 error Failed at the fibers@1.0.10 install script 'node build.js || nodejs build.js'.
-172 error This is most likely a problem with the fibers package,
-172 error not with npm itself.
-172 error Tell the author that this fails on your system:
-172 error     node build.js || nodejs build.js
-172 error You can get their info via:
-172 error     npm owner ls fibers
-172 error There is likely additional logging output above.
-173 verbose exit [ 1, true ]
-174 verbose unbuild node_modules\fibers
-175 info preuninstall fibers@1.0.10
-176 info uninstall fibers@1.0.10
-177 verbose unbuild rmStuff fibers@1.0.10 from C:\dev\dashboard\node_modules
-178 info postuninstall fibers@1.0.10
-179 verbose gentlyRm vacuuming C:\dev\dashboard\node_modules\fibers
-180 silly gentlyRm purging C:\dev\dashboard\node_modules\fibers
-181 silly gentlyRm removing C:\dev\dashboard\node_modules
-182 silly gentlyRm finished vacuuming up to C:\dev\dashboard
+1 verbose cli [ 'node', '/usr/local/bin/npm', 'install', '-g', 'iron-cli' ]
+2 info using npm@3.8.9
+3 info using node@v0.10.36
+4 silly loadCurrentTree Starting
+5 silly install loadCurrentTree
+6 silly install readGlobalPackageData
+7 silly fetchPackageMetaData iron-cli
+8 silly fetchNamedPackageData iron-cli
+9 silly mapToRegistry name iron-cli
+10 silly mapToRegistry using default registry
+11 silly mapToRegistry registry https://registry.npmjs.org/
+12 silly mapToRegistry data { raw: 'iron-cli',
+12 silly mapToRegistry   scope: null,
+12 silly mapToRegistry   name: 'iron-cli',
+12 silly mapToRegistry   rawSpec: '',
+12 silly mapToRegistry   spec: 'latest',
+12 silly mapToRegistry   type: 'tag' }
+13 silly mapToRegistry uri https://registry.npmjs.org/iron-cli
+14 verbose request uri https://registry.npmjs.org/iron-cli
+15 verbose request no auth needed
+16 info attempt registry request try #1 at 14:51:35
+17 verbose request id c8b382c18b59cf9e
+18 http request GET https://registry.npmjs.org/iron-cli
+19 http 404 https://registry.npmjs.org/iron-cli
+20 verbose headers { 'content-type': 'application/json',
+20 verbose headers   'cache-control': 'max-age=0',
+20 verbose headers   'content-length': '2',
+20 verbose headers   'accept-ranges': 'bytes',
+20 verbose headers   date: 'Tue, 10 May 2016 12:51:36 GMT',
+20 verbose headers   via: '1.1 varnish',
+20 verbose headers   age: '0',
+20 verbose headers   connection: 'keep-alive',
+20 verbose headers   'x-served-by': 'cache-fra1225-FRA',
+20 verbose headers   'x-cache': 'MISS',
+20 verbose headers   'x-cache-hits': '0',
+20 verbose headers   'x-timer': 'S1462884696.282164,VS0,VE111',
+20 verbose headers   vary: 'Accept-Encoding' }
+21 silly get cb [ 404,
+21 silly get   { 'content-type': 'application/json',
+21 silly get     'cache-control': 'max-age=0',
+21 silly get     'content-length': '2',
+21 silly get     'accept-ranges': 'bytes',
+21 silly get     date: 'Tue, 10 May 2016 12:51:36 GMT',
+21 silly get     via: '1.1 varnish',
+21 silly get     age: '0',
+21 silly get     connection: 'keep-alive',
+21 silly get     'x-served-by': 'cache-fra1225-FRA',
+21 silly get     'x-cache': 'MISS',
+21 silly get     'x-cache-hits': '0',
+21 silly get     'x-timer': 'S1462884696.282164,VS0,VE111',
+21 silly get     vary: 'Accept-Encoding' } ]
+22 silly fetchPackageMetaData Error: Registry returned 404 for GET on https://registry.npmjs.org/iron-cli
+22 silly fetchPackageMetaData     at makeError (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:264:12)
+22 silly fetchPackageMetaData     at CachingRegistryClient.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:242:14)
+22 silly fetchPackageMetaData     at Request._callback (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:172:14)
+22 silly fetchPackageMetaData     at Request.self.callback (/usr/local/lib/node_modules/npm/node_modules/request/request.js:200:22)
+22 silly fetchPackageMetaData     at Request.emit (events.js:98:17)
+22 silly fetchPackageMetaData     at Request.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:1067:10)
+22 silly fetchPackageMetaData     at Request.emit (events.js:117:20)
+22 silly fetchPackageMetaData     at IncomingMessage.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:988:12)
+22 silly fetchPackageMetaData     at IncomingMessage.emit (events.js:117:20)
+22 silly fetchPackageMetaData     at _stream_readable.js:944:16
+22 silly fetchPackageMetaData  error for iron-cli { [Error: Registry returned 404 for GET on https://registry.npmjs.org/iron-cli] pkgid: 'iron-cli', statusCode: 404, code: 'E404' }
+23 silly rollbackFailedOptional Starting
+24 silly rollbackFailedOptional Finishing
+25 silly runTopLevelLifecycles Starting
+26 silly runTopLevelLifecycles Finishing
+27 silly install printInstalled
+28 verbose stack Error: Registry returned 404 for GET on https://registry.npmjs.org/iron-cli
+28 verbose stack     at makeError (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:264:12)
+28 verbose stack     at CachingRegistryClient.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:242:14)
+28 verbose stack     at Request._callback (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:172:14)
+28 verbose stack     at Request.self.callback (/usr/local/lib/node_modules/npm/node_modules/request/request.js:200:22)
+28 verbose stack     at Request.emit (events.js:98:17)
+28 verbose stack     at Request.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:1067:10)
+28 verbose stack     at Request.emit (events.js:117:20)
+28 verbose stack     at IncomingMessage.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:988:12)
+28 verbose stack     at IncomingMessage.emit (events.js:117:20)
+28 verbose stack     at _stream_readable.js:944:16
+29 verbose statusCode 404
+30 verbose pkgid iron-cli
+31 verbose cwd /usr/src/dash
+32 error Linux 4.2.0-36-generic
+33 error argv "node" "/usr/local/bin/npm" "install" "-g" "iron-cli"
+34 error node v0.10.36
+35 error npm  v3.8.9
+36 error code E404
+37 error 404 Registry returned 404 for GET on https://registry.npmjs.org/iron-cli
+38 error 404
+39 error 404 'iron-cli' is not in the npm registry.
+40 error 404 You should bug the author to publish it (or use the name yourself!)
+41 error 404 Note that you can also install from a
+42 error 404 tarball, folder, http url, or git url.
+43 verbose exit [ 1, true ]
