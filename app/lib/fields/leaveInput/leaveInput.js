@@ -176,7 +176,7 @@ Widgets.schemas.leaveInput = function() {
 
                     _.each(loaded, function(item) {
                       console.log(item);
-                      totalHours -= item.hours;
+                      totalHours -= parseInt(item.hours);
                     });
                     var toSet = {label:doc.title+": "+totalHours + " hours remaining.", value:doc._id};
                     list.push(toSet);
