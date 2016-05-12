@@ -147,3 +147,7 @@ width:430px;
 .box-header li {
   display:inline-block;
 }
+
+.content {
+  bottom: 0px !important;
+}
