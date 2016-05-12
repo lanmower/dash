@@ -157,20 +157,20 @@ Widgets.schemas.leaveInput = function() {
                     if(user.profile.employmentStartDate) employmentStartDate = new Date(user.profile.employmentStartDate);
                     var today = new Date();
 
-                    var loadFrom = employmentStartDate;
-                    while(new Date(loadFrom) < moment(today).subtract(history, historyUnit)) {
-                      var loadFrom = moment(loadFrom-0).add(history, historyUnit);
+                    var startDate = employmentStartDate;
+                    while(new Date(startDate) < moment(today).subtract(history, historyUnit)) {
+                      history = moment(startDate-0).add(history, historyUnit);
                     }
                     var lastCycle = employmentStartDate;
                     var totalHours = 0;
                     //count max available hours by rule
                     while(lastCycle < today) {
-                      var lastCycle = moment(lastCycle-0).add(frequency, frequencyUnit);
+                      lastCycle = moment(lastCycle-0).add(frequency, frequencyUnit);
                       totalHours += hours;
                     }
                     //load used hours that havent ended yet
                     var loaded = getCollection(Forms.findOne(Router.current().params.form).collectionName).find({
-                      rangeEnd : { $gte : loadFrom },
+                      rangeEnd : { $gte : history },
                       type : doc._id
                     }).fetch();
 
