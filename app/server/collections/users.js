@@ -6,7 +6,7 @@ DownloadAvatar = function(userId) {
     var file = Files.findOne(user.profile.picture);
     if(file) Files.remove(user.profile.picture);
   }
-  if(user.services.google.picture) {
+  if(user.services && user.services.google && user.services.google.picture) {
     var newFile = new FS.File();
     if(user.profile) {
       newFile.attachData(user.services.google.picture, function(error) {
