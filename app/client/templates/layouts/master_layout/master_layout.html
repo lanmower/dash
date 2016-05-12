@@ -25,7 +25,7 @@
               {{#if currentUser}}
               {{> navbarUploads}}
               <!--{{> navbarMessages}}-->
-              {{> navbarUsers}}
+              <!--{{> navbarUsers}}-->
               <!-- User Account Menu -->
               <li>
                 <a href="#" onclick="Meteor.logout()"><i class="fa fa-minus"></i>&nbsp;Sign out</a><!--forceApprovalPrompt: true-->
@@ -33,51 +33,51 @@
               {{else}}
               {{#if configured}}
               <!--li>
-                <a href="#" onclick="Meteor.loginWithGoogle({requestPermissions:[
-                  'https://www.googleapis.com/auth/userinfo.email',
-                  'https://apps-apis.google.com/a/feeds/emailsettings/2.0/',
-                  'https://www.googleapis.com/auth/drive',
-                  'https://www.googleapis.com/auth/calendar',
-                  'https://www.googleapis.com/auth/userinfo.profile',
-                  'https://www.googleapis.com/auth/tasks',
-                  'https://mail.google.com/'], loginStyle: 'redirect',  requestOfflineToken: true})//forceApprovalPrompt: true"><i class="fa fa-plus"></i>Sign in</a>
-                </li-->
-                  <li>
-                    {{#linkTo route="login"}}<i class="fa fa-plus"></i>&nbsp;Sign in{{/linkTo}}
-                  </li>
-              {{else}}
-                <li>
-                  {{#linkTo route="login"}}<i class="fa fa-plus"></i>&nbsp;Sign in{{/linkTo}}
-                </li>
-              {{/if}}
+              <a href="#" onclick="Meteor.loginWithGoogle({requestPermissions:[
+              'https://www.googleapis.com/auth/userinfo.email',
+              'https://apps-apis.google.com/a/feeds/emailsettings/2.0/',
+              'https://www.googleapis.com/auth/drive',
+              'https://www.googleapis.com/auth/calendar',
+              'https://www.googleapis.com/auth/userinfo.profile',
+              'https://www.googleapis.com/auth/tasks',
+              'https://mail.google.com/'], loginStyle: 'redirect',  requestOfflineToken: true})//forceApprovalPrompt: true"><i class="fa fa-plus"></i>Sign in</a>
+            </li-->
+            <li>
+              {{#linkTo route="login"}}<i class="fa fa-plus"></i>&nbsp;Sign in{{/linkTo}}
+            </li>
+            {{else}}
+            <li>
+              {{#linkTo route="login"}}<i class="fa fa-plus"></i>&nbsp;Sign in{{/linkTo}}
+            </li>
             {{/if}}
-                <!--li class="dropdown user user-menu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <img src="{{userImage}}" class="user-image" alt="User Image">
-                <span class="hidden-xs">{{userName}}</span>
-              </a>
-              <ul class="dropdown-menu">
-              <li class="user-header">
-              <img src="{{userImage}}" class="img-circle" alt="User Image">
-              <p>
-              {{userName}}
-              <small>Member since Nov. 2012</small>
-            </p>
-          </li>
-          <li class="user-body">
-          <div class="col-xs-4 text-center">
-          <a href="#">Followers</a>
-        </div>
-        <div class="col-xs-4 text-center">
-        <a href="#">Sales</a>
-      </div>
+            {{/if}}
+            <!--li class="dropdown user user-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <img src="{{userImage}}" class="user-image" alt="User Image">
+            <span class="hidden-xs">{{userName}}</span>
+          </a>
+          <ul class="dropdown-menu">
+          <li class="user-header">
+          <img src="{{userImage}}" class="img-circle" alt="User Image">
+          <p>
+          {{userName}}
+          <small>Member since Nov. 2012</small>
+        </p>
+      </li>
+      <li class="user-body">
       <div class="col-xs-4 text-center">
-      <a href="#">Friends</a>
+      <a href="#">Followers</a>
     </div>
-  </li>
-  <li class="user-footer">
-  <div class="pull-left">
-  <a href="#" class="btn btn-default btn-flat">Profile</a>
+    <div class="col-xs-4 text-center">
+    <a href="#">Sales</a>
+  </div>
+  <div class="col-xs-4 text-center">
+  <a href="#">Friends</a>
+</div>
+</li>
+<li class="user-footer">
+<div class="pull-left">
+<a href="#" class="btn btn-default btn-flat">Profile</a>
 </div>
 <div class="pull-right">
 <a href="#" class="btn btn-default btn-flat">Sign out</a>
@@ -87,7 +87,7 @@
 </li-->
 <!-- Control Sidebar Toggle Button -->
 <li>
-  <a href="#" onclick="$('.control-sidebar').toggle(400)"><i class="fa fa-play"></i></a>
+  <a href="#" onclick="$('.control-sidebar').toggle(400)"><i class="fa fa-play" style="display:none"></i></a>
 </li>
 </ul>
 </div>

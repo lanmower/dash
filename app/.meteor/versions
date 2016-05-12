@@ -48,7 +48,6 @@ cfs:upload-http@0.0.20
 cfs:worker@0.1.4
 check@1.2.1
 chuangbo:cookie@1.1.0
-ciwolsey:sub-status@0.0.8
 coffeescript@1.0.17
 dburles:collection-helpers@1.0.4
 ddp@1.2.5
