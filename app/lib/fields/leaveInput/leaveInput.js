@@ -139,6 +139,7 @@ Widgets.schemas.leaveInput = function() {
             onReady:function() {
               template.subscribe('formSearch', field.form,"",{
                 onReady:function() {
+                  console.log('test');
                   var form = Forms.findOne({_id:field.form});
                   var docs = getCollection(form.collectionName).find().fetch();
                   var list= [];

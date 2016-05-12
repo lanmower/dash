@@ -45,6 +45,9 @@ var additions = function(self) {
 
   //if user test against user roles, can see viewable updatable and removable items
   roles = Roles.getRolesForUser(self.userId);
+  if(self.userId) {
+    roles.push(Meteor.users.findOne(self.userId)._id);
+  }
   var rules = [
     {$or:[
       {"view": {$size: 0}},
@@ -53,9 +56,15 @@ var additions = function(self) {
     {view: {$in:roles}},
     {update: {$in:roles}},
     {remove: {$in:roles}},
-    {$and:[
-      {createdBy: self.userId},
-      {createdBy: {$exists: true}}
+    {$or: [
+      {$and:[
+        {createdBy: self.userId},
+        {createdBy: {$exists: true}}
+      ]},
+      {$and:[
+        {"public": true},
+        {"public": {$exists: true}}
+      ]}
     ]}
   ];
 

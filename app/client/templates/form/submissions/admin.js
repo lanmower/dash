@@ -47,7 +47,8 @@ Template.submissionsAdmin.helpers({
     return line[name];
   },
   user: function(id) {
-    return Meteor.users.findOne({_id:id}).profile.name;
+    user = Meteor.users.findOne({_id:id});
+    if(user && user.profile && user.profile.name) return Meteor.users.findOne({_id:id}).profile.name;
   },
   label: function() {
     return this['title'];
