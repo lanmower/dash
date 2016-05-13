@@ -159,6 +159,8 @@ Widgets.schemas.leaveInput = function() {
 
                     var start = moment(employmentStartDate).utc().format();
                     var end = moment(today).subtract(history, historyUnit);
+                    if(moment(start).isAfter(end)) start = moment(end.format());
+
                     var historyDate;
                     for (var m = moment(start); m.isBefore(end); m.add(history, historyUnit)) {
                       historyDate = m;
