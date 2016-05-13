@@ -184,11 +184,12 @@ Widgets.schemas.leaveInput = function() {
                       console.log(item);
                       totalHours -= parseInt(item.hours);
                     });
-                    var toSet = {label:doc.title+": "+totalHours + " hours remaining.", value:doc._id};
+                    var toSet;
+                    if(totalHours >= 0) toSet = {label:doc.title+": "+totalHours + " hours remaining.", value:doc._id};
+                    else toSet = {label:doc.title+": 0 hours remaining. "+(-totalHours)+" overbooked!", value:doc._id};
                     list.push(toSet);
                   });
                   template.fieldsList.set(list);
-
                 }
               });
             }
