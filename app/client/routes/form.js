@@ -79,7 +79,8 @@ Router.route('form/updateAdmin/:form/:_id', {
   where: 'client',
   waitOn: function() {
 		this.subscribe("form", this.params.form),
-		this.subscribe("submission", this.params.form, this.params._id)
+		this.subscribe("submission", this.params.form, this.params._id),
+		Meteor.subscribe("users")
   },
   data: function () {
 		var form = Forms.findOne({_id:this.params.form});
