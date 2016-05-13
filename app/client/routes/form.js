@@ -141,7 +141,8 @@ Router.route('form/admin/:form', {
   where: 'client',
   waitOn: function() {
     return [
-      Meteor.subscribe("form", this.params.form)
+      Meteor.subscribe("form", this.params.form),
+			Meteor.subscribe("users")
     ];
   },
   data: function () {
