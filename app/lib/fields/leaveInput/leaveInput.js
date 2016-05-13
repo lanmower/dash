@@ -162,7 +162,7 @@ Widgets.schemas.leaveInput = function() {
                     if(moment(start).isAfter(end)) start = moment(end.format());
 
                     var historyDate;
-                    if(history && frequency) {
+                    if(paseInt(history) && parseInt(frequency)) {
                       for (var m = moment(start); m.isBefore(end); m.add(history, historyUnit)) {
                         historyDate = m;
                         console.log("Fastforward from employment date to history start "+m.format('YYYY-MM-DD'));
