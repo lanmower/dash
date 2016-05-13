@@ -162,17 +162,19 @@ Widgets.schemas.leaveInput = function() {
                     if(moment(start).isAfter(end)) start = moment(end.format());
 
                     var historyDate;
-                    for (var m = moment(start); m.isBefore(end); m.add(history, historyUnit)) {
-                      historyDate = m;
-                      console.log("Fastforward from employment date to history start "+m.format('YYYY-MM-DD'));
-                    }
-                    var start = moment(historyDate);
-                    var end = today;
-                    var totalHours = 0;
-                    for (var m = start; m.isBefore(end); m.add(frequency, frequencyUnit)) {
-                      historyDate = m.format();
-                      totalHours += hours;
-                      console.log("Fastforward from history start "+m.format('YYYY-MM-DD'));
+                    if(history && frequency) {
+                      for (var m = moment(start); m.isBefore(end); m.add(history, historyUnit)) {
+                        historyDate = m;
+                        console.log("Fastforward from employment date to history start "+m.format('YYYY-MM-DD'));
+                      }
+                      var start = moment(historyDate);
+                      var end = today;
+                      var totalHours = 0;
+                      for (var m = start; m.isBefore(end); m.add(frequency, frequencyUnit)) {
+                        historyDate = m.format();
+                        totalHours += hours;
+                        console.log("Fastforward from history start "+m.format('YYYY-MM-DD'));
+                      }
                     }
                     //load used hours that havent ended yet
                     var loaded = getCollection(Forms.findOne(Router.current().params.form).collectionName).find({
