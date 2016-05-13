@@ -154,23 +154,27 @@ Widgets.schemas.leaveInput = function() {
                     var user = Meteor.user();
 
 
-                    if(user.profile.employmentStartDate) employmentStartDate = new Date(user.profile.employmentStartDate);
+                    if(user.profile.employmentStartDate) employmentStartDate = user.profile.employmentStartDate;
                     var today = new Date();
 
-                    var startDate = employmentStartDate;
-                    while(new Date(startDate) < moment(today).subtract(history, historyUnit)) {
-                      history = moment(startDate-0).add(history, historyUnit);
+                    var start = moment(employmentStartDate).utc().format();
+                    var end = moment(today).subtract(history, historyUnit);
+                    var historyDate;
+                    for (var m = moment(start); m.isBefore(end); m.add(history, historyUnit)) {
+                      historyDate = m;
+                      console.log("Fastforward from employment date to history start "+m.format('YYYY-MM-DD'));
                     }
-                    var lastCycle = employmentStartDate;
+                    var start = moment(historyDate);
+                    var end = today;
                     var totalHours = 0;
-                    //count max available hours by rule
-                    while(lastCycle < today) {
-                      lastCycle = moment(lastCycle-0).add(frequency, frequencyUnit);
+                    for (var m = start; m.isBefore(end); m.add(frequency, frequencyUnit)) {
+                      historyDate = m.format();
                       totalHours += hours;
+                      console.log("Fastforward from history start "+m.format('YYYY-MM-DD'));
                     }
                     //load used hours that havent ended yet
                     var loaded = getCollection(Forms.findOne(Router.current().params.form).collectionName).find({
-                      rangeEnd : { $gte : history },
+                      rangeEnd : { $gte : new Date(historyDate) },
                       type : doc._id
                     }).fetch();
 

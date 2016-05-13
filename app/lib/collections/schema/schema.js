@@ -1,4 +1,5 @@
-can = function(userId, item, action) {
+can = function(userId, item, action, fieldNames) {
+  if(Roles.userIsInRole(userId, 'admin')) return true;
   if(action === "update") allow = userId && (item.createdBy === userId);
   if(item.parent) {
     var parentType = item.parentType();
@@ -8,6 +9,11 @@ can = function(userId, item, action) {
         if(Roles.userIsInRole(userId, item[action][i])) return true;
     }
   }
+  for(var i in item.collectionType()._validators[action].allow) {
+    if(allowRule(Meteor.userId(), impactedDocument, fieldNames)) {
+      return true;
+    }
+  };
   for(var i in item[action]) {
       if(Roles.userIsInRole(userId, item[action][i])) return true;
   }
