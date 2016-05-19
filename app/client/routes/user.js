@@ -9,8 +9,12 @@ Router.route('user/list', {
 		};
   },
   fastRender: true,
-  where: 'client'
-});
+	onBeforeAction: function() {
+	    if (!Meteor.user() || Roles.userIsInRole(Meteor.user(), ['admin'])){
+	      Router.go('/');
+	    }
+	  }
+	});
 
 Router.route('user/edit/:_id', {
   name: 'editUser',
@@ -25,7 +29,12 @@ Router.route('user/edit/:_id', {
     return Meteor.users.findOne({_id:this.params._id});
   },
   fastRender: true,
-  where: 'client'
+  where: 'client',
+	onBeforeAction: function() {
+	    if (!Meteor.user() || Roles.userIsInRole(Meteor.user(), ['admin'])){
+				Router.go('/');
+	    }
+	  }
 });
 
 Router.route('user/profile', {
@@ -36,5 +45,10 @@ Router.route('user/profile', {
     return Meteor.user();
   },
   fastRender: true,
-  where: 'client'
+  where: 'client',
+	onBeforeAction: function() {
+	    if (!Meteor.user() || Roles.userIsInRole(Meteor.user(), ['admin'])){
+				Router.go('/');
+	    }
+	  }
 });

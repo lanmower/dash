@@ -24,7 +24,13 @@ Router.route('field/edit/:form/:_id', {
       return {field:field, schema:new SimpleSchema(formSchema)};
     }
 
-  }
+  },
+	onBeforeAction: function() {
+			if (!Meteor.user() || Roles.userIsInRole(Meteor.user(), ['admin'])){
+				Router.go('/');
+			}
+		}
+
 });
 
 Router.route('field/insert/:parent', {
@@ -42,5 +48,11 @@ Router.route('field/insert/:parent', {
   },
   name: 'insertField',
   fastRender: true,
-  where: 'client'
+  where: 'client',
+	onBeforeAction: function() {
+			if (!Meteor.user() || Roles.userIsInRole(Meteor.user(), ['admin'])){
+				Router.go('/');
+			}
+		}
+
 });

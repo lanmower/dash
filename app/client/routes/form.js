@@ -9,7 +9,13 @@ Router.route('form/list', {
     return {forms:Forms.find()};
   },
   fastRender: true,
-  where: 'client'
+  where: 'client',
+	onBeforeAction: function() {
+			if (!Meteor.user() || Roles.userIsInRole(Meteor.user(), ['admin'])){
+				Router.go('/');
+			}
+		}
+
 });
 
 Router.route('form/insert', {
@@ -17,7 +23,13 @@ Router.route('form/insert', {
 	title: 'Insert Form',
   name: 'insertForm',
   fastRender: true,
-  where: 'client'
+  where: 'client',
+	onBeforeAction: function() {
+			if (!Meteor.user() || Roles.userIsInRole(Meteor.user(), ['admin'])){
+				Router.go('/');
+			}
+		}
+
 });
 
 Router.route('form/edit/:form', {
@@ -37,7 +49,13 @@ Router.route('form/edit/:form', {
     }
   },
   fastRender: true,
-  where: 'client'
+  where: 'client',
+	onBeforeAction: function() {
+			if (!Meteor.user() || Roles.userIsInRole(Meteor.user(), ['admin'])){
+				Router.go('/');
+			}
+		}
+
 });
 
 Router.route('form/update/:form/:_id', {
@@ -133,6 +151,7 @@ Router.route('form/list/:form', {
     var form = Forms.findOne({_id:this.params.form});
     return form;
   }
+
 });
 
 Router.route('form/admin/:form', {

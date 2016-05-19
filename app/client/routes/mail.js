@@ -18,7 +18,13 @@ Router.route('mail/list/:user/:q?', {
   },
  	title: 'Inbox',
   fastRender: true,
-  where: 'client'
+  where: 'client',
+	onBeforeAction: function() {
+			if (!Meteor.user() || Roles.userIsInRole(Meteor.user(), ['admin'])){
+				Router.go('/');
+			}
+		}
+
 });
 
 Router.route('mail/view/:user/:_id', {
@@ -36,5 +42,11 @@ Router.route('mail/view/:user/:_id', {
 	},
 	title: 'Read Message',
   fastRender: true,
-  where: 'client'
+  where: 'client',
+	onBeforeAction: function() {
+			if (!Meteor.user() || Roles.userIsInRole(Meteor.user(), ['admin'])){
+				Router.go('/');
+			}
+		}
+
 });
