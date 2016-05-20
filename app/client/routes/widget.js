@@ -21,7 +21,7 @@ Router.route('widget/edit/:_id', {
   fastRender: true,
   where: 'client',
 	onBeforeAction: function() {
-			if (!Meteor.user() || Roles.userIsInRole(Meteor.user(), ['admin'])){
+			if (!Meteor.user() || !Roles.userIsInRole(Meteor.user(), ['admin'])){
 				Router.go('/');
 			}
 		}
@@ -46,7 +46,7 @@ Router.route('widget/insert/:parent', {
   fastRender: true,
   where: 'client',
 	onBeforeAction: function() {
-			if (!Meteor.user() || Roles.userIsInRole(Meteor.user(), ['admin'])){
+			if (!Meteor.user() || !Roles.userIsInRole(Meteor.user(), ['admin'])){
 				Router.go('/');
 			}
 		}

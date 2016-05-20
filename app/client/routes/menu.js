@@ -11,7 +11,7 @@ Router.route('menu/list', {
   fastRender: true,
   where: 'client',
 	onBeforeAction: function() {
-			if (!Meteor.user() || Roles.userIsInRole(Meteor.user(), ['admin'])){
+			if (!Meteor.user() || !Roles.userIsInRole(Meteor.user(), ['admin'])){
 				Router.go('/');
 			}
 		}
@@ -23,7 +23,7 @@ Router.route('menu/insert', {
   name: 'insertMenu',
   where: 'client',
 	onBeforeAction: function() {
-			if (!Meteor.user() || Roles.userIsInRole(Meteor.user(), ['admin'])){
+			if (!Meteor.user() || !Roles.userIsInRole(Meteor.user(), ['admin'])){
 				Router.go('/');
 			}
 		}
@@ -41,7 +41,7 @@ Router.route('menu/edit/:_id', {
   fastRender: true,
   where: 'client',
 	onBeforeAction: function() {
-			if (!Meteor.user() || Roles.userIsInRole(Meteor.user(), ['admin'])){
+			if (!Meteor.user() || !Roles.userIsInRole(Meteor.user(), ['admin'])){
 				Router.go('/');
 			}
 		}
