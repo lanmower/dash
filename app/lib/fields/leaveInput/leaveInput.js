@@ -192,7 +192,7 @@ Widgets.schemas.leaveInput = function() {
                           var approval;
                           _.each(fields, function(tfield) {
                             approvals = Approvals.find({doc:item._id, value:true, field:tfield._id}).count();
-                            if(approvals > tfield.max) totalHours -= parseInt(item.hours);
+                            if(approvals >= tfield.max) totalHours -= parseInt(item.hours);
                           });
 
                         });
