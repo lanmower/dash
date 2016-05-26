@@ -23,7 +23,7 @@ Router.route('mail/list/:user/:q?', {
 			if (!Meteor.user() || !Roles.userIsInRole(Meteor.user(), ['admin'])){
 				Router.go('/');
 			}
-			this.next():
+			this.next();
 
 		}
 
@@ -49,7 +49,7 @@ Router.route('mail/view/:user/:_id', {
 			if (!Meteor.user() || !Roles.userIsInRole(Meteor.user(), ['admin'])){
 				Router.go('/');
 			}
-			this.next():
+			this.next();
 
 		}
 

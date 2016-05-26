@@ -29,7 +29,7 @@ Router.route('field/edit/:form/:_id', {
 			if (!Meteor.user() || !Roles.userIsInRole(Meteor.user(), ['admin'])){
 				Router.go('/');
 			}
-      this.next():
+      this.next();
 		}
 
 });
@@ -54,7 +54,7 @@ Router.route('field/insert/:parent', {
 			if (!Meteor.user() || !Roles.userIsInRole(Meteor.user(), ['admin'])){
 				Router.go('/');
 			}
-      this.next():
+      this.next();
 
 		}
 
