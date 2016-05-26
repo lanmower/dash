@@ -132,6 +132,7 @@ Widgets.schemas.leaveInput = function() {
       var template = Template.instance().view.closest("Template.afQuickFields")._templateInstance;
 
       var field = Fields.findOne({parent:Router.current().params.form, name:data.name});
+      var fields = Fields.find({parent:Router.current().params.form, type:'approveInput'});
 
       template.subscribe('form', field.form,"",{
         onReady:function() {
@@ -189,8 +190,11 @@ Widgets.schemas.leaveInput = function() {
                         _.each(loaded, function(item) {
                           console.log(item);
                           var approval;
-                          approval = Approvals.findOne({doc:item._id, value:true});
-                          if(approval || parseInt(item.hours) > 0) totalHours -= parseInt(item.hours);
+                          _.each(fields, function(tfield) {
+                            approvals = Approvals.find({doc:item._id, value:true, field:tfield._id}).count();
+                            if(approvals > tfield.max) totalHours -= parseInt(item.hours);
+                          });
+
                         });
                         var toSet;
                         var num = -parseInt(totalHours);
