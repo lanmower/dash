@@ -188,6 +188,7 @@ Widgets.schemas.leaveInput = function() {
                     });
                     var toSet;
                     var num = -parseInt(totalHours);
+                    console.log(totalHours, num);
                     if(totalHours >= 0) toSet = {label:doc.title+": "+totalHours + " hours remaining.", value:doc._id};
                     else toSet = {label:doc.title+": 0 hours remaining. "+num+" overbooked!", value:doc._id};
                     list.push(toSet);
