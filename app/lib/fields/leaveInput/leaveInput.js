@@ -139,7 +139,7 @@ Widgets.schemas.leaveInput = function() {
             onReady:function() {
               template.subscribe('formSearch', field.form,"",{
                 onReady:function() {
-                  template.subscribe('approvals-form', field.form,{
+                  template.subscribe('approvals-form', Router.current().params.form,{
                     onReady:function() {
                       console.log('test');
                       var form = Forms.findOne({_id:field.form});
