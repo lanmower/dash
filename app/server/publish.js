@@ -100,6 +100,7 @@ Meteor.publish('approvals-form', function (form) {
   var fields = Fields.find({parent:form});
   fieldIds = [];
   _.each(fields, function(item) {
+    console.log(item);
     fieldIds.push(item._id);
   });
   return Approvals.find({field:{$in:fieldIds}});
