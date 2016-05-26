@@ -189,7 +189,7 @@ Widgets.schemas.leaveInput = function() {
                         _.each(loaded, function(item) {
                           console.log(item);
                           var approval;
-                          approval = Approvals.findOne({doc:item._id, field:field.id, value:true});
+                          approval = Approvals.findOne({doc:item._id, value:true});
                           if(approval || parseInt(item.hours) > 0) totalHours -= parseInt(item.hours);
                         });
                         var toSet;
