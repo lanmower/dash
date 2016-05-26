@@ -139,63 +139,68 @@ Widgets.schemas.leaveInput = function() {
             onReady:function() {
               template.subscribe('formSearch', field.form,"",{
                 onReady:function() {
-                  console.log('test');
-                  var form = Forms.findOne({_id:field.form});
-                  var docs = getCollection(form.collectionName).find().fetch();
-                  var list= [];
+                  template.subscribe('approvals-form', field.form,{
+                    onReady:function() {
+                      console.log('test');
+                      var form = Forms.findOne({_id:field.form});
+                      var docs = getCollection(form.collectionName).find().fetch();
+                      var list= [];
 
-                  _.each(docs, function(doc) {
-                    var frequency = doc.frequency;
-                    var frequencyUnit = doc.frequencyUnit;
-                    var history = doc.history;
-                    var historyUnit = doc.historyUnit;
-                    var hours = Number.parseInt(doc.hours);
-                    var employmentStartDate;
-                    var user = Meteor.user();
+                      _.each(docs, function(doc) {
+                        var frequency = doc.frequency;
+                        var frequencyUnit = doc.frequencyUnit;
+                        var history = doc.history;
+                        var historyUnit = doc.historyUnit;
+                        var hours = Number.parseInt(doc.hours);
+                        var employmentStartDate;
+                        var user = Meteor.user();
 
 
-                    if(user.profile.employmentStartDate) employmentStartDate = user.profile.employmentStartDate;
-                    var today = new Date();
+                        if(user.profile.employmentStartDate) employmentStartDate = user.profile.employmentStartDate;
+                        var today = new Date();
 
-                    var start = moment(employmentStartDate).utc().format();
-                    var end = moment(today).subtract(history, historyUnit);
-                    if(moment(start).isAfter(end)) start = moment(end.format());
+                        var start = moment(employmentStartDate).utc().format();
+                        var end = moment(today).subtract(history, historyUnit);
+                        if(moment(start).isAfter(end)) start = moment(end.format());
 
-                    var historyDate;
-                    if(parseInt(history) && parseInt(frequency)) {
-                      for (var m = moment(start); m.isBefore(end); m.add(history, historyUnit)) {
-                        historyDate = m;
-                        console.log("Fastforward from employment date to history start "+m.format('YYYY-MM-DD'));
-                      }
-                      var start = moment(historyDate);
-                      var end = today;
-                      var totalHours = 0;
-                      for (var m = start; m.isBefore(end); m.add(frequency, frequencyUnit)) {
-                        historyDate = m.format();
-                        totalHours += hours;
-                        console.log("Fastforward from history start "+m.format('YYYY-MM-DD'));
-                      }
+                        var historyDate;
+                        if(parseInt(history) && parseInt(frequency)) {
+                          for (var m = moment(start); m.isBefore(end); m.add(history, historyUnit)) {
+                            historyDate = m;
+                            console.log("Fastforward from employment date to history start "+m.format('YYYY-MM-DD'));
+                          }
+                          var start = moment(historyDate);
+                          var end = today;
+                          var totalHours = 0;
+                          for (var m = start; m.isBefore(end); m.add(frequency, frequencyUnit)) {
+                            historyDate = m.format();
+                            totalHours += hours;
+                            console.log("Fastforward from history start "+m.format('YYYY-MM-DD'));
+                          }
+                        }
+                        if(!historyDate)historyDate=0;
+                        if(!totalHours) var totalHours = 0;
+                        //load used hours that havent ended yet
+                        var loaded = getCollection(Forms.findOne(Router.current().params.form).collectionName).find({
+                          rangeEnd : { $gte : new Date(historyDate) },
+                          type : doc._id
+                        }).fetch();
+
+                        _.each(loaded, function(item) {
+                          console.log(item);
+                          if(item._id) app = Approvals.findOne({doc:item._id, field:field.id, value:true});
+                          if(app) totalHours -= parseInt(item.hours);
+                        });
+                        var toSet;
+                        var num = -parseInt(totalHours);
+                        console.log(totalHours, num);
+                        if(totalHours >= 0) toSet = {label:doc.title+": "+totalHours + " hours remaining.", value:doc._id};
+                        else toSet = {label:doc.title+": 0 hours remaining. "+num+" overbooked!", value:doc._id};
+                        list.push(toSet);
+                      });
+                      template.fieldsList.set(list);
                     }
-                    if(!historyDate)historyDate=0;
-                    if(!totalHours) var totalHours = 0;
-                    //load used hours that havent ended yet
-                    var loaded = getCollection(Forms.findOne(Router.current().params.form).collectionName).find({
-                      rangeEnd : { $gte : new Date(historyDate) },
-                      type : doc._id
-                    }).fetch();
-
-                    _.each(loaded, function(item) {
-                      console.log(item);
-                      totalHours -= parseInt(item.hours);
-                    });
-                    var toSet;
-                    var num = -parseInt(totalHours);
-                    console.log(totalHours, num);
-                    if(totalHours >= 0) toSet = {label:doc.title+": "+totalHours + " hours remaining.", value:doc._id};
-                    else toSet = {label:doc.title+": 0 hours remaining. "+num+" overbooked!", value:doc._id};
-                    list.push(toSet);
                   });
-                  template.fieldsList.set(list);
                 }
               });
             }
