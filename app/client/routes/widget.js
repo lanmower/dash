@@ -24,6 +24,8 @@ Router.route('widget/edit/:_id', {
 			if (!Meteor.user() || !Roles.userIsInRole(Meteor.user(), ['admin'])){
 				Router.go('/');
 			}
+			this.next();
+
 		}
 
 });
@@ -49,6 +51,8 @@ Router.route('widget/insert/:parent', {
 			if (!Meteor.user() || !Roles.userIsInRole(Meteor.user(), ['admin'])){
 				Router.go('/');
 			}
+			this.next();
+
 		}
 
 });

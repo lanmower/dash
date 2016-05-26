@@ -14,6 +14,8 @@ Router.route('menu/list', {
 			if (!Meteor.user() || !Roles.userIsInRole(Meteor.user(), ['admin'])){
 				Router.go('/');
 			}
+			this.next():
+
 		}
 
 });
@@ -26,6 +28,8 @@ Router.route('menu/insert', {
 			if (!Meteor.user() || !Roles.userIsInRole(Meteor.user(), ['admin'])){
 				Router.go('/');
 			}
+			this.next():
+
 		}
 
 });
@@ -44,6 +48,8 @@ Router.route('menu/edit/:_id', {
 			if (!Meteor.user() || !Roles.userIsInRole(Meteor.user(), ['admin'])){
 				Router.go('/');
 			}
+			this.next():
+
 		}
 
 });

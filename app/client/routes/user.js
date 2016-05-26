@@ -14,7 +14,6 @@ Router.route('user/list', {
 	      Router.go('/');
 	    }
 			this.next();
-			return true;
 	  }
 	});
 

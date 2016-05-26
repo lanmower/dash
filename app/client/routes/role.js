@@ -14,6 +14,8 @@ Router.route('role/list', {
 			if (!Meteor.user() || !Roles.userIsInRole(Meteor.user(), ['admin'])){
 				Router.go('/');
 			}
+			this.next();
+
 		}
 
 });
@@ -27,6 +29,8 @@ Router.route('role/insert', {
 			if (!Meteor.user() || !Roles.userIsInRole(Meteor.user(), ['admin'])){
 				Router.go('/');
 			}
+			this.next();
+
 		}
 
 });
@@ -46,6 +50,8 @@ Router.route('role/edit/:_id', {
 			if (!Meteor.user() || !Roles.userIsInRole(Meteor.user(), ['admin'])){
 				Router.go('/');
 			}
+			this.next();
+
 		}
 
 });
