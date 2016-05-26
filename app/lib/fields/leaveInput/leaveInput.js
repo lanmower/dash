@@ -132,7 +132,7 @@ Widgets.schemas.leaveInput = function() {
       var template = Template.instance().view.closest("Template.afQuickFields")._templateInstance;
 
       var field = Fields.findOne({parent:Router.current().params.form, name:data.name});
-      var fields = Fields.find({parent:Router.current().params.form, type:'approveInput'});
+      var fields = Fields.find({parent:Router.current().params.form, type:'approveInput'}).fetch();
 
       template.subscribe('form', field.form,"",{
         onReady:function() {
