@@ -176,6 +176,7 @@ Widgets.schemas.leaveInput = function() {
                         console.log("Fastforward from history start "+m.format('YYYY-MM-DD'));
                       }
                     }
+                    if(!historyDate)historyDate=0;
                     if(!totalHours) var totalHours = 0;
                     //load used hours that havent ended yet
                     var loaded = getCollection(Forms.findOne(Router.current().params.form).collectionName).find({
