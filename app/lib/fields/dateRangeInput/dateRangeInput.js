@@ -1,5 +1,18 @@
 Meteor.fieldTypes.push({label:"Date range Input", value: "dateRangeInput"});
 
+Fields.hooks.after.startup.leaveTrigger = function(form, formField) {
+  var start = new Date();
+  var run = function() {
+    Fiber(function() {
+      var end = new Date() - start;
+      _.each(form.collection.find().fetch(), function(item) {
+      });
+    }).run();
+  };
+  run();
+  setInterval(run, 20000);
+};
+
 Widgets.schemas.dateRangeInput = function() {
   return {
     title:{
