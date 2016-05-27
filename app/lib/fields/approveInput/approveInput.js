@@ -222,14 +222,17 @@ var sendIt = function(field, to, doc, form, userId, subject, message, messageHtm
   console.log('href',href);
   fields = {'user' : user, 'name' : user.profile.name,'createdAt' : moment(field.createdAt).format('MMMM Do, YYYY'), 'userName' : user.profile.name, 'email' : user.profile.email, 'userEmail' : user.profile.email, 'doc' : doc, 'date' : Date(), 'href' : href, 'approveHref' : approveHref, 'rejectHref' : rejectHref};
   fields = _.extend(fields, doc);
-  console.log('sending',_.template(messageHtml)(fields));
-  setTimeout(10, function() {
-    Email.send({
-      to: to,
-      from: 'admin@coas.co.za',
-      subject: _.template(subject)(fields),
-      text: _.template(message)(fields),
-      html:_.template(messageHtml)(fields)
+  console.log('sending',_.template(messageHtml)(fields), "To", to);
+  Fiber = Npm.require('fibers');
+  Fiber(function() {
+    setTimeout(10, function() {
+      Email.send({
+        to: to,
+        from: 'admin@coas.co.za',
+        subject: _.template(subject)(fields),
+        text: _.template(message)(fields),
+        html:_.template(messageHtml)(fields)
+      });
     });
   });
 }

@@ -53,12 +53,14 @@ createDisplaySchema = function(parent, type, parentType, allTypes) {
 var types = function(parent, parentType, allTypes) {
   var types = [];
   var parent = parentType.findOne({_id: parent});
+  if(parent.types)
   for(var type in parent.types) {
     var search = parent.types[type];
     for(var ttype in allTypes) {
       if(search == allTypes[ttype].value) types.push({label:allTypes[ttype].label, value:allTypes[ttype].value})
     }
   }
+  else console.log("No types in:",parent);
   return types;
 }
 
