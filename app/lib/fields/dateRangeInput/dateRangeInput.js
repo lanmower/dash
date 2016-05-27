@@ -85,51 +85,52 @@ if(Meteor.isServer) {
   Fiber = Npm.require('fibers');
   Fields.hooks.after.startup.dateRangeInput = function(form, field) {
     var start = new Date();
-
+var run = function() {
     Fiber(function() {
-    setInterval(function() {
-        var end = new Date() - start;
-        var thename = field["name"]+"Notified";
-        var tofind = {}
-        tofind[thename]=null;
-        _.each(form.collection.find(tofind).fetch(), function(doc) {
-          var start = doc[field.name+"Start"];
-          var end = doc[field.name+"end"];
-          if(moment(start).isAfter(end)) start = moment(end.format());
-          console.log("Date range startup hook", field);
+      var end = new Date() - start;
+      var thename = field["name"]+"Notified";
+      var tofind = {}
+      tofind[thename]=null;
+      _.each(form.collection.find(tofind).fetch(), function(doc) {
+        var start = doc[field.name+"Start"];
+        var end = doc[field.name+"end"];
+        if(moment(start).isAfter(end)) start = moment(end.format());
+        console.log("Date range startup hook", field);
 
-          _.each(field.preNotification, function(notification) {
+        _.each(field.preNotification, function(notification) {
 
-            notificationDate = moment(start).subtract(notification.period, notification.periodUnit).format();
-            if(moment(notificationDate).isBefore(new Date())) {
-             _.each(notification.users, function(userId) {
-               console.log('sendingit');
-               var user = Meteor.users.findOne({_id:userId});
-               var href = Meteor.absoluteUrl()+'form/update/'+form._id+'/'+doc._id;
-               var message = notification.message;
-               var subject = notification.subject;
-               var messageHtml = notification.messageHtml;
-               fields = {'user' : user, 'name' : user.profile.name,'createdAt' : moment(field.createdAt).format('MMMM Do, YYYY'), 'userName' : user.profile.name, 'email' : user.profile.email, 'userEmail' : user.profile.email, 'doc' : doc, 'date' : Date(), 'href' : href};
-               fields = _.extend(fields, doc);
-               setTimeout(function() {
-                 console.log('sending',_.template(messageHtml)(fields), "To", to, 'admin@coas.co.za');
-                 Email.send({
-                   to: user.profile.email,
-                   from: 'admin@coas.co.za',
-                   subject: _.template(subject)(fields),
-                   text: _.template(message)(fields),
-                   html:_.template(messageHtml)(fields)
-                 });
-               },10);
-             });
-             var toset = {};
-             toset.$set = {};
-             toset.$set[thename] = true;
-             form.collection.update({_id:doc._id}, toset);
-            }
-          });
+          notificationDate = moment(start).subtract(notification.period, notification.periodUnit).format();
+          if(moment(notificationDate).isBefore(new Date())) {
+           _.each(notification.users, function(userId) {
+             var user = Meteor.users.findOne(userId);
+             console.log('sendingit');
+             var user = Meteor.users.findOne({_id:userId});
+             var href = Meteor.absoluteUrl()+'form/update/'+form._id+'/'+doc._id;
+             var message = notification.message;
+             var subject = notification.subject;
+             var messageHtml = notification.messageHtml;
+             fields = {'user' : user, 'name' : user.profile.name,'createdAt' : moment(field.createdAt).format('MMMM Do, YYYY'), 'userName' : user.profile.name, 'email' : user.profile.email, 'userEmail' : user.profile.email, 'doc' : doc, 'date' : Date(), 'href' : href};
+             fields = _.extend(fields, doc);
+             setTimeout(function() {
+               console.log('sending',_.template(messageHtml)(fields), "To", user.profile.email, 'admin@coas.co.za');
+               Email.send({
+                 to: user.profile.email,
+                 from: 'admin@coas.co.za',
+                 subject: _.template(subject)(fields),
+                 text: _.template(message)(fields),
+                 html:_.template(messageHtml)(fields)
+               });
+             },10);
+           });
+           var toset = {};
+           toset.$set = {};
+           toset.$set[thename] = true;
+           form.collection.update({_id:doc._id}, toset);
+          }
         });
-    }, 20000);
-  }).run();
+      });
+    }).run();
+  };
+    setInterval(run, 20000);
   };
 }
