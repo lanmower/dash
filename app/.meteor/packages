@@ -63,7 +63,7 @@ meteorhacks:search-source
 useraccounts:iron-routing
 standard-minifier-css
 standard-minifier-js
-accounts-password
 useraccounts:bootstrap
 accounts-facebook
 random
+accounts-password
