@@ -1,7 +1,12 @@
 {
   "public": {
+<<<<<<< HEAD
+    "skin":"green",
+    "siteName":"localelcoins.com"
+=======
     "skin":"red",
     "siteName":"localelcoin.co.za"
+>>>>>>> 51e50b7ee9c5b27b59e55d813c0b9ddc35538437
   },
   "emailDomains":[
   ]
