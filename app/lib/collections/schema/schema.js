@@ -31,6 +31,9 @@ createDisplaySchema = function(parent, type, parentType, allTypes) {
       value: parent
     }
   },
+  tschema.public = {
+            type: Boolean,
+        };
   tschema.type = {
             type: String,
             optional: false,
