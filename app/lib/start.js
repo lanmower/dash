@@ -5,6 +5,31 @@ _.templateSettings = {
   interpolate: /\{\{(.+?)\}\}/g
 };
 
+
+Meteor.startup(function () {
+	if(Meteor.isClient) Meteor.defer(function () {
+		Session.setDefault("checked", $("input[type=checkbox]").is(":checked"));
+	});
+
+	if (Meteor.isCordova) {
+		window.alert = navigator.notification.alert;
+	}
+
+	Push.addListener('message', function(notification) {
+		// Called on every message
+		console.log(JSON.stringify(notification))
+
+		function alertDismissed() {
+			NotificationHistory.update({_id: notification.payload.historyId}, {
+				$set: {
+					"recievedAt": new Date()
+				}
+			});
+		}
+		alert(notification.message, alertDismissed, notification.payload.title, "Ok");
+	});
+})
+
 if(Meteor.isServer)  {
   Meteor.publish("formFiles", function (form, id) {
     var form = Meteor.forms[form];
@@ -72,7 +97,6 @@ processForm = function(id, formData) {
 
       var createHook = function(hookFunction, setFunction, form) {
         setFunction(function(userId, doc, fields) {
-          console.log("set function:", form._id);
           var user = userId;
           _.each(form.fields.fetch(), function(formField) {
             if(hookFunction[formField.type]) hookFunction[formField.type](user, doc, form, formField, fields);

@@ -143,6 +143,10 @@ schema.UserProfile = new SimpleSchema({
     country: {
         type: schema.UserCountry,
         optional: true
+    },
+    code: {
+        type: Number,
+        optional: true
     }
 });
 

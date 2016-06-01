@@ -97,9 +97,10 @@ Meteor.publish('approvals', function (field, doc) {
   return Approvals.find({field:field, doc:doc});
 });
 Meteor.publish('approvals-form', function (form) {
-  var fields = Fields.find({parent:form});
+  var fields = Fields.find({parent:form}).fetch();
   fieldIds = [];
   _.each(fields, function(item) {
+    console.log(item);
     fieldIds.push(item._id);
   });
   return Approvals.find({field:{$in:fieldIds}});

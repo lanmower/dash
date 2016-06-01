@@ -132,6 +132,7 @@ Widgets.schemas.leaveInput = function() {
       var template = Template.instance().view.closest("Template.afQuickFields")._templateInstance;
 
       var field = Fields.findOne({parent:Router.current().params.form, name:data.name});
+      var fields = Fields.find({parent:Router.current().params.form, type:'approveInput'}).fetch();
 
       template.subscribe('form', field.form,"",{
         onReady:function() {
@@ -139,50 +140,72 @@ Widgets.schemas.leaveInput = function() {
             onReady:function() {
               template.subscribe('formSearch', field.form,"",{
                 onReady:function() {
-                  console.log('test');
-                  var form = Forms.findOne({_id:field.form});
-                  var docs = getCollection(form.collectionName).find().fetch();
-                  var list= [];
+                  template.subscribe('approvals-form', Router.current().params.form,{
+                    onReady:function() {
+                      console.log('test');
+                      var form = Forms.findOne({_id:field.form});
+                      var docs = getCollection(form.collectionName).find().fetch();
+                      var list= [];
 
-                  _.each(docs, function(doc) {
-                    var frequency = doc.frequency;
-                    var frequencyUnit = doc.frequencyUnit;
-                    var history = doc.history;
-                    var historyUnit = doc.historyUnit;
-                    var hours = Number.parseInt(doc.hours);
-                    var employmentStartDate;
-                    var user = Meteor.user();
+                      _.each(docs, function(doc) {
+                        var frequency = doc.frequency;
+                        var frequencyUnit = doc.frequencyUnit;
+                        var history = doc.history;
+                        var historyUnit = doc.historyUnit;
+                        var hours = Number.parseInt(doc.hours);
+                        var employmentStartDate;
+                        var user = Meteor.user();
 
 
-                    if(user.profile.employmentStartDate) employmentStartDate = new Date(user.profile.employmentStartDate);
-                    var today = new Date();
+                        if(user.profile.employmentStartDate) employmentStartDate = user.profile.employmentStartDate;
+                        var today = new Date();
 
-                    var loadFrom = employmentStartDate;
-                    while(new Date(loadFrom) < moment(today).subtract(history, historyUnit)) {
-                      var loadFrom = moment(loadFrom-0).add(history, historyUnit);
+                        var start = moment(employmentStartDate).utc().format();
+                        var end = moment(today).subtract(history, historyUnit);
+                        if(moment(start).isAfter(end)) start = moment(end.format());
+
+                        var historyDate;
+                        if(parseInt(history) && parseInt(frequency)) {
+                          for (var m = moment(start); m.isBefore(end); m.add(history, historyUnit)) {
+                            historyDate = m;
+                            console.log("Fastforward from employment date to history start "+m.format('YYYY-MM-DD'));
+                          }
+                          var start = moment(historyDate);
+                          var end = today;
+                          var totalHours = 0;
+                          for (var m = start; m.isBefore(end); m.add(frequency, frequencyUnit)) {
+                            historyDate = m.format();
+                            totalHours += hours;
+                            console.log("Fastforward from history start "+m.format('YYYY-MM-DD'));
+                          }
+                        }
+                        if(!historyDate)historyDate=0;
+                        if(!totalHours) var totalHours = 0;
+                        //load used hours that havent ended yet
+                        var loaded = getCollection(Forms.findOne(Router.current().params.form).collectionName).find({
+                          rangeEnd : { $gte : new Date(historyDate) },
+                          type : doc._id
+                        }).fetch();
+
+                        _.each(loaded, function(item) {
+                          console.log(item);
+                          var approval;
+                          _.each(fields, function(tfield) {
+                            approvals = Approvals.find({doc:item._id, value:true, field:tfield._id}).count();
+                            if(approvals >= tfield.max) totalHours -= parseInt(item.hours);
+                          });
+
+                        });
+                        var toSet;
+                        var num = -parseInt(totalHours);
+                        console.log(totalHours, num);
+                        if(totalHours >= 0) toSet = {label:doc.title+": "+totalHours + " hours remaining.", value:doc._id};
+                        else toSet = {label:doc.title+": 0 hours remaining. "+num+" overbooked!", value:doc._id};
+                        list.push(toSet);
+                      });
+                      template.fieldsList.set(list);
                     }
-                    var lastCycle = employmentStartDate;
-                    var totalHours = 0;
-                    //count max available hours by rule
-                    while(lastCycle < today) {
-                      var lastCycle = moment(lastCycle-0).add(frequency, frequencyUnit);
-                      totalHours += hours;
-                    }
-                    //load used hours that havent ended yet
-                    var loaded = getCollection(Forms.findOne(Router.current().params.form).collectionName).find({
-                      rangeEnd : { $gte : loadFrom },
-                      type : doc._id
-                    }).fetch();
-
-                    _.each(loaded, function(item) {
-                      console.log(item);
-                      totalHours -= item.hours;
-                    });
-                    var toSet = {label:doc.title+": "+totalHours + " hours remaining.", value:doc._id};
-                    list.push(toSet);
                   });
-                  template.fieldsList.set(list);
-
                 }
               });
             }

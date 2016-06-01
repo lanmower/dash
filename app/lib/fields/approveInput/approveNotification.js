@@ -1,4 +1,4 @@
-Meteor.fieldTypes.push({label:"Approve Notification", value:"approveNotification"});
+/*Meteor.fieldTypes.push({label:"Approve Notification", value:"approveNotification"});
 Widgets.schemas.approveNotification = function() {
   return {
     mailSubject:{
@@ -43,13 +43,6 @@ Widgets.schemas.approveNotification = function() {
 Fields.schemas.approveNotification = function(data) {
   var name = data.name
   var output = {};
-  /*output[name] = {
-    type: String,
-    optional: true,
-    autoform: {
-      type: "hidden"
-    }
-  };*/
   return output;
 
 };
@@ -114,3 +107,4 @@ var notify = function(userId, doc, form, item) {
 }
 Fields.hooks.after.update.approveNotification = notify;
 Fields.hooks.after.insert.approveNotification = notify;
+*/

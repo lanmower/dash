@@ -19,7 +19,15 @@ Router.route('widget/edit/:_id', {
     return {widget:widget, schema:schema, fields:fields};
   },
   fastRender: true,
-  where: 'client'
+  where: 'client',
+	onBeforeAction: function() {
+			if (!Meteor.user() || !Roles.userIsInRole(Meteor.user(), ['admin'])){
+				Router.go('/');
+			}
+			this.next();
+
+		}
+
 });
 
 Router.route('widget/insert/:parent', {
@@ -38,5 +46,13 @@ Router.route('widget/insert/:parent', {
   },
   name: 'insertWidget',
   fastRender: true,
-  where: 'client'
+  where: 'client',
+	onBeforeAction: function() {
+			if (!Meteor.user() || !Roles.userIsInRole(Meteor.user(), ['admin'])){
+				Router.go('/');
+			}
+			this.next();
+
+		}
+
 });

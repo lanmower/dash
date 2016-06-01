@@ -9,14 +9,29 @@ Router.route('page/list', {
     return {pages:Pages.find()};
   },
   fastRender: true,
-  where: 'client'
+  where: 'client',
+	onBeforeAction: function() {
+			if (!Meteor.user() || !Roles.userIsInRole(Meteor.user(), ['admin'])){
+				Router.go('/');
+			}
+			this.next();
+		}
+
 });
 Router.route('page/insert', {
 	parent: 'pagesList',
 	title: 'Insert Page',
   name: 'insertPage',
   fastRender: true,
-  where: 'client'
+  where: 'client',
+	onBeforeAction: function() {
+			if (!Meteor.user() || !Roles.userIsInRole(Meteor.user(), ['admin'])){
+				Router.go('/');
+			}
+			this.next();
+
+		}
+
 });
 Router.route('page/edit/:_id', {
 	parent: 'pagesList',
@@ -36,7 +51,15 @@ Router.route('page/edit/:_id', {
     }
   },
   fastRender: true,
-  where: 'client'
+  where: 'client',
+	onBeforeAction: function() {
+			if (!Meteor.user() || !Roles.userIsInRole(Meteor.user(), ['admin'])){
+				Router.go('/');
+			}
+			this.next();
+
+		}
+
 });
 Router.route('/page/:path', {
 	parent: 'home',

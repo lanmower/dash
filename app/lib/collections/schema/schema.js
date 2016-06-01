@@ -1,4 +1,5 @@
-can = function(userId, item, action) {
+can = function(userId, item, action, fieldNames) {
+  if(Roles.userIsInRole(userId, 'admin')) return true;
   if(action === "update") allow = userId && (item.createdBy === userId);
   if(item.parent) {
     var parentType = item.parentType();
@@ -8,6 +9,11 @@ can = function(userId, item, action) {
         if(Roles.userIsInRole(userId, item[action][i])) return true;
     }
   }
+  for(var i in item.collectionType()._validators[action].allow) {
+    if(allowRule(Meteor.userId(), impactedDocument, fieldNames)) {
+      return true;
+    }
+  };
   for(var i in item[action]) {
       if(Roles.userIsInRole(userId, item[action][i])) return true;
   }
@@ -25,6 +31,9 @@ createDisplaySchema = function(parent, type, parentType, allTypes) {
       value: parent
     }
   },
+  tschema.public = {
+            type: Boolean,
+        };
   tschema.type = {
             type: String,
             optional: false,
@@ -47,12 +56,14 @@ createDisplaySchema = function(parent, type, parentType, allTypes) {
 var types = function(parent, parentType, allTypes) {
   var types = [];
   var parent = parentType.findOne({_id: parent});
+  if(parent.types)
   for(var type in parent.types) {
     var search = parent.types[type];
     for(var ttype in allTypes) {
       if(search == allTypes[ttype].value) types.push({label:allTypes[ttype].label, value:allTypes[ttype].value})
     }
   }
+  else console.log("No types in:",parent);
   return types;
 }
 
