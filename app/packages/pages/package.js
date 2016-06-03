@@ -15,7 +15,8 @@ Package.onUse(function(api) {
   api.use('ecmascript');
   api.mainModule('pages.js');
   api.use("templating", "client");
-  api.use('aldeed:autoform');
+  api.use('mongo');
+  api.use('almagest:core');
 
   // Generated with: github.com/philcockfield/meteor-package-paths
   api.addFiles('shared/collections/schema/widgets.js', ['client', 'server']);
@@ -59,6 +60,6 @@ Package.onTest(function(api) {
   api.mainModule('pages-tests.js');
 
   // Generated with: github.com/philcockfield/meteor-package-paths
-  
+
 
 });

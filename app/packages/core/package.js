@@ -14,6 +14,8 @@ Package.onUse(function(api) {
   api.versionsFrom('1.3.2.4');
   api.use('ecmascript');
   api.mainModule('core.js');
+  api.use('aldeed:autoform');
+
 
   // Generated with: github.com/philcockfield/meteor-package-paths
   api.addFiles('shared/collections/schema/types/types.js', ['client', 'server']);
@@ -59,6 +61,6 @@ Package.onTest(function(api) {
   api.mainModule('core-tests.js');
 
   // Generated with: github.com/philcockfield/meteor-package-paths
-  
+
 
 });
