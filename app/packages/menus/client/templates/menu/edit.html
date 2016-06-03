@@ -1,0 +1,15 @@
+<template name="EditMenu">
+  <div class="box">
+    <div class="box-header with-border">
+      <h3 class="box-title">
+        Edit menu
+      </h3>
+      <span style="float:right">
+        {{> quickRemoveButton collection="Menus" _id=this.menu._id beforeRemove=beforeRemove class="btn btn-danger"}}
+      </span>
+    </div>
+    <div class="box-body table-responsive">
+    {{> quickForm collection="Menus" doc=this.menu id="editMenuForm" type="update" omitFields="createdBy" buttonContent="Update"}}
+  </div>
+</div>
+</template>
