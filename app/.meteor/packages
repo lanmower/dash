@@ -20,7 +20,6 @@ aldeed:collection2
 aldeed:autoform
 aldeed:delete-button
 momentjs:moment
-accounts-google
 ejson
 vazco:universe-autoform-select
 alanning:roles
@@ -29,7 +28,6 @@ mfactory:admin-lte
 manuel:viewmodel
 monbro:iron-router-breadcrumb
 percolate:google-api
-mizzao:user-status
 check
 raix:handlebar-helpers
 natestrauser:jquery-scrollto
@@ -40,7 +38,6 @@ cfs:ui
 cfs:graphicsmagick
 fortawesome:fontawesome
 matb33:collection-hooks
-differential:event-hooks
 rajit:bootstrap3-datepicker
 mrt:jquery-ui-sortable
 raix:push
@@ -60,11 +57,11 @@ jrudio:videojs
 timbrandin:slick
 meteorhacks:fast-render
 meteorhacks:search-source
-useraccounts:iron-routing
 standard-minifier-css
 standard-minifier-js
-useraccounts:bootstrap
-accounts-facebook
-random
 accounts-password
+accounts-facebook
+accounts-google
+random
 msavin:mongol
+almagest:accounts

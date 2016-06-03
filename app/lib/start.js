@@ -107,6 +107,7 @@ processForm = function(id, formData) {
       form.collection.before.remove(function (userId, doc) {
         Files.find({"metadata.collectionName":form.collectionName, 'metadata.parentId':doc._id}).forEach(function(doc) {doc.remove()});
       });
+
       createHook(Fields.hooks.after.update, form.collection.after.update, form);
       createHook(Fields.hooks.after.insert, form.collection.after.insert, form);
       _.each(form.fields.fetch(), function(formField) {
@@ -186,7 +187,6 @@ var updateField = function(id, field) {
 Meteor.startup(function () {
   if(Meteor.isClient){
     Meteor.subscribe("types", {});
-    Hooks.init();
   }
   if(Meteor.isServer) {
     Meteor.publish('formSearch', function(form, query) {
