@@ -19,24 +19,17 @@ Package.onUse(function(api) {
   api.use('almagest:files');
   api.use('templating');
   api.use('reactive-var');
+  api.mainModule('core.js');
 
   // Generated with: github.com/philcockfield/meteor-package-paths
   api.addFiles('shared/collections/schema/types/types.js', ['client', 'server']);
   api.addFiles('shared/collections/schema/schema.js', ['client', 'server']);
   api.addFiles('client/templates/shared/loading/loading.html', ['client', 'server']);
   api.addFiles('client/templates/shared/not_found/not_found.html', ['client', 'server']);
-  api.addFiles('client/templates/layouts/master_layout/navbar/messages/navbar-messages.html', 'client');
-  api.addFiles('client/templates/layouts/master_layout/navbar/notes/navbar-notes.html', 'client');
-  api.addFiles('client/templates/layouts/master_layout/navbar/uploads/navbar-uploads.html', 'client');
-  api.addFiles('client/templates/layouts/master_layout/navbar/users/navbar-users.html', 'client');
   api.addFiles('client/templates/layouts/master_layout/contents.html', 'client');
   api.addFiles('client/templates/layouts/master_layout/empty_layout.html', 'client');
   api.addFiles('client/templates/layouts/master_layout/master_layout.html', 'client');
   api.addFiles('client/templates/access_denied/access_denied.html', 'client');
-  api.addFiles('client/templates/layouts/master_layout/navbar/messages/navbar-messages.js', 'client');
-  api.addFiles('client/templates/layouts/master_layout/navbar/notes/navbar-notes.js', 'client');
-  api.addFiles('client/templates/layouts/master_layout/navbar/uploads/navbar-uploads.js', 'client');
-  api.addFiles('client/templates/layouts/master_layout/navbar/users/navbar-users.js', 'client');
   api.addFiles('client/templates/layouts/master_layout/contents.js', 'client');
   api.addFiles('client/templates/layouts/master_layout/master_layout.css', 'client');
   api.addFiles('client/templates/layouts/master_layout/master_layout.js', 'client');
@@ -49,7 +42,6 @@ Package.onUse(function(api) {
   api.addFiles('client/lib/utils.js', 'client');
   api.addFiles('client/stylesheets/sidebar.css', 'client');
   api.addFiles('client/stylesheets/main.css', 'client');
-  api.mainModule('core.js');
 
 });
 
@@ -60,6 +52,6 @@ Package.onTest(function(api) {
   api.mainModule('core-tests.js');
 
   // Generated with: github.com/philcockfield/meteor-package-paths
-
+  
 
 });

@@ -27,8 +27,6 @@ Package.onUse(function(api) {
   api.addFiles('client/templates/menu/insert.html', 'client');
   api.addFiles('client/templates/menu/list.html', 'client');
   api.addFiles('client/routes/menu.js', 'client');
-  api.addFiles('client/templates/layouts/menus.html', 'client');
-  api.addFiles('client/templates/layouts/menus.js', 'client');
 
 });
 
@@ -39,6 +37,6 @@ Package.onTest(function(api) {
   api.mainModule('menus-tests.js');
 
   // Generated with: github.com/philcockfield/meteor-package-paths
-
+  
 
 });
