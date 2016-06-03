@@ -14,6 +14,12 @@ Package.onUse(function(api) {
   api.versionsFrom('1.3.2.4');
   api.use('ecmascript');
   api.mainModule('files.js');
+
+  // Generated with: github.com/philcockfield/meteor-package-paths
+  api.addFiles('shared/files.js', ['client', 'server']);
+  api.addFiles('client/templates/file/edit.html', 'client');
+  api.addFiles('client/routes/file.js', 'client');
+
 });
 
 Package.onTest(function(api) {
@@ -21,4 +27,8 @@ Package.onTest(function(api) {
   api.use('tinytest');
   api.use('almagest:files');
   api.mainModule('files-tests.js');
+
+  // Generated with: github.com/philcockfield/meteor-package-paths
+  
+
 });

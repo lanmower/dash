@@ -14,6 +14,19 @@ Package.onUse(function(api) {
   api.versionsFrom('1.3.2.4');
   api.use('ecmascript');
   api.mainModule('diary.js');
+
+  // Generated with: github.com/philcockfield/meteor-package-paths
+  api.addFiles('shared/collections/diaries.js', ['client', 'server']);
+  api.addFiles('server/publish.js', 'server');
+  api.addFiles('client/templates/diary/diaryToday.html', 'client');
+  api.addFiles('client/widgets/diary/diary.html', 'client');
+  api.addFiles('client/widgets/diary/diaryList.html', 'client');
+  api.addFiles('client/widgets/diary/viewDiary.html', 'client');
+  api.addFiles('client/widgets/diary/diary.js', 'client');
+  api.addFiles('client/widgets/diary/diaryList.js', 'client');
+  api.addFiles('client/widgets/diary/viewDiary.js', 'client');
+  api.addFiles('client/routes/diary.js', 'client');
+
 });
 
 Package.onTest(function(api) {
@@ -21,4 +34,8 @@ Package.onTest(function(api) {
   api.use('tinytest');
   api.use('almagest:diary');
   api.mainModule('diary-tests.js');
+
+  // Generated with: github.com/philcockfield/meteor-package-paths
+  
+
 });

@@ -16,8 +16,12 @@ Package.onUse(function(api) {
   api.mainModule('menus.js');
 
   // Generated with: github.com/philcockfield/meteor-package-paths
-  api.addFiles('C:\dev\dashboard\app\packages\menus\shared\menus.js', ['client', 'server']);
-  api.addFiles('C:\dev\dashboard\app\packages\menus\client\routes\menu.js', ['client', 'server']);
+  api.addFiles('shared/menus.js', ['client', 'server']);
+  api.addFiles('server/publish.js', 'server');
+  api.addFiles('client/templates/menu/edit.html', 'client');
+  api.addFiles('client/templates/menu/insert.html', 'client');
+  api.addFiles('client/templates/menu/list.html', 'client');
+  api.addFiles('client/routes/menu.js', 'client');
 
 });
 

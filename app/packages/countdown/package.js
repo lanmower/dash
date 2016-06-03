@@ -14,6 +14,13 @@ Package.onUse(function(api) {
   api.versionsFrom('1.3.2.4');
   api.use('ecmascript');
   api.mainModule('countdown.js');
+
+  // Generated with: github.com/philcockfield/meteor-package-paths
+  api.addFiles('client/widgets/countdown/countdown.html', 'client');
+  api.addFiles('client/widgets/countdown/countdown.js', 'client');
+  api.addFiles('client/lib/flipclock.css', 'client');
+  api.addFiles('client/lib/flipclock.js', 'client');
+
 });
 
 Package.onTest(function(api) {
@@ -21,4 +28,8 @@ Package.onTest(function(api) {
   api.use('tinytest');
   api.use('almagest:countdown');
   api.mainModule('countdown-tests.js');
+
+  // Generated with: github.com/philcockfield/meteor-package-paths
+  
+
 });

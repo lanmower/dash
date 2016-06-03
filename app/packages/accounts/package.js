@@ -25,21 +25,25 @@ Package.onUse(function(api) {
   api.use('aldeed:autoform');
 
   // Generated with: github.com/philcockfield/meteor-package-paths
-  api.addFiles('shared/collections/users.js', ['client', 'server']);
   api.addFiles('shared/collections/events.js', ['client', 'server']);
-  api.addFiles('server/login.js', ['server']);
-  api.addFiles('server/logout.js', ['server']);
-  api.addFiles('server/users.js', ['server']);
-  api.addFiles('client/templates/user/edit.html', ['client']);
-  api.addFiles('client/templates/user/list.html', ['client']);
-  api.addFiles('client/templates/role/edit.html', ['client']);
-  api.addFiles('client/templates/role/insert.html', ['client']);
-  api.addFiles('client/templates/role/list.html', ['client']);
-  api.addFiles('client/collections/user.js', ['client']);
-  api.addFiles('client/collections/user.js', ['client']);
-  api.addFiles('client/routes/accounts.js', ['client']);
-  api.addFiles('client/routes/user.js', ['client']);
-  api.addFiles('client/templates/user/list.js', ['client']);
+  api.addFiles('shared/collections/roles.js', ['client', 'server']);
+  api.addFiles('shared/collections/users.js', ['client', 'server']);
+  api.addFiles('server/login.js', 'server');
+  api.addFiles('server/logout.js', 'server');
+  api.addFiles('server/publish.js', 'server');
+  api.addFiles('server/users.js', 'server');
+  api.addFiles('client/templates/role/edit.html', 'client');
+  api.addFiles('client/templates/role/insert.html', 'client');
+  api.addFiles('client/templates/role/list.html', 'client');
+  api.addFiles('client/templates/user/edit.html', 'client');
+  api.addFiles('client/templates/user/list.html', 'client');
+  api.addFiles('client/accounts/form.html', 'client');
+  api.addFiles('client/templates/user/list.js', 'client');
+  api.addFiles('client/collections/user.js', 'client');
+  api.addFiles('client/lib/seedrandom.js', 'client');
+  api.addFiles('client/routes/accounts.js', 'client');
+  api.addFiles('client/routes/role.js', 'client');
+  api.addFiles('client/routes/user.js', 'client');
 
 });
 
@@ -50,6 +54,6 @@ Package.onTest(function(api) {
   api.mainModule('accounts-tests.js');
 
   // Generated with: github.com/philcockfield/meteor-package-paths
-
+  
 
 });

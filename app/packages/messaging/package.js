@@ -14,6 +14,11 @@ Package.onUse(function(api) {
   api.versionsFrom('1.3.2.4');
   api.use('ecmascript');
   api.mainModule('messaging.js');
+
+  // Generated with: github.com/philcockfield/meteor-package-paths
+  api.addFiles('shared/collections/messages.js', ['client', 'server']);
+  api.addFiles('server/publish.js', 'server');
+
 });
 
 Package.onTest(function(api) {
@@ -21,4 +26,8 @@ Package.onTest(function(api) {
   api.use('tinytest');
   api.use('almagest:messaging');
   api.mainModule('messaging-tests.js');
+
+  // Generated with: github.com/philcockfield/meteor-package-paths
+  
+
 });
