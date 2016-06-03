@@ -13,6 +13,8 @@ aldeed:schema-index@1.0.1
 aldeed:simple-schema@1.5.3
 allow-deny@1.0.4
 almagest:accounts@0.0.1
+almagest:core@0.0.1
+almagest:menus@0.0.1
 almagest:pages@0.0.1
 arsnebula:appupdate@1.0.6
 arsnebula:classx@2.0.5

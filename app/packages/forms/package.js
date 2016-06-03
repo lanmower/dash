@@ -16,6 +16,7 @@ Package.onUse(function(api) {
   api.use('almagest:files');
   api.use("templating", "client");
   api.use('aldeed:autoform');
+
   api.mainModule('forms.js');
 
   // Generated with: github.com/philcockfield/meteor-package-paths
@@ -89,6 +90,6 @@ Package.onTest(function(api) {
   api.mainModule('forms-tests.js');
 
   // Generated with: github.com/philcockfield/meteor-package-paths
-  
+
 
 });

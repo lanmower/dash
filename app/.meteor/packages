@@ -33,7 +33,6 @@ raix:handlebar-helpers
 natestrauser:jquery-scrollto
 dburles:collection-helpers
 nucleuside:live-update
-reactive-var
 cfs:ui
 cfs:graphicsmagick
 fortawesome:fontawesome
@@ -65,4 +64,5 @@ accounts-google
 random
 msavin:mongol
 almagest:accounts
+almagest:menus
 almagest:pages

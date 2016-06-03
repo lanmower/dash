@@ -11,12 +11,16 @@ Package.describe({
 });
 
 Package.onUse(function(api) {
-  api.versionsFrom('1.3.2.4');
-  api.use('ecmascript');
-  api.mainModule('pages.js');
+  //api.versionsFrom('1.3.2.4');
+  api.use('underscore');
   api.use("templating", "client");
+  api.use('aldeed:autoform');
   api.use('mongo');
+  api.use('ecmascript');
+  api.use('reactive-var');
+  api.use('iron:router');
   api.use('almagest:core');
+  api.mainModule('pages.js');
 
   // Generated with: github.com/philcockfield/meteor-package-paths
   api.addFiles('shared/collections/schema/widgets.js', ['client', 'server']);
@@ -60,6 +64,6 @@ Package.onTest(function(api) {
   api.mainModule('pages-tests.js');
 
   // Generated with: github.com/philcockfield/meteor-package-paths
-  
+
 
 });

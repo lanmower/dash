@@ -12,14 +12,17 @@ Package.describe({
 
 Package.onUse(function(api) {
   api.versionsFrom('1.3.2.4');
+  api.use('underscore');
   api.use('ecmascript');
-  api.mainModule('core.js');
+  api.use('mongo');
   api.use('aldeed:autoform');
+  api.use('almagest:files');
+  api.use('templating');
+  api.use('reactive-var');
 
   // Generated with: github.com/philcockfield/meteor-package-paths
   api.addFiles('shared/collections/schema/types/types.js', ['client', 'server']);
   api.addFiles('shared/collections/schema/schema.js', ['client', 'server']);
-  api.addFiles('server/publish-additions.js', 'server');
   api.addFiles('client/templates/shared/loading/loading.html', ['client', 'server']);
   api.addFiles('client/templates/shared/not_found/not_found.html', ['client', 'server']);
   api.addFiles('client/templates/layouts/master_layout/navbar/messages/navbar-messages.html', 'client');
@@ -29,7 +32,6 @@ Package.onUse(function(api) {
   api.addFiles('client/templates/layouts/master_layout/contents.html', 'client');
   api.addFiles('client/templates/layouts/master_layout/empty_layout.html', 'client');
   api.addFiles('client/templates/layouts/master_layout/master_layout.html', 'client');
-  api.addFiles('client/templates/layouts/master_layout/menus.html', 'client');
   api.addFiles('client/templates/access_denied/access_denied.html', 'client');
   api.addFiles('client/templates/layouts/master_layout/navbar/messages/navbar-messages.js', 'client');
   api.addFiles('client/templates/layouts/master_layout/navbar/notes/navbar-notes.js', 'client');
@@ -38,7 +40,6 @@ Package.onUse(function(api) {
   api.addFiles('client/templates/layouts/master_layout/contents.js', 'client');
   api.addFiles('client/templates/layouts/master_layout/master_layout.css', 'client');
   api.addFiles('client/templates/layouts/master_layout/master_layout.js', 'client');
-  api.addFiles('client/templates/layouts/master_layout/menus.js', 'client');
   api.addFiles('client/templates/access_denied/access_denied.css', 'client');
   api.addFiles('client/templates/access_denied/access_denied.js', 'client');
   api.addFiles('client/lib/bsfix.js', 'client');
@@ -48,6 +49,7 @@ Package.onUse(function(api) {
   api.addFiles('client/lib/utils.js', 'client');
   api.addFiles('client/stylesheets/sidebar.css', 'client');
   api.addFiles('client/stylesheets/main.css', 'client');
+  api.mainModule('core.js');
 
 });
 
@@ -58,6 +60,6 @@ Package.onTest(function(api) {
   api.mainModule('core-tests.js');
 
   // Generated with: github.com/philcockfield/meteor-package-paths
-  
+
 
 });

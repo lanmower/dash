@@ -1,3 +1,7 @@
+// Import and rename a variable exported by pages.js.
+import { additions as additions } from "meteor/almagest:core";
+
+
 Meteor.publish("pages", function (path, options) {
   var additions = Pages.additions(this);
   if (path == null)  path = '';

@@ -5,7 +5,6 @@ Router.configure({
 
 Router.route('/', {
   name: 'home',
-  controller: 'HomeController',
   template: 'ViewPage',
   waitOn: function() {
       return Meteor.subscribe("pageByPath", "home");
