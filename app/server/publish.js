@@ -1,4 +1,4 @@
 Meteor.publish(null, function (){
-  if(Roles.userIsInRole(self.userId, "admin") || Roles.userIsInRole(self.userId, "user-admin"))
+  if(Roles.userIsInRole(this.userId, "admin") || Roles.userIsInRole(this.userId, "user-admin"))
     return Meteor.roles.find({})
 });

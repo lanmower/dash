@@ -238,9 +238,6 @@ Meteor.startup(function () {
       });
   });
 
-    //Forms.find({}).forEach(function(item) {
-      //processForm(item._id, item);
-    //});
     Forms.find({}).observeChanges({
       added : processForm
     })
