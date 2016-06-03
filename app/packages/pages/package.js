@@ -60,6 +60,6 @@ Package.onTest(function(api) {
   api.mainModule('pages-tests.js');
 
   // Generated with: github.com/philcockfield/meteor-package-paths
-
+  
 
 });

@@ -16,11 +16,8 @@ Package.onUse(function(api) {
   api.mainModule('core.js');
   api.use('aldeed:autoform');
 
-
   // Generated with: github.com/philcockfield/meteor-package-paths
   api.addFiles('shared/collections/schema/types/types.js', ['client', 'server']);
-  api.addFiles('shared/collections/schema/fields.js', ['client', 'server']);
-  api.addFiles('shared/collections/schema/forms.js', ['client', 'server']);
   api.addFiles('shared/collections/schema/schema.js', ['client', 'server']);
   api.addFiles('server/publish-additions.js', 'server');
   api.addFiles('client/templates/shared/loading/loading.html', ['client', 'server']);
@@ -61,6 +58,6 @@ Package.onTest(function(api) {
   api.mainModule('core-tests.js');
 
   // Generated with: github.com/philcockfield/meteor-package-paths
-
+  
 
 });

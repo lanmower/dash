@@ -19,9 +19,9 @@ Package.onUse(function(api) {
   api.mainModule('forms.js');
 
   // Generated with: github.com/philcockfield/meteor-package-paths
+  api.addFiles('shared/fields/fileInput/afFileList.html', ['client', 'server']);
   api.addFiles('shared/fields/approveInput/approveForm.html', ['client', 'server']);
   api.addFiles('shared/fields/approveInput/approveInput.html', ['client', 'server']);
-  api.addFiles('shared/fields/fileInput/afFileList.html', ['client', 'server']);
   api.addFiles('shared/fields/code/codeField.html', ['client', 'server']);
   api.addFiles('shared/fields/dateRangeInput/dateRangeInput.html', ['client', 'server']);
   api.addFiles('shared/fields/dateTimeInput/dateTimeInput.html', ['client', 'server']);
@@ -29,12 +29,13 @@ Package.onUse(function(api) {
   api.addFiles('shared/fields/formSelectInput/formList.html', ['client', 'server']);
   api.addFiles('shared/fields/html/htmlField.html', ['client', 'server']);
   api.addFiles('shared/fields/leaveInput/leaveInput.html', ['client', 'server']);
+  api.addFiles('shared/fields/textInput/textInput.js', ['client', 'server']);
+  api.addFiles('shared/fields/fileInput/fileInput.js', ['client', 'server']);
   api.addFiles('shared/fields/approveInput/approvals.js', ['client', 'server']);
   api.addFiles('shared/fields/approveInput/approveInput.js', ['client', 'server']);
   api.addFiles('shared/fields/approveInput/approveNotification.js', ['client', 'server']);
   api.addFiles('shared/fields/approveInput/approveRoute.js', ['client', 'server']);
   api.addFiles('shared/fields/approveInput/approvedList.js', ['client', 'server']);
-  api.addFiles('shared/fields/fileInput/fileInput.js', ['client', 'server']);
   api.addFiles('shared/fields/checkboxInput/checkboxInput.js', ['client', 'server']);
   api.addFiles('shared/fields/code/codeField.js', ['client', 'server']);
   api.addFiles('shared/fields/dateInput/dateInput.js', ['client', 'server']);
@@ -49,9 +50,11 @@ Package.onUse(function(api) {
   api.addFiles('shared/fields/leaveInput/leaveTrigger.js', ['client', 'server']);
   api.addFiles('shared/fields/linkInput/linkInput.js', ['client', 'server']);
   api.addFiles('shared/fields/selectInput/selectInput.js', ['client', 'server']);
-  api.addFiles('shared/fields/textInput/textInput.js', ['client', 'server']);
+  api.addFiles('shared/collections/fields.js', ['client', 'server']);
   api.addFiles('shared/debug.js', ['client', 'server']);
+  api.addFiles('server/methods.js', 'server');
   api.addFiles('server/publish.js', 'server');
+  api.addFiles('server/start.js', 'server');
   api.addFiles('client/shared/collections/forms.js', ['client', 'server']);
   api.addFiles('client/templates/field/edit/edit.html', 'client');
   api.addFiles('client/templates/field/insert/insert.html', 'client');

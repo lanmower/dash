@@ -16,6 +16,8 @@ Package.onUse(function(api) {
   api.mainModule('gmail.js');
 
   // Generated with: github.com/philcockfield/meteor-package-paths
+  api.addFiles('server/collections/gmail.js', 'server');
+  api.addFiles('server/methods.js', 'server');
   api.addFiles('server/publish.js', 'server');
   api.addFiles('client/templates/mail/labels.html', 'client');
   api.addFiles('client/templates/mail/list.html', 'client');
