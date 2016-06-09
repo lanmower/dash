@@ -1,4 +1,4 @@
-Widgets = new Mongo.Collection("Widgets");
+Widgets = new Mongo.Collection("widgets");
 Widgets.schemas = {};
 
 Widgets.helpers({
