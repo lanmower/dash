@@ -13,6 +13,7 @@ aldeed:schema-index@1.0.1
 aldeed:simple-schema@1.5.3
 allow-deny@1.0.4
 almagest:accounts@0.0.1
+almagest:carousel@0.0.1
 almagest:core@0.0.1
 almagest:diary@0.0.1
 almagest:files@0.0.1
@@ -103,7 +104,6 @@ meteorhacks:fast-render@2.14.0
 meteorhacks:inject-data@2.0.0
 meteorhacks:meteorx@1.4.1
 meteorhacks:picker@1.0.3
-meteortoys:toykit@3.0.4
 mfactory:admin-lte@0.0.2
 minifier-js@1.1.11
 minimongo@1.0.16
@@ -121,7 +121,6 @@ mongo-livedata@1.0.12
 mpowaga:autoform-summernote@0.4.3
 mrt:jquery-ui-sortable@1.10.3
 mrt:q@1.0.1
-msavin:mongol@2.0.1
 notorii:autoform-datetimepicker@1.0.6
 npm-bcrypt@0.8.5
 npm-mongo@1.4.43

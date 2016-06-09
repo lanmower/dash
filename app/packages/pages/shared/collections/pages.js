@@ -65,33 +65,12 @@ Pages.attachSchema(new SimpleSchema(_.extend({
 
 Pages.allow({
   insert: function (userId, page) {
-      var allow = userId && (page.createdBy === userId);
-      if(allow == false){
-          var currentUser = Meteor.user();
-          for(i in page.insert) {
-              if(Roles.userIsInRole(currentUser, i)) return true;
-          }
-      }
-      return allow;
+      return gong.can(userId, page, 'insert');
   },
   update: function (userId, page, fields, modifier) {
-      var allow = userId && (page.createdBy === userId);
-      if(allow == false){
-        var currentUser = Meteor.user();
-        for(i in page.update) {
-            if(Roles.userIsInRole(currentUser, page.update[i])) return true;
-        }
-      }
-    return allow;
+    return gong.can(userId, page, 'update');
   },
   remove: function (userId, page) {
-      var allow = userId && (page.createdBy === userId);
-      if(allow == false){
-          var currentUser = Meteor.user();
-          for(i in page.remove) {
-              if(Roles.userIsInRole(currentUser, i)) return true;
-          }
-      }
-      return allow;
+    return gong.can(userId, page, 'remove');
   }
 });

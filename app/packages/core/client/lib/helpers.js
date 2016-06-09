@@ -40,7 +40,7 @@ Template.registerHelper("file", function(_id){
 Template.registerHelper("setting", function(key){
     var config = Meteor.settings.public[key];
     if(config) {
-      console.log("Loaded setting:"+config);
+      //console.log("Loaded setting:"+config);
       return config;
     }
 });

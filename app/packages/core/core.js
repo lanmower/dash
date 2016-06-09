@@ -54,6 +54,7 @@ additions = function(self) {
 };
 can = function(userId, item, action, fieldNames) {
   if(Roles.userIsInRole(userId, 'admin')) return true;
+  console.log('can called', userId, Roles.userIsInRole(userId, 'admin'));
   if(action === "update") allow = userId && (item.createdBy === userId);
   if(item.parent) {
     var parentType = item.parentType();

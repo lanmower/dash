@@ -16,7 +16,6 @@ es5-shim                # ECMAScript 5 compatibility for older browsers.
 ecmascript              # Enable ECMAScript2015+ syntax in app code
 
 iron:router
-udondan:slick
 
 mfactory:admin-lte
 fortawesome:fontawesome
@@ -36,5 +35,6 @@ almagest:gmail
 almagest:menus
 almagest:messaging
 almagest:pages
+almagest:carousel
+
 ejson
-msavin:mongol
