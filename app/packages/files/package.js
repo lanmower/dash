@@ -36,8 +36,12 @@ Package.onUse(function(api) {
   api.addFiles('client/templates/layouts/navbar/navbar-uploads.html', 'client');
   api.addFiles('client/templates/layouts/navbar/navbar-uploads.js', 'client');
   api.addFiles('client/routes/file.js', 'client');
+  api.addFiles('shared/fields/fileUpload/fileUpload.html', ['client']);
+  api.addFiles('shared/fields/fileUpload/fileUpload.js', ['client', 'server']);
   api.addFiles('shared/fields/fileInput/fileInput.js', ['client', 'server']);
   api.addFiles('shared/fields/fileInput/afFileList.html', ['client']);
+
+  api.export('Files');
 });
 
 Package.onTest(function(api) {

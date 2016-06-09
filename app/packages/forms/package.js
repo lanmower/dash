@@ -24,6 +24,7 @@ Package.onUse(function(api) {
   api.use("vazco:universe-autoform-select");
   api.use("aldeed:delete-button");
   api.use('mrt:jquery-ui-sortable');
+  api.use('momentjs:moment');
   api.use('monbro:iron-router-breadcrumb');
   api.use('almagest:core');
 
@@ -41,7 +42,6 @@ Package.onUse(function(api) {
   api.addFiles('shared/fields/code/codeField.html', ['client']);
   api.addFiles('shared/fields/dateRangeInput/dateRangeInput.html', ['client']);
   api.addFiles('shared/fields/dateTimeInput/dateTimeInput.html', ['client']);
-  api.addFiles('shared/fields/fileUpload/fileUpload.html', ['client']);
   api.addFiles('shared/fields/formSelectInput/formList.html', ['client']);
   api.addFiles('shared/fields/html/htmlField.html', ['client']);
   api.addFiles('shared/fields/leaveInput/leaveInput.html', ['client']);
@@ -58,7 +58,6 @@ Package.onUse(function(api) {
   api.addFiles('shared/fields/dateTimeInput/dateTimeInput.js', ['client', 'server']);
   api.addFiles('shared/fields/editorInput/editorInput.js', ['client', 'server']);
   api.addFiles('shared/fields/userSelectInput/userSelectInput.js', ['client', 'server']);
-  api.addFiles('shared/fields/fileUpload/fileUpload.js', ['client', 'server']);
   api.addFiles('shared/fields/formSelectInput/formSelectInput.js', ['client', 'server']);
   api.addFiles('shared/fields/html/htmlField.js', ['client', 'server']);
   api.addFiles('shared/fields/leaveInput/leaveInput.js', ['client', 'server']);

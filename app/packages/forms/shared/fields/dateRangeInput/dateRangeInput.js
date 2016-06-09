@@ -93,9 +93,9 @@ if(Meteor.isServer) {
         tofind[thename]=null;
         _.each(form.collection.find(tofind).fetch(), function(doc) {
           var start = doc[field.name+"Start"];
-          var end = doc[field.name+"end"];
+          var end = doc[field.name+"End"];
+
           if(moment(start).isAfter(end)) start = moment(end.format());
-          console.log("Date range startup hook", field);
 
           _.each(field.preNotification, function(notification) {
 
@@ -103,7 +103,7 @@ if(Meteor.isServer) {
             if(moment(notificationDate).isBefore(new Date())) {
               _.each(notification.users, function(userId) {
                 var user = Meteor.users.findOne(userId);
-                console.log('sendingit');
+                console.log('sending it');
                 var user = Meteor.users.findOne({_id:userId});
                 var href = Meteor.absoluteUrl()+'form/update/'+form._id+'/'+doc._id;
                 var message = notification.message;

@@ -36,6 +36,8 @@ Package.onUse(function(api) {
   api.addFiles('server/logout.js', 'server');
   api.addFiles('server/publish.js', 'server');
   api.addFiles('server/users.js', 'server');
+  api.addFiles('client/components/callable.html', 'client');
+  api.addFiles('client/components/callable.js', 'client');
   api.addFiles('client/templates/role/edit.html', 'client');
   api.addFiles('client/templates/role/insert.html', 'client');
   api.addFiles('client/templates/role/list.html', 'client');
