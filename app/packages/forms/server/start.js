@@ -15,19 +15,6 @@ Meteor.startup(function () {
 		window.alert = navigator.notification.alert;
 	}
 
-	Push.addListener('message', function(notification) {
-		// Called on every message
-		console.log(JSON.stringify(notification))
-
-		function alertDismissed() {
-			NotificationHistory.update({_id: notification.payload.historyId}, {
-				$set: {
-					"recievedAt": new Date()
-				}
-			});
-		}
-		alert(notification.message, alertDismissed, notification.payload.title, "Ok");
-	});
 })
 
 if(Meteor.isServer)  {
@@ -43,7 +30,6 @@ if(Meteor.isServer)  {
   Meteor.publish("submission", function (form, id) {
     return Meteor.forms[form].collection.find(id);
   });
-  SyncedCron.start();
 }
 
 processForm = function(id, formData) {
@@ -122,6 +108,11 @@ processForm = function(id, formData) {
   }
 }
 
+schemaItem = function(field) {
+  var ret;
+  if(Fields.schemas[field.type]) ret = Fields.schemas[field.type](field);
+  return ret;
+}
 var buildSchema = function(form) {
   console.log("Building schema", form.collectionName);
   var schema = Meteor.schema();

@@ -47,7 +47,7 @@ Router.route('page/edit/:_id', {
       page = Pages.findOne({_id:this.params._id});
     	var widgets;
 		  if(page) widgets = Widgets.find({parent:page._id});
-      return {types:Meteor.widgetTypes, page:page, widgets:widgets};
+      return {types:Meteor.widgetTypes, page:page, Widgets:widgets};
     }
   },
   fastRender: true,
@@ -72,9 +72,9 @@ Router.route('/page/:path', {
   data: function() {
     if(this.ready()){
 	    var page = Pages.findOne({path:this.params.path});
-	    Meteor.subscribe("widgets", page._id);
+	    Meteor.subscribe("Widgets", page._id);
 	    var widgets = Widgets.find({parent:page._id});
-	    return {page:page, widgets:widgets};
+	    return {page:page, Widgets:widgets};
     }
   },
   fastRender: true,

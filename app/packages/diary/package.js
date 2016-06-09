@@ -11,8 +11,13 @@ Package.describe({
 });
 
 Package.onUse(function(api) {
-  api.versionsFrom('1.3.2.4');
+  api.versionsFrom("1.3.2.4")
   api.use('ecmascript');
+  api.use("templating", "client");
+  api.use("mongo");
+  api.use("iron:router");
+  api.use("reactive-var")
+
   api.mainModule('diary.js');
 
   // Generated with: github.com/philcockfield/meteor-package-paths
@@ -36,6 +41,6 @@ Package.onTest(function(api) {
   api.mainModule('diary-tests.js');
 
   // Generated with: github.com/philcockfield/meteor-package-paths
-  
+
 
 });

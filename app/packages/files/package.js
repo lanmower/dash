@@ -11,24 +11,41 @@ Package.describe({
 });
 
 Package.onUse(function(api) {
-  api.versionsFrom('1.3.2.4');
+  api.versionsFrom("1.3.2.4")
   api.use('ecmascript');
+  api.use('templating', "client");
+  api.use("iron:router");
+  api.use('aldeed:autoform');
+  api.use("aldeed:delete-button");
+
+  api.use('almagest:core');
+  api.use('almagest:pages');
+  api.use('almagest:forms');
+
+  api.use('cfs:ui');
+  api.use('cfs:filesystem');
+  api.use('cfs:graphicsmagick');
+  api.use('cfs:autoform');
+  api.use('cfs:power-queue');
+
   api.mainModule('files.js');
 
   // Generated with: github.com/philcockfield/meteor-package-paths
   api.addFiles('shared/files.js', ['client', 'server']);
   api.addFiles('client/templates/file/edit.html', 'client');
+  api.addFiles('client/templates/layouts/navbar/navbar-uploads.html', 'client');
+  api.addFiles('client/templates/layouts/navbar/navbar-uploads.js', 'client');
   api.addFiles('client/routes/file.js', 'client');
-
+  api.addFiles('shared/fields/fileInput/fileInput.js', ['client', 'server']);
+  api.addFiles('shared/fields/fileInput/afFileList.html', ['client']);
 });
 
 Package.onTest(function(api) {
   api.use('ecmascript');
   api.use('tinytest');
-  api.use('almagest:files');
   api.mainModule('files-tests.js');
 
   // Generated with: github.com/philcockfield/meteor-package-paths
-  
+
 
 });

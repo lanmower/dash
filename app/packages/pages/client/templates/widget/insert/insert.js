@@ -1,6 +1,6 @@
 Template.InsertWidget.helpers({
   schema: function() {
-    return new SimpleSchema(createDisplaySchema(Router.current().params.parent, null, Pages, Meteor.widgetTypes));
+    return new SimpleSchema(gong.createDisplaySchema(Router.current().params.parent, null, Pages, Meteor.widgetTypes));
   }
 });
 

@@ -49,25 +49,8 @@ Template.registerHelper("fromNow", function(dateToPass) {
   return moment(dateToPass).fromNow();
 });
 
-Meteor.collections = {};
-
-getCollection = function(name) {
-  if(!Forms.findOne({collectionName:name})) {
-     throw new Meteor.Error(404,name+" not found.");
-  }
-  if(!Meteor.collections[name]) {
-    var collection = new Mongo.Collection(name);
-    Meteor.collections[name] = collection;
-  }
-  return Meteor.collections[name];
-}
-
-Template.registerHelper("getCollection", function() {
-  return getCollection(this.collectionName);
-});
-
 Template.registerHelper("can", function(action, impactedDocument, fieldNames) {
   if(!impactedDocument) return false;
   if(!fieldNames.isArray) fieldNames = null;
-  return can(Meteor.userId(), impactedDocument, action, fieldNames);
+  return gong.can(Meteor.userId(), impactedDocument, action, fieldNames);
 });

@@ -1,6 +1,6 @@
 Meteor.publish('forms', function () {
   console.log("Subscribing all forms");
-  var additions = Widgets.additions(this);
+  var additions = gong.additions(this);
   return Forms.find({$or:additions});
 });
 
@@ -18,7 +18,7 @@ Meteor.publish('approvals-form', function (form) {
 });
 
 Meteor.publishComposite('form', function(_id) {
-  var additions = Widgets.additions(this);
+  var additions = gong.additions(this);
   console.log("Subscribing form",_id);
   return {
     find: function() {
@@ -35,8 +35,8 @@ Meteor.publishComposite('form', function(_id) {
 });
 
 Meteor.publishComposite('field', function(id) {
-  var additions = Fields.additions(this);
-  var widgetAdditions = Widgets.additions(this);
+  var additions = gong.additions(this);
+  var widgetAdditions = gong.additions(this);
 
   return {
     find: function() {

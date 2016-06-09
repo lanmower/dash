@@ -11,18 +11,22 @@ Package.describe({
 });
 
 Package.onUse(function(api) {
-  api.versionsFrom('1.3.2.4');
+  api.versionsFrom("1.3.2.4")
   api.use('ecmascript');
   api.use('mongo');
-  api.use("templating", "client");
-  api.use('aldeed:autoform');
-  api.mainModule('accounts.js');
-  //api.use('blaze-html-templates', "client");
-  api.use('differential:event-hooks');
+  api.use('alanning:roles');
+  api.use("templating", "client"  );
+  api.use("iron:router");
+  api.use("aldeed:delete-button");
   api.use('useraccounts:iron-routing');
   api.use('useraccounts:bootstrap');
   api.use('mizzao:user-status');
   api.use('aldeed:autoform');
+  api.use('almagest:core');
+  api.use('differential:event-hooks');
+  api.use('matb33:collection-hooks');
+  api.mainModule('accounts.js');
+  //api.use('blaze-html-templates', "client");
 
   // Generated with: github.com/philcockfield/meteor-package-paths
   api.addFiles('shared/collections/events.js', ['client', 'server']);
@@ -44,7 +48,7 @@ Package.onUse(function(api) {
   api.addFiles('client/routes/accounts.js', 'client');
   api.addFiles('client/routes/role.js', 'client');
   api.addFiles('client/routes/user.js', 'client');
-
+  api.export('Roles');
 });
 
 Package.onTest(function(api) {
@@ -54,6 +58,6 @@ Package.onTest(function(api) {
   api.mainModule('accounts-tests.js');
 
   // Generated with: github.com/philcockfield/meteor-package-paths
-  
+
 
 });

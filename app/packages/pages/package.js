@@ -11,21 +11,35 @@ Package.describe({
 });
 
 Package.onUse(function(api) {
-  //api.versionsFrom('1.3.2.4');
+  api.versionsFrom("1.3.2.4")
+  api.use('ecmascript');
   api.use('underscore');
   api.use("templating", "client");
-  api.use('aldeed:autoform');
   api.use('mongo');
-  api.use('ecmascript');
+  api.use('accounts-base');
+  api.use("iron:router");
+  api.use('almagest:core');
+  api.use('almagest:menus');
+  api.use('aldeed:autoform');
+  api.use("aldeed:delete-button");
+  api.use('mrt:jquery-ui-sortable');
+  api.use('monbro:iron-router-breadcrumb');
+
+  api.use('aldeed:collection2');
+  api.use('matb33:collection-hooks');
+  api.use('reywood:publish-composite');
   api.use('reactive-var');
   api.use('iron:router');
-  api.use('almagest:core');
-  api.mainModule('pages.js');
+  api.use('mpowaga:autoform-summernote');
+  api.use("vazco:universe-autoform-select");
+  api.use('dburles:collection-helpers');
+  api.use('jrudio:videojs');
 
   // Generated with: github.com/philcockfield/meteor-package-paths
-  api.addFiles('shared/collections/schema/widgets.js', ['client', 'server']);
+  api.addFiles('client/widgets/player/player.css', 'client');
+  api.addFiles('client/widgets/player/player.html', 'client');
+  api.addFiles('client/widgets/player/player.js', 'client');
   api.addFiles('shared/collections/pages.js', ['client', 'server']);
-  api.addFiles('shared/collections/widgets.js', ['client', 'server']);
   api.addFiles('server/publish.js', 'server');
   api.addFiles('client/templates/widget/edit/edit.html', 'client');
   api.addFiles('client/templates/widget/insert/insert.html', 'client');
@@ -37,7 +51,6 @@ Package.onUse(function(api) {
   api.addFiles('client/widgets/announcement/announcement.html', 'client');
   api.addFiles('client/widgets/embed/embed.html', 'client');
   api.addFiles('client/widgets/mediaSearch/mediaSearch.html', 'client');
-  api.addFiles('client/widgets/player/player.html', 'client');
   api.addFiles('client/widgets/userCode/userCode.html', 'client');
   api.addFiles('client/templates/widget/edit/edit.js', 'client');
   api.addFiles('client/templates/widget/insert/insert.js', 'client');
@@ -48,13 +61,25 @@ Package.onUse(function(api) {
   api.addFiles('client/widgets/announcement/announcement.js', 'client');
   api.addFiles('client/widgets/embed/embed.js', 'client');
   api.addFiles('client/widgets/mediaSearch/mediaSearch.js', 'client');
-  api.addFiles('client/widgets/player/player.css', 'client');
-  api.addFiles('client/widgets/player/player.js', 'client');
   api.addFiles('client/widgets/userCode/userCode.js', 'client');
   api.addFiles('client/routes/home.js', 'client');
   api.addFiles('client/routes/page.js', 'client');
   api.addFiles('client/routes/widget.js', 'client');
+  api.addFiles('client/templates/shared/loading/loading.html', ['client']);
+  api.addFiles('client/templates/shared/not_found/not_found.html', ['client']);
+  api.addFiles('client/templates/layouts/master_layout/contents.html', 'client');
+  api.addFiles('client/templates/layouts/master_layout/empty_layout.html', 'client');
+  api.addFiles('client/templates/layouts/master_layout/master_layout.html', 'client');
+  api.addFiles('client/templates/access_denied/access_denied.html', 'client');
+  api.addFiles('client/templates/layouts/master_layout/contents.js', 'client');
+  api.addFiles('client/templates/layouts/master_layout/master_layout.css', 'client');
+  api.addFiles('client/templates/layouts/master_layout/master_layout.js', 'client');
+  api.addFiles('client/templates/access_denied/access_denied.css', 'client');
+  api.addFiles('client/templates/access_denied/access_denied.js', 'client');
 
+  api.mainModule('pages.js');
+  api.export("Widgets");
+  api.export("Pages");
 });
 
 Package.onTest(function(api) {
@@ -64,6 +89,6 @@ Package.onTest(function(api) {
   api.mainModule('pages-tests.js');
 
   // Generated with: github.com/philcockfield/meteor-package-paths
-  
+
 
 });

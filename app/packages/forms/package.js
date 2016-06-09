@@ -11,26 +11,41 @@ Package.describe({
 });
 
 Package.onUse(function(api) {
-  api.versionsFrom('1.3.2.4');
+  api.versionsFrom("1.3.2.4")
   api.use('ecmascript');
-  api.use('almagest:files');
-  api.use("templating", "client");
+  api.use('underscore');
+  api.use('templating', "client");
+  api.use('mongo');
+  api.use('almagest:pages');
+  api.use('almagest:core');
+  api.use('reactive-var');
+  api.use("iron:router");
   api.use('aldeed:autoform');
+  api.use("vazco:universe-autoform-select");
+  api.use("aldeed:delete-button");
+  api.use('mrt:jquery-ui-sortable');
+  api.use('monbro:iron-router-breadcrumb');
+  api.use('almagest:core');
+
+
+  api.use('notorii:autoform-datetimepicker');
+
+
   api.mainModule('forms.js');
 
   // Generated with: github.com/philcockfield/meteor-package-paths
-  api.addFiles('shared/fields/fileInput/afFileList.html', ['client', 'server']);
-  api.addFiles('shared/fields/approveInput/approveForm.html', ['client', 'server']);
-  api.addFiles('shared/fields/approveInput/approveInput.html', ['client', 'server']);
-  api.addFiles('shared/fields/code/codeField.html', ['client', 'server']);
-  api.addFiles('shared/fields/dateRangeInput/dateRangeInput.html', ['client', 'server']);
-  api.addFiles('shared/fields/dateTimeInput/dateTimeInput.html', ['client', 'server']);
-  api.addFiles('shared/fields/fileUpload/fileUpload.html', ['client', 'server']);
-  api.addFiles('shared/fields/formSelectInput/formList.html', ['client', 'server']);
-  api.addFiles('shared/fields/html/htmlField.html', ['client', 'server']);
-  api.addFiles('shared/fields/leaveInput/leaveInput.html', ['client', 'server']);
+  api.addFiles('client/lib/helpers.js', 'client');
+  api.addFiles('shared/lib/form.js', ['client','server']);
+  api.addFiles('shared/fields/approveInput/approveForm.html', ['client']);
+  api.addFiles('shared/fields/approveInput/approveInput.html', ['client']);
+  api.addFiles('shared/fields/code/codeField.html', ['client']);
+  api.addFiles('shared/fields/dateRangeInput/dateRangeInput.html', ['client']);
+  api.addFiles('shared/fields/dateTimeInput/dateTimeInput.html', ['client']);
+  api.addFiles('shared/fields/fileUpload/fileUpload.html', ['client']);
+  api.addFiles('shared/fields/formSelectInput/formList.html', ['client']);
+  api.addFiles('shared/fields/html/htmlField.html', ['client']);
+  api.addFiles('shared/fields/leaveInput/leaveInput.html', ['client']);
   api.addFiles('shared/fields/textInput/textInput.js', ['client', 'server']);
-  api.addFiles('shared/fields/fileInput/fileInput.js', ['client', 'server']);
   api.addFiles('shared/fields/approveInput/approvals.js', ['client', 'server']);
   api.addFiles('shared/fields/approveInput/approveInput.js', ['client', 'server']);
   api.addFiles('shared/fields/approveInput/approveNotification.js', ['client', 'server']);
@@ -50,12 +65,10 @@ Package.onUse(function(api) {
   api.addFiles('shared/fields/leaveInput/leaveTrigger.js', ['client', 'server']);
   api.addFiles('shared/fields/linkInput/linkInput.js', ['client', 'server']);
   api.addFiles('shared/fields/selectInput/selectInput.js', ['client', 'server']);
-  api.addFiles('shared/collections/fields.js', ['client', 'server']);
-  api.addFiles('shared/debug.js', ['client', 'server']);
-  api.addFiles('server/methods.js', 'server');
+  api.addFiles('shared/collections/forms.js', ['client', 'server']);
   api.addFiles('server/publish.js', 'server');
+  api.addFiles('server/methods.js', 'server');
   api.addFiles('server/start.js', 'server');
-  api.addFiles('client/shared/collections/forms.js', ['client', 'server']);
   api.addFiles('client/templates/field/edit/edit.html', 'client');
   api.addFiles('client/templates/field/insert/insert.html', 'client');
   api.addFiles('client/templates/form/submissions/admin.html', 'client');
@@ -76,10 +89,10 @@ Package.onUse(function(api) {
   api.addFiles('client/templates/form/submissions/updateAdmin.js', 'client');
   api.addFiles('client/templates/form/edit.js', 'client');
   api.addFiles('client/templates/form/insert.js', 'client');
-  api.addFiles('client/lib/form.js', 'client');
   api.addFiles('client/routes/field.js', 'client');
   api.addFiles('client/routes/form.js', 'client');
-
+  api.export('Fields');
+  api.export('Forms');
 });
 
 Package.onTest(function(api) {
@@ -89,6 +102,6 @@ Package.onTest(function(api) {
   api.mainModule('forms-tests.js');
 
   // Generated with: github.com/philcockfield/meteor-package-paths
-  
+
 
 });

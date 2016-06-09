@@ -11,8 +11,14 @@ Package.describe({
 });
 
 Package.onUse(function(api) {
-  api.versionsFrom('1.3.2.4');
+  api.versionsFrom("1.3.2.4")
   api.use('ecmascript');
+  api.use('mongo');
+  api.use('underscore');
+  api.use('templating', "client");
+  api.use("iron:router");
+  api.use('percolate:google-api');
+
   api.mainModule('gmail.js');
 
   // Generated with: github.com/philcockfield/meteor-package-paths
@@ -37,6 +43,6 @@ Package.onTest(function(api) {
   api.mainModule('gmail-tests.js');
 
   // Generated with: github.com/philcockfield/meteor-package-paths
-  
+
 
 });

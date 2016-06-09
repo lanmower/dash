@@ -1,6 +1,9 @@
 Meteor.widgetTypes.push({label:"Embedded page", value:"embed"});
-Template.embed.viewmodel(function (data) {
+Widgets.schemas.embed = function() {
   return {
-    link:data.src
+    link:{
+      type: String,
+      optional: false,
+    }
   }
-});
+};

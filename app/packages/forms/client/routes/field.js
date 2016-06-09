@@ -16,7 +16,7 @@ Router.route('field/edit/:form/:_id', {
       var formSchema = {name:{type:String}};
       _.extend(
         formSchema,
-        createDisplaySchema(field.parent, field.type, Forms, Meteor.fieldTypes));
+        gong.createDisplaySchema(field.parent, field.type, Forms, Meteor.fieldTypes));
       formSchema.listable = {
         type: Boolean,
         label: "Display in list?"

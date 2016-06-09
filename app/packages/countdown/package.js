@@ -11,8 +11,10 @@ Package.describe({
 });
 
 Package.onUse(function(api) {
-  api.versionsFrom('1.3.2.4');
+  api.versionsFrom("1.3.2.4")
   api.use('ecmascript');
+  api.use('templating', "client"  );
+
   api.mainModule('countdown.js');
 
   // Generated with: github.com/philcockfield/meteor-package-paths
@@ -30,6 +32,6 @@ Package.onTest(function(api) {
   api.mainModule('countdown-tests.js');
 
   // Generated with: github.com/philcockfield/meteor-package-paths
-  
+
 
 });

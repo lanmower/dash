@@ -32,7 +32,7 @@ if(Meteor.isClient) {
     }
   });
 }
- 
+
 Fields.schemas.dateTimeInput = function(data) {
   var name = data.name
   var output = {};

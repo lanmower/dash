@@ -12,9 +12,9 @@ Router.route('/', {
   data: function() {
     if(this.ready()){
 	    var page = Pages.findOne({path:{$regex : "(/)?.*"}});
-	    Meteor.subscribe("widgets", page._id);
+	    Meteor.subscribe("Widgets", page._id);
 	    var widgets = Widgets.find({parent:page._id});
-	    return {page:page, widgets:widgets};
+	    return {page:page, Widgets:widgets};
     }
   },
   fastRender: true,
