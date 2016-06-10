@@ -29,8 +29,8 @@ accounts-google
 
 almagest:accounts
 almagest:diary
-almagest:pages
 almagest:files
+almagest:pages
 almagest:forms
 almagest:gmail
 almagest:menus
