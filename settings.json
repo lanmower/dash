@@ -1,6 +1,7 @@
 {
   "public": {
     "skin":"green",
+    "logo":"<img src='/LOCAL_ELCOIN.png'></img>",
     "siteName":"localelcoins.com"
   },
   "emailDomains":[
