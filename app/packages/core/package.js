@@ -18,6 +18,7 @@ Package.onUse(function(api) {
   api.use('aldeed:autoform');
   api.use('templating', "client"  );
   api.use('reactive-var');
+  api.use('momentjs:moment');
   api.mainModule('core.js');
 
   // Generated with: github.com/philcockfield/meteor-package-paths

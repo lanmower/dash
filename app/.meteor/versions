@@ -15,6 +15,7 @@ allow-deny@1.0.4
 almagest:accounts@0.0.1
 almagest:carousel@0.0.1
 almagest:core@0.0.1
+almagest:countdown@0.0.1
 almagest:diary@0.0.1
 almagest:files@0.0.1
 almagest:forms@0.0.1

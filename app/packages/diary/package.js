@@ -17,6 +17,7 @@ Package.onUse(function(api) {
   api.use("mongo");
   api.use("iron:router");
   api.use("reactive-var")
+  api.use('momentjs:moment');
 
   api.mainModule('diary.js');
 

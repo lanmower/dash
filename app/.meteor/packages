@@ -36,5 +36,6 @@ almagest:menus
 almagest:messaging
 almagest:pages
 almagest:carousel
+almagest:countdown
 
 ejson
