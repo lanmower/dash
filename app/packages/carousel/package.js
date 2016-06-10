@@ -18,6 +18,7 @@ Package.onUse(function(api) {
   api.use('mongo');
   api.use('udondan:slick');
   api.use('almagest:core');
+  api.use('almagest:pages');
 
   api.addFiles('carousel.html', 'client');
   api.mainModule('carousel.js', 'client');
