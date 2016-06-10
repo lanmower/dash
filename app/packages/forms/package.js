@@ -64,6 +64,8 @@ Package.onUse(function(api) {
   api.addFiles('shared/fields/leaveInput/leaveTrigger.js', ['client', 'server']);
   api.addFiles('shared/fields/linkInput/linkInput.js', ['client', 'server']);
   api.addFiles('shared/fields/selectInput/selectInput.js', ['client', 'server']);
+  api.addFiles('shared/fields/fileUpload/fileUpload.html', ['client']);
+  api.addFiles('shared/fields/fileUpload/fileUpload.js', ['client', 'server']);
   api.addFiles('shared/collections/forms.js', ['client', 'server']);
   api.addFiles('server/publish.js', 'server');
   api.addFiles('server/methods.js', 'server');
