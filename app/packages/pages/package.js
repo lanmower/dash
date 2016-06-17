@@ -20,6 +20,7 @@ Package.onUse(function(api) {
   api.use("iron:router");
   api.use('almagest:core');
   api.use('almagest:menus');
+  api.use('almagest:files');
   api.use('aldeed:autoform');
   api.use("aldeed:delete-button");
   api.use('mrt:jquery-ui-sortable');
@@ -36,10 +37,10 @@ Package.onUse(function(api) {
   api.use('jrudio:videojs');
 
   // Generated with: github.com/philcockfield/meteor-package-paths
+  api.addFiles('shared/collections/pages.js', ['client', 'server']);
   api.addFiles('client/widgets/player/player.css', 'client');
   api.addFiles('client/widgets/player/player.html', 'client');
   api.addFiles('client/widgets/player/player.js', 'client');
-  api.addFiles('shared/collections/pages.js', ['client', 'server']);
   api.addFiles('server/publish.js', 'server');
   api.addFiles('client/templates/widget/edit/edit.html', 'client');
   api.addFiles('client/templates/widget/insert/insert.html', 'client');
@@ -78,8 +79,8 @@ Package.onUse(function(api) {
   api.addFiles('client/templates/access_denied/access_denied.js', 'client');
 
   api.mainModule('pages.js');
-  api.export("Widgets");
   api.export("Pages");
+
 });
 
 Package.onTest(function(api) {

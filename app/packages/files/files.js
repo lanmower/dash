@@ -1,4 +1,4 @@
-FS.debug = true;
+//FS.debug = true;
 // Write your package code here!
 
 // Variables exported by this module can be imported by other packages and

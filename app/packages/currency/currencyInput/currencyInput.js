@@ -1,6 +1,6 @@
-Meteor.fieldTypes.push({label:"Number Input", value: "numberInput"});
+/*Meteor.fieldTypes.push({label:"Currency Input", value: "currencyInput"});
 
-Widgets.schemas.numberInput = function() {
+Widgets.schemas.currencyInput = function() {
   return {
     title:{
       type: String,
@@ -14,7 +14,8 @@ Widgets.schemas.numberInput = function() {
     }
   }
 };
-Fields.schemas.numberInput = function(data) {
+
+Fields.schemas.currencyInput = function(data) {
   var name = data.name
   var output = {};
   output[name] = {
@@ -28,3 +29,4 @@ Fields.schemas.numberInput = function(data) {
       };
       return output;
   };
+*/

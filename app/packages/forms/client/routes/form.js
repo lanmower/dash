@@ -44,6 +44,7 @@ Router.route('form/edit/:form', {
     ];
   },
   data: function() {
+		console.log('test');
     if(this.ready()){
       form = Forms.findOne({_id:this.params.form});
       var fields = Fields.find({parent:form._id});

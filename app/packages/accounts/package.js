@@ -22,13 +22,16 @@ Package.onUse(function(api) {
   api.use('useraccounts:bootstrap');
   api.use('mizzao:user-status');
   api.use('aldeed:autoform');
-  api.use('almagest:core');
+  api.use('cfs:autoform');
   api.use('differential:event-hooks');
   api.use('matb33:collection-hooks');
   api.mainModule('accounts.js');
+  api.use('almagest:core');
+  api.use('almagest:files');
   //api.use('blaze-html-templates', "client");
 
   // Generated with: github.com/philcockfield/meteor-package-paths
+  api.addFiles('server/methods.js', 'server');
   api.addFiles('shared/collections/events.js', ['client', 'server']);
   api.addFiles('shared/collections/roles.js', ['client', 'server']);
   api.addFiles('shared/collections/users.js', ['client', 'server']);

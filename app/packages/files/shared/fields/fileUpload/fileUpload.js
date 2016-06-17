@@ -15,7 +15,8 @@ var getTitle = function(file) {
 
 if(Meteor.isClient) {
   Template.afFileUpload.onCreated(function () {
-    console.log('subscribing');
+    console.log('subscribing','formFiles', Router.current().params.form, Router.current().params._id);
+
     this.subscribe('formFiles', Router.current().params.form, Router.current().params._id);
   });
 

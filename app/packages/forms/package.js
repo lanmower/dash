@@ -16,8 +16,6 @@ Package.onUse(function(api) {
   api.use('underscore');
   api.use('templating', "client");
   api.use('mongo');
-  api.use('almagest:pages');
-  api.use('almagest:core');
   api.use('reactive-var');
   api.use("iron:router");
   api.use('aldeed:autoform');
@@ -26,15 +24,14 @@ Package.onUse(function(api) {
   api.use('mrt:jquery-ui-sortable');
   api.use('momentjs:moment');
   api.use('monbro:iron-router-breadcrumb');
-  api.use('almagest:core');
-
-
+  api.use('reywood:publish-composite');
   api.use('notorii:autoform-datetimepicker');
-
+  api.use('almagest:core');
 
   api.mainModule('forms.js');
 
   // Generated with: github.com/philcockfield/meteor-package-paths
+  api.addFiles('shared/forms.js', ['client', 'server']);
   api.addFiles('client/lib/helpers.js', 'client');
   api.addFiles('shared/lib/form.js', ['client','server']);
   api.addFiles('shared/fields/approveInput/approveForm.html', ['client']);
@@ -63,8 +60,8 @@ Package.onUse(function(api) {
   api.addFiles('shared/fields/leaveInput/leaveInput.js', ['client', 'server']);
   api.addFiles('shared/fields/leaveInput/leaveTrigger.js', ['client', 'server']);
   api.addFiles('shared/fields/linkInput/linkInput.js', ['client', 'server']);
+  api.addFiles('shared/fields/numberInput/numberInput.js', ['client', 'server']);
   api.addFiles('shared/fields/selectInput/selectInput.js', ['client', 'server']);
-  api.addFiles('shared/collections/forms.js', ['client', 'server']);
   api.addFiles('server/publish.js', 'server');
   api.addFiles('server/methods.js', 'server');
   api.addFiles('server/start.js', 'server');
@@ -90,8 +87,9 @@ Package.onUse(function(api) {
   api.addFiles('client/templates/form/insert.js', 'client');
   api.addFiles('client/routes/field.js', 'client');
   api.addFiles('client/routes/form.js', 'client');
-  api.export('Fields');
-  api.export('Forms');
+  api.export('getCollection');
+  api.export("Forms");
+
 });
 
 Package.onTest(function(api) {
