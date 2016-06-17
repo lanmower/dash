@@ -3,7 +3,11 @@ Template.InsertField.helpers({
     var formSchema = new SimpleSchema(gong.createDisplaySchema(Router.current().params.parent, null, Forms, Meteor.fieldTypes));
     formSchema.name = {type:String};
     return formSchema;
-  }
+  }  ,
+    getCol:function() {
+      return Fields;
+    }
+
 });
 
 AutoForm.hooks({

@@ -4,14 +4,14 @@
       <h3 class="box-title">Edit page</h3>
       {{#if (can "update" page)}}
       <span style="float:right">
-        {{> quickRemoveButton collection="Pages" _id=page._id onSuccess=onSuccess class="btn btn-danger"}}
+        {{> quickRemoveButton collection=getCol _id=page._id onSuccess=onSuccess class="btn btn-danger"}}
       </span>
       <section style="float:right">{{> breadcrumb}}</section>
       {{/if}}
     </div>
     <div class="box-body table-responsive">
       {{#if (can "update" page)}}
-      {{> quickForm collection="Pages" doc=page id="editPageForm" type="update" omitFields="createdBy" buttonContent="Update"}}
+      {{> quickForm collection=getCol doc=page id="editPageForm" type="update" omitFields="createdBy" buttonContent="Update"}}
       {{/if}}
       <hr>
       <h4>Widgets</h4>

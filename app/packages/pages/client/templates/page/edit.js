@@ -6,6 +6,9 @@ Template.EditPage.helpers({
     return function() {
       Router.go('pagesList');
     }
+  },
+  getCol:function() {
+    return Pages;
   }
 });
 Template.EditPage.rendered = function() {

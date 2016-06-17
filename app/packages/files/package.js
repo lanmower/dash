@@ -30,6 +30,7 @@ Package.onUse(function(api) {
 
   // Generated with: github.com/philcockfield/meteor-package-paths
   api.addFiles('shared/files.js', ['client','server']);
+  api.addFiles('server/publish.js', 'server');
   api.addFiles('client/templates/file/edit.html', 'client');
   api.addFiles('client/routes/file.js', 'client');
   api.addFiles('shared/fields/fileUpload/fileUpload.html', ['client']);

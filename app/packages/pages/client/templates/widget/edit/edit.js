@@ -5,6 +5,10 @@ Template.EditWidget.helpers({
   isWidget: function(widget) {
     if(widget) return true;
   }
+  ,
+  getCol:function() {
+    return Widgets;
+  }
 });
 Template.EditWidget.created = function () {
   var template = this;

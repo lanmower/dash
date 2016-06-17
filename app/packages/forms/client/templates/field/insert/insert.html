@@ -7,7 +7,7 @@
     </div>
     <div class="box-body table-responsive">
       {{#if Template.subscriptionsReady}}
-        {{> quickForm collection="Fields" schema=schema id="insertFieldForm" type="insert" omitFields="createdBy" buttonContent="Create"}}
+        {{> quickForm collection=getCol schema=schema id="insertFieldForm" type="insert" omitFields="createdBy" buttonContent="Create"}}
       {{/if}}
     </div>
   </div>

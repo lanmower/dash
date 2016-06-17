@@ -21,7 +21,7 @@
             {{#linkTo route='editPage'}}
               <button class="btn btn-info" type="button">Edit</button>
             {{/linkTo}}
-            {{> quickRemoveButton collection="Pages" _id=this._id onSuccess=onSuccess class="btn btn-danger"}}
+            {{> quickRemoveButton collection=getCol _id=this._id onSuccess=onSuccess class="btn btn-danger"}}
           </span>
         </td>
       </tr>

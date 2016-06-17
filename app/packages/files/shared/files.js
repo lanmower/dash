@@ -202,6 +202,7 @@ Files = new FS.Collection("files", {
 });
 Files.on('uploaded', function (file) {
   var readStream = file.createReadStream();
+  console.log(file.metadata);
   var field = null;
   if(file.metadata) field = file.metadata.field;
   if(!field) return false;

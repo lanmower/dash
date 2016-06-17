@@ -13,7 +13,7 @@
           <div class="box-tools">
             <span style="float: right;">{{> breadcrumb}}</span>
             {{#if (can "remove" widget)}}
-            {{> quickRemoveButton collection="Widgets" style="float:right" _id=widget._id beforeRemove=beforeRemove class="btn btn-danger"}}
+            {{> quickRemoveButton collection=getCol style="float:right" _id=widget._id beforeRemove=beforeRemove class="btn btn-danger"}}
             {{/if}}
           </div>
         </div>
@@ -23,7 +23,7 @@
           {{! this is a wonky workaround for the fact that autoform doesn't handle reactively changing schema attribute, which should be fixed eventually}}
           {{else}}
           {{#if (can "update" widget)}}
-          {{> quickForm collection="Widgets" doc=widget schema=schema id="editWidgetForm" type="update" omitFields="createdBy" buttonContent="Update"}}
+          {{> quickForm collection=getCol doc=widget schema=schema id="editWidgetForm" type="update" omitFields="createdBy" buttonContent="Update"}}
           {{#if isForm widget}}
           {{#linkTo route="insertField" parent=widget._id}}<i class="fa fa-plus"></i> New Field{{/linkTo}}
           {{/if}}

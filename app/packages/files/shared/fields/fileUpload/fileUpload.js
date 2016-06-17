@@ -57,25 +57,25 @@ if(Meteor.isClient) {
     }
   });
 
+  Template.afFileUploadImage.helpers({
+    files : function() {
+      if(self.slicked) {
+        $(self.find(".slick")).slick("unslick");
+      } else self.slicked = true;
+      var slick = $(self.find(".slick")).slick({
+        dots: true,
+        infinite: true,
+        speed: 300,
+        slidesToShow: 3,
+        variableWidth: true
+      });
+      return Files.find(this.images);
+    }
+  }
+  );
   Template.afFileUploadImage.onRendered(function() {
     var self = this;
-    Template.afFileUploadImages.helpers({
-      files : function() {
-        if(self.slicked) {
-          $(self.find(".slick")).slick("unslick");
-        } else self.slicked = true;
-        var slick = $(self.find(".slick")).slick({
-          dots: true,
-          infinite: true,
-          speed: 300,
-          slidesToShow: 3,
-          variableWidth: true
-        });
-        return Files.find(this.images);
-      }
-    }
-    );
-});
+  });
 
   Template.afFileUpload.events({
     'click .playTrack': function(event, template) {
@@ -89,6 +89,7 @@ if(Meteor.isClient) {
       playlist.set(pl);
     },
     'change .fileInput': function(event, template) {
+      console.log(template.data);
       targetField = template.data.name; //Template.parentData(4).fields[Template.parentData(4).fields.indexOf(Template.parentData(4).name)+1]
       doc = Router.current().data().item;
       $("#uploadsNotificationsTrigger").click();

@@ -1,7 +1,11 @@
 Template.EditForm.helpers({
 	formId: function() {
 		return Router.current().params.form;
-	}
+	}  ,
+	  getCol:function() {
+	    return Forms;
+	  }
+
 });
 Template.EditForm.rendered = function() {
 	var elem = $("table#items tbody");

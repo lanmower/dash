@@ -1,5 +1,5 @@
-/*Template.EditField.helpers({
-  schema: function() {
+Template.EditField.helpers({
+  /*schema: function() {
     var formSchema = {name:{type:String}};
     _.extend(
       formSchema,
@@ -10,4 +10,8 @@
     };
     return new SimpleSchema(formSchema);
   }
-});*/
+  ,*/
+  getCol:function() {
+    return Fields;
+  }
+});

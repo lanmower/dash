@@ -10,7 +10,6 @@ Router.route('user/list', {
   },
   fastRender: true,
 	onBeforeAction: function() {
-		console.log('test');
 	    if (!Meteor.user() || !Roles.userIsInRole(Meteor.user(), ['admin'])){
 	      Router.go('/');
 	    }
