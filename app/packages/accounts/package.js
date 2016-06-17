@@ -31,6 +31,7 @@ Package.onUse(function(api) {
   //api.use('blaze-html-templates', "client");
 
   // Generated with: github.com/philcockfield/meteor-package-paths
+  api.addFiles('server/users.js', 'server');
   api.addFiles('server/methods.js', 'server');
   api.addFiles('shared/collections/events.js', ['client', 'server']);
   api.addFiles('shared/collections/roles.js', ['client', 'server']);
@@ -38,7 +39,6 @@ Package.onUse(function(api) {
   api.addFiles('server/login.js', 'server');
   api.addFiles('server/logout.js', 'server');
   api.addFiles('server/publish.js', 'server');
-  api.addFiles('server/users.js', 'server');
   api.addFiles('client/components/callable.html', 'client');
   api.addFiles('client/components/callable.js', 'client');
   api.addFiles('client/templates/role/edit.html', 'client');
