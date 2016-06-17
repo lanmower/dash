@@ -1,9 +1,11 @@
 {
   "public": {
-    "skin":"green",
-    "siteName":"localelcoins.com"
+    "skin":"blue",
+    "siteName":"beanscount.co.za"
   },
   "emailDomains":[
+	"coas.co.za",
+	"lexco.co.za"
   ]
 
 }

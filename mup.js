@@ -1,7 +1,7 @@
 module.exports = {
   servers: {
     one: {
-      host: 'localelcoin.dedicated.co.za',	
+      host: 'beanscount.co.za',	
       username: 'root',
       password: 'almagest',
       // pem: './mykey',
@@ -9,15 +9,15 @@ module.exports = {
   },
 
   meteor: {
-    name: 'localelcoin',
+    name: 'beanscount',
     path: './app',
     servers: {
       one: {},
     },
     env: {
       PORT: 8000,
-      ROOT_URL: 'http://localelcoins.com',
-      MONGO_URL: 'mongodb://localhost/localelcoin'
+      ROOT_URL: 'http://beanscount.co.za',
+      MONGO_URL: 'mongodb://localhost/beanscount'
     },
  "deployCheckWaitTime": 120,
   },
