@@ -14,7 +14,7 @@ Package.onUse(function(api) {
   api.versionsFrom("1.3.2.4")
   api.use('ecmascript');
   api.use('templating', "client"  );
-  api.use('almagest:pages');
+  api.use('almagest:core');
 
   api.mainModule('countdown.js');
 

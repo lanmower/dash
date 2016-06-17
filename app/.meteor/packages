@@ -27,15 +27,19 @@ accounts-password
 accounts-facebook
 accounts-google
 
+almagest:files
 almagest:accounts
 almagest:diary
-almagest:files
+almagest:pages
 almagest:forms
 almagest:gmail
 almagest:menus
 almagest:messaging
-almagest:pages
 almagest:carousel
 almagest:countdown
+almagest:currency
+
+udondan:slick
 
 ejson
+liberation:subscription-audit

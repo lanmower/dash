@@ -154,3 +154,6 @@ width:430px;
 .user-panel {
       height: 50px;
 }
+.content-wrapper, .right-side {
+    min-height: auto !important;
+}

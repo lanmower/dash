@@ -16,6 +16,7 @@ almagest:accounts@0.0.1
 almagest:carousel@0.0.1
 almagest:core@0.0.1
 almagest:countdown@0.0.1
+almagest:currency@0.0.1
 almagest:diary@0.0.1
 almagest:files@0.0.1
 almagest:forms@0.0.1
@@ -52,7 +53,7 @@ cfs:reactive-property@0.0.4
 cfs:standard-packages@0.5.9
 cfs:storage-adapter@0.2.3
 cfs:tempstore@0.1.5
-cfs:ui@0.1.3
+cfs:ui@0.0.1
 cfs:upload-http@0.0.20
 cfs:worker@0.1.4
 check@1.2.1
@@ -94,6 +95,7 @@ jquery@1.11.8
 jrudio:videojs@5.4.4
 launch-screen@1.0.11
 less@2.6.0
+liberation:subscription-audit@0.0.3
 livedata@1.0.18
 localstorage@1.0.9
 logging@1.0.12

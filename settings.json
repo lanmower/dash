@@ -2,6 +2,7 @@
   "public": {
     "skin":"blue",
     "siteName":"beanscount.co.za"
+    "logo":"BEANSCOUNT",
   },
   "emailDomains":[
 	"coas.co.za",

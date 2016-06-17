@@ -19,27 +19,23 @@ Package.onUse(function(api) {
   api.use("aldeed:delete-button");
 
   api.use('almagest:core');
-  api.use('almagest:pages');
   api.use('almagest:forms');
-
+  api.use('cfs:autoform');
   api.use('cfs:ui');
   api.use('cfs:filesystem');
   api.use('cfs:graphicsmagick');
-  api.use('cfs:autoform');
   api.use('cfs:power-queue');
 
   api.mainModule('files.js');
 
   // Generated with: github.com/philcockfield/meteor-package-paths
-  api.addFiles('shared/files.js', ['client', 'server']);
+  api.addFiles('shared/files.js', ['client','server']);
   api.addFiles('client/templates/file/edit.html', 'client');
-  api.addFiles('client/templates/layouts/navbar/navbar-uploads.html', 'client');
-  api.addFiles('client/templates/layouts/navbar/navbar-uploads.js', 'client');
   api.addFiles('client/routes/file.js', 'client');
   api.addFiles('shared/fields/fileUpload/fileUpload.html', ['client']);
   api.addFiles('shared/fields/fileUpload/fileUpload.js', ['client', 'server']);
-  api.addFiles('shared/fields/fileInput/fileInput.js', ['client', 'server']);
-  api.addFiles('shared/fields/fileInput/afFileList.html', ['client']);
+  api.addFiles('client/templates/layouts/navbar/uploads/navbar-uploads.html', 'client');
+  api.addFiles('client/templates/layouts/navbar/uploads/navbar-uploads.js', 'client');
 
   api.export('Files');
 });

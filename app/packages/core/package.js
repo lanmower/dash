@@ -19,11 +19,16 @@ Package.onUse(function(api) {
   api.use('templating', "client"  );
   api.use('reactive-var');
   api.use('momentjs:moment');
+  api.use('dburles:collection-helpers');
+  api.use('matb33:collection-hooks');
+  api.use('aldeed:collection2');
   api.mainModule('core.js');
 
   // Generated with: github.com/philcockfield/meteor-package-paths
   api.addFiles('shared/types.js', ['client', 'server']);
   api.addFiles('shared/schema.js', ['client', 'server']);
+  api.addFiles('shared/widgets.js', ['client', 'server']);
+  api.addFiles('shared/fields.js', ['client', 'server']);
   api.addFiles('client/lib/bsfix.js', 'client');
   api.addFiles('client/lib/color.js', 'client');
   api.addFiles('client/lib/helpers.js', 'client');
@@ -32,6 +37,8 @@ Package.onUse(function(api) {
   api.addFiles('client/stylesheets/sidebar.css', 'client');
   api.addFiles('client/stylesheets/main.css', 'client');
   api.export('gong');
+  api.export("Widgets");
+  api.export("Fields");
 });
 
 Package.onTest(function(api) {

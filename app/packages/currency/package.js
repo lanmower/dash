@@ -1,5 +1,5 @@
 Package.describe({
-  name: 'almagest:carousel',
+  name: 'almagest:currency',
   version: '0.0.1',
   // Brief, one-line summary of the package.
   summary: '',
@@ -13,22 +13,21 @@ Package.describe({
 Package.onUse(function(api) {
   api.versionsFrom('1.3.2.4');
   api.use('ecmascript');
-  api.use("templating", "client");
-  api.use('underscore');
-  api.use('mongo');
-  api.use('udondan:slick');
+  api.use('templating', "client");
   api.use('almagest:core');
-  api.use('almagest:pages');
+  api.use('reactive-var');
+  api.use('underscore');
 
-  api.addFiles('carousel.html', 'client');
-  api.mainModule('carousel.js', 'client');
-  api.addFiles('carousel.css', 'client');
+  api.addFiles('currencyInput/currencyInput.html', 'client');
+  api.addFiles('currencyInput/currencyInput.js', ['client','server']);
+  api.addFiles('calculator.html', 'client');
+  api.addFiles('calculator.js', 'client');
+  api.mainModule('currency.js');
 });
 
 Package.onTest(function(api) {
   api.use('ecmascript');
   api.use('tinytest');
-
-  api.use('almagest:carousel');
-  api.mainModule('carousel-tests.js');
+  api.use('almagest:currency');
+  api.mainModule('currency-tests.js');
 });
