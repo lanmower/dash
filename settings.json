@@ -1,10 +1,12 @@
 {
   "public": {
-    "skin":"green",
-    "logo":"<img src='/LOCAL_ELCOIN.png'></img>",
-    "siteName":"localelcoins.com"
+    "skin":"blue",
+    "siteName":"beanscount.co.za"
+    "logo":"BEANSCOUNT",
   },
   "emailDomains":[
+	"coas.co.za",
+	"lexco.co.za"
   ]
 
 }
