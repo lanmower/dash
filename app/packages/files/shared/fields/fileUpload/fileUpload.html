@@ -1,6 +1,7 @@
 <template name="afFileUploadImage">
   <div class="slick">
     {{#each files}}
+    test
     <div>
       <img src="{{this.url store='thumbs'}}"/>
     </div>
@@ -51,14 +52,17 @@
   <input type="file" name="{{name}}" style="visibility:hidden;position:absolute;top:0;left:0" class="fileInput" multiple/>
   <input type=button value="Upload files" class="btn btn-primary" onclick="$(this).prev().click()">
     {{#if audioCount}}
+    Audio:
     {{> afFileUploadAudio files=(audio)}}
     {{/if}}
 
     {{#if videoCount}}
+    Videos:
     {{> afFileUploadVideo files=(video)}}
     {{/if}}
 
     {{#if imageCount}}
+    Images:
     {{> afFileUploadImage files=(image)}}
     {{/if}}
   {{/if}}

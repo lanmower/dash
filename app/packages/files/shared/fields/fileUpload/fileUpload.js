@@ -57,22 +57,6 @@ if(Meteor.isClient) {
     }
   });
 
-  Template.afFileUploadImage.helpers({
-    files : function() {
-      if(self.slicked) {
-        $(self.find(".slick")).slick("unslick");
-      } else self.slicked = true;
-      var slick = $(self.find(".slick")).slick({
-        dots: true,
-        infinite: true,
-        speed: 300,
-        slidesToShow: 3,
-        variableWidth: true
-      });
-      return Files.find(this.images);
-    }
-  }
-  );
   Template.afFileUploadImage.onRendered(function() {
     var self = this;
   });
