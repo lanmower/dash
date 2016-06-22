@@ -37,6 +37,11 @@
             <button class="btn btn-info" type="button">Download Avatar</button>
           {{/callable}}
         </td>
+        <td>
+        {{#callable name="setSignature" userId=_id}}
+          <h2 class="btn btn-info setSignatureButton">Set signature</h2>
+        {{/callable}}
+        </td>
         {{/if}}
         <td>
           {{#if isInRole 'gmail-admin'}}
