@@ -5,7 +5,7 @@ Router.route('diary/view/:_id', {
   where: 'client',
   waitOn: function() {
     return [
-      Meteor.subscribe("diaries")
+      this.subscribe("diaries")
     ];
   },
   data: function () {
@@ -22,7 +22,7 @@ Router.route('diary/today', {
   where: 'client',
   waitOn: function() {
     return [
-      Meteor.subscribe("diaries")
+      this.subscribe("diaries")
     ];
   },
   data: function () {

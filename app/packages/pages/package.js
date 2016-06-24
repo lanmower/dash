@@ -20,6 +20,7 @@ Package.onUse(function(api) {
   api.use("iron:router");
   api.use('almagest:core');
   api.use('almagest:menus');
+  api.use('almagest:messaging');
   api.use('almagest:files');
   api.use('aldeed:autoform');
   api.use("aldeed:delete-button");

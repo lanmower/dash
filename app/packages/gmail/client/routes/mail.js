@@ -3,7 +3,7 @@ Router.route('mail/list/:user/:q?', {
   name: 'mailList',
 
 	subscriptions: function() {
-		return Meteor.subscribe('gmailSearch', Router.current().data().user,Router.current().params.q);
+		return this.subscribe('gmailSearch', Router.current().data().user,Router.current().params.q);
 	},
 	data: function() {
 		var user = this.params.user||Meteor.userId();
@@ -33,7 +33,7 @@ Router.route('mail/view/:user/:_id', {
 	parent: 'home',
   name: 'mailMessageView',
 	subscriptions: function() {
-		return Meteor.subscribe('gmailMsg', this.params._id);
+		return this.subscribe('gmailMsg', this.params._id);
 	},
   data: function() {
 			return {

@@ -7,12 +7,12 @@ Router.route('/', {
   name: 'home',
   template: 'ViewPage',
   waitOn: function() {
-      return Meteor.subscribe("pageByPath", "home");
+      return this.subscribe("pageByPath", "home");
   },
   data: function() {
     if(this.ready()){
 	    var page = Pages.findOne({path:{$regex : "(/)?.*"}});
-	    Meteor.subscribe("Widgets", page._id);
+	    this.subscribe("Widgets", page._id);
 	    var widgets = Widgets.find({parent:page._id});
 	    return {page:page, Widgets:widgets};
     }

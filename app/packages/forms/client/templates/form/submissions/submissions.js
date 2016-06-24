@@ -6,7 +6,7 @@ Template.submissions.created = function () {
 
   template.autorun(function () {
     if(Template.currentData()) {
-      //Meteor.subscribe(Template.currentData().collectionName);
+      //this.subscribe(Template.currentData().collectionName);
       template.subscribe("forms");
       template.schema.set(listSchema(Template.currentData()));
     }

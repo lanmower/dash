@@ -39,17 +39,20 @@
         </td>
         <td>
         {{#callable name="setSignature" userId=_id}}
-          <h2 class="btn btn-info setSignatureButton">Set signature</h2>
+          <button class="btn btn-info setSignatureButton">Set signature</button>
         {{/callable}}
         </td>
         {{/if}}
         <td>
-          {{#if isInRole 'gmail-admin'}}
+            <button class="btn btn-info chat" type="button">Chat</button>
+        </td>
+        {{#if isInRole 'gmail-admin'}}
+        <td>
             {{#linkTo route='mailList' user=_id}}
               <button class="btn btn-info" type="button">Gmail Messages</button>
             {{/linkTo}}
-          {{/if}}
         </td>
+        {{/if}}
       </tr>
     {{/each}}
     </tbody>

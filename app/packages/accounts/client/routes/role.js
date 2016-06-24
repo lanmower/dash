@@ -1,7 +1,7 @@
 Router.route('role/list', {
 	parent: 'home',
   name: 'rolesList',
-  waitOn: function() {return Meteor.subscribe("roles")},
+  waitOn: function() {return this.subscribe("roles")},
   data: function() {
     return {
       roles:Meteor.roles.find()
@@ -38,7 +38,7 @@ Router.route('role/insert', {
 Router.route('role/edit/:_id', {
   name: 'editRole',
 	parent: 'rolesList',
-  waitOn: function() {return Meteor.subscribe("roles")},
+  waitOn: function() {return this.subscribe("roles")},
   data: function() {
     var role = Meteor.roles.findOne({_id:this.params._id});
     return {obj:role};

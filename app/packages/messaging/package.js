@@ -12,18 +12,28 @@ Package.describe({
 
 Package.onUse(function(api) {
   api.versionsFrom("1.3.2.4")
+  api.use('templating');
   api.use('ecmascript');
   api.use('mongo');
   api.use('underscore');
+  api.use('session');
+  api.use('reactive-var');
+
   api.use('aldeed:autoform');
   api.use("aldeed:delete-button");
 
   api.mainModule('messaging.js');
 
   // Generated with: github.com/philcockfield/meteor-package-paths
-  api.addFiles('shared/collections/messages.js', ['client', 'server']);
-  api.addFiles('server/publish.js', 'server');
 
+    api.addFiles('shared/collections/messages.js', ['client', 'server']);
+    api.addFiles('server/publish.js', 'server');
+  api.addFiles('client/chat/chat.html', ['client']);
+  api.addFiles('client/chat/chat.js', ['client']);
+  api.addFiles('client/chat/chat.css', ['client']);
+  api.addFiles('client/chat/navbar.html', ['client']);
+  api.addFiles('client/chat/navbar.js', ['client']);
+  api.export('Messages');
 });
 
 Package.onTest(function(api) {

@@ -3,7 +3,7 @@ Router.route('page/list', {
   name: 'pagesList',
 	title: 'List Pages',
   waitOn: function() {
-    return Meteor.subscribe('pages');
+    return this.subscribe('pages');
   },
   data: function() {
     return {pages:Pages.find()};
@@ -39,7 +39,7 @@ Router.route('page/edit/:_id', {
   name: 'editPage',
   waitOn: function() {
     return [
-      Meteor.subscribe("page", this.params._id)
+      this.subscribe("page", this.params._id)
     ];
   },
   data: function() {
@@ -67,12 +67,12 @@ Router.route('/page/:path', {
   name: 'viewPageByPath',
   template: 'ViewPage',
   waitOn: function() {
-      return Meteor.subscribe("pageByPath", this.params.path);
+      return this.subscribe("pageByPath", this.params.path);
   },
   data: function() {
     if(this.ready()){
 	    var page = Pages.findOne({path:this.params.path});
-	    Meteor.subscribe("Widgets", page._id);
+	    this.subscribe("Widgets", page._id);
 	    var widgets = Widgets.find({parent:page._id});
 	    return {page:page, Widgets:widgets};
     }

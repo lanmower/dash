@@ -168,7 +168,7 @@ var updateField = function(id, field) {
 
 Meteor.startup(function () {
   if(Meteor.isClient){
-    Meteor.subscribe("types", {});
+    this.subscribe("types", {});
   }
   if(Meteor.isServer) {
     Meteor.publish('formSearch', function(form, query) {

@@ -4,7 +4,7 @@ Router.route('widget/edit/:_id', {
   name: 'editWidget',
   waitOn: function() {
     return [
-      Meteor.subscribe("widget", this.params._id),
+      this.subscribe("widget", this.params._id),
     ];
   },
   data: function () {
@@ -35,7 +35,7 @@ Router.route('widget/insert/:parent', {
 	title: 'Insert Widget',
   waitOn: function() {
     return[
-    	Meteor.subscribe("widget", this.params.parent)]
+    	this.subscribe("widget", this.params.parent)]
   },
   data: function () {
     var page = Pages.findOne({_id: this.params.parent});

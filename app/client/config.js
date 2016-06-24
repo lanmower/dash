@@ -1,3 +1,12 @@
+var AdminLTEOptions = {
+  directChat: {
+    //Enable direct chat by default
+    enable: true,
+    //The button to open and close the chat contacts pane
+    contactToggleSelector: '[data-widget="chat-pane-toggle"]'
+  }
+};
+
 Accounts.ui.config({
   requestPermissions: {
     google: [

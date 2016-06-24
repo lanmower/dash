@@ -6,7 +6,7 @@ if(Meteor.isClient) {
     where: 'client',
     onAfterAction: function() {
       var router = this;
-      Meteor.subscribe("field", Router.current().params.field, {
+      this.subscribe("field", Router.current().params.field, {
         onReady: function () {
           var field = Fields.findOne({_id:router.params.field});
               if(Meteor.userId(), _.contains(field.admins, Meteor.userId())) {

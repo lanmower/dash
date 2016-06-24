@@ -100,8 +100,8 @@ Router.route('form/updateAdmin/:form/:_id', {
   fastRender: true,
   where: 'client',
   waitOn: function() {
-		this.subscribe("form", this.params.form),
-		this.subscribe("submission", this.params.form, this.params._id),
+		Meteor.subscribe("form", this.params.form),
+		Meteor.subscribe("submission", this.params.form, this.params._id),
 		Meteor.subscribe("users")
   },
   data: function () {

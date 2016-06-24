@@ -6,8 +6,8 @@ Router.route('field/edit/:form/:_id', {
   where: 'client',
   waitOn: function() {
     return [
-      Meteor.subscribe("users"),
-      Meteor.subscribe("field", this.params._id)
+      this.subscribe("users"),
+      this.subscribe("field", this.params._id)
     ];
   },
   data: function () {
@@ -41,7 +41,7 @@ Router.route('field/insert/:parent', {
 	title: 'Insert Field',
   waitOn: function() {
     return[
-    	Meteor.subscribe("form", this.params.parent)]
+    	this.subscribe("form", this.params.parent)]
   },
   data: function () {
     var form = Forms.findOne({_id: this.params.parent});
