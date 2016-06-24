@@ -1,13 +1,3 @@
-Template.chats.created = function() {
-  var instance = this;
-  instance.toId = new ReactiveVar();
-
-  instance.autorun(function() {
-    var toId = Session.get('chat');
-    instance.toId.set(toId);
-  });
-  instance.subscribe('messages');
-};
 Template.chats.helpers({
   chat: function () {
       var instance = Template.instance();
@@ -28,6 +18,17 @@ Template.chats.helpers({
       };
     }
   })
+Template.chats.created = function() {
+  var instance = this;
+  instance.toId = new ReactiveVar();
+
+  instance.autorun(function() {
+    var toId = Session.get('chat');
+    instance.toId.set(toId);
+  });
+  instance.subscribe('messages');
+};
+
 
 Template.directChatMsg.helpers({
   self: function() {
@@ -55,6 +56,7 @@ Template.directChat.events({
      }
    }
  });
+ var objDiv = null;
 Template.directChat.helpers({
   messageOwner: function() {
     return this.createdBy == Meteor.userId();
@@ -67,3 +69,13 @@ Template.directChat.helpers({
   }
 
 });
+Template.directChatMsg.rendered = function () {
+  if(objDiv) objDiv.scrollTop = objDiv.scrollHeight;
+}
+Template.directChatMsgRight.rendered = function () {
+  if(objDiv) objDiv.scrollTop = objDiv.scrollHeight;
+}
+Template.directChat.rendered = function () {
+  objDiv = this.find(".direct-chat-messages");
+  objDiv.scrollTop = objDiv.scrollHeight;
+};

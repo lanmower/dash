@@ -12,6 +12,10 @@ Template.navbarMessage.helpers({
     var user = Meteor.users.findOne({_id:id});
     if(user && user.profile) return user.profile.picture;
   },
+  userName: function (id) {
+    var user = Meteor.users.findOne({_id:id});
+    if(user && user.profile) return user.profile.name;
+  },
 });
 Template.navbarMessages.rendered = function(){
   this.subscribe("messages");
@@ -45,6 +49,6 @@ Template.navbarMessages.events({
     }
   },
   "click .sendMessageLink": function() {
-    Messages.insert({body:this.message(), to:['all']});
+    Messages.insert({body:Template.instance().find('input').value, to:['all']});
   }
 });
