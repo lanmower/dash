@@ -7,6 +7,7 @@ Meteor.publish('forms', function () {
 Meteor.publish('approvals', function (field, doc) {
   return Approvals.find({field:field, doc:doc});
 });
+
 Meteor.publish('approvals-form', function (form) {
   var fields = Fields.find({parent:form}).fetch();
   fieldIds = [];

@@ -148,7 +148,8 @@ Router.route('form/list/:form', {
   where: 'client',
   waitOn: function() {
     return [
-      Meteor.subscribe("form", this.params.form)
+      this.subscribe("form", this.params.form),
+			this.subscribe("forms")
     ];
   },
   data: function () {

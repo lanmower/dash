@@ -14,3 +14,8 @@ getCollection = function(name) {
 Template.registerHelper("getCollection", function() {
   return getCollection(this.collectionName);
 });
+
+listSchema = function(form, admin) {
+  var fields = Fields.find({parent:form._id},{sort: { listposition: 1 }});
+  return fields.fetch();
+}

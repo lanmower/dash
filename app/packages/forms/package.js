@@ -75,7 +75,6 @@ Package.onUse(function(api) {
   api.addFiles('client/templates/form/edit.html', 'client');
   api.addFiles('client/templates/form/insert.html', 'client');
   api.addFiles('client/templates/form/list.html', 'client');
-  api.addFiles('client/templates/form/submissions/schema/schema.js', 'client');
   api.addFiles('client/templates/field/edit/edit.js', 'client');
   api.addFiles('client/templates/field/insert/insert.js', 'client');
   api.addFiles('client/templates/form/submissions/admin.js', 'client');

@@ -1,28 +1,29 @@
 var searchQuery = null;
 
 Template.submissions.created = function () {
-  var template = this;
-  template.schema = new ReactiveVar(null);
+  var instance = this;
+  instance.schema = new ReactiveVar(null);
+  instance.searchQuery = new ReactiveVar(null);
 
-  template.autorun(function () {
+  instance.autorun(function () {
     if(Template.currentData()) {
       //this.subscribe(Template.currentData().collectionName);
-      template.subscribe("forms");
-      template.schema.set(listSchema(Template.currentData()));
+      instance.schema.set(listSchema(Template.currentData()));
     }
   });
 
-  template.autorun(function(){
-    searchQuery = template.subscribe('formSearch', Router.current().params.form, Session.get('searchQuery'));
+  instance.autorun(function(){
+    searchQuery = instance.subscribe('formSearch', Router.current().params.form, instance.searchQuery.get());
   });
 };
+
 Template.submissions.events({
   "submit .form": function(event) {
     return false;
   },
   'keyup .form input': _.debounce(function(event, template) {
     event.preventDefault();
-    Session.set('searchQuery', template.find('.form input').value);
+    template.searchQuery.set(template.find('.form input').value)
   }, 300)
 });
 Template.submissions.helpers({
@@ -48,7 +49,7 @@ Template.submissions.helpers({
     return collection.find({});
   },
   searchQuery: function() {
-    return Session.get("searchQuery");
+    return Template.instance().searchQuery.get();
   },
   canAdmin: function() {
     if(Roles.userIsInRole(Meteor.userId(), "admin")) return true;
