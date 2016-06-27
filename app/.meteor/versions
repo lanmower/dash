@@ -101,7 +101,6 @@ liberation:subscription-audit@0.0.3
 livedata@1.0.18
 localstorage@1.0.9
 logging@1.0.12
-manuel:viewmodel@0.1.9
 matb33:collection-hooks@0.8.1
 mdg:validation-error@0.5.1
 meteor@1.1.14
