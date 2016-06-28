@@ -1,3 +1,8 @@
+Template.InsertForm.helpers({
+    getCol:function() {
+      return Forms;
+    }
+});
 AutoForm.hooks({
   insertFormForm: {
     onSuccess: function(formType, result) {

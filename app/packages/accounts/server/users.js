@@ -2,6 +2,10 @@ if(Meteor.isClient){
   Hooks.init();
 }
 
+    var endsWith = function(source, suffix) {
+        console.log('matching',source,'to',suffix,source.indexOf(suffix, source.length - suffix.length) !== -1);
+        return source.indexOf(suffix, source.length - suffix.length) !== -1;
+    };
 DownloadAvatar = function(userId) {
   var user=Meteor.users.findOne(userId);
   if(!user) return;
@@ -53,19 +57,21 @@ Accounts.validateNewUser(function (user) {
     config = Meteor.settings.emailDomains;
     console.log(config);
     console.log(user);
+    var pass = false;
     if(config.length) {
       config.forEach(function(item) {
-        if(user.services.google && user.services.google.email.match(item.value)) {
+        if(user.services.google) {
+        if( endsWith(user.services.google.email,item)) {
             return true;
         }
+        }
         if(user.emails) {
-            var pass = false;
             _.each(user.emails, function(email) {
-               if(email.address.match(item.value)) pass = true;
+               if(endsWith(email.address,item)) pass = true;
             });
-            if(pass)return true;
         }
       });
+      if(pass)return true;
       throw new Meteor.Error(403, "You must sign up with an authorized account");
     } else {
       return true;

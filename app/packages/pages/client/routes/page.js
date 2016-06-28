@@ -25,7 +25,9 @@ Router.route('page/insert', {
   fastRender: true,
   where: 'client',
 	onBeforeAction: function() {
+		console.log('page');
 			if (!Meteor.user() || !Roles.userIsInRole(Meteor.user(), ['admin'])){
+				console.log("redirect not authed");
 				Router.go('/');
 			}
 			this.next();

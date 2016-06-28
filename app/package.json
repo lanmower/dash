@@ -6,7 +6,6 @@
   "dependencies": {
     "batchelor": "^2.0.1",
     "emitter": "0.0.5",
-    "fibers": "^1.0.13",
     "fluent-ffmpeg": "^2.0.1",
     "jquery": "^2.2.2",
     "later": "^1.2.0",

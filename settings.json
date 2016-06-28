@@ -1,11 +1,12 @@
 {
   "public": {
     "skin":"blue",
-    "siteName":"beanscount.co.za"
-    "logo":"BEANSCOUNT",
+    "siteName":"beanscount.co.za",
+    "logo":"BEANSCOUNT"
   },
   "emailDomains":[
 	"coas.co.za",
+  "gmail.com",
 	"lexco.co.za"
   ]
 
