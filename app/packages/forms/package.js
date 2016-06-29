@@ -27,6 +27,7 @@ Package.onUse(function(api) {
   api.use('reywood:publish-composite');
   api.use('notorii:autoform-datetimepicker');
   api.use('almagest:core');
+  api.use('cfs:ui');
 
   api.mainModule('forms.js');
 
