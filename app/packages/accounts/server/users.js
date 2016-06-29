@@ -3,7 +3,6 @@ if(Meteor.isClient){
 }
 
     var endsWith = function(source, suffix) {
-        console.log('matching',source,'to',suffix,source.indexOf(suffix, source.length - suffix.length) !== -1);
         return source.indexOf(suffix, source.length - suffix.length) !== -1;
     };
 DownloadAvatar = function(userId) {
@@ -50,13 +49,14 @@ Accounts.onCreateUser(function(options, user) {
   if(Meteor.users.find().count() === 0){
      user.roles = ["admin"]
   }
+  console.log(options);
+  user.profile = {name:options.profile.name};//
+  //Meteor.users.update({_id:user._id}, {"$set":{'profile.name':options.profile.name}});
   return user;
 });
 
 Accounts.validateNewUser(function (user) {
     config = Meteor.settings.emailDomains;
-    console.log(config);
-    console.log(user);
     var pass = false;
     if(config.length) {
       config.forEach(function(item) {
