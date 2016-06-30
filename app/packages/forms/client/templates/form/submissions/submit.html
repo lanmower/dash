@@ -10,7 +10,7 @@
       {{#if destroyForm}}
           {{! this is a wonky workaround for the fact that autoform doesn't handle reactively changing schema attribute, which should be fixed eventually}}
       {{else}}
-          {{> quickForm collection=getCollection schema=getSchema id="submitForm" type="insert" omitFields="createdBy" buttonContent="Create"}}
+          {{> quickForm collection=getCollection schema=getSchema id="submitForm" type="insert" omitFields="createdBy" doc=defaults buttonContent="Create"}}
       {{/if}}
     </div>
   </div>

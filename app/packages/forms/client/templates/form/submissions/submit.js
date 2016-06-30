@@ -39,5 +39,8 @@ Template.submitForm.helpers({
     if(Template.instance().schema) {
       return new SimpleSchema(Template.instance().schema.get());
     }
+  },
+  defaults: function() {
+    return Router.current().params.query;
   }
 });
