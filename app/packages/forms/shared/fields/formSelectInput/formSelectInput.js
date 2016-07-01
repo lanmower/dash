@@ -129,20 +129,17 @@ if(Meteor.isClient) {
   Template.afFormList.onCreated(function () {
     var data = this.data;
     var template = Template.instance().view.closest("Template.afQuickFields")._templateInstance;
-    var field = Fields.findOne({parent:Router.current().params.form, name:data.name});
-    this.subscribe("form", field.form, {
+    this.subscribe("form", data.atts.form, {
       onReady: function () {
-        console.log('ready');
-        template.subscribe('formSearch', field.form,"",{
+        template.subscribe('formSearch', data.atts.form,"",{
           onReady:function() {
-            var form = Forms.findOne({_id:field.form});
+            var form = Forms.findOne({_id:data.atts.form});
             var docs = getCollection(form.collectionName).find().fetch();
             var list = [];
             _.each(docs, function(doc) {
               list.push({label:doc.title, value:doc._id});
             });
-            console.log(template);
-            template.fieldsList.set(list);
+            template.data.attr.fieldsList.set(list);
           }
         });
       },
@@ -153,20 +150,19 @@ if(Meteor.isClient) {
 
 Fields.schemas.formSelectInput = function(data) {
   var output = {};
-  var name = data.name
+  var name = data.name;
+  var fieldsList = ReactiveVar([]);
   output[name] = {
         type: [String],
         optional: true,
         label: data.title,
         autoform: {
           type: "formList",
+          form: data.form,
+          fieldsList: fieldsList,
           afFieldInput: {
           options: function () {
-            if(this.fieldsList) return this.fieldsList.get();
-            var template = Template.instance().view.closest("Template.afQuickFields")._templateInstance;
-            if(!template.fieldsList) template.fieldsList = ReactiveVar([]);
-            this.fieldsList = template.fieldsList;
-            return this.fieldsList.get();
+            return fieldsList.get();
           }
         }
       }

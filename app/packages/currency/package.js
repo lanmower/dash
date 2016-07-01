@@ -14,15 +14,17 @@ Package.onUse(function(api) {
   api.versionsFrom('1.3.2.4');
   api.use('ecmascript');
   api.use('templating', "client");
+  api.use('aldeed:autoform');
   api.use('almagest:core');
   api.use('reactive-var');
   api.use('underscore');
+  api.use('momentjs:moment');
 
-  api.addFiles('currencyInput/currencyInput.html', 'client');
-  api.addFiles('currencyInput/currencyInput.js', ['client','server']);
+  api.mainModule('currency.js');
   api.addFiles('calculator.html', 'client');
   api.addFiles('calculator.js', 'client');
-  api.mainModule('currency.js');
+  api.addFiles('currencyInput/currencyInput.html', 'client');
+  api.addFiles('currencyInput/currencyInput.js', ['client','server']);
 });
 
 Package.onTest(function(api) {

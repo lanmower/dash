@@ -15,6 +15,7 @@ aldeed:schema-index@1.0.1
 aldeed:simple-schema@1.5.3
 allow-deny@1.0.5
 almagest:accounts@0.0.1
+almagest:calendar@0.0.1
 almagest:carousel@0.0.1
 almagest:core@0.0.1
 almagest:countdown@0.0.1
@@ -146,6 +147,8 @@ retry@1.0.8
 reywood:publish-composite@1.4.2
 richsilv:pikaday@1.0.1
 routepolicy@1.0.11
+rzymek:fullcalendar@2.3.1
+sacha:spin@0.1.6
 service-configuration@1.0.10
 session@1.1.6
 sha@1.0.8

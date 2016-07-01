@@ -36,6 +36,7 @@ Package.onUse(function(api) {
   api.use("vazco:universe-autoform-select");
   api.use('dburles:collection-helpers');
   api.use('jrudio:videojs');
+  api.use('sacha:spin');
 
   // Generated with: github.com/philcockfield/meteor-package-paths
   api.addFiles('shared/collections/pages.js', ['client', 'server']);

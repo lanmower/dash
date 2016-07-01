@@ -11,16 +11,20 @@ Package.describe({
 });
 
 Package.onUse(function(api) {
-  api.versionsFrom('1.3.2.4');
+  api.versionsFrom("1.3.2.4")
   api.use('ecmascript');
-  api.use('templating', "client");
-  api.use('almagest:core');
-  api.use('reactive-var');
   api.use('underscore');
+  api.use('templating', "client");
+  api.use('mongo');
+  api.use('reactive-var');
+  api.use("iron:router");
+  api.use('almagest:core');
+  api.use('rzymek:fullcalendar');
 
+  api.mainModule('calendar.js');
   api.addFiles('submissionsCalendar.html', 'client');
   api.addFiles('submissionsCalendar.js', 'client');
-  api.mainModule('calendar.js');
+  api.addFiles('routes.js', 'client');
 });
 
 Package.onTest(function(api) {

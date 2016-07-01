@@ -172,7 +172,7 @@ Meteor.startup(function () {
   }
   if(Meteor.isServer) {
     Meteor.publish('formSearch', function(form, query) {
-
+      console.log('searching form:',form);
       var protection = {$or: [
         {createdBy: this.userId},
         {$and:[

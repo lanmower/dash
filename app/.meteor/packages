@@ -39,6 +39,7 @@ almagest:messaging
 almagest:carousel
 almagest:countdown
 almagest:currency
+almagest:calendar
 
 udondan:slick
 
