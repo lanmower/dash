@@ -1,23 +1,23 @@
 module.exports = {
   servers: {
     one: {
-      host: 'beanscount.co.za',	
-      username: 'root',
-      password: 'almagest',
+      host: '<servername>',	
+      username: '<ssh username>',
+      password: '<ssh password>',
       // pem: './mykey',
     },
   },
 
   meteor: {
-    name: 'beanscount',
+    name: '<projectname>',
     path: './app',
     servers: {
       one: {},
     },
     env: {
       PORT: 8000,
-      ROOT_URL: 'http://beanscount.co.za',
-      MONGO_URL: 'mongodb://localhost/beanscount'
+      ROOT_URL: 'http://<projectname>',
+      MONGO_URL: 'mongodb://localhost/<projectname>'
     },
  "deployCheckWaitTime": 120,
   },
