@@ -6,8 +6,8 @@ var searchQuery = null;
 if(Meteor.isClient) {
   Template.submissionsCalendar.created = function () {
     var instance = this;
+    instance.fc = new ReactiveVar();
     instance.searchQuery = new ReactiveVar(null);
-
 
     instance.autorun(function(){
       searchQuery = instance.subscribe('formSearch', Router.current().params.form, instance.searchQuery.get());
@@ -24,23 +24,33 @@ if(Meteor.isClient) {
     }, 300)
   });
 
+  Template.submissionsCalendar.rendered = function () {
+    var instance = this;
+    this.autorun(function () {
+      Router.current().data().collection.find();
+      if(instance.fc.get()) instance.fc.get().fullCalendar('refetchEvents');
+    });
+    instance.fc.set(instance.$('.fc'));
+  };
+
   Template.submissionsCalendar.helpers({
-    options: function() {
-      var name = this.collectionName;
-      var events  = [];
-      console.log(this);
-      var collection = getCollection(name).find({}).forEach(function(item) {
-        events.push({
-          //title:
-          //start:
-          //end:
-        });
-
-      });
-
-      return {
-           eventLimit: true, // allow "more" link when too many events
-           events : list
+    events: function() {
+      var instance = Template.instance();
+      var data = this;
+      return function (start, end, tz, callback) {
+          var events = [];
+          data.fields.forEach(function(field) {
+            if(field.type == 'dateRangeInput') {
+              data.collection.find().forEach(function (doc) {
+                     events.push({
+                      title: Meteor.users.findOne(doc.createdBy).profile.name,
+                      start: doc[field.name+"Start"],
+                      end: doc[field.name+"End"],
+                    });
+                  });
+            };
+          });
+          callback(events);
       };
     },
     currentForm: function() {

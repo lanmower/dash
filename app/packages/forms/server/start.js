@@ -7,21 +7,19 @@ _.templateSettings = {
 
 
 Meteor.startup(function () {
-	if(Meteor.isClient) Meteor.defer(function () {
-		Session.setDefault("checked", $("input[type=checkbox]").is(":checked"));
-	});
+  if(Meteor.isClient) Meteor.defer(function () {
+    Session.setDefault("checked", $("input[type=checkbox]").is(":checked"));
+  });
 
-	if (Meteor.isCordova) {
-		window.alert = navigator.notification.alert;
-	}
+  if (Meteor.isCordova) {
+    window.alert = navigator.notification.alert;
+  }
 
 })
 
-if(Meteor.isServer)  {
-  Meteor.publish("submission", function (form, id) {
-    return Meteor.forms[form].collection.find(id);
-  });
-}
+Meteor.publish("submission", function (form, id) {
+  return Meteor.forms[form].collection.find(id);
+});
 
 processForm = function(id, formData) {
   var form;
@@ -38,65 +36,89 @@ processForm = function(id, formData) {
     form.collectionName = formData.collectionName;
     if(!form.created) {
       Meteor.publish(formData.collectionName, function (self) {
-          return form.collection.find({$or: [
-            {createdBy: this.userId},
-            {$and:[
-              {"public": true},
-              {"public": {$exists: true}}
-            ]}
-          ]});
-        }
-      );
-      Meteor.publish(formData.collectionName+"-admin", function (self) {
-          var skip = true;
-          if(Roles.userIsInRole(this.userId, "admin")) skip = false;
-          if(Roles.userIsInRole(this.userId, formData.collectionName+"-admin")) skip = false;
-          if(!skip) return form.collection.find({"_id": {$exists: true}});
-      });
-      form.collection.allow({
-        insert: function (userId, submission) {
-           console.log("insert allowed");
-          return true;
+        return form.collection.find({$or: [
+          {createdBy: this.userId},
+          {$and:[
+            {"public": true},
+            {"public": {$exists: true}}
+          ]}
+        ]});
+      }
+    );
+    Meteor.publishComposite(formData.collectionName+"-admin", function (self) {
+      var skip = true;
+      if(Roles.userIsInRole(this.userId, "admin")) skip = false;
+      if(Roles.userIsInRole(this.userId, formData.collectionName+"-admin")) skip = false;
+      if(!skip) {return {
+        find: function() {
+          return form.collection.find();
         },
-        update: function (userId, submission, fields, modifier) {
-          var allowed = 1;
-          Fields.find({parent: id,type:"approveInput"}).forEach(function (field) {
-            console.log(field.user, userId);
-            if(field.user != userId) fail = 1;
-          });
-          return allowed;
-        },
-        remove: function (userId, submission) {
-          console.log("delete allowed");
-          return true;
+        children: [
+          {
+            find: function(doc) {
+              return Meteor.users.find({_id:doc.createdBy})
+            }
+          }
+        ]
+      }
+      } else {
+        return {
+          find: function() {
+            return form.collection.find({$or: [
+              {createdBy: this.userId},
+              {$and:[
+                {"public": true},
+                {"public": {$exists: true}}
+              ]}
+            ]});
+          }
         }
-      });
-
-      var createHook = function(hookFunction, setFunction, form) {
-        setFunction(function(userId, doc, fields) {
-          var user = userId;
-          _.each(form.fields.fetch(), function(formField) {
-            if(hookFunction[formField.type]) hookFunction[formField.type](user, doc, form, formField, fields);
-          });
-          return true;
+      }
+    });
+    form.collection.allow({
+      insert: function (userId, submission) {
+        console.log("insert allowed");
+        return true;
+      },
+      update: function (userId, submission, fields, modifier) {
+        var allowed = 1;
+        Fields.find({parent: id,type:"approveInput"}).forEach(function (field) {
+          console.log(field.user, userId);
+          if(field.user != userId) fail = 1;
         });
-      };
-      form.collection.before.remove(function (userId, doc) {
-        Files.find({"metadata.collectionName":form.collectionName, 'metadata.parentId':doc._id}).forEach(function(doc) {doc.remove()});
-      });
+        return allowed;
+      },
+      remove: function (userId, submission) {
+        console.log("delete allowed");
+        return true;
+      }
+    });
 
-      createHook(Fields.hooks.after.update, form.collection.after.update, form);
-      createHook(Fields.hooks.after.insert, form.collection.after.insert, form);
-      _.each(form.fields.fetch(), function(formField) {
-        if(Fields.hooks.after.startup && Fields.hooks.after.startup[formField.type]) {
-          Fields.hooks.after.startup[formField.type](form, formField);
-        }
+    var createHook = function(hookFunction, setFunction, form) {
+      setFunction(function(userId, doc, fields) {
+        var user = userId;
+        _.each(form.fields.fetch(), function(formField) {
+          if(hookFunction[formField.type]) hookFunction[formField.type](user, doc, form, formField, fields);
+        });
+        return true;
       });
-      form.created = true;
-    }
+    };
+    form.collection.before.remove(function (userId, doc) {
+      Files.find({"metadata.collectionName":form.collectionName, 'metadata.parentId':doc._id}).forEach(function(doc) {doc.remove()});
+    });
 
-    form.collection.attachSchema(buildSchema(form));
+    createHook(Fields.hooks.after.update, form.collection.after.update, form);
+    createHook(Fields.hooks.after.insert, form.collection.after.insert, form);
+    _.each(form.fields.fetch(), function(formField) {
+      if(Fields.hooks.after.startup && Fields.hooks.after.startup[formField.type]) {
+        Fields.hooks.after.startup[formField.type](form, formField);
+      }
+    });
+    form.created = true;
   }
+
+  form.collection.attachSchema(buildSchema(form));
+}
 }
 
 schemaItem = function(field) {
@@ -167,67 +189,62 @@ var updateField = function(id, field) {
 
 
 Meteor.startup(function () {
-  if(Meteor.isClient){
-    this.subscribe("types", {});
-  }
-  if(Meteor.isServer) {
-    Meteor.publish('formSearch', function(form, query) {
-      console.log('searching form:',form);
-      var protection = {$or: [
-        {createdBy: this.userId},
-        {$and:[
-          {"public": true},
-          {"public": {$exists: true}}
-        ]}
+  Meteor.publish('formSearch', function(form, query) {
+    console.log('searching form:',form);
+    var protection = {$or: [
+      {createdBy: this.userId},
+      {$and:[
+        {"public": true},
+        {"public": {$exists: true}}
       ]}
-      //check(query, String);
-      var or=[];
-      if (_.isEmpty(query)) {
-        return Meteor.forms[form].collection.find(protection, {
-          limit: 20
-        });
+    ]}
+    //check(query, String);
+    var or=[];
+    if (_.isEmpty(query)) {
+      return Meteor.forms[form].collection.find(protection, {
+        limit: 20
+      });
+    }
+
+    Meteor.forms[form].fields.forEach(function(item) {
+      var name = item.name;
+      if(item.searchable) {
+        var fields={}
+        fields[name] = { $regex: RegExp.escape(query), $options: 'i' };
+        or.push(fields);
       }
-
-      Meteor.forms[form].fields.forEach(function(item) {
-        var name = item.name;
-        if(item.searchable) {
-          var fields={}
-          fields[name] = { $regex: RegExp.escape(query), $options: 'i' };
-          or.push(fields);
-        }
-      });
-
-      var mediaForms = Files.find({$and:[
-          {"metadata.id3.title": { $regex: RegExp.escape(query), $options: 'i' }},
-          {"metadata.collectionName": Meteor.forms[form].collectionName}
-        ]}).map(function (file) {
-          return file.metadata.parentId;
-      });
-      or.push({"_id": {
-        "$in": mediaForms
-      }});
-      console.log({$and:[{$or:or},{$or: [
-        {createdBy: this.userId},
-        {$and:[
-          {"public": true},
-          {"public": {$exists: true}}
-        ]}
-      ]}]}, {
-        limit: 20
-      });
-      return Meteor.forms[form].collection.find({$and:[{$or:or},protection]}, {
-        limit: 20
-      });
-  });
-
-    Forms.find({}).observeChanges({
-      added : processForm
-    })
-    Fields.find({}).observeChanges({
-      changed : updateField,
     });
 
-    started = true;
-  }
+    var mediaForms = Files.find({$and:[
+      {"metadata.id3.title": { $regex: RegExp.escape(query), $options: 'i' }},
+      {"metadata.collectionName": Meteor.forms[form].collectionName}
+    ]}).map(function (file) {
+      return file.metadata.parentId;
+    });
+    or.push({"_id": {
+      "$in": mediaForms
+    }});
+    console.log({$and:[{$or:or},{$or: [
+      {createdBy: this.userId},
+      {$and:[
+        {"public": true},
+        {"public": {$exists: true}}
+      ]}
+    ]}]}, {
+      limit: 20
+    });
+    return Meteor.forms[form].collection.find({$and:[{$or:or},protection]}, {
+      limit: 20
+    });
+  });
+
+  Forms.find({}).observeChanges({
+    added : processForm
+  })
+  Fields.find({}).observeChanges({
+    changed : updateField,
+  });
+
+  started = true;
 
 });
