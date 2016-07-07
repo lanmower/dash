@@ -49,7 +49,8 @@ processForm = function(id, formData) {
       var skip = true;
       if(Roles.userIsInRole(this.userId, "admin")) skip = false;
       if(Roles.userIsInRole(this.userId, formData.collectionName+"-admin")) skip = false;
-      if(!skip) {return {
+      if(!skip) {
+        return {
         find: function() {
           return form.collection.find();
         },
