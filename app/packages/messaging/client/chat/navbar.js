@@ -4,7 +4,7 @@ Template.navbarMessages.helpers({
     return messages;
   },
   messageCount: function() {
-    return Messages.find().count();
+    return Messages.find({read:{$nin:[Meteor.userId()]}}).count();
   }
 });
 Template.navbarMessage.helpers({
@@ -17,14 +17,8 @@ Template.navbarMessage.helpers({
     if(user && user.profile) return user.profile.name;
   },
 });
-Template.navbarMessages.rendered = function(){
+Template.navbarMessages.created = function(){
   this.subscribe("messages");
-  this.open = false;
-  this.autorun(function() {
-    if(Template.navbarMessages.open == true) {
-      setTimeout(function(){$('#navbarMessagesMenu').scrollTo('100%')},50);
-    }
-  });
 }
 
 
@@ -32,18 +26,14 @@ Template.navbarMessages.events({
   "click .messageNotificationsTrigger": function() {
     var instance = this;
     $("#messageNotificationsTrigger").dropdown();
-    console.log('test');
-    if(Template.navbarMessages.open == false) {
-      setTimeout(function(){$('#navbarMessagesMenu').scrollTo('100%')},50);
+    if(instance.open != true) {
       instance.open = true;
-      var messages = Messages.find().fetch();
-      for(var x in messages) {
-        var message = messages[x];
+      setTimeout(function(){$('#navbarMessagesMenu').scrollTop($('#navbarMessagesMenu')[0].scrollHeight)},50);
+      var messages = Messages.find().forEach(function(message) {
         if (message.read.indexOf(Meteor.user()._id) < 0) {
-          var id = messages[x]._id;
-          Messages.update({_id:id},{"$push":{'read':Meteor.user()._id}});
+          Messages.update({_id:message._id},{"$push":{'read':Meteor.user()._id}});
         }
-      }
+      });
     } else {
       instance.open = false;
     }
