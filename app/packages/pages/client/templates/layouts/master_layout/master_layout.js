@@ -7,6 +7,3 @@ Template.MasterLayout.helpers({
     return playlist;
   },
 });
-Template.loading.onRendered(function () {
-    $(this.find(".loading")).fadeOut({duration:2000});
-});
