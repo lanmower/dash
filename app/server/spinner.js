@@ -3,7 +3,7 @@ Inject.rawHead('loader-style', '<meta name="viewport" content="width=device-widt
 + '<style>'
 //+ 'html{background-color: #36342e;}'
 + 'body{color:#ddd;overflow:hidden !important;width:100%;}'
-+ '.spinner {'
++ '.rotate {'
 + 'bottom:0;height:80px; width:80px;left:0;margin:auto;position:absolute;'
 + 'top:0;right:0;width:80px;'
 + '-webkit-animation: rotation .6s infinite linear;'
@@ -14,6 +14,15 @@ Inject.rawHead('loader-style', '<meta name="viewport" content="width=device-widt
 + 'border-top:6px solid rgba(194,194,194,.9);'
 + 'border-radius:100%;'
 + 'z-index: 1200;'
++ '}'
++ '.spinner {'
++ 'z-index: 1100;'
++ 'position:fixed;'
++ 'top:0px;'
++ 'bottom:0px;'
++ 'left:0px;'
++ 'right:0px;'
++ 'background-color:white;'
 + '}'
 + '@-webkit-keyframes rotation {'
 + 'from {-webkit-transform: rotate(0deg);}'
@@ -32,4 +41,4 @@ Inject.rawHead('loader-style', '<meta name="viewport" content="width=device-widt
 + 'to {transform: rotate(359deg);}'
 + '}'
 + '</style>');
-Inject.rawHead('loader-body2', '<body><div class="spinner"></div></body>');
+Inject.rawHead('loader-body2', '<body><div class="spinner"><div class="rotate"></div></div></body>');
