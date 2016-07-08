@@ -6,7 +6,7 @@ Router.route('form/list', {
     return Meteor.subscribe('forms');
   },
   data: function() {
-    return {forms:Forms.find()};
+    return {forms:Forms.find(), col:Forms, fields: ['title', 'collectionName', { key: 'buttons', label: '',tmpl: Template.FormsListCellButtons}]};
   },
   fastRender: true,
   where: 'client',

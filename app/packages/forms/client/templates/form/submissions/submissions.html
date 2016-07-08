@@ -28,31 +28,35 @@
     </li>
   </ul>
     </div>
-    <div class="box-body table-responsive no-padding">
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            {{#each getSchema}}
-            <th>{{label .. this}}</th>
-            {{/each}}
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {{#each items}}
-          <tr>
-            {{#each getSchema}}
-            <td>{{{cell .. this}}}</td>
-            {{/each}}
-            <td>
-              {{#linkTo route="updateForm" form=../_id }}
-              <button class="btn btn-info" style="float:right" type="button">Open</button>
-              {{/linkTo}}
-            </td>
-          </tr>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          {{#each getSchema}}
+          <th>{{label .. this}}</th>
           {{/each}}
-        </tbody>
-      </table>
-    </div>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each items}}
+        <tr>
+          {{#each getSchema}}
+          <td>{{{cell .. this}}}</td>
+          {{/each}}
+          <td>
+            {{#linkTo route="updateForm" form=../_id }}
+            <button class="btn btn-info" style="float:right" type="button">Open</button>
+            {{/linkTo}}
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+    {{> reactiveTable collection=col fields=fields}}
   </div>
+</template>
+<template name="submissionsButtons">
+  {{#linkTo route="updateForm" form=../_id }}
+  <button class="btn btn-info" style="float:right" type="button">Open</button>
+  {{/linkTo}}
 </template>

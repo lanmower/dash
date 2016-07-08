@@ -19,6 +19,7 @@ Package.onUse(function(api) {
   api.use('reactive-var');
   api.use("iron:router");
   api.use('aldeed:autoform');
+  api.use('aslagle:reactive-table');
   api.use("vazco:universe-autoform-select");
   api.use("aldeed:delete-button");
   api.use('mrt:jquery-ui-sortable');

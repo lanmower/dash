@@ -18,6 +18,24 @@ Template.submissionsAdmin.created = function () {
 };
 
 Template.submissionsAdmin.helpers({
+  fields: function() {
+    var schema = [];
+    if(Template.instance().schema) {
+      var base = Template.instance().schema.get();
+      for(var x in base) {
+        var item = {};
+        item.label = base[x].title;
+        item.name = base[x].name;
+        if(base[x].listable) schema.push(item);
+      }
+    }
+    console.log(schema);
+    return schema;
+  },
+  col: function() {
+    var name = this.collectionName;
+    return getCollection(name);
+  },
   destroyForm: function() {
     return Template.instance().destroyForm.get();
   },
