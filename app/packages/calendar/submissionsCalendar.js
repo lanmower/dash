@@ -63,7 +63,7 @@ if(Meteor.isClient) {
     },
     canAdmin: function() {
       if(Roles.userIsInRole(Meteor.userId(), "admin")) return true;
-      if(Roles.userIsInRole(Meteor.userId(), this.collectionName+"-admin")) return true;
+      if(Roles.userIsInRole(Meteor.userId(), this.formId+"-admin")) return true;
       return false;
     },
     label: function() {

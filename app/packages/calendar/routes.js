@@ -17,11 +17,12 @@ Router.route('form/calendar/:form', {
     var collection;
     var fields;
     if(form) {
-      collection = getCollection(form.collectionName);
+      collection = getCollection(form._id);
       fields = Fields.find({parent:form._id},{sort: { listposition: 1 }});
     }
     return {
       form: form,
+      formId: form._id,
       collection: collection,
       fields: fields
     };

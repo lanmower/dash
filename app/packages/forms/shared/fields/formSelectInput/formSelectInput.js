@@ -134,7 +134,7 @@ if(Meteor.isClient) {
         template.subscribe('formSearch', data.atts.form,"",{
           onReady:function() {
             var form = Forms.findOne({_id:data.atts.form});
-            var docs = getCollection(form.collectionName).find().fetch();
+            var docs = getCollection(data.atts.form).find().fetch();
             var list = [];
             _.each(docs, function(doc) {
               list.push({label:doc.title, value:doc._id});

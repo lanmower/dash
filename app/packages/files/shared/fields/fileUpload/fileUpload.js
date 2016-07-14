@@ -25,7 +25,7 @@ if(Meteor.isClient) {
     return Files.find ({
       'metadata.field': name,
       'metadata.parentId': Router.current().params._id,
-      'metadata.collectionName': Router.current().data().form.collectionName,
+      'metadata.formId': Router.current().data().form._id,
       'metadata.type': type
     });
   };
@@ -81,7 +81,7 @@ if(Meteor.isClient) {
         var newFile = new FS.File(file);
         newFile.metadata = {
           owner : Meteor.userId(),
-          collectionName : Router.current().data().form.collectionName,
+          formId : Router.current().data().form._id,
           parentId : doc._id,
           field : targetField
         };

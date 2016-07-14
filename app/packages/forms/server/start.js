@@ -1,21 +1,6 @@
-var started;
-if(Meteor.isClient) Meteor.widgetJs = {};
-Meteor.forms = {}
 _.templateSettings = {
   interpolate: /\{\{(.+?)\}\}/g
 };
-
-
-Meteor.startup(function () {
-  if(Meteor.isClient) Meteor.defer(function () {
-    Session.setDefault("checked", $("input[type=checkbox]").is(":checked"));
-  });
-
-  if (Meteor.isCordova) {
-    window.alert = navigator.notification.alert;
-  }
-
-})
 
 Meteor.publish("submission", function (form, id) {
   return Meteor.forms[form].collection.find(id);
@@ -35,7 +20,7 @@ processForm = function(id, formData) {
     form._id = id;
     form.collectionName = formData.collectionName;
     if(!form.created) {
-      Meteor.publish(formData.collectionName, function (self) {
+      Meteor.publish(formData._id, function (self) {
         return form.collection.find({$or: [
           {createdBy: this.userId},
           {$and:[
@@ -45,10 +30,10 @@ processForm = function(id, formData) {
         ]});
       }
     );
-    Meteor.publishComposite(formData.collectionName+"-admin", function (self) {
+    Meteor.publishComposite(id+"-admin", function (self) {
       var skip = true;
       if(Roles.userIsInRole(this.userId, "admin")) skip = false;
-      if(Roles.userIsInRole(this.userId, formData.collectionName+"-admin")) skip = false;
+      if(Roles.userIsInRole(this.userId, id+"-admin")) skip = false;
       if(!skip) {
         return {
         find: function() {
@@ -105,7 +90,7 @@ processForm = function(id, formData) {
       });
     };
     form.collection.before.remove(function (userId, doc) {
-      Files.find({"metadata.collectionName":form.collectionName, 'metadata.parentId':doc._id}).forEach(function(doc) {doc.remove()});
+      Files.find({"metadata.formId":form.formId, 'metadata.parentId':doc._id}).forEach(function(doc) {doc.remove()});
     });
 
     createHook(Fields.hooks.after.update, form.collection.after.update, form);
@@ -128,7 +113,7 @@ schemaItem = function(field) {
   return ret;
 }
 var buildSchema = function(form) {
-  console.log("Building schema", form.collectionName);
+  console.log("Building schema", form._id);
   var schema = Meteor.schema();
   form.fields.forEach(function(item) {
     if(item.name) {
@@ -216,15 +201,6 @@ Meteor.startup(function () {
       }
     });
 
-    var mediaForms = Files.find({$and:[
-      {"metadata.id3.title": { $regex: RegExp.escape(query), $options: 'i' }},
-      {"metadata.collectionName": Meteor.forms[form].collectionName}
-    ]}).map(function (file) {
-      return file.metadata.parentId;
-    });
-    or.push({"_id": {
-      "$in": mediaForms
-    }});
     console.log({$and:[{$or:or},{$or: [
       {createdBy: this.userId},
       {$and:[
@@ -246,6 +222,5 @@ Meteor.startup(function () {
     changed : updateField,
   });
 
-  started = true;
 
 });

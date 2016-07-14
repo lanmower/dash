@@ -8,6 +8,6 @@ Meteor.publish("formFiles", function (form, id) {
   Fields.find({parent: form._id,type:"fileUpload"}).forEach(function (field) {
     fields.push(field.name);
   });
-  console.log("SUBSCRIBING TO "+Files.find({"metadata.parentId":id, "metadata.collectionName":form.collectionName,"metadata.field":{$in:fields}}).count()+ " FILES");
-  return Files.find({"metadata.parentId":id, "metadata.collectionName":form.collectionName,"metadata.field":{$in:fields}});
+  console.log("SUBSCRIBING TO "+Files.find({"metadata.parentId":id, "metadata.formId":form._id,"metadata.field":{$in:fields}}).count()+ " FILES");
+  return Files.find({"metadata.parentId":id, "metadata.formId":form._id,"metadata.field":{$in:fields}});
 });

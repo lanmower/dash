@@ -32,8 +32,7 @@ Template.submitForm.helpers({
     return Template.instance().destroyForm.get();
   },
   getCollection: function() {
-    var form = Forms.findOne({_id:Router.current().params.form});
-    return getCollection(form.collectionName);
+    return getCollection(Router.current().params.form);
   },
   getSchema: function() {
     if(Template.instance().schema) {

@@ -44,7 +44,6 @@ Router.route('form/edit/:form', {
     ];
   },
   data: function() {
-		console.log('test');
     if(this.ready()){
       form = Forms.findOne({_id:this.params.form});
       var fields = Fields.find({parent:form._id});
@@ -79,7 +78,7 @@ Router.route('form/update/:form/:_id', {
     var item;
     var schema;
     if(form) {
-      collection = getCollection(form.collectionName);
+      collection = getCollection(this.params.form);
       item = collection.findOne(this.params._id);
 			var fschema = formSchema(form);
       schema = new SimpleSchema(fschema);
@@ -110,7 +109,7 @@ Router.route('form/updateAdmin/:form/:_id', {
     var item;
     var schema;
     if(form) {
-      collection = getCollection(form.collectionName);
+      collection = getCollection(this.params.form);
       item = collection.findOne(this.params._id);
 			var fschema = formSchema(form);
       schema = new SimpleSchema(fschema);
@@ -146,15 +145,36 @@ Router.route('form/list/:form', {
   name: 'submissions',
   fastRender: true,
   where: 'client',
+	loadingTemplate: 'loading',
   waitOn: function() {
-    return [
-      this.subscribe("form", this.params.form),
-			this.subscribe("forms")
-    ];
+    return Meteor.subscribe("form", this.params.form);
   },
   data: function () {
+
     var form = Forms.findOne({_id:this.params.form});
-    return form;
+
+
+		var canAdmin = false;
+		if(Roles.userIsInRole(Meteor.userId(), "admin")) canAdmin = true;
+    if(Roles.userIsInRole(Meteor.userId(), this.params.form+"-admin")) canAdmin = true;
+    if(this.ready()) {
+			var schema = [];
+			_.each(listSchema(this.params.form), function(base) {
+				var item = {};
+				item.label = base.title;
+				item.key = base.name;
+				if(base.listable) schema.push(item);
+			});
+			schema.push({ key: 'Actions', label: '',tmpl: Template.submissionsCellButtons});
+
+			return {
+				form:form,
+				fields: schema,
+				currentForm: Router.current().params.form,
+				col: getCollection(this.params.form),
+				canAdmin: canAdmin
+			};
+		}
   }
 
 });
@@ -171,7 +191,28 @@ Router.route('form/admin/:form', {
     ];
   },
   data: function () {
-    var form = Forms.findOne({_id:this.params.form});
-    return form;
+		if(!this.ready) return;
+		var form = Forms.findOne({_id:this.params.form});
+
+		var schema = [];
+    _.each(listSchema(this.data().form), function(base) {
+      var item = {};
+      item.label = base.title;
+      item.key = base.name;
+      if(base.listable) schema.push(item);
+    });
+    schema.push({ key: 'Actions', label: '',tmpl: Template.submissionsCellButtons});
+
+		var canAdmin = false;
+		if(Roles.userIsInRole(Meteor.userId(), "admin")) return true;
+    if(Roles.userIsInRole(Meteor.userId(), this.formId+"-admin")) return true;
+
+    return {
+			form:form,
+			fields: schema,
+			currentForm: Router.current().params.form,
+			col: getCollection(this._id),
+			canAdmin: canAdmin
+		};
   }
 });

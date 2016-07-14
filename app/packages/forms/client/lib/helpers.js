@@ -1,21 +1,23 @@
-var collections = {};
+getCollection = function(_id) {
+  var form = Meteor.forms[_id];
+  if(!form) {
+    var form = {};
+    form.data = Forms.findOne(_id);
+    form.collection = new Mongo.Collection(form.data.collectionName);
+    Meteor.forms[_id] = form;
+  }
 
-getCollection = function(name) {
-  if(!Forms.findOne({collectionName:name})) {
+  if(!form) {
      throw new Meteor.Error(404,name+" not found.");
   }
-  if(!collections[name]) {
-    var collection = new Mongo.Collection(name);
-    collections[name] = collection;
-  }
-  return collections[name];
+  return Meteor.forms[_id].collection;
 }
 
 Template.registerHelper("getCollection", function() {
-  return getCollection(this.collectionName);
+  return getCollection(this.formId);
 });
 
-listSchema = function(form, admin) {
-  var fields = Fields.find({parent:form._id},{sort: { listposition: 1 }});
+listSchema = function(form) {
+  var fields = Fields.find({parent:form},{sort: { listposition: 1 }});
   return fields.fetch();
 }

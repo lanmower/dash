@@ -64,12 +64,12 @@ Widgets.schemas.calculator = function() {
               instance.subscribe('formSearch', instance.data.market,"",{
                 onReady:function() {
                   var marketform = Forms.findOne({_id:instance.data.market});
-                  var marketdocs = getCollection(marketform.collectionName);
+                  var marketdocs = getCollection(marketform._id);
                   instance.market.set(marketdocs.findOne().value);
                   instance.subscribe('formSearch', instance.data.to,"",{
                     onReady:function() {
                       var toform = Forms.findOne({_id:instance.data.to});
-                      var todocs = getCollection(toform.collectionName);
+                      var todocs = getCollection(toform._id);
                       instance.to.set(todocs.findOne().value);
                     }
                   });

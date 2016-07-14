@@ -9,8 +9,8 @@ if(Meteor.isServer) {
   Fiber = require('fibers');
   path = require('path');
 
-  Meteor.publish('files', function (id, col, field) {
-    return Files.find({"metadata.parentId":id,"metadata.collectionName":col,"metadata.field":field});
+  Meteor.publish('files', function (field) {
+    return Files.find({"metadata.field":field});
   });
   Meteor.publish('file', function(id) {
     return Files.find({_id:id});
@@ -206,7 +206,7 @@ Files.on('uploaded', function (file) {
   var field = null;
   if(file.metadata) field = file.metadata.field;
   if(!field) return false;
-  form = Forms.findOne({collectionName:file.metadata.collectionName});
+  form = Forms.findOne({_id:file.metadata.formId});
   if(!Meteor.forms[form._id]) return false;
   collection = Meteor.forms[form._id].collection;
   if(!collection) return false;
@@ -221,9 +221,9 @@ Files.on('uploaded', function (file) {
 
 Files.allow({
 insert:function(userId,doc){
-  if(!doc.metadata.collectionName || !doc.metadata.field || !doc.metadata.parentId) {
+  if(!doc.metadata.formId || !doc.metadata.field || !doc.metadata.parentId) {
     console.log("missing fields rejection");
-    console.log("collectionName", doc.metadata.collectionName);
+    console.log("formId", doc.metadata.formId);
     console.log("field",doc.metadata.field);
     console.log("parentId",doc.metadata.parentId);
     return false;

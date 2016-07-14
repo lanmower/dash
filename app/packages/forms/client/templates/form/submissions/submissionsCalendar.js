@@ -7,7 +7,7 @@ Template.submissionsCalendar.created = function () {
 
   instance.autorun(function () {
     if(Template.currentData()) {
-      //this.subscribe(Template.currentData().collectionName);
+      //this.subscribe(Template.currentData().form._id);
       instance.schema.set(listSchema(Template.currentData()));
     }
   });
@@ -32,8 +32,7 @@ Template.submissionsCalendar.helpers({
     return Router.current().params.form;
   },
   items: function() {
-    var name = this.collectionName;
-    var collection = getCollection(name);
+    var collection = getCollection(this.formId);
     return collection.find({});
   },
   searchQuery: function() {
@@ -41,7 +40,7 @@ Template.submissionsCalendar.helpers({
   },
   canAdmin: function() {
     if(Roles.userIsInRole(Meteor.userId(), "admin")) return true;
-    if(Roles.userIsInRole(Meteor.userId(), this.collectionName+"-admin")) return true;
+    if(Roles.userIsInRole(Meteor.userId(), this.formId+"-admin")) return true;
     return false;
   },
   label: function() {

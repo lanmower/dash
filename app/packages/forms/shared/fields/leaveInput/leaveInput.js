@@ -144,7 +144,7 @@ Widgets.schemas.leaveInput = function() {
                     onReady:function() {
                       console.log('test');
                       var form = Forms.findOne({_id:field.form});
-                      var docs = getCollection(form.collectionName).find().fetch();
+                      var docs = getCollection(field.form).find().fetch();
                       var list= [];
 
                       _.each(docs, function(doc) {
@@ -182,7 +182,7 @@ Widgets.schemas.leaveInput = function() {
                         if(!historyDate)historyDate=0;
                         if(!totalHours) var totalHours = 0;
                         //load used hours that havent ended yet
-                        var loaded = getCollection(Forms.findOne(Router.current().params.form).collectionName).find({
+                        var loaded = getCollection(Router.current().params.form).find({
                           rangeEnd : { $gte : new Date(historyDate) },
                           type : doc._id
                         }).fetch();

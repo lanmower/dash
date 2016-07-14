@@ -64,6 +64,7 @@ Package.onUse(function(api) {
   api.addFiles('shared/fields/linkInput/linkInput.js', ['client', 'server']);
   api.addFiles('shared/fields/numberInput/numberInput.js', ['client', 'server']);
   api.addFiles('shared/fields/selectInput/selectInput.js', ['client', 'server']);
+  api.addFiles('shared/start.js', ['server', 'client']);
   api.addFiles('server/publish.js', 'server');
   api.addFiles('server/methods.js', 'server');
   api.addFiles('server/start.js', 'server');
@@ -79,8 +80,6 @@ Package.onUse(function(api) {
   api.addFiles('client/templates/form/list.html', 'client');
   api.addFiles('client/templates/field/edit/edit.js', 'client');
   api.addFiles('client/templates/field/insert/insert.js', 'client');
-  api.addFiles('client/templates/form/submissions/admin.js', 'client');
-  api.addFiles('client/templates/form/submissions/submissions.js', 'client');
   api.addFiles('client/templates/form/submissions/submit.js', 'client');
   api.addFiles('client/templates/form/submissions/update.js', 'client');
   api.addFiles('client/templates/form/submissions/updateAdmin.js', 'client');
@@ -90,6 +89,7 @@ Package.onUse(function(api) {
   api.addFiles('client/routes/form.js', 'client');
   api.export('getCollection');
   api.export("Forms");
+  api.export("Fields");
 
 });
 
