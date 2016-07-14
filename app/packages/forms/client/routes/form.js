@@ -185,34 +185,35 @@ Router.route('form/admin/:form', {
   fastRender: true,
   where: 'client',
   waitOn: function() {
-    return [
-      Meteor.subscribe("form", this.params.form),
-			Meteor.subscribe("users")
-    ];
+		return [
+			Meteor.subscribe("form", this.params.form),
+			Meteor.subscribe('formSearch', this.params.form, "")
+		];
   },
   data: function () {
-		if(!this.ready) return;
 		var form = Forms.findOne({_id:this.params.form});
 
-		var schema = [];
-    _.each(listSchema(this.data().form), function(base) {
-      var item = {};
-      item.label = base.title;
-      item.key = base.name;
-      if(base.listable) schema.push(item);
-    });
-    schema.push({ key: 'Actions', label: '',tmpl: Template.submissionsCellButtons});
 
 		var canAdmin = false;
-		if(Roles.userIsInRole(Meteor.userId(), "admin")) return true;
-    if(Roles.userIsInRole(Meteor.userId(), this.formId+"-admin")) return true;
+		if(Roles.userIsInRole(Meteor.userId(), "admin")) canAdmin = true;
+    if(Roles.userIsInRole(Meteor.userId(), this.params.form+"-admin")) canAdmin = true;
+    if(this.ready()) {
+			var schema = [];
+			_.each(listSchema(this.params.form), function(base) {
+				var item = {};
+				item.label = base.title;
+				item.key = base.name;
+				if(base.listable) schema.push(item);
+			});
+			schema.push({ key: 'Actions', label: '',tmpl: Template.submissionsCellButtons});
 
-    return {
-			form:form,
-			fields: schema,
-			currentForm: Router.current().params.form,
-			col: getCollection(this._id),
-			canAdmin: canAdmin
-		};
-  }
+			return {
+				form:form,
+				fields: schema,
+				currentForm: Router.current().params.form,
+				col: getCollection(this.params.form),
+				canAdmin: canAdmin
+			};
+		}
+	}
 });

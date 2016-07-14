@@ -17,14 +17,14 @@
         </li>
       </ul>
     </div>
-    {{debug}}
     {{#if col}}
     {{> reactiveTable collection=col fields=fields}}
     {{/if}}
   </div>
 </template>
 <template name="submissionsCellButtons">
-  {{#linkTo route="updateForm" form=../_id }}
+  {{#linkTo route="updateForm" form=form }}
+  {{debug}}
   <button class="btn btn-info" style="float:right" type="button">Open</button>
   {{/linkTo}}
 </template>

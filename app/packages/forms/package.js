@@ -83,6 +83,7 @@ Package.onUse(function(api) {
   api.addFiles('client/templates/form/submissions/submit.js', 'client');
   api.addFiles('client/templates/form/submissions/update.js', 'client');
   api.addFiles('client/templates/form/submissions/updateAdmin.js', 'client');
+  api.addFiles('client/templates/form/submissions/submissions.js', 'client');
   api.addFiles('client/templates/form/edit.js', 'client');
   api.addFiles('client/templates/form/insert.js', 'client');
   api.addFiles('client/routes/field.js', 'client');
