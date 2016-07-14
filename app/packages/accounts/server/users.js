@@ -34,24 +34,17 @@ DownloadAvatar = function(userId) {
     }
   }
 };
-SetEmail = function(user) {
-  console.log('setting email');
-  if(user.services && user.services.google && user.services.google.email) {
-    if(!user.profile || user.services.google.email != user.profile.email)
-        Meteor.users.update({_id:user._id },{"$set":{'profile.email':user.services.google.email}});
-  };
-};
 Accounts.onCreateUser(function(options, user) {
+  var email = null;
   if(user.services && user.services.google && user.services.google.email) {
-    SetEmail(user);
+    email = user.services.google.email;
     DownloadAvatar(user);
   }
   if(Meteor.users.find().count() === 0){
+     console.log('first user, promoting to admin');
      user.roles = ["admin"]
   }
-  console.log(options);
-  user.profile = {name:options.profile.name};//
-  //Meteor.users.update({_id:user._id}, {"$set":{'profile.name':options.profile.name}});
+  user.profile = {name:options.profile.name, email:email};//
   return user;
 });
 
@@ -61,9 +54,9 @@ Accounts.validateNewUser(function (user) {
     if(config.length) {
       config.forEach(function(item) {
         if(user.services.google) {
-        if( endsWith(user.services.google.email,item)) {
-            return true;
-        }
+          if( endsWith(user.services.google.email,item)) {
+              pass = true;
+          }
         }
         if(user.emails) {
             _.each(user.emails, function(email) {
