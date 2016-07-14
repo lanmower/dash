@@ -155,14 +155,19 @@ Router.route('form/list/:form', {
 
 
 		var canAdmin = false;
+		var listSchema = Fields.find({parent:this.params.form},{sort: { listposition: 1 }}).fetch();
 		if(Roles.userIsInRole(Meteor.userId(), "admin")) canAdmin = true;
     if(Roles.userIsInRole(Meteor.userId(), this.params.form+"-admin")) canAdmin = true;
     if(this.ready()) {
 			var schema = [];
-			_.each(listSchema(this.params.form), function(base) {
+			_.each(listSchema, function(base) {
 				var item = {};
 				item.label = base.title;
 				item.key = base.name;
+				item.fn = function(data, item) {
+					if(Template[base['type']] && Template[base['type']].cell) return Template[base['type']].cell(base.name, item, base);
+					return line[name];
+				};
 				if(base.listable) schema.push(item);
 			});
 			schema.push({ key: 'Actions', label: '',tmpl: Template.submissionsCellButtons});

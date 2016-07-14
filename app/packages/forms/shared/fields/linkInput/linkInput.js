@@ -14,7 +14,7 @@ if(Meteor.isClient) {
     _.each(item[name].links,function(link) {
       output += "<a href='"+link.link+"'>"+link.label+"</a><br/>"
     });
-    return output;
+    return Spacebars.SafeString(output);
   }
 }
 Fields.schemas.linkInput = function(data) {

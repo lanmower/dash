@@ -1,6 +1,6 @@
 if(Meteor.isClient) {
   Template.approveInput={};
-    Template.approveInput.cell = function(name, item, schema, field) {
+    Template.approveInput.cell = function(data, schema) {
       var router = Router.current();
       var output = "";
       var field = Fields.findOne({parent:Router.current().params.form, name:name});
