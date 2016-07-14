@@ -205,7 +205,7 @@ Router.route('form/admin/:form', {
 				item.key = base.name;
 				if(base.listable) schema.push(item);
 			});
-			schema.push({ key: 'Actions', label: '',tmpl: Template.submissionsCellButtons});
+			schema.push({ key: 'Actions', label: '',tmpl: Template.submissionsAdminCellButtons});
 
 			return {
 				form:form,

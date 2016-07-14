@@ -12,3 +12,9 @@
     </div>
   </div>
 </template>
+<template name="submissionsAdminCellButtons">
+  {{#linkTo route="updateForm" form=form }}
+  {{debug}}
+  <button class="btn btn-info" style="float:right" type="button">Open</button>
+  {{/linkTo}}
+</template>
