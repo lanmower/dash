@@ -192,7 +192,7 @@ Router.route('form/admin/:form', {
   waitOn: function() {
 		return [
 			Meteor.subscribe("form", this.params.form),
-			Meteor.subscribe('formSearch', this.params.form, "")
+			Meteor.subscribe('formSearch-admin', this.params.form, "")
 		];
   },
   data: function () {
