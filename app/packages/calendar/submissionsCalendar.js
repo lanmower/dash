@@ -51,6 +51,7 @@ if(Meteor.isClient) {
             };
           });
           callback(events);
+          console.log(events);
       };
     },
     currentForm: function() {
