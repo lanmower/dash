@@ -166,7 +166,7 @@ Router.route('form/list/:form', {
 				item.key = base.name;
 				item.fn = function(data, item) {
 					if(Template[base['type']] && Template[base['type']].cell) return Template[base['type']].cell(base.name, item, base);
-					return line[name];
+					return data;
 				};
 				if(base.listable) schema.push(item);
 			});
