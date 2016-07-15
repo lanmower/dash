@@ -3,9 +3,7 @@ Router.route('menu/list', {
   name: 'menusList',
   waitOn: function() {return this.subscribe("menus")},
   data: function() {
-    return {
-      menus:Menus.find()
-    }
+		return {col:Menus, fields: ['title', { key: 'buttons', label: '',tmpl: Template.MenusListCellButtons}]};
   },
 	title: 'List Menus',
   fastRender: true,

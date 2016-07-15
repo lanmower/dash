@@ -2,11 +2,11 @@ Router.route('page/list', {
 	parent: 'home',
   name: 'pagesList',
 	title: 'List Pages',
-  waitOn: function() {
-    return this.subscribe('pages');
+	waitOn: function() {
+    return Meteor.subscribe('pages');
   },
   data: function() {
-    return {pages:Pages.find()};
+    return {col:Pages, fields: ['title', { key: 'buttons', label: '',tmpl: Template.PagesListCellButtons}]};
   },
   fastRender: true,
   where: 'client',
