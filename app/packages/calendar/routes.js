@@ -22,7 +22,7 @@ Router.route('form/calendar/:form', {
     }
     return {
       form: form,
-      formId: form._id,
+      formId: this.params.form,
       collection: collection,
       fields: fields
     };
