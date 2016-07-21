@@ -29,19 +29,6 @@ accounts-ui
 #accounts-facebook
 accounts-google
 
-almagest:files
-almagest:accounts
-almagest:diary
-almagest:pages
-almagest:forms
-almagest:gmail
-almagest:menus
-almagest:messaging
-almagest:carousel
-almagest:countdown
-almagest:currency
-almagest:calendar
-
 udondan:slick
 
 ejson
