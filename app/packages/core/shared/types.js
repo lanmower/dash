@@ -1,0 +1,2 @@
+Meteor.fieldTypes = [];
+Meteor.widgetTypes = [];

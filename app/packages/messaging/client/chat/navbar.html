@@ -1,0 +1,48 @@
+<template name="navbarMessages">
+  <li class="dropdown messages-menu">
+    <!-- Menu toggle button -->
+    <a href="#" class="messageNotificationsTrigger" data-toggle="dropdown" >
+      <i class="fa fa-envelope-o"></i>
+      {{#if messageCount}}
+      &nbsp;
+      <span class="label label-success">{{messageCount}}</span>
+      {{/if}}
+    </a>
+    <ul class="dropdown-menu">
+      {{#if messageCount}}
+      <li class="header">You have {{messageCount}} messages</li>
+      {{/if}}
+      <li>
+        <!-- inner menu: contains the messages -->
+        <ul id="navbarMessagesMenu" class="menu">
+          {{#each msg}}
+            {{> navbarMessage}}
+          {{/each}}
+        </ul><!-- /.menu -->
+      </li>
+      <li class="footer">
+        <input type="text" data-bind="value: message, returnKey: sendMessage " style="width:244px;display:inline-block"/>
+        <a href="#" class="sendMessageLink" style="width:30px;height:28px;display:inline-block"><i class="fa fa-paper-plane"></i></a>
+      </li>
+    </ul>
+  </li><!-- /.messages-menu -->
+</template>
+
+<template name="navbarMessage">
+<li><!-- start message -->
+  <a href="#">
+    <div class="pull-left">
+      <!-- User Image -->
+      {{#with FS.GetFile "files" (userImage createdBy)}}<img src="{{url}}" class="img-circle" alt="User Image">{{/with}}
+
+    </div>
+    <!-- Message title and timestamp -->
+    <h4>
+      {{userName createdBy}}
+      <small style="position: relative;margin-left: 128px;"><i class="fa fa-clock-o"></i>{{fromNow createdAt}}</small>
+    </h4>
+    <!-- The message -->
+    <p>{{body}}</p>
+  </a>
+</li><!-- end message -->
+</template>

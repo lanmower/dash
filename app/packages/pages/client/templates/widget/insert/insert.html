@@ -1,0 +1,15 @@
+<template name="InsertWidget">
+
+  <div class="box box-primary">
+    <div class="box-header with-border">
+      <h3 class="box-title">
+        Insert widget
+      </h3>
+    </div>
+    <div class="box-body">
+    {{#if Template.subscriptionsReady}}
+      {{> quickForm collection=getCol schema=schema id="insertWidgetForm" type="insert" omitFields="createdBy" buttonContent="Create"}}
+    {{/if}}
+    </div>
+  </div>
+</template>

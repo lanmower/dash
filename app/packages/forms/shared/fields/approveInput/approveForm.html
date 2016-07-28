@@ -1,0 +1,9 @@
+<template name="approveForm">
+  {{#if currentUser}}
+    {{#if Template.subscriptionsReady}}
+      <span class="approval">Attempting to approve...</span>
+    {{/if}}
+  {{else}}
+    Please log in.
+  {{/if}}
+</template>

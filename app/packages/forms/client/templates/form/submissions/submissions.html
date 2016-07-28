@@ -1,0 +1,29 @@
+<template name="submissions">
+  <div class="box">
+    <div class="box-header with-border">
+      <h3 class="box-title">{{title}}</h3>
+
+      <ul class="box-header-list">
+        <li>
+          {{#if canAdmin}}
+          {{#linkTo route="submissionsAdmin" form=currentForm}}<button class="btn btn-danger" style="margin-top: -27px;" type="button">Admin</button>{{/linkTo}}
+          {{/if}}
+        </li>
+        <li>
+          {{#linkTo route="submitForm" form=currentForm}}<button class="btn btn-info" style="margin-top: -27px;" type="button">New submission</button>{{/linkTo}}
+        </li>
+        <li>
+          {{> breadcrumb}}
+        </li>
+      </ul>
+    </div>
+    {{#if col}}
+    {{> reactiveTable collection=col fields=fields}}
+    {{/if}}
+  </div>
+</template>
+<template name="submissionsCellButtons">
+  {{#linkTo route="updateForm" form=form }}
+  <button class="btn btn-info" style="float:right" type="button">Open</button>
+  {{/linkTo}}
+</template>
