@@ -54,6 +54,7 @@ Package.onUse(function(api) {
   api.addFiles('client/widgets/embed/embed.html', 'client');
   api.addFiles('client/widgets/mediaSearch/mediaSearch.html', 'client');
   api.addFiles('client/widgets/userCode/userCode.html', 'client');
+  api.addFiles('client/widgets/WYSiWYG/wwWidget.html', 'client');
   api.addFiles('client/templates/widget/edit/edit.js', 'client');
   api.addFiles('client/templates/widget/insert/insert.js', 'client');
   api.addFiles('client/templates/home/home.css', 'client');
@@ -63,7 +64,7 @@ Package.onUse(function(api) {
   api.addFiles('client/widgets/announcement/announcement.js', 'client');
   api.addFiles('client/widgets/embed/embed.js', 'client');
   api.addFiles('client/widgets/mediaSearch/mediaSearch.js', 'client');
-  api.addFiles('client/widgets/userCode/userCode.js', 'client');
+  api.addFiles('client/widgets/WYSiWYG/wwWidget.js', 'client');
   api.addFiles('client/routes/home.js', 'client');
   api.addFiles('client/routes/page.js', 'client');
   api.addFiles('client/routes/widget.js', 'client');
