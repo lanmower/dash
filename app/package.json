@@ -23,10 +23,6 @@
     "pretest": "npm run lint --silent"
   },
   "eslintConfig": {
-    "parser": "babel-eslint",
-    "parserOptions": {
-      "allowImportExportEverywhere": true
-    },
     "plugins": [
       "meteor"
     ],
