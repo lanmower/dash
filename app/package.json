@@ -17,16 +17,6 @@
     "stream": "^0.0.2"
   },
   "devDependencies": {
-    "babel-cli": "^6.11.4",
-    "babel-eslint": "^6.1.2",
-    "babel-preset-es2015": "^6.9.0",
-    "eslint": "^3.1.1",
-    "eslint-config-airbnb": "^9.0.1",
-    "eslint-import-resolver-meteor": "^0.2.4",
-    "eslint-plugin-import": "^1.11.1",
-    "eslint-plugin-jsx-a11y": "^2.0.1",
-    "eslint-plugin-meteor": "^3.6.0",
-    "eslint-plugin-react": "^5.2.2"
   },
   "scripts": {
     "lint": "eslint .",

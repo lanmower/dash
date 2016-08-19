@@ -6,7 +6,7 @@ var AdminLTEOptions = {
     contactToggleSelector: '[data-widget="chat-pane-toggle"]'
   }
 };
-
+//test
 Accounts.ui.config({
   requestPermissions: {
     google: [

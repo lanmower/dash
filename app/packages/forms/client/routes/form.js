@@ -190,10 +190,8 @@ Router.route('form/admin/:form', {
   fastRender: true,
   where: 'client',
   waitOn: function() {
-		return [
-			Meteor.subscribe("form", this.params.form),
-			Meteor.subscribe('formSearch-admin', this.params.form, "")
-		];
+    Meteor.subscribe('formSearch-admin', this.params.form, ""),
+    Meteor.subscribe("form", this.params.form)
   },
   data: function () {
 		var form = Forms.findOne({_id:this.params.form});

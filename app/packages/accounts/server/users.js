@@ -51,7 +51,7 @@ Accounts.onCreateUser(function(options, user) {
 Accounts.validateNewUser(function (user) {
     config = Meteor.settings.emailDomains;
     var pass = false;
-    if(config.length) {
+    if(config && config.length) {
       config.forEach(function(item) {
         if(user.services.google) {
           if( endsWith(user.services.google.email,item)) {
