@@ -25,9 +25,10 @@ Package.onUse(function(api) {
   api.addFiles('shared/collections/diaries.js', ['client', 'server']);
   api.addFiles('server/publish.js', 'server');
   api.addFiles('client/templates/diary/diaryToday.html', 'client');
+  api.addFiles('client/templates/diary/list.html', 'client');
   api.addFiles('client/widgets/diary/diary.html', 'client');
-  api.addFiles('client/widgets/diary/diaryList.html', 'client');
   api.addFiles('client/widgets/diary/viewDiary.html', 'client');
+  api.addFiles('client/widgets/diary/diaryList.html', 'client'); 
   api.addFiles('client/widgets/diary/diary.js', 'client');
   api.addFiles('client/widgets/diary/diaryList.js', 'client');
   api.addFiles('client/widgets/diary/viewDiary.js', 'client');

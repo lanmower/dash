@@ -15,9 +15,17 @@ Router.route('diary/view/:_id', {
     };
   }
 });
+
+Router.route('diary/list', {
+  title: 'Diary List',
+  name: 'listDiary',
+  fastRender: true,
+  where: 'client',
+});
+
 Router.route('diary/today', {
   title: 'Todays Diary',
-  name: 'diaryToday',
+  name: 'todayDiary',
   fastRender: true,
   where: 'client',
   waitOn: function() {
