@@ -48,3 +48,4 @@ ejson@1.0.12
 liberation:subscription-audit
 meteorhacks:inject-initial
 shell-server
+standard-minifiers

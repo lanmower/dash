@@ -10,7 +10,7 @@ if(Meteor.isClient) {
     instance.searchQuery = new ReactiveVar(null);
 
     instance.autorun(function(){
-      searchQuery = instance.subscribe('formSearch', Router.current().params.form, instance.searchQuery.get());
+      searchQuery = instance.subscribe('formSearch-admin', Router.current().params.form, instance.searchQuery.get());
     });
   };
 

@@ -24,12 +24,12 @@ Package.onUse(function(api) {
   api.mainModule('calendar.js');
   api.addFiles('submissionsCalendar.html', 'client');
   api.addFiles('submissionsCalendar.js', 'client');
+  api.addFiles('submissionsAdminCalendar.html', 'client');
+  api.addFiles('submissionsAdminCalendar.js', 'client');
   api.addFiles('routes.js', 'client');
 });
 
 Package.onTest(function(api) {
   api.use('ecmascript');
   api.use('tinytest');
-  api.use('almagest:currency');
-  api.mainModule('currency-tests.js');
 });
