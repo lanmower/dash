@@ -16,6 +16,7 @@ Template.diaryList.helpers({
       {
         key: 'date',
         label: 'Date',
+        sortByValue: true,
         fn: function (value, object, key) { 
             return moment(value).format("MMMM DD YYYY");
           }
