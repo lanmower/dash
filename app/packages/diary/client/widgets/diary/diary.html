@@ -1,5 +1,21 @@
 <template name="diary">
   <div class="box">
-    <div class="diary">{{diary}}</div>
+    <table class="table">
+      <tbody>
+        <tr>
+          <td>
+            Todays diary:
+          </td>
+          <td style="text-align: right">
+            <a href="/diary/list">History</a>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <div class="diary">{{diary}}</div>
+          </td>
+        </tr>
+        </tbody>
+    </table>
   </div>
 </template>
