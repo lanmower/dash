@@ -24,14 +24,15 @@ Package.onUse(function(api) {
   // Generated with: github.com/philcockfield/meteor-package-paths
   api.addFiles('shared/collections/diaries.js', ['client', 'server']);
   api.addFiles('server/publish.js', 'server');
-  api.addFiles('client/templates/diary/diaryToday.html', 'client');
+  api.addFiles('client/templates/diary/today.html', 'client');
+  api.addFiles('client/templates/diary/admin.html', 'client');
+  api.addFiles('client/templates/diary/admin.js', 'client');
   api.addFiles('client/templates/diary/list.html', 'client');
+  api.addFiles('client/templates/diary/list.js', 'client');
+  api.addFiles('client/templates/diary/view.html', 'client');
+  api.addFiles('client/templates/diary/view.js', 'client');
   api.addFiles('client/widgets/diary/diary.html', 'client');
-  api.addFiles('client/widgets/diary/viewDiary.html', 'client');
-  api.addFiles('client/widgets/diary/diaryList.html', 'client'); 
   api.addFiles('client/widgets/diary/diary.js', 'client');
-  api.addFiles('client/widgets/diary/diaryList.js', 'client');
-  api.addFiles('client/widgets/diary/viewDiary.js', 'client');
   api.addFiles('client/routes/diary.js', 'client');
 
 });

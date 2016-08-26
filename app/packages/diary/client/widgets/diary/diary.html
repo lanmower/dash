@@ -7,7 +7,15 @@
             Todays diary:
           </td>
           <td style="text-align: right">
-            <a href="/diary/list">History</a>
+            {{#if isInRole "admin"}}
+              {{#linkTo route="diaryAdmin"}}
+                Admin
+              {{/linkTo}}
+            {{/if}}
+            {{#linkTo route="diaryList"}}
+              History
+            {{/linkTo}}
+
           </td>
         </tr>
         <tr>

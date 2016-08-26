@@ -1,11 +1,13 @@
 Meteor.widgetTypes.push({label:"Diary", value:"diary"});
-Template.diary.onCreated( function() {
+Template.diary.onRendered( function() {
   var self = this;
+  const tag = self.find('.diary');
   self.tod = ReactiveVar(null);
   var done = false;
   self.subscribe('diaries');
   self.autorun(function() {
     	if (Template.instance().subscriptionsReady()) {
+        $(tag).summernote('enable');
         if(!done) {
         if(self.tod.get()) {
           done = true;
@@ -15,7 +17,6 @@ Template.diary.onCreated( function() {
               if(diary) return diary.diary;
             }
           });
-          var tag = self.find('.diary');
           $(tag).summernote('code', Diaries.findOne({_id:self.tod.get()}, {reactive:false}).diary);
         }
         var ret = Diaries.findOne({user:Meteor.userId(), date:new Date().setHours(0,0,0,0)}, {reactive:false});
@@ -27,6 +28,8 @@ Template.diary.onCreated( function() {
           self.tod.set(ret._id);
         }
       }
+    } else {
+      $(tag).summernote('disable');
     }
   })
 });
@@ -45,7 +48,7 @@ Template.diary.rendered = function() {
   var tag = this.find('.diary');
   $(tag).summernote({
   callbacks: {
-      oninit: function() {
+    /*oninit: function() {
        var ne = $('div.note-editable');
        var ned = $('div.note-editor');
        ned.css('position', 'absolute');
@@ -58,7 +61,7 @@ Template.diary.rendered = function() {
        ne.css('right', 0);
        ne.css('bottom', 0);
        ne.css('left', 0);
-    },
+    },*/
     onKeyup: _.debounce(function(event, template) {
       console.log('save');
       diary = $(tag).summernote('code');

@@ -3,6 +3,6 @@ Meteor.publish('diaries', function () {
 });
 Meteor.publish('diaries-admin', function () {
   if(Roles.userIsInRole(this.userId, "admin") ||
-     Roles.userIsInRole(this.userId, "diaries-admin")) return Meteor.roles.find();
-  return Diaries.find();
+     Roles.userIsInRole(this.userId, "diaries-admin")) return Diaries.find();
+  return null;
 });
