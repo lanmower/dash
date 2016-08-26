@@ -1,0 +1,16 @@
+<template name="diaryAdmin">
+  <div class="box">
+    <div class="box-body">
+	  <div class="box">
+	    <div class="box-body table-responsive no-padding">
+	      {{> reactiveTable collection=col fields=fields}}
+	    </div>
+	  </div>
+    </div>
+  </div>
+</template>
+	<template name="DiaryAdminCellButtons">
+	  {{#linkTo route='adminViewDiary' form=this._id}}
+	    <button class="btn btn-info" type="button">View</button>
+	  {{/linkTo}}
+</template>
