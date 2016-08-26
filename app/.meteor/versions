@@ -121,14 +121,14 @@ modules@0.7.6
 modules-runtime@0.7.6
 momentjs:moment@2.14.4
 monbro:iron-router-breadcrumb@1.0.10
-mongo@1.1.11
+mongo@1.1.12
 mongo-id@1.0.5
 mongo-livedata@1.0.12
 mpowaga:autoform-summernote@0.4.3
 mrt:jquery-ui-sortable@1.10.3
 mrt:q@1.0.1
 notorii:autoform-datetimepicker@1.0.6
-npm-mongo@1.5.46
+npm-mongo@1.5.48
 oauth@1.1.11
 oauth2@1.1.10
 observe-sequence@1.0.12
