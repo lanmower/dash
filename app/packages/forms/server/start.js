@@ -3,7 +3,13 @@ _.templateSettings = {
 };
 
 Meteor.publish("submission", function (form, id) {
-  return Meteor.forms[form].collection.find(id);
+  return Meteor.forms[form].collection.find(id,{$or: [
+          {createdBy: this.userId},
+          {$and:[
+            {"public": true},
+            {"public": {$exists: true}}
+          ]}
+        ]});
 });
 
 processForm = function(id, formData) {
@@ -173,47 +179,88 @@ var updateField = function(id, field) {
   }
 }
 
+Meteor.publish('formSearch', function(form, query) {
+  console.log('searching form:',form);
+  var protection = {$or: [
+    {createdBy: this.userId},
+    {$and:[
+      {"public": true},
+      {"public": {$exists: true}}
+    ]}
+  ]}
+  //check(query, String);
+  var or=[];
+  if (_.isEmpty(query)) {
+    return Meteor.forms[form].collection.find(protection, {
+      limit: 20
+    });
+  }
+
+  Meteor.forms[form].fields.forEach(function(item) {
+    var name = item.name;
+    if(item.searchable) {
+      var fields={}
+      fields[name] = { $regex: RegExp.escape(query), $options: 'i' };
+      or.push(fields);
+    }
+  });
+
+  console.log({$and:[{$or:or},{$or: [
+    {createdBy: this.userId},
+    {$and:[
+      {"public": true},
+      {"public": {$exists: true}}
+    ]}
+  ]}]}, {
+    limit: 20
+  });
+  return Meteor.forms[form].collection.find({$and:[{$or:or},protection]}, {
+    limit: 20
+  });
+});
+
+Meteor.publish('formSearch', function(form, query) {
+  console.log('searching form:',form);
+  var protection = {$or: [
+    {createdBy: this.userId},
+    {$and:[
+      {"public": true},
+      {"public": {$exists: true}}
+    ]}
+  ]}
+  //check(query, String);
+  var or=[];
+  if (_.isEmpty(query)) {
+    return Meteor.forms[form].collection.find(protection, {
+      limit: 20
+    });
+  }
+
+  Meteor.forms[form].fields.forEach(function(item) {
+    var name = item.name;
+    if(item.searchable) {
+      var fields={}
+      fields[name] = { $regex: RegExp.escape(query), $options: 'i' };
+      or.push(fields);
+    }
+  });
+
+  console.log({$and:[{$or:or},{$or: [
+    {createdBy: this.userId},
+    {$and:[
+      {"public": true},
+      {"public": {$exists: true}}
+    ]}
+  ]}]}, {
+    limit: 20
+  });
+  return Meteor.forms[form].collection.find({$and:[{$or:or},protection]}, {
+    limit: 20
+  });
+});
+
 
 Meteor.startup(function () {
-  Meteor.publish('formSearch', function(form, query) {
-    console.log('searching form:',form);
-    var protection = {$or: [
-      {createdBy: this.userId},
-      {$and:[
-        {"public": true},
-        {"public": {$exists: true}}
-      ]}
-    ]}
-    //check(query, String);
-    var or=[];
-    if (_.isEmpty(query)) {
-      return Meteor.forms[form].collection.find(protection, {
-        limit: 20
-      });
-    }
-
-    Meteor.forms[form].fields.forEach(function(item) {
-      var name = item.name;
-      if(item.searchable) {
-        var fields={}
-        fields[name] = { $regex: RegExp.escape(query), $options: 'i' };
-        or.push(fields);
-      }
-    });
-
-    console.log({$and:[{$or:or},{$or: [
-      {createdBy: this.userId},
-      {$and:[
-        {"public": true},
-        {"public": {$exists: true}}
-      ]}
-    ]}]}, {
-      limit: 20
-    });
-    return Meteor.forms[form].collection.find({$and:[{$or:or},protection]}, {
-      limit: 20
-    });
-  });
 
   Forms.find({}).observeChanges({
     added : processForm
