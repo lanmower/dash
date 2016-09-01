@@ -7,56 +7,34 @@
     </div>
 
     <div class="box-body table-responsive no-padding">
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th>Picture</th>
-        <th>Email</th>
-        <th>Status</th>
-        <th>Name</th>
-        <th>Code</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-    {{#each users}}
-      <tr>
-        <td>{{#with FS.GetFile "files" profile.picture}}<img src="{{url}}" class="img-circle" style="width: 100%;max-width: 45px;height: auto;"/>{{/with}}</td>
-        <td>{{profile.email}}</td>
-        <td>{{#if status.online}}<i class="fa fa-circle text-success"></i> Online{{else}}<i class="fa fa-circle text-warning"></i> Offline{{/if}}</td>
-        <td>{{profile.name}}</td>
-        <td>{{code _id}}</td>
-        {{#if userIsInRole 'user-admin'}}
-        <td>
-          {{#linkTo route='editUser'}}
-            <button class="btn btn-info" type="button">Edit</button>
-          {{/linkTo}}
-        </td>
-        <td>
-          {{#callable name="downloadAvatar" userId=_id}}
-            <button class="btn btn-info" type="button">Download Avatar</button>
-          {{/callable}}
-        </td>
-        <td>
-        {{#callable name="setSignature" userId=_id}}
-          <button class="btn btn-info setSignatureButton">Set signature</button>
-        {{/callable}}
-        </td>
-        {{/if}}
-        <td>
-            <button class="btn btn-info chat" type="button">Chat</button>
-        </td>
-        {{#if userIsInRole 'gmail-admin'}}
-        <td>
-            {{#linkTo route='mailList' user=_id}}
-              <button class="btn btn-info" type="button">Gmail Messages</button>
+    {{#if users}}
+      {{> reactiveTable collection=users fields=fields}}
+    {{/if}}
+    </div>
+</div>
+</template>
+<template name="UserListStatus">
+        {{#if status.online}}<i class="fa fa-circle text-success"></i> Online{{else}}<i class="fa fa-circle text-warning"></i> Offline{{/if}}
+        </template>
+<template name="UserListPicture">
+        {{#with FS.GetFile "files" profile.picture}}<img src="{{url}}" class="img-circle" style="width: 100%;max-width: 45px;height: auto;"/>{{/with}}
+</template>
+<template name="UserListCellButtons">
+          {{#if userIsInRole 'user-admin'}}
+            {{#linkTo route='editUser'}}
+              <button class="btn btn-info" type="button">Edit</button>
             {{/linkTo}}
-        </td>
+            {{#callable name="downloadAvatar" userId=_id}}
+              <button class="btn btn-info" type="button">Download Avatar</button>
+            {{/callable}}
+          {{#callable name="setSignature" userId=_id}}
+            <button class="btn btn-info setSignatureButton">Set signature</button>
+          {{/callable}}
         {{/if}}
-      </tr>
-    {{/each}}
-    </tbody>
-  </table>
-</div>
-</div>
+        <button class="btn btn-info chat" type="button">Chat</button>
+        {{#if userIsInRole 'gmail-admin'}}
+          {{#linkTo route='mailList' user=_id}}
+            <button class="btn btn-info" type="button">Gmail Messages</button>
+          {{/linkTo}}
+        {{/if}}
 </template>

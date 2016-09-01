@@ -5,12 +5,12 @@
       <h3 class="box-title">Update form - {{title}} - {{userName item.createdBy}}</h3>
       <ul class="box-header-list" style="float:right">
         <li>
-            {{> quickRemoveButton collection=collection _id=item._id onSuccess=onSuccess onError=onError class="btn btn-danger" style="margin-top: -27px;" }}
-        </li>
-        <li>
           {{#linkTo route='submissions' form=form._id}}
             <button class="btn btn-info" style="margin-top: -27px;" type="button">List Submissions</button>
           {{/linkTo}}
+        </li>
+        <li>
+            {{> quickRemoveButton collection=collection _id=item._id onSuccess=onSuccess onError=onError class="btn btn-danger" style="margin-top: -27px;" }}
         </li>
         <li>
           {{> breadcrumb}}

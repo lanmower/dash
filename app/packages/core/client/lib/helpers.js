@@ -52,7 +52,6 @@ Template.registerHelper("can", function(action, impactedDocument, fieldNames) {
 });
 
 Template.registerHelper("userIsInRole", function (role, group) {
-  console.log('test');
     var user = Meteor.user(),
         comma = (role || '').indexOf(','),
         roles
