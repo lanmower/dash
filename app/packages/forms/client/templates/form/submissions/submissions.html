@@ -1,16 +1,18 @@
 <template name="submissions">
   <div class="box">
     <div class="box-header with-border">
-      <h3 class="box-title">{{title}}</h3>
-
-      <ul class="box-header-list">
+      <h3 class="box-title">Submissions - {{title}}</h3>
+      <ul style="float:right" class="box-header-list">
+        <li>
+          {{#linkTo route="submissionsCalendar" form=currentForm}}<button class="btn btn-info" style="margin-top: -27px;" type="button">Calendar</button>{{/linkTo}}
+        </li>
+        <li>
+          {{#linkTo route="submitForm" form=currentForm}}<button class="btn btn-info" style="margin-top: -27px;" type="button">New submission</button>{{/linkTo}}
+        </li>
         <li>
           {{#if canAdmin}}
           {{#linkTo route="submissionsAdmin" form=currentForm}}<button class="btn btn-danger" style="margin-top: -27px;" type="button">Admin</button>{{/linkTo}}
           {{/if}}
-        </li>
-        <li>
-          {{#linkTo route="submitForm" form=currentForm}}<button class="btn btn-info" style="margin-top: -27px;" type="button">New submission</button>{{/linkTo}}
         </li>
         <li>
           {{> breadcrumb}}

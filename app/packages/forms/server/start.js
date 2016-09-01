@@ -26,47 +26,6 @@ processForm = function(id, formData) {
     form._id = id;
     form.collectionName = formData.collectionName;
     if(!form.created) {
-      Meteor.publish(formData._id, function (self) {
-        return form.collection.find({$or: [
-          {createdBy: this.userId},
-          {$and:[
-            {"public": true},
-            {"public": {$exists: true}}
-          ]}
-        ]});
-      }
-    );
-    Meteor.publishComposite(id+"-admin", function (self) {
-      var skip = true;
-      if(Roles.userIsInRole(this.userId, "admin")) skip = false;
-      if(Roles.userIsInRole(this.userId, id+"-admin")) skip = false;
-      if(!skip) {
-        return {
-        find: function() {
-          return form.collection.find();
-        },
-        children: [
-          {
-            find: function(doc) {
-              return Meteor.users.find({_id:doc.createdBy})
-            }
-          }
-        ]
-      }
-      } else {
-        return {
-          find: function() {
-            return form.collection.find({$or: [
-              {createdBy: this.userId},
-              {$and:[
-                {"public": true},
-                {"public": {$exists: true}}
-              ]}
-            ]});
-          }
-        }
-      }
-    });
     form.collection.allow({
       insert: function (userId, submission) {
         console.log("insert allowed");
@@ -179,85 +138,6 @@ var updateField = function(id, field) {
   }
 }
 
-Meteor.publish('formSearch', function(form, query) {
-  console.log('searching form:',form);
-  var protection = {$or: [
-    {createdBy: this.userId},
-    {$and:[
-      {"public": true},
-      {"public": {$exists: true}}
-    ]}
-  ]}
-  //check(query, String);
-  var or=[];
-  if (_.isEmpty(query)) {
-    return Meteor.forms[form].collection.find(protection, {
-      limit: 20
-    });
-  }
-
-  Meteor.forms[form].fields.forEach(function(item) {
-    var name = item.name;
-    if(item.searchable) {
-      var fields={}
-      fields[name] = { $regex: RegExp.escape(query), $options: 'i' };
-      or.push(fields);
-    }
-  });
-
-  console.log({$and:[{$or:or},{$or: [
-    {createdBy: this.userId},
-    {$and:[
-      {"public": true},
-      {"public": {$exists: true}}
-    ]}
-  ]}]}, {
-    limit: 20
-  });
-  return Meteor.forms[form].collection.find({$and:[{$or:or},protection]}, {
-    limit: 20
-  });
-});
-
-Meteor.publish('formSearch', function(form, query) {
-  console.log('searching form:',form);
-  var protection = {$or: [
-    {createdBy: this.userId},
-    {$and:[
-      {"public": true},
-      {"public": {$exists: true}}
-    ]}
-  ]}
-  //check(query, String);
-  var or=[];
-  if (_.isEmpty(query)) {
-    return Meteor.forms[form].collection.find(protection, {
-      limit: 20
-    });
-  }
-
-  Meteor.forms[form].fields.forEach(function(item) {
-    var name = item.name;
-    if(item.searchable) {
-      var fields={}
-      fields[name] = { $regex: RegExp.escape(query), $options: 'i' };
-      or.push(fields);
-    }
-  });
-
-  console.log({$and:[{$or:or},{$or: [
-    {createdBy: this.userId},
-    {$and:[
-      {"public": true},
-      {"public": {$exists: true}}
-    ]}
-  ]}]}, {
-    limit: 20
-  });
-  return Meteor.forms[form].collection.find({$and:[{$or:or},protection]}, {
-    limit: 20
-  });
-});
 
 
 Meteor.startup(function () {

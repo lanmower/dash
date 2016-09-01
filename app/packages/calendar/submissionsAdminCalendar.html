@@ -1,7 +1,7 @@
 <template name="submissionsAdminCalendar">
   <div class="box">
     <div class="box-header with-border">
-      <h3 class="box-title">{{title}}</h3>
+      <h3 class="box-title">Admin Calendar - {{title}}</h3>
 
     <ul class="box-header-list">
       <li>
@@ -18,6 +18,11 @@
       {{#if canAdmin}}
       {{#linkTo route="submissionsAdmin" form=currentForm}}<button class="btn btn-danger" style="margin-top: -27px;" type="button">Admin</button>{{/linkTo}}
       {{/if}}
+    </li>
+    <li>
+      {{#linkTo route='submissions' form=currentForm}}
+        <button class="btn btn-info" style="margin-top: -27px;" type="button">List Submissions</button>
+      {{/linkTo}}
     </li>
   <li>
       {{#linkTo route="submitForm" form=currentForm}}<button class="btn btn-info" style="margin-top: -27px;" type="button">New submission</button>{{/linkTo}}

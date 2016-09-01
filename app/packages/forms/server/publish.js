@@ -57,3 +57,82 @@ Meteor.publishComposite('field', function(id) {
     };
   }
 );
+
+Meteor.publishComposite('formSearch', function(form, query) {
+  console.log('searching form:',form);
+  return {
+    find: function() {
+      var protection = {$or: [
+        {createdBy: this.userId},
+        {$and:[
+          {"public": true},
+          {"public": {$exists: true}}
+        ]}
+      ]}
+      //check(query, String);
+      var or=[];
+      if (_.isEmpty(query)) {
+        return Meteor.forms[form].collection.find(protection, {
+          limit: 20
+        });
+      }
+
+      Meteor.forms[form].fields.forEach(function(item) {
+        var name = item.name;
+        if(item.searchable) {
+          var fields={}
+          fields[name] = { $regex: RegExp.escape(query), $options: 'i' };
+          or.push(fields);
+        }
+      });
+
+      return Meteor.forms[form].collection.find({$and:[{$or:or},protection]}, {
+        limit: 20
+      });
+    },
+    children: [
+      {
+        find: function(submission) {
+          return Meteor.users.find(submission.createdBy)
+        }
+      }
+    ],
+  }
+});
+
+Meteor.publishComposite('formSearch-admin', function(form, query) {
+  if(!Roles.userIsInRole(this.userId, "admin") &&
+     !Roles.userIsInRole(this.userId, "diaries-admin")) return;
+  console.log('searching form:',form);
+  return {
+    find: function() {
+      //check(query, String);
+      var or=[];
+      if (_.isEmpty(query)) {
+        return Meteor.forms[form].collection.find({}, {
+          limit: 20
+        });
+      }
+
+      Meteor.forms[form].fields.forEach(function(item) {
+        var name = item.name;
+        if(item.searchable) {
+          var fields={}
+          fields[name] = { $regex: RegExp.escape(query), $options: 'i' };
+          or.push(fields);
+        }
+      });
+
+      return Meteor.forms[form].collection.find({$or:or}, {
+        limit: 20
+      });
+    },
+    children: [
+      {
+        find: function(submission) {
+          return Meteor.users.find(submission.createdBy)
+        }
+      }
+    ],
+  }
+});

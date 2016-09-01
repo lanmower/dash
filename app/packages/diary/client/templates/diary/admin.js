@@ -25,7 +25,6 @@ Template.diaryAdmin.helpers({
         key: 'user',
         label: 'User',
         fn: function (value, object, key) { 
-          Template.instance().subscribe('user', value);
           let user = Meteor.users.findOne({_id:value});
           if(user) return user.profile.name;
           }

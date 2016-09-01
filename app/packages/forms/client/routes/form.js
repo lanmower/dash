@@ -83,9 +83,13 @@ Router.route('form/update/:form/:_id', {
 			var fschema = formSchema(form);
       schema = new SimpleSchema(fschema);
     }
+    var title = "";
+    if(form) title = form.title;
     return {
       form: form,
       item: item,
+      title:title,
+      currentForm: Router.current().params.form,
       collection: collection,
       id: this.params._id,
       schema: schema
@@ -147,7 +151,10 @@ Router.route('form/list/:form', {
   where: 'client',
 	loadingTemplate: 'loading',
   waitOn: function() {
-    return Meteor.subscribe("form", this.params.form);
+    return [
+      this.subscribe("form", this.params.form),
+      this.subscribe('formSearch', this.params.form, "")
+      ];
   },
   data: function () {
 
@@ -174,6 +181,7 @@ Router.route('form/list/:form', {
 
 			return {
 				form:form,
+        title:form.title,
 				fields: schema,
 				currentForm: Router.current().params.form,
 				col: getCollection(this.params.form),
@@ -190,18 +198,23 @@ Router.route('form/admin/:form', {
   fastRender: true,
   where: 'client',
   waitOn: function() {
-    Meteor.subscribe('formSearch-admin', this.params.form, ""),
-    Meteor.subscribe("form", this.params.form)
+    return [
+      this.subscribe("form", this.params.form),
+      this.subscribe('formSearch-admin', this.params.form, "")
+      ];
   },
   data: function () {
 		var form = Forms.findOne({_id:this.params.form});
-
-
 		var canAdmin = false;
 		if(Roles.userIsInRole(Meteor.userId(), "admin")) canAdmin = true;
     if(Roles.userIsInRole(Meteor.userId(), this.params.form+"-admin")) canAdmin = true;
     if(this.ready()) {
 			var schema = [];
+      schema.push({ key: 'createdBy', label: 'User', fn: function(value) {
+        user = Meteor.users.findOne(value);
+        if(user) return user.profile.name;
+        }
+      });
 			_.each(listSchema(this.params.form), function(base) {
 				var item = {};
 				item.label = base.title;
@@ -209,9 +222,12 @@ Router.route('form/admin/:form', {
 				if(base.listable) schema.push(item);
 			});
 			schema.push({ key: 'Actions', label: '',tmpl: Template.submissionsAdminCellButtons});
+      var title = "";
+      if(form) title=form.title;
 
 			return {
 				form:form,
+        title:title,
 				fields: schema,
 				currentForm: Router.current().params.form,
 				col: getCollection(this.params.form),
