@@ -3,5 +3,5 @@ Meteor.publish(null, function (test, test2){
     return [
 		Meteor.roles.find({}),
 		Files.find(Meteor.user().profile.picture)
-	]
+	]	
 }); //test

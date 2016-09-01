@@ -1,11 +1,10 @@
 <template name="afFileUploadImage">
-  <div class="slick">
-    {{#each files}}
-    <div>
-      <img src="{{this.url store='thumbs'}}"/>
-    </div>
-    {{/each}}
+  {{#each files}}
+  {{this.url}}
+  <div>
+    <img src="{{this.url store='thumbs'}}"/>
   </div>
+  {{/each}}
 </template>
 
 <template name="afFileUploadAudio">
