@@ -7,7 +7,7 @@
             Todays diary:
           </td>
           <td style="text-align: right">
-            {{#if isInRole "admin"}}
+            {{#if userIsInRole "admin"}}
               {{#linkTo route="diaryAdmin"}}
                 Admin
               {{/linkTo}}

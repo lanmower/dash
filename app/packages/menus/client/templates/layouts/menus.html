@@ -1,5 +1,5 @@
 <template name="Menus">
-  {{#if isInRole "admin"}}
+  {{#if userIsInRole "admin"}}
   <li>{{#linkTo route="home"}}<i class="fa fa-home"></i>Home{{/linkTo}}</li>
   <li class="treeview">
     <a href="#"><i class="fa fa-link"></i> <span>Admin</span> <i class="fa fa-angle-left pull-right"></i></a>

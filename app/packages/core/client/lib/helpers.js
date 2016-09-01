@@ -20,10 +20,6 @@ _.extend(Blaze.View.prototype,{
   }
 });
 
-Template.registerHelper("pageTitle", function(title) {
-  Meteor.pageTitle.set(title);
-});
-
 Template.registerHelper("arrayify", function(obj){
     result = [];
     for (var key in obj){
@@ -55,7 +51,8 @@ Template.registerHelper("can", function(action, impactedDocument, fieldNames) {
   return gong.can(Meteor.userId(), impactedDocument, action, fieldNames);
 });
 
-Template.registerHelper("isInRole", function (role, group) {
+Template.registerHelper("userIsInRole", function (role, group) {
+  console.log('test');
     var user = Meteor.user(),
         comma = (role || '').indexOf(','),
         roles

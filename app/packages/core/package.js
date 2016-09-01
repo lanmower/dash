@@ -22,6 +22,7 @@ Package.onUse(function(api) {
   api.use('dburles:collection-helpers');
   api.use('matb33:collection-hooks');
   api.use('aldeed:collection2');
+  api.use('check');
   api.mainModule('core.js');
 
   // Generated with: github.com/philcockfield/meteor-package-paths
@@ -39,6 +40,7 @@ Package.onUse(function(api) {
   api.export('gong');
   api.export("Widgets");
   api.export("Fields");
+  api.export("userIsInRole");
 });
 
 Package.onTest(function(api) {
