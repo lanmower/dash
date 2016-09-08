@@ -1,10 +1,17 @@
 <template name="afFileUploadImage">
-  {{#each files}}
-  {{this.url}}
-  <div>
-    <img src="{{this.url store='thumbs'}}"/>
-  </div>
-  {{/each}}
+    {{#if destroyForm}}
+    {{else}}
+          <div class="carousel">
+      {{#each files}}
+          {{> carouselItem}}
+      {{/each}}
+      </div>
+
+    {{/if}}
+</template>
+
+<template name="carouselItem">
+    <div><img src="{{this.url store='thumbs'}}"/></div>
 </template>
 
 <template name="afFileUploadAudio">

@@ -7,6 +7,10 @@ Widgets.schemas.fileUpload = function() {
     }
   }
 };
+
+
+
+
 var getTitle = function(file) {
   if(file.metadata.id3 && file.metadata.id3.title) return file.metadata.id3.title;
   if(file.metadata.filename) return file.metadata.filename;
@@ -14,6 +18,31 @@ var getTitle = function(file) {
 }
 
 if(Meteor.isClient) {
+  Template.afFileUploadImage.onRendered(function () {
+    var template = this;
+    template.destroyForm = new ReactiveVar(true);
+
+    console.log('test');
+    template.autorun(function () {
+      console.log('test');
+      template.destroyForm.set(true);
+    });
+
+    template.autorun(function () {
+      console.log('test');
+      if (template.destroyForm.get()) {
+        template.destroyForm.set(false);
+        $(template.find('.carousel')).slick({
+          dots: true,
+          arrows: true,
+          infinite: true,
+          slidesToShow: 3,
+          slidesToScroll: 3
+        });
+      }
+    });
+  });
+
   Template.afFileUpload.onCreated(function () {
     console.log('subscribing','formFiles', Router.current().params.form, Router.current().params._id);
 
@@ -57,12 +86,9 @@ if(Meteor.isClient) {
     }
   });
 
-  Template.afFileUploadImage.onRendered(function() {
-    var self = this;
-  });
-
   Template.afFileUpload.events({
     'click .playTrack': function(event, template) {
+      console.log(this.url('media'));
       var pl = playlist.get();
       pl.push({type:"audio/mp3",title:getTitle(this),src:this.url('media')});
       playlist.set(pl);

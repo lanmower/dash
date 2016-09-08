@@ -9,7 +9,7 @@ Template.diaryList.onCreated( function() {
 
 Template.diaryList.helpers({
   col: function() {
-    return Diaries.find();
+    return Diaries.find({diary:{$exists:true}});
   },
   fields: function() {
     return [

@@ -93,6 +93,7 @@ if(Meteor.isServer) {
               }
 
           if(run)ffm.on('error', function(err, stdout, stderr) {
+            console.log(stdout, stderr);
             Fiber(function() {
               Files.update({_id:fileObj._id},{$set:{'metadata.conversionError':err.message}});
               if (transformedMedia.indexOf(fileObj._id) > -1) transformedMedia.splice(transformedMedia.indexOf(fileObj._id), 1);

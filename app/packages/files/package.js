@@ -15,9 +15,10 @@ Package.onUse(function(api) {
   api.use('ecmascript');
   api.use('templating', "client");
   api.use("iron:router");
+  api.use('udondan:slick');
   api.use('aldeed:autoform');
   api.use("aldeed:delete-button");
-
+  api.use('reactive-var');
   api.use('almagest:core');
   api.use('almagest:forms');
   api.use('cfs:autoform');
