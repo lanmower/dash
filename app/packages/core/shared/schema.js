@@ -1,6 +1,4 @@
-
-
-
+  
 //find the types that the parent allows, build a label value array
 var types = function(parent, parentType, allTypes) {
   var types = [];

@@ -18,6 +18,7 @@ Package.onUse(function(api) {
   api.use("templating", "client"  );
   api.use("iron:router");
   api.use("aldeed:delete-button");
+  api.use('aslagle:reactive-table');
   api.use('useraccounts:iron-routing');
   api.use('useraccounts:bootstrap');
   api.use('mizzao:user-status');
