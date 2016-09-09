@@ -18,6 +18,7 @@ Package.onUse(function(api) {
   api.use("iron:router");
   api.use("reactive-var")
   api.use('momentjs:moment');
+  api.use('almagest:core');
 
   api.mainModule('diary.js');
 

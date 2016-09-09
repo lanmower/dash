@@ -1,5 +1,6 @@
 Widgets = new Mongo.Collection("widgets");
 Widgets.schemas = {};
+Widgets.publishers = {};
 
 Widgets.helpers({
   collectionType: function() {return Widgets},

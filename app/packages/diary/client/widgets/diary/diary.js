@@ -1,13 +1,14 @@
 Meteor.widgetTypes.push({label:"Diary", value:"diary"});
+
 Template.diary.onRendered( function() {
   var self = this;
   const tag = self.find('.diary');
   self.tod = ReactiveVar(null);
   var done = false;
-  self.subscribe('diaries');
+  //self.subscribe('diaries');
   self.autorun(function() {
-    	if (Template.instance().subscriptionsReady()) {
-        $(tag).summernote('enable');
+    	//if (Template.instance().subscriptionsReady()) {
+        //$(tag).summernote('enable');
         if(!done) {
         if(self.tod.get()) {
           done = true;
@@ -24,9 +25,9 @@ Template.diary.onRendered( function() {
           self.tod.set(ret._id);
         }
       }
-    } else {
-      $(tag).summernote('disable');
-    }
+    //} else {
+    //  $(tag).summernote('disable');
+    //}
   })
 });
 

@@ -20,7 +20,16 @@ Meteor.publishComposite('pageByPath', function(path) {
       {
         find: function(page) {
           return Widgets.find({$and:[{'parent': page._id},{$or:additions}]},{sort: {listposition: 1}});
-        }
+        },
+        children: [
+          {
+            find: function(widget) {
+              if(Widgets.publishers[widget.type]) {
+                return Widgets.publishers[widget.type](widget, this.userId);
+              } 
+            }
+          }
+        ]
       }
     ]
   };
