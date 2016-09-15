@@ -150,12 +150,6 @@ Router.route('form/list/:form', {
   fastRender: true,
   where: 'client',
 	loadingTemplate: 'loading',
-  waitOn: function() {
-    return [
-      this.subscribe("form", this.params.form),
-      //this.subscribe('formSearch', this.params.form, "")
-      ];
-  },
   data: function () {
 
     var form = Forms.findOne({_id:this.params.form});
@@ -178,10 +172,11 @@ Router.route('form/list/:form', {
 				if(base.listable) schema.push(item);
 			});
 			schema.push({ key: 'Actions', label: '',tmpl: Template.submissionsCellButtons});
-
+      var title = "";
+      if(form) title = form.title;
 			return {
 				form:form,
-        title:form.title,
+        title:title,
 				fields: schema,
 				currentForm: Router.current().params.form,
 				col: getCollection(this.params.form),
@@ -197,12 +192,6 @@ Router.route('form/admin/:form', {
   name: 'submissionsAdmin',
   fastRender: true,
   where: 'client',
-  waitOn: function() {
-    return [
-      this.subscribe("form", this.params.form),
-      this.subscribe('formSearch-admin', this.params.form, "")
-      ];
-  },
   data: function () {
 		var form = Forms.findOne({_id:this.params.form});
 		var canAdmin = false;
@@ -230,7 +219,7 @@ Router.route('form/admin/:form', {
         title:title,
 				fields: schema,
 				currentForm: Router.current().params.form,
-				col: getCollection(this.params.form),
+				col: Router.current().params.form+"-admin",
 				canAdmin: canAdmin
 			};
 		}

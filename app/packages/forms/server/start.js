@@ -26,6 +26,18 @@ processForm = function(id, formData) {
     form._id = id;
     form.collectionName = formData.collectionName;
 
+    ReactiveTable.publish(id+"-admin", form.collection, function () {
+      var protection = {$or: [
+        {createdBy: this.userId},
+        {$and:[
+          {"public": true},
+          {"public": {$exists: true}}
+        ]}
+      ]}
+      if(Roles.userIsInRole( this.userId, 'admin' )) return {};
+      else return protection;
+    });
+
     ReactiveTable.publish(id, form.collection, function () {
       var protection = {$or: [
         {createdBy: this.userId},
