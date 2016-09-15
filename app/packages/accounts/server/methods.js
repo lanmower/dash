@@ -50,6 +50,7 @@ Meteor.methods({
               } else {
                 future.return( true );
               }
+            });
           } else {
             future.return( true );
           }

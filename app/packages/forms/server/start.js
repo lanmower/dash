@@ -25,6 +25,18 @@ processForm = function(id, formData) {
     form.fields = Fields.find({parent: id});
     form._id = id;
     form.collectionName = formData.collectionName;
+
+    ReactiveTable.publish(id, form.collection, function () {
+      var protection = {$or: [
+        {createdBy: this.userId},
+        {$and:[
+          {"public": true},
+          {"public": {$exists: true}}
+        ]}
+      ]}
+      return protection;
+    });
+
     if(!form.created) {
     form.collection.allow({
       insert: function (userId, submission) {

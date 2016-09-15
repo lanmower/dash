@@ -58,16 +58,6 @@ Meteor.publishComposite('field', function(id) {
   }
 );
 
-  ReactiveTable.publish("user-items", Items, function () {
-    var protection = {$or: [
-      {createdBy: this.userId},
-      {$and:[
-        {"public": true},
-        {"public": {$exists: true}}
-      ]}
-    ]}
-    return protection;
-  });
 
   /*Meteor.publishComposite('formSearch', function(form) {
   return {
