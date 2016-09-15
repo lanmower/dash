@@ -58,8 +58,18 @@ Meteor.publishComposite('field', function(id) {
   }
 );
 
-Meteor.publishComposite('formSearch', function(form, query) {
-  console.log('searching form:',form);
+  ReactiveTable.publish("user-items", Items, function () {
+    var protection = {$or: [
+      {createdBy: this.userId},
+      {$and:[
+        {"public": true},
+        {"public": {$exists: true}}
+      ]}
+    ]}
+    return protection;
+  });
+
+  /*Meteor.publishComposite('formSearch', function(form) {
   return {
     find: function() {
       var protection = {$or: [
@@ -98,7 +108,7 @@ Meteor.publishComposite('formSearch', function(form, query) {
       }
     ],
   }
-});
+});*/
 
 Meteor.publishComposite('formSearch-admin', function(form, query) {
   if(!Roles.userIsInRole(this.userId, "admin") &&

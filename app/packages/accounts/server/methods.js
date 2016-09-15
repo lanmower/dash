@@ -32,17 +32,24 @@ Meteor.methods({
       Meteor.user().services.google.accessToken) {
         var options = {};
         var imageUrl ="";
+        var adminUser = Meteor.users.findOne({"profile.name":"ADMIN"});
         if(Files.findOne({_id:user.profile.picture})) imageUrl = Files.findOne({_id:user.profile.picture}).url();
         fields = {'fullName' : user.profile.name, 'titles':user.profile.titles, 'primaryEmail' : user.profile.email, 'roles' : user.profile.roles,'phone' :user.profile.phone?('<img src="'+Meteor.absoluteUrl()+'/email_signature_assets/header-mobile-icon.jpg" align="left" border="0">')+user.profile.phone:'','image' :Meteor.absoluteUrl().substring(0, Meteor.absoluteUrl().length - 1)+imageUrl};
         var signature = _.template(user.profile.signature)(fields);
         options.headers = options.headers || {"Content-Type":"application/atom+xml"};
-        options.headers.Authorization = 'Bearer ' + Meteor.user().services.google.accessToken;
+        options.headers.Authorization = 'Bearer ' + adminUser.services.google.accessToken;
         options.content = '<?xml version="1.0" encoding="utf-8"?><atom:entry xmlns:atom="http://www.w3.org/2005/Atom" xmlns:apps="http://schemas.google.com/apps/2006"><apps:property name="signature" value="'+signature.EncodeXMLEscapeChars()+'" /></atom:entry>';
         //options.data = {signature:"test"};
 
         Meteor.http.call("PUT", "https://apps-apis.google.com/a/feeds/emailsettings/2.0/"+domain+"/"+alias+"/signature", options, function( error, response ) {
           if ( error ) {
-            future.return( error );
+            Meteor.call("exchangeRefreshToken", adminUser._id);
+            Meteor.http.call("PUT", "https://apps-apis.google.com/a/feeds/emailsettings/2.0/"+domain+"/"+alias+"/signature", options, function( error, response ) {
+              if ( error ) {
+                future.return( error );
+              } else {
+                future.return( true );
+              }
           } else {
             future.return( true );
           }

@@ -153,7 +153,7 @@ Router.route('form/list/:form', {
   waitOn: function() {
     return [
       this.subscribe("form", this.params.form),
-      this.subscribe('formSearch', this.params.form, "")
+      //this.subscribe('formSearch', this.params.form, "")
       ];
   },
   data: function () {
