@@ -48,7 +48,7 @@ Meteor.methods({
               if ( error ) {
                 future.return( error );
               } else {
-                future.return( true );
+                future.return( "Refresh token exchanged" );
               }
             });
           } else {
