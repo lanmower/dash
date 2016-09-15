@@ -45,21 +45,29 @@ Meteor.methods({
       var uid = uid || Meteor.userId();
       var user = Meteor.users.findOne({_id : uid});
       this.unblock();
+      var uri = 'gmail/v1/users/'+user.profile.email+"/messages";
+      var response = null;
+      gmailSearch.remove({user:user._id, query:query});
+      if(query) uri = uri + '?' + toQueryString({q:query});
       try {
-        gmailSearch.remove({user:user._id, query:query});
-        var uri = 'gmail/v1/users/'+user.profile.email+"/messages";
-        if(query) uri = uri + '?' + toQueryString({q:query})
-        var response = GoogleApi.get(uri, {user:user});
+        response = GoogleApi.get(uri, {user:user});
         gmailSearch.insert({search:response, user:user._id, query:query});
       } catch(error) {
-        if(error.statusCode == 401) {
-            Meteor.call("exchangeRefreshTokenAdmin", adminUser._id);
-
+        console.log(error);  
+        if(error.error == 500) {
+            Meteor.call("exchangeRefreshTokenAdmin", user._id);
+            user = Meteor.users.findOne({_id : uid});
+            console.log("Refresh token exchanged");
+          try {
+            response = GoogleApi.get(uri, {user:user});
+            gmailSearch.insert({search:response, user:user._id, query:query});
+          } catch(error) {
+            console.log("Error updating messages");
+            console.log(error);
+          }
         }
-        console.log("Error updating messages");
-        console.log(error);
       }
-
+        if(response && response.messages) {
       _.each(response.messages, function(item) {
         var id = item.id;
         var existing = gmail.findOne({_id: id});
@@ -96,7 +104,10 @@ Meteor.methods({
           doc.original = result;
           gmail.insert(doc);
         }
-      }      );
+      }
+    );
+    }
+  
 
   },
   getMailLabels: function() {
