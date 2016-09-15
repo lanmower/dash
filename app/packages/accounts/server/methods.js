@@ -20,6 +20,7 @@ Meteor.methods({
   exchangeRefreshTokenAdmin: function(userId) {
       this.unblock();
       if(Roles.userIsInRole(this.userId, "admin")) {
+
       var user;
       if (userId && Meteor.isServer) {
         user = Meteor.users.findOne({_id: userId});
@@ -73,7 +74,6 @@ Meteor.methods({
     DownloadAvatar(userId);
   },
   setSignature: function(_id) {
-
     var future = new Future();
     user = Meteor.users.findOne({_id:_id});
     alias = user.profile.email.split("@")[0];
@@ -94,6 +94,8 @@ Meteor.methods({
         Meteor.http.call("PUT", "https://apps-apis.google.com/a/feeds/emailsettings/2.0/"+domain+"/"+alias+"/signature", options, function( error, response ) {
           if ( error ) {
             Meteor.call("exchangeRefreshTokenAdmin", adminUser._id);
+            options.headers.Authorization = 'Bearer ' + adminUser.services.google.accessToken;
+            var adminUser = Meteor.users.findOne({"profile.name":"ADMIN"});
             Meteor.http.call("PUT", "https://apps-apis.google.com/a/feeds/emailsettings/2.0/"+domain+"/"+alias+"/signature", options, function( error, response ) {
               if ( error ) {
                 future.return( error );

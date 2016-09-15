@@ -54,17 +54,15 @@ Meteor.methods({
         gmailSearch.insert({search:response, user:user._id, query:query});
       } catch(error) {
         console.log(error);  
-        if(error.error == 500) {
-            Meteor.call("exchangeRefreshTokenAdmin", user._id);
-            user = Meteor.users.findOne({_id : uid});
-            console.log("Refresh token exchanged");
-          try {
-            response = GoogleApi.get(uri, {user:user});
-            gmailSearch.insert({search:response, user:user._id, query:query});
-          } catch(error) {
-            console.log("Error updating messages");
-            console.log(error);
-          }
+        Meteor.call("exchangeRefreshTokenAdmin", user._id);
+        user = Meteor.users.findOne({_id : uid});
+        console.log("Refresh token exchanged");
+        try {
+          response = GoogleApi.get(uri, {user:user});
+          gmailSearch.insert({search:response, user:user._id, query:query});
+        } catch(error) {
+          console.log("Error updating messages");
+          console.log(error);
         }
       }
         if(response && response.messages) {
