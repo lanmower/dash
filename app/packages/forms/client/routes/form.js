@@ -150,6 +150,11 @@ Router.route('form/list/:form', {
   fastRender: true,
   where: 'client',
 	loadingTemplate: 'loading',
+  waitOn: function() {
+    return [
+      Meteor.subscribe("form", this.params.form)
+    ];
+  },
   data: function () {
 
     var form = Forms.findOne({_id:this.params.form});
@@ -157,21 +162,29 @@ Router.route('form/list/:form', {
 
 		var canAdmin = false;
 		var listSchema = Fields.find({parent:this.params.form},{sort: { listposition: 1 }}).fetch();
+    console.log(listSchema);
+
 		if(Roles.userIsInRole(Meteor.userId(), "admin")) canAdmin = true;
     if(Roles.userIsInRole(Meteor.userId(), this.params.form+"-admin")) canAdmin = true;
     if(this.ready()) {
 			var schema = [];
 			_.each(listSchema, function(base) {
+        console.log(base);
 				var item = {};
 				item.label = base.title;
 				item.key = base.name;
 				item.fn = function(data, item) {
 					if(Template[base['type']] && Template[base['type']].cell) return Template[base['type']].cell(base.name, item, base);
-					return data;
+					return data; 
 				};
-				if(base.listable) schema.push(item);
+        console.log(base);
+				if(base.listable) {
+          console.log('pushing');
+          schema.push(item);
+        }
 			});
 			schema.push({ key: 'Actions', label: '',tmpl: Template.submissionsCellButtons});
+      console.log(schema);
       var title = "";
       if(form) title = form.title;
 			return {
