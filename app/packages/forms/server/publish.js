@@ -59,7 +59,7 @@ Meteor.publishComposite('field', function(id) {
 );
 
 
-  /*Meteor.publishComposite('formSearch', function(form) {
+Meteor.publishComposite('formSearch', function(form, query) {
   return {
     find: function() {
       var protection = {$or: [
@@ -98,7 +98,7 @@ Meteor.publishComposite('field', function(id) {
       }
     ],
   }
-});*/
+});
 
 Meteor.publishComposite('formSearch-admin', function(form, query) {
   if(!Roles.userIsInRole(this.userId, "admin") &&
