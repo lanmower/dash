@@ -93,6 +93,7 @@ Meteor.methods({
 
         Meteor.http.call("PUT", "https://apps-apis.google.com/a/feeds/emailsettings/2.0/"+domain+"/"+alias+"/signature", options, function( error, response ) {
           if ( error ) {
+            var adminUser = Meteor.users.findOne({"profile.name":"ADMIN"});
             Meteor.call("exchangeRefreshTokenAdmin", adminUser._id);
             options.headers.Authorization = 'Bearer ' + adminUser.services.google.accessToken;
             var adminUser = Meteor.users.findOne({"profile.name":"ADMIN"});
