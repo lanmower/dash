@@ -7,15 +7,12 @@ Meteor.methods({
   'command' : function(line) {
     exec = Npm.require('child_process').exec;
     console.log("In command method", line);
-    var Fiber = Meteor.npmRequire('fibers');
+    var future = new Future();
     exec(line, function(error, stdout, stderr) {
       console.log('Command Method', error, stdout, stderr);
-      Fiber(function() {
-        //Replies.remove({});
-        //var replyId = Replies.insert({message: stdout ? stdout : stderr});
-        //return replyId;
-      }).run();
+      future.return({error, stdout, stderr});
     });
+      return future.wait();
   },
   exchangeRefreshTokenAdmin: function(userId) {
       this.unblock();

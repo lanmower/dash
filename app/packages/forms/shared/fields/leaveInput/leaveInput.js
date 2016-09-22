@@ -142,7 +142,6 @@ Widgets.schemas.leaveInput = function() {
                 onReady:function() {
                   template.subscribe('approvals-form', Router.current().params.form,{
                     onReady:function() {
-                      console.log('test');
                       var form = Forms.findOne({_id:field.form});
                       var docs = getCollection(field.form).find().fetch();
                       var list= [];
@@ -168,7 +167,6 @@ Widgets.schemas.leaveInput = function() {
                         if(parseInt(history) && parseInt(frequency)) {
                           for (var m = moment(start); m.isBefore(end); m.add(history, historyUnit)) {
                             historyDate = m;
-                            console.log("Fastforward from employment date to history start "+m.format('YYYY-MM-DD'));
                           }
                           var start = moment(historyDate);
                           var end = today;
@@ -176,7 +174,6 @@ Widgets.schemas.leaveInput = function() {
                           for (var m = start; m.isBefore(end); m.add(frequency, frequencyUnit)) {
                             historyDate = m.format();
                             totalHours += hours;
-                            console.log("Fastforward from history start "+m.format('YYYY-MM-DD'));
                           }
                         }
                         if(!historyDate)historyDate=0;
@@ -188,7 +185,6 @@ Widgets.schemas.leaveInput = function() {
                         }).fetch();
 
                         _.each(loaded, function(item) {
-                          console.log(item);
                           var approval;
                           _.each(fields, function(tfield) {
                             approvals = Approvals.find({doc:item._id, value:true, field:tfield._id}).count();
@@ -198,7 +194,6 @@ Widgets.schemas.leaveInput = function() {
                         });
                         var toSet;
                         var num = -parseInt(totalHours);
-                        console.log(totalHours, num);
                         if(totalHours >= 0) toSet = {label:doc.title+": "+totalHours + " hours remaining.", value:doc._id};
                         else toSet = {label:doc.title+": 0 hours remaining. "+num+" overbooked!", value:doc._id};
                         list.push(toSet);

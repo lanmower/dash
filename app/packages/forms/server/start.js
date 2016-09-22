@@ -102,7 +102,6 @@ schemaItem = function(field) {
   return ret;
 }
 var buildSchema = function(form) {
-  console.log("Building schema", form._id);
   var schema = Meteor.schema();
   form.fields.forEach(function(item) {
     if(item.name) {

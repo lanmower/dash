@@ -15,7 +15,6 @@ Template.submitForm.created = function () {
     template.destroyForm.set(true);
     if(Template.currentData()) {
       template.schema.set(formSchema(Template.currentData()));
-      console.log(template.schema.get());
     }
   });
 

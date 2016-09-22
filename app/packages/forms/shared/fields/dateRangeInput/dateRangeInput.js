@@ -103,7 +103,6 @@ if(Meteor.isServer) {
             if(moment(notificationDate).isBefore(new Date())) {
               _.each(notification.users, function(userId) {
                 var user = Meteor.users.findOne(userId);
-                console.log('sending it');
                 var user = Meteor.users.findOne({_id:userId});
                 var href = Meteor.absoluteUrl()+'form/update/'+form._id+'/'+doc._id;
                 var message = notification.message;
@@ -114,7 +113,6 @@ if(Meteor.isServer) {
                 Fiber(function() {
 
                   setTimeout(function() {
-                    console.log('sending',_.template(messageHtml)(fields), "To", user.profile.email, 'admin@coas.co.za');
                     Email.send({
                       to: user.profile.email,
                       from: 'admin@coas.co.za',

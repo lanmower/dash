@@ -115,7 +115,6 @@ var getApprovals = function(approvals) {
 if(Meteor.isClient) {
   Template.afApproveInput.helpers({
     canAdmin: function() {
-      console.log(this);
       var field = Fields.findOne({parent:Router.current().params.form, name:this.name});
       return _.contains(field.admins, Meteor.userId());
     },
@@ -186,7 +185,6 @@ Fields.schemas.approveInput = function(field) {
   };
 
   var notifyUpdate = function(userId, doc, form, field) {
-    console.log(field);
 
     var approvals = Approvals.find({field:field._id, doc:doc._id, value:true}).count();
     var owner = Meteor.users.findOne(doc.createdBy);
@@ -204,7 +202,6 @@ Fields.schemas.approveInput = function(field) {
 
   var notifyInsert = function(userId, doc, form, field) {
     var max = doc[field.name]?doc[field.name].length:0;
-    console.log(userId);
     var owner = Meteor.users.findOne(userId);
 
     sendIt(field, owner.profile.email, doc, form, userId, field.ownerSubmissionSubject, field.ownerSubmissionMessage, field.ownerSubmissionMessageHtml);
@@ -219,10 +216,8 @@ var sendIt = function(field, to, doc, form, userId, subject, message, messageHtm
   var approveHref = field?Meteor.absoluteUrl()+'form/approve/'+doc._id+"/"+field._id+"/true":null;
   var rejectHref = field?Meteor.absoluteUrl()+'form/approve/'+doc._id+"/"+field._id+"/false":null;
   var href = Meteor.absoluteUrl()+'form/update/'+form._id+'/'+doc._id;
-  console.log('href',href);
   fields = {'user' : user, 'name' : user.profile.name,'createdAt' : moment(field.createdAt).format('MMMM Do, YYYY'), 'userName' : user.profile.name, 'email' : user.profile.email, 'userEmail' : user.profile.email, 'doc' : doc, 'date' : Date(), 'href' : href, 'approveHref' : approveHref, 'rejectHref' : rejectHref};
   fields = _.extend(fields, doc);
-  console.log('sending',_.template(messageHtml)(fields), "To", to);
   Fiber = Npm.require('fibers');
   Fiber(function() {
     setTimeout(10, function() {
