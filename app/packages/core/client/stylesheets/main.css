@@ -157,3 +157,7 @@ width:430px;
 .content-wrapper, .right-side {
     min-height: auto !important;
 }
+
+.sidebar-menu, .main-sidebar .user-panel, .sidebar-menu>li.header {
+    overflow: visible; 
+}
