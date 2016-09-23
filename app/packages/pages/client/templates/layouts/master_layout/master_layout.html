@@ -28,11 +28,16 @@
                 {{> navbarMessages}}
                 <!--{{> navbarUsers}}-->
                 <!-- User Account Menu -->
-                <li>
-                  <a href="#" onclick="Meteor.logout()"><i class="fa fa-minus"></i>&nbsp;Sign out</a><!--forceApprovalPrompt: true-->
-                </li>
+                {{#if isImpersonating}}
+                  <li>
+                    <a data-unimpersonate><i class="fa fa-minus"></i>&nbsp;Unimpersonate</a>
+                  </li>
                 {{else}}
-                {{#if configured}}
+                  <li>
+                    <a href="#" onclick="Meteor.logout()"><i class="fa fa-minus"></i>&nbsp;Sign out</a><!--forceApprovalPrompt: true-->
+                  </li>
+                {{/if}}
+                {{else}}
                 <!--li>
                 <a href="#" onclick="Meteor.loginWithGoogle({requestPermissions:[
                 'https://www.googleapis.com/auth/userinfo.email',
@@ -46,12 +51,8 @@
               <li>
                 {{#linkTo route="login"}}<i class="fa fa-plus"></i>&nbsp;Sign in{{/linkTo}}
               </li>
-              {{else}}
-              <li>
-                {{#linkTo route="login"}}<i class="fa fa-plus"></i>&nbsp;Sign in{{/linkTo}}
-              </li>
-              {{/if}}
-              {{/if}}
+
+            {{/if}}
               <!--li class="dropdown user user-menu">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="{{userImage}}" class="user-image" alt="User Image">

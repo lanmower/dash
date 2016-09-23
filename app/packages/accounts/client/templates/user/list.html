@@ -34,4 +34,9 @@
       <button class="btn btn-info" type="button">Gmail Messages</button>
     {{/linkTo}}
   {{/if}}
+  {{#if isImpersonating}}
+    {{else}}
+    <button data-impersonate="{{_id}}" class="btn btn-info">Impersonate</button>
+  {{/if}}
+  
 </template>
