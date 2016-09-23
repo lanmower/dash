@@ -18,13 +18,12 @@ Template.mailMessages.rendered = function () {
       console.log('calling', Router.current().data().user,Router.current().params.q);
       lastSearch = Router.current().params.q;
       lastUid = Router.current().params.user;
-      Meteor.call("gmailSearch",
-        Router.current().params.user,
-        Router.current().params.q,
-        function(err,data){
-          console.log(data)
-        }
-      );
   });
   if(Router.current().params.q) this.find('#mailSearch').value = Router.current().params.q;
 };
+Template.mailMessage.helpers({
+  date: function(date) {
+    return moment(parseInt(this.original.internalDate)).fromNow();
+  }
+});
+console.log('test');

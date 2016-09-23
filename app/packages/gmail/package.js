@@ -19,21 +19,21 @@ Package.onUse(function(api) {
   api.use("iron:router");
   api.use('percolate:google-api');
 
+  api.use('momentjs:moment');
   api.mainModule('gmail.js');
 
   // Generated with: github.com/philcockfield/meteor-package-paths
-  api.addFiles('server/collections/gmail.js', 'server');
+  api.addFiles('shared/gmail.js', ['server', 'client']);
   api.addFiles('server/methods.js', 'server');
   api.addFiles('server/publish.js', 'server');
   api.addFiles('client/templates/mail/labels.html', 'client');
   api.addFiles('client/templates/mail/list.html', 'client');
   api.addFiles('client/templates/mail/messageView.html', 'client');
   api.addFiles('client/templates/mail/messages.html', 'client');
-  api.addFiles('client/templates/mail/collections/collection.js', 'client');
   api.addFiles('client/templates/mail/labels.js', 'client');
   api.addFiles('client/templates/mail/messages.js', 'client');
   api.addFiles('client/routes/mail.js', 'client');
-
+  api.export('gmail');
 });
 
 Package.onTest(function(api) {

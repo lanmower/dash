@@ -1,10 +1,6 @@
 Router.route('mail/list/:user/:q?', {
 	parent: 'home',
   name: 'mailList',
-
-	subscriptions: function() {
-		return this.subscribe('gmailSearch', Router.current().data().user,Router.current().params.q);
-	},
 	data: function() {
 		var user = this.params.user||Meteor.userId();
 		var messages = gmailSearch.findOne({user:user, query:this.params.q});
@@ -20,10 +16,19 @@ Router.route('mail/list/:user/:q?', {
   fastRender: true,
   where: 'client',
 	onBeforeAction: function() {
-			if (!Meteor.user() || !Roles.userIsInRole(Meteor.user(), ['admin'])){
-				Router.go('/');
-			}
-			this.next();
+	    Meteor.call("gmailSearch",
+	      Router.current().params.user,
+	      Router.current().params.q,
+	      function(err,data){
+	        console.log(data)
+	      }
+	    );
+		var user = this.params.user||Meteor.userId();
+		this.subscribe('gmailSearch', user, this.params.q);
+		if (!Meteor.user() || !Roles.userIsInRole(Meteor.user(), ['admin'])){
+			Router.go('/');
+		}
+		this.next();
 
 		}
 
