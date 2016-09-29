@@ -43,6 +43,16 @@
   <table class="table table-hover">
   <tr>
     <th>Videos</th>
+    {{#if metadata.converted}}
+      <td class="playTrack">play</td>
+    {{else}}
+      {{#if metadata.conversionProgress}}
+        Converting: {{metadata.conversionProgress}}%
+        {{else}}
+        {{#if metadata.conversionError}} Conversion error. {{metadata.conversionError}}
+        {{else}}Queued for conversion.{{/if}}
+      {{/if}}
+    {{/if}}
   </tr>
   {{#each files}}
   <tr>
