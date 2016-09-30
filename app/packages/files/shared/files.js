@@ -33,7 +33,7 @@ if(Meteor.isServer) {
   }
   var absolutePath = getPath();
 
-  thumbTransform = function(fileObj, readStream, writeStream) {
+  thumbTransform = (fileObj, readStream, writeStream) => {
     if(fileObj.original.type.startsWith("image/") || fileObj.original.type == 'application/pdf')
     try{
       gm(readStream, fileObj.name()).setFormat('JPG').resize(300,300,"^")
@@ -46,7 +46,7 @@ if(Meteor.isServer) {
     //.gravity('Center').crop(300, 300).quality(100).autoOrient().stream().pipe(writeStream);
   }
 
-  mediaTransform = function(fileObj, readStream, writeStream) {
+  mediaTransform = (fileObj, readStream, writeStream) => {
     var run = null;
     //ffmpeg.ffprobe(readStream, function(err, metadata) {
     //  console.log(err);
@@ -56,11 +56,11 @@ if(Meteor.isServer) {
       return false;
     }
     writeStream.on('finish', () => {
-    if(_.contains(transformedMedia, fileObj._id)) {
-      return false;
-    }
-    console.log(fileObj);
-    transformedMedia.push(fileObj._id);
+      if(_.contains(transformedMedia, fileObj._id)) {
+        return false;
+      }
+      console.log(fileObj);
+      transformedMedia.push(fileObj._id);
       queue.add(function(done) {
         var url=absolutePath+"/"+masterStore.adapter.fileKey(fileObj);
         var count = 0;
@@ -93,23 +93,23 @@ if(Meteor.isServer) {
                 run = true;
               }
 
-          if(run)ffm.on('error', function(err, stdout, stderr) {
+          if(run)ffm.on('error', (err, stdout, stderr) => {
             console.log(stdout, stderr);
-            Fiber(function() {
-              Files.update({_id:fileObj._id},{$set:{'metadata.conversionError':err.message, 'metadata.err':err, 'metadata.stderr':stde}});
+            Fiber(() => {
+              Files.update({_id:fileObj._id},{$set:{'metadata.conversionError':err.message, 'metadata.err':err, 'metadata.stderr':stderr}});
               done();
             }).run();
-          }).on('progress', function(progress) {
+          }).on('progress', (progress) => {
             if(++count > 10) {
               count = 0;
               perc = progress.percent;
               if(perc > 100 )perc = 100;
-              Fiber(function() {
+              Fiber(() => {
                 Files.update({_id:fileObj._id},{$set:{"metadata.conversionProgress":Math.round(perc)}});
               }).run();
             }
-          }).on('end', function() {
-            Fiber(function() {
+          }).on('end', () => {
+            Fiber(() => {
               Files.update({_id:fileObj._id},{$set:{'metadata.converted':true}});
               if (transformedMedia.indexOf(fileObj._id) > -1) transformedMedia.splice(transformedMedia.indexOf(fileObj._id), 1);
               done();
@@ -122,7 +122,7 @@ if(Meteor.isServer) {
     return true;
   };
 
-  metaTransform = function(fileObj, readStream, writeStream) {
+  metaTransform = (fileObj, readStream, writeStream) => {
     if(!Files) return false;
     if(fileObj.original.type == 'video/mp4' ||
       fileObj.original.type == 'video/ogv' ||

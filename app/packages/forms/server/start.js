@@ -79,7 +79,7 @@ processForm = function(id, formData) {
       });
     };
     form.collection.before.remove(function (userId, doc) {
-      Files.find({"metadata.formId":form.formId, 'metadata.parentId':doc._id}).forEach(function(doc) {doc.remove()});
+      Files.find({"metadata.formId":form._id, 'metadata.parentId':doc._id}).forEach(function(file) {file.remove()});
     });
 
     createHook(Fields.hooks.after.update, form.collection.after.update, form);
