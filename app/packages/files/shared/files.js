@@ -46,8 +46,7 @@ if(Meteor.isServer) {
     //.gravity('Center').crop(300, 300).quality(100).autoOrient().stream().pipe(writeStream);
   }
 
-  mediaTask = () => {
-    var url=absolutePath+"/"+masterStore.adapter.fileKey(fileObj);
+  mediaTask = (url) => {
     ffm = ffmpeg(url);
     return (done) => {
         var count = 0;
@@ -114,8 +113,10 @@ if(Meteor.isServer) {
     if(typeof Files === 'undefined') {
       return false;
     }
+    var url=absolutePath+"/"+masterStore.adapter.fileKey(fileObj);
+
     writeStream.on('finish', () => {
-      queue.add(mediaTask);
+      queue.add(mediaTask(url));
     });
 
     return true;
