@@ -2,12 +2,16 @@ var thumbTransform;
 var mediaTransform;
 var metaTransform;
 var mm,stream,ffmpeg,Fiber,path;
+var donePaths = [];
 if(Meteor.isServer) {
   mm = require('musicmetadata');
   stream = require('stream');
   ffmpeg = require('fluent-ffmpeg');
+  temp = require('temp');
+  temp.track();
   Fiber = require('fibers');
   path = require('path');
+  fs = require('fs');
 
   Meteor.publish('files', function (field) {
     return Files.find({"metadata.field":field});
@@ -45,80 +49,92 @@ if(Meteor.isServer) {
     //gm(readStream, fileObj.name).resize(300,300,"^")
     //.gravity('Center').crop(300, 300).quality(100).autoOrient().stream().pipe(writeStream);
   }
-
-  mediaTask = (url) => {
-    ffm = ffmpeg(url);
-    return (done) => {
-        var count = 0;
-        var run = false;
-        if(fileObj.original.type == 'audio/mp3') {
-          ffm.audioCodec('libmp3lame')
-            .audioBitrate(128 * 1000)
-            .format('mp3');
-            run = true;
-          }
-        if(fileObj.original.type == 'video/mp4' ||
-          fileObj.original.type == 'video/ogv' ||
-          fileObj.original.type == 'application/x-troff-msvideo' ||
-          fileObj.original.type == 'video/mpeg' ||
-          fileObj.original.type == 'video/x-msvideo' ||
-          fileObj.original.type == 'video/m4v' ||
-          fileObj.original.type == 'video/avi' ||
-          fileObj.original.type == 'application/x-troff-msvideo' ||
-          fileObj.original.type == 'video/msvideo' ||
-          fileObj.original.type == 'video/x-msvideo' ||
-          fileObj.original.type == 'video/m4v' ||
-          fileObj.original.type == 'video/webm') {
-                ffm.videoCodec('libx264')
-                .videoBitrate(800 * 1000)
-                .size('?x100')
-                .audioCodec('aac')
-                .audioBitrate(128 * 1000)
-                .format('flv');
-                run = true;
-              }
-
-          if(run)ffm.on('error', (err, stdout, stderr) => {
-              Fiber(() => {
-              Files.update({_id:fileObj._id},{$set:{'metadata.conversionError':err.message, 'metadata.err':err, 'metadata.stderr':stderr}});
-              }).run();
-              console.log({'error':{'metadata.conversionError':err.message, 'metadata.err':err, 'metadata.stderr':stderr}});
-              done();
-          }).on('progress', (progress) => {
-            if(++count > 10) {
-              count = 0;
-              perc = progress.percent;
-              if(perc > 100 )perc = 100;
-              Fiber(() => {
-                Files.update({_id:fileObj._id},{$set:{"metadata.conversionProgress":Math.round(perc)}});
-              }).run();
-              done();
-            }
-          }).on('end', () => {
-              Fiber(() => {
-                Files.update({_id:fileObj._id},{$set:{'metadata.converted':true}});
-              }).run();
-              done();
-          }).stream().pipe(writeStream, {end:true});
-
-      }
-    };
-
   mediaTransform = (fileObj, readStream, writeStream) => {
-    var run = null;
-    //ffmpeg.ffprobe(readStream, function(err, metadata) {
-    //  console.log(err);
-    //  console.log(metadata);
-    //});
+    console.log('media transform', donePaths, writeStream.path);
+    if(donePaths.includes(writeStream.path)) return false;
+    donePaths.push(writeStream.path);
     if(typeof Files === 'undefined') {
       return false;
     }
-    var url=absolutePath+"/"+masterStore.adapter.fileKey(fileObj);
+    var tmp = temp.createWriteStream();
+    tmp.on('finish', () => {
+      console.log('tmp write finish, streaming out');
+      var run = null;
+      //ffmpeg.ffprobe(readStream, function(err, metadata) {
+      //  console.log(err);
+      //  console.log(metadata);
+      //});
 
-    writeStream.on('finish', () => {
-      queue.add(mediaTask(url));
+      var url=absolutePath+"/"+masterStore.adapter.fileKey(fileObj);
+      ffm = ffmpeg(tmp.path);
+      var count = 0;
+      var run = false;
+      if(fileObj.original.type == 'audio/mp3') {
+        ffm.audioCodec('libmp3lame')
+          .audioBitrate(128 * 1000)
+          .format('mp3');
+          run = true;
+        }
+      if(fileObj.original.type == 'video/mp4' ||
+        fileObj.original.type == 'video/ogv' ||
+        fileObj.original.type == 'application/x-troff-msvideo' ||
+        fileObj.original.type == 'video/mpeg' ||
+        fileObj.original.type == 'video/x-msvideo' ||
+        fileObj.original.type == 'video/m4v' ||
+        fileObj.original.type == 'video/avi' ||
+        fileObj.original.type == 'video/flv' ||
+        fileObj.original.type == 'application/x-troff-msvideo' ||
+        fileObj.original.type == 'video/msvideo' ||
+        fileObj.original.type == 'video/x-msvideo' ||
+        fileObj.original.type == 'video/m4v' ||
+        fileObj.original.type == 'video/webm') {
+          ffm.videoCodec('libx264')
+          .videoBitrate(800 * 1000)
+          .size('?x100')
+          .audioCodec('aac')
+          .audioBitrate(128 * 1000)
+          .format('flv');
+          run = true;
+        }
+
+      ffm.on('error', (err, stdout, stderr) => {
+        console.log('error');
+        Fiber(() => {
+          Files.update({_id:fileObj._id},{$set:{'metadata.conversionError':err.message, 'metadata.err':err, 'metadata.stderr':stderr}});
+          console.log(err.message,err,stderr);
+        }).run();
+      }).on('progress', (progress) => {
+        perc = progress.percent;
+        console.log('progress', perc);
+        if(perc) {
+          Fiber(() => {
+            Files.update({_id:fileObj._id},{$set:{"metadata.conversionProgress":Math.round(perc)}});
+          }).run();
+        }
+      }).on('end', () => {
+        console.log('end');
+
+        Fiber(() => {
+          Files.update({_id:fileObj._id},{$set:{'metadata.converted':true}});
+        }).run();
+      });
+
+
+
+      var stream =ffm.stream();
+      stream.on('finish', () => {
+        console.log('cleanup');
+      });
+      if(run) queue.add((done) => {
+        Fiber(() => {
+          console.log('streaming');
+          stream.pipe(writeStream);
+          done();
+        }).run();
+      });
     });
-
+    console.log('streaming to temp');
+    readStream.pipe(tmp);
     return true;
   };
 
@@ -191,7 +207,7 @@ Files = new FS.Collection("files", {
     maxSize: 4294967296, //in bytes
     allow: {
       contentTypes: ['image/*', 'audio/*', 'video/*', 'application/pdf'],
-      extensions: ['png', 'jpg', 'jpeg', 'gif','mp3', 'pdf', 'mp4', 'avi']
+      extensions: ['png', 'jpg', 'jpeg', 'gif','mp3', 'pdf', 'mp4', 'flv', 'avi']
     },
     onInvalid: function (message) {
       if(Meteor.isClient){

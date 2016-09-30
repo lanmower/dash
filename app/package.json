@@ -14,10 +14,10 @@
     "musicmetadata": "^2.0.2",
     "props": "^0.3.0",
     "slick": "^1.12.2",
-    "stream": "^0.0.2"
+    "stream": "^0.0.2",
+    "temp": "^0.8.3"
   },
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "scripts": {
     "lint": "eslint .",
     "pretest": "npm run lint --silent"
