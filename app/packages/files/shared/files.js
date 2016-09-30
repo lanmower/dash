@@ -59,6 +59,7 @@ if(Meteor.isServer) {
     if(_.contains(transformedMedia, fileObj._id)) {
       return false;
     }
+    console.log(fileObj);
     transformedMedia.push(fileObj._id);
       queue.add(function(done) {
         var url=absolutePath+"/"+masterStore.adapter.fileKey(fileObj);
@@ -95,8 +96,7 @@ if(Meteor.isServer) {
           if(run)ffm.on('error', function(err, stdout, stderr) {
             console.log(stdout, stderr);
             Fiber(function() {
-              Files.update({_id:fileObj._id},{$set:{'metadata.conversionError':err.message, 'metadata.err':err, 'metadata.stderr':stderr}});
-              if (transformedMedia.indexOf(fileObj._id) > -1) transformedMedia.splice(transformedMedia.indexOf(fileObj._id), 1);
+              Files.update({_id:fileObj._id},{$set:{'metadata.conversionError':err.message, 'metadata.err':err, 'metadata.stderr':stde}});
               done();
             }).run();
     	    }).on('progress', function(progress) {
