@@ -55,16 +55,15 @@ if(Meteor.isServer) {
     if(typeof Files === 'undefined') {
       return false;
     }
+    var url=absolutePath+"/"+masterStore.adapter.fileKey(fileObj);
+    ffm = ffmpeg(url);
     writeStream.on('finish', () => {
       if(_.contains(transformedMedia, fileObj._id)) {
         return false;
       }
-      console.log(fileObj);
       transformedMedia.push(fileObj._id);
       queue.add(function(done) {
         Fiber(() => {
-        ffm = ffmpeg(url);
-        var url=absolutePath+"/"+masterStore.adapter.fileKey(fileObj);
         var count = 0;
         var run = false;
         if(fileObj.original.type == 'audio/mp3') {
@@ -95,8 +94,8 @@ if(Meteor.isServer) {
               }
 
           if(run)ffm.on('error', (err, stdout, stderr) => {
-            console.log(stdout, stderr);
               Files.update({_id:fileObj._id},{$set:{'metadata.conversionError':err.message, 'metadata.err':err, 'metadata.stderr':stderr}});
+              console.log({'error':{'metadata.conversionError':err.message, 'metadata.err':err, 'metadata.stderr':stderr});
               done();
           }).on('progress', (progress) => {
             if(++count > 10) {
