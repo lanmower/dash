@@ -43,8 +43,10 @@
   <table class="table table-hover">
   <tr>
     <th>Videos</th>
-    {{#if metadata.converted}}
-      <td class="playTrack">play</td>
+  </tr>
+  {{#each files}}
+  <tr>
+    <td><a href="{{this.url download=true}}">download</a>      {{#if metadata.converted}}<a class="playVideo">play</a>
     {{else}}
       {{#if metadata.conversionProgress}}
         Converting: {{metadata.conversionProgress}}%
@@ -52,11 +54,7 @@
         {{#if metadata.conversionError}} Conversion error. {{metadata.conversionError}}
         {{else}}Queued for conversion.{{/if}}
       {{/if}}
-    {{/if}}
-  </tr>
-  {{#each files}}
-  <tr>
-    <td><a href="{{this.url download=true}}">download</a>      {{#if metadata.converted}}<a class="playVideo">play</a>{{/if}}</td>
+    {{/if}}</td>
   </tr>
   {{/each}}
   </table>

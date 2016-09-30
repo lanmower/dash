@@ -82,6 +82,7 @@ Package.onUse(function(api) {
 
   api.mainModule('pages.js');
   api.export("Pages");
+  api.export("playlist");
 
 });
 
