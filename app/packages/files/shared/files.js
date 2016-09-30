@@ -46,24 +46,10 @@ if(Meteor.isServer) {
     //.gravity('Center').crop(300, 300).quality(100).autoOrient().stream().pipe(writeStream);
   }
 
-  mediaTransform = (fileObj, readStream, writeStream) => {
-    var run = null;
-    //ffmpeg.ffprobe(readStream, function(err, metadata) {
-    //  console.log(err);
-    //  console.log(metadata);
-    //});
-    if(typeof Files === 'undefined') {
-      return false;
-    }
+  mediaTask = () => {
     var url=absolutePath+"/"+masterStore.adapter.fileKey(fileObj);
     ffm = ffmpeg(url);
-    writeStream.on('finish', () => {
-      if(_.contains(transformedMedia, fileObj._id)) {
-        return false;
-      }
-      transformedMedia.push(fileObj._id);
-      queue.add(function(done) {
-        Fiber(() => {
+    return (done) => {
         var count = 0;
         var run = false;
         if(fileObj.original.type == 'audio/mp3') {
@@ -94,7 +80,9 @@ if(Meteor.isServer) {
               }
 
           if(run)ffm.on('error', (err, stdout, stderr) => {
+              Fiber(() => {
               Files.update({_id:fileObj._id},{$set:{'metadata.conversionError':err.message, 'metadata.err':err, 'metadata.stderr':stderr}});
+              }).run();
               console.log({'error':{'metadata.conversionError':err.message, 'metadata.err':err, 'metadata.stderr':stderr}});
               done();
           }).on('progress', (progress) => {
@@ -102,18 +90,32 @@ if(Meteor.isServer) {
               count = 0;
               perc = progress.percent;
               if(perc > 100 )perc = 100;
+              Fiber(() => {
                 Files.update({_id:fileObj._id},{$set:{"metadata.conversionProgress":Math.round(perc)}});
-                done();
+              }).run();
+              done();
             }
           }).on('end', () => {
-              Files.update({_id:fileObj._id},{$set:{'metadata.converted':true}});
-              if (transformedMedia.indexOf(fileObj._id) > -1) transformedMedia.splice(transformedMedia.indexOf(fileObj._id), 1);
+              Fiber(() => {
+                Files.update({_id:fileObj._id},{$set:{'metadata.converted':true}});
+              }).run();
               done();
           }).stream().pipe(writeStream, {end:true});
-        }).run();
 
-      });
+      }
+    };
 
+  mediaTransform = (fileObj, readStream, writeStream) => {
+    var run = null;
+    //ffmpeg.ffprobe(readStream, function(err, metadata) {
+    //  console.log(err);
+    //  console.log(metadata);
+    //});
+    if(typeof Files === 'undefined') {
+      return false;
+    }
+    writeStream.on('finish', () => {
+      queue.add(mediaTask);
     });
 
     return true;
@@ -174,7 +176,6 @@ var masterStore = new FS.Store.FileSystem("files");
 var thumbnailStore = new FS.Store.FileSystem("thumbs", {
   transformWrite: thumbTransform
 });
-transformedMedia = [];
 var mediaStore = new FS.Store.FileSystem("media", {
   //Create the thumbnail as we save to the store.
   transformWrite: mediaTransform
