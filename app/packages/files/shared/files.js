@@ -52,10 +52,10 @@ if(Meteor.isServer) {
     //  console.log(err);
     //  console.log(metadata);
     //});
-    if(typeof Files !== 'undefined') {
-    } else return false;
-
-
+    if(typeof Files === 'undefined') {
+      return false;
+    }
+    writeStream.on('finish', () => {
     if(_.contains(transformedMedia, fileObj._id)) {
       return false;
     }
@@ -68,8 +68,8 @@ if(Meteor.isServer) {
         ffm = ffmpeg(url);
         if(fileObj.original.type == 'audio/mp3') {
           ffm.audioCodec('libmp3lame')
-      	    .audioBitrate(128 * 1000)
-      	    .format('mp3');
+            .audioBitrate(128 * 1000)
+            .format('mp3');
             run = true;
           }
         if(fileObj.original.type == 'video/mp4' ||
@@ -99,7 +99,7 @@ if(Meteor.isServer) {
               Files.update({_id:fileObj._id},{$set:{'metadata.conversionError':err.message, 'metadata.err':err, 'metadata.stderr':stde}});
               done();
             }).run();
-    	    }).on('progress', function(progress) {
+          }).on('progress', function(progress) {
             if(++count > 10) {
               count = 0;
               perc = progress.percent;
@@ -114,8 +114,10 @@ if(Meteor.isServer) {
               if (transformedMedia.indexOf(fileObj._id) > -1) transformedMedia.splice(transformedMedia.indexOf(fileObj._id), 1);
               done();
             }).run();
-    	    }).stream().pipe(writeStream, {end:true});
+          }).stream().pipe(writeStream, {end:true});
       });
+
+    });
 
     return true;
   };
