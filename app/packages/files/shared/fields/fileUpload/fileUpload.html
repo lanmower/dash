@@ -30,7 +30,11 @@
         {{#if metadata.conversionProgress}}
           Converting: {{metadata.conversionProgress}}%
           {{else}}
-          {{#if metadata.conversionError}} Conversion error. {{metadata.conversionError}}
+          {{#if metadata.conversionError}}
+          Conversion error. {{metadata.conversionError}} 
+          <pre>
+          {{metadata.stderr}}
+          </pre>
           {{else}}Queued for conversion.{{/if}}
         {{/if}}
       {{/if}}

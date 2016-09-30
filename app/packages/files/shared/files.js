@@ -62,10 +62,11 @@ if(Meteor.isServer) {
       console.log(fileObj);
       transformedMedia.push(fileObj._id);
       queue.add(function(done) {
+        Fiber(() => {
+        ffm = ffmpeg(url);
         var url=absolutePath+"/"+masterStore.adapter.fileKey(fileObj);
         var count = 0;
         var run = false;
-        ffm = ffmpeg(url);
         if(fileObj.original.type == 'audio/mp3') {
           ffm.audioCodec('libmp3lame')
             .audioBitrate(128 * 1000)
@@ -95,26 +96,23 @@ if(Meteor.isServer) {
 
           if(run)ffm.on('error', (err, stdout, stderr) => {
             console.log(stdout, stderr);
-            Fiber(() => {
               Files.update({_id:fileObj._id},{$set:{'metadata.conversionError':err.message, 'metadata.err':err, 'metadata.stderr':stderr}});
               done();
-            }).run();
           }).on('progress', (progress) => {
             if(++count > 10) {
               count = 0;
               perc = progress.percent;
               if(perc > 100 )perc = 100;
-              Fiber(() => {
                 Files.update({_id:fileObj._id},{$set:{"metadata.conversionProgress":Math.round(perc)}});
-              }).run();
+                done();
             }
           }).on('end', () => {
-            Fiber(() => {
               Files.update({_id:fileObj._id},{$set:{'metadata.converted':true}});
               if (transformedMedia.indexOf(fileObj._id) > -1) transformedMedia.splice(transformedMedia.indexOf(fileObj._id), 1);
               done();
-            }).run();
           }).stream().pipe(writeStream, {end:true});
+        }).run();
+
       });
 
     });
