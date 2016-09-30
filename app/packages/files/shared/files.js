@@ -95,7 +95,7 @@ if(Meteor.isServer) {
 
           if(run)ffm.on('error', (err, stdout, stderr) => {
               Files.update({_id:fileObj._id},{$set:{'metadata.conversionError':err.message, 'metadata.err':err, 'metadata.stderr':stderr}});
-              console.log({'error':{'metadata.conversionError':err.message, 'metadata.err':err, 'metadata.stderr':stderr});
+              console.log({'error':{'metadata.conversionError':err.message, 'metadata.err':err, 'metadata.stderr':stderr}});
               done();
           }).on('progress', (progress) => {
             if(++count > 10) {
