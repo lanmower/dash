@@ -135,7 +135,8 @@ Meteor.methods({
     Meteor.users.find().forEach(function(user) {
       try {
         alias = user.profile.email;
-        if (user && user.services && user.services.google) {
+        if (user && user.services && user.services.google && user.profile.name != 'ADMIN') {
+
             var options = {};
             var imageUrl ="";
             var adminUser = Meteor.users.findOne({"profile.name":"ADMIN"});
