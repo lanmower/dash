@@ -1,3 +1,6 @@
+import temp from "temp"
+  temp.track();
+
 var thumbTransform;
 var mediaTransform;
 var metaTransform;
@@ -7,8 +10,6 @@ if(Meteor.isServer) {
   mm = require('musicmetadata');
   stream = require('stream');
   ffmpeg = require('fluent-ffmpeg');
-  temp = require('temp');
-  temp.track();
   Fiber = require('fibers');
   path = require('path');
   fs = require('fs');
