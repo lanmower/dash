@@ -24,20 +24,23 @@
   {{#with FS.GetFile "files" profile.picture}}<img src="{{url}}" class="img-circle" style="width: 100%;max-width: 45px;height: auto;"/>{{/with}}
 </template>
 <template name="UserListCellButtons">
+  <button class="btn btn-info chat" type="button">Chat</button>
+  {{#if userIsInRole 'gmail-admin'}}
+    {{#linkTo route='mailList' user=_id}}
+      <button class="btn btn-info" type="button">E-Mails</button>
+    {{/linkTo}}
+  {{/if}}
   {{#if userIsInRole 'user-admin'}}
     {{#linkTo route='editUser'}}
       <button class="btn btn-info" type="button">Edit</button>
     {{/linkTo}}
     {{#callable name="downloadAvatar" userId=_id}}
-      <button class="btn btn-info" type="button">Download Avatar</button>
+      <button class="btn btn-info" type="button">Update Avatar</button>
     {{/callable}}
   {{/if}}
-  <button class="btn btn-info chat" type="button">Chat</button>
-  {{#if userIsInRole 'gmail-admin'}}
-    {{#linkTo route='mailList' user=_id}}
-      <button class="btn btn-info" type="button">Gmail Messages</button>
-    {{/linkTo}}
-  {{/if}}
+  {{#callable name="changePw" _id=_id}}
+    <button class="btn btn-info" type="button">Change Password</button>
+  {{/callable}}
   {{#if isImpersonating}}
     {{else}}
     <button data-impersonate="{{_id}}" class="btn btn-info">Impersonate</button>
