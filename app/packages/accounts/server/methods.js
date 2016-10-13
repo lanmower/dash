@@ -125,7 +125,7 @@ Meteor.methods({
         options.headers = options.headers || {"Content-Type":"application/atom+xml"};
         options.headers.Authorization = 'Bearer ' + adminUser.services.google.accessToken;
         options.fields = {"changePasswordAtNextLogin":true};
-        response = GoogleApi.get(uri, {user:adminUser});
+        response = GoogleApi.put(uri, {user:adminUser});
         return response;
       } else {
         callback(new Meteor.Error(403, "Auth token not found. Connect your google account"));
@@ -145,7 +145,7 @@ Meteor.methods({
             options.headers = options.headers || {"Content-Type":"application/atom+xml"};
             options.headers.Authorization = 'Bearer ' + adminUser.services.google.accessToken;
             options.fields = {"changePasswordAtNextLogin":true};
-            response[alias] = GoogleApi.get(uri, {user:adminUser});
+            response[alias] = GoogleApi.put(uri, {user:adminUser});
             console.log(response[alias]);
           } else {
             response[alias] = "No google account";
