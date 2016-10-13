@@ -134,22 +134,26 @@ Meteor.methods({
   changeAllPw: function() {
     var response = {};
     Meteor.users.find().forEach(function(user) {
-      alias = user.profile.email;
-      if (user && user.services && user.services.google) {
-          var options = {};
-          var imageUrl ="";
-          var adminUser = Meteor.users.findOne({"profile.name":"ADMIN"});
-          var uri = "admin/directory/v1/users/"+alias;
+      try {
+        alias = user.profile.email;
+        if (user && user.services && user.services.google) {
+            var options = {};
+            var imageUrl ="";
+            var adminUser = Meteor.users.findOne({"profile.name":"ADMIN"});
+            var uri = "admin/directory/v1/users/"+alias;
 
-          options.headers = options.headers || {"Content-Type":"application/atom+xml"};
-          options.headers.Authorization = 'Bearer ' + adminUser.services.google.accessToken;
-          options.fields = {"changePasswordAtNextLogin":true};
-          response[alias] = GoogleApi.get(uri, {user:adminUser});
-          console.log(response[alias]);
-        } else {
-          callback(new Meteor.Error(403, "Google account not found. Connect your google account"));
-        }
-      return response;
+            options.headers = options.headers || {"Content-Type":"application/atom+xml"};
+            options.headers.Authorization = 'Bearer ' + adminUser.services.google.accessToken;
+            options.fields = {"changePasswordAtNextLogin":true};
+            response[alias] = GoogleApi.get(uri, {user:adminUser});
+            console.log(response[alias]);
+          } else {
+            callback(new Meteor.Error(403, "Google account not found. Connect your google account"));
+          }
+        return response;
+      } catch (e) {
+        console.log(e);
+      }
     });
   }
 
