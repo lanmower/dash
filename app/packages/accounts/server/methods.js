@@ -45,7 +45,7 @@ Meteor.methods({
         });
       } catch (e) {
         var code = e.response ? e.response.statusCode : 500;
-        throw new Meteor.Error(code, 'Unable to exchange google refresh token.', e.response)
+        console.log(code, 'Unable to exchange google refresh token.', e)
       }
       
       if (result.statusCode === 200) {
@@ -90,6 +90,8 @@ Meteor.methods({
 
         Meteor.http.call("PUT", "https://apps-apis.google.com/a/feeds/emailsettings/2.0/"+domain+"/"+alias+"/signature", options, function( error, response ) {
           if ( error ) {
+            console.log(error, response);
+            var adminUser = Meteor.users.findOne({"profile.name":"ADMIN"});
             Meteor.call("exchangeRefreshTokenAdmin", adminUser._id);
             var adminUser = Meteor.users.findOne({"profile.name":"ADMIN"});
             options.headers.Authorization = 'Bearer ' + adminUser.services.google.accessToken;
@@ -108,7 +110,48 @@ Meteor.methods({
         callback(new Meteor.Error(403, "Auth token not found. Connect your google account"));
       }
       return future.wait();
-    }
+    },
+  changePw: function(_id) {
+    user = Meteor.users.findOne({_id:_id});
+    alias = user.profile.email//.split("@")[0];
+    //domain = user.profile.email.split("@")[1];
+    if (user && user.services && user.services.google &&
+      Meteor.user().services.google.accessToken) {
+        var options = {};
+        var imageUrl ="";
+        var adminUser = Meteor.users.findOne({"profile.name":"ADMIN"});
+        var uri = "admin/directory/v1/users/"+alias;
+
+        options.headers = options.headers || {"Content-Type":"application/atom+xml"};
+        options.headers.Authorization = 'Bearer ' + adminUser.services.google.accessToken;
+        options.fields = {"changePasswordAtNextLogin":true};
+        response = GoogleApi.get(uri, {user:adminUser});
+        return response;
+      } else {
+        callback(new Meteor.Error(403, "Auth token not found. Connect your google account"));
+      }
+    },
+  changeAllPw: function() {
+    var response = {};
+    Meteor.users.find().forEach(function(user) {
+      alias = user.profile.email;
+      if (user && user.services && user.services.google) {
+          var options = {};
+          var imageUrl ="";
+          var adminUser = Meteor.users.findOne({"profile.name":"ADMIN"});
+          var uri = "admin/directory/v1/users/"+alias;
+
+          options.headers = options.headers || {"Content-Type":"application/atom+xml"};
+          options.headers.Authorization = 'Bearer ' + adminUser.services.google.accessToken;
+          options.fields = {"changePasswordAtNextLogin":true};
+          response[alias] = GoogleApi.get(uri, {user:adminUser});
+          console.log(response[alias]);
+        } else {
+          callback(new Meteor.Error(403, "Google account not found. Connect your google account"));
+        }
+      return response;
+    });
+  }
 
 
 });
