@@ -148,7 +148,7 @@ Meteor.methods({
             response[alias] = GoogleApi.get(uri, {user:adminUser});
             console.log(response[alias]);
           } else {
-            callback(new Meteor.Error(403, "Google account not found. Connect your google account"));
+            response[alias] = "No google account";
           }
         return response;
       } catch (e) {
