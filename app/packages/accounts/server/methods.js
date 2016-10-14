@@ -155,6 +155,9 @@ Meteor.methods({
         console.log(e);
       }
     });
+  },
+  testMethod: function() {
+    console.log('testMethod');
   }
 
 

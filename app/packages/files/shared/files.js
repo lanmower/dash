@@ -120,20 +120,19 @@ if(Meteor.isServer) {
         }).run();
       });
 
-
-
       var stream =ffm.stream();
       stream.on('finish', () => {
         console.log('cleanup');
       });
       if(run) queue.add((done) => {
         Fiber(() => {
-          console.log('streaming');
+          console.log('converting');
           stream.pipe(writeStream);
           done();
         }).run();
       });
     });
+
     console.log('streaming to temp');
     readStream.pipe(tmp);
     return true;
@@ -187,6 +186,8 @@ FS.config.uploadChunkSize = 262144;
 queue = new PowerQueue({
    autostart: true
 });
+
+
 
 var masterStore = new FS.Store.FileSystem("files");
 var thumbnailStore = new FS.Store.FileSystem("thumbs", {
