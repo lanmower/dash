@@ -5,6 +5,7 @@
   "main": "mobile-config.js",
   "dependencies": {
     "batchelor": "^2.0.1",
+    "delayed-stream": "^1.0.0",
     "emitter": "0.0.5",
     "fluent-ffmpeg": "^2.0.1",
     "jquery": "^2.2.2",
@@ -19,8 +20,6 @@
   },
   "devDependencies": {},
   "scripts": {
-    "lint": "eslint .",
-    "pretest": "npm run lint --silent"
   },
   "eslintConfig": {
     "plugins": [
