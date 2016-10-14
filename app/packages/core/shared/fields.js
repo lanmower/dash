@@ -1,4 +1,6 @@
 Fields = new Mongo.Collection("fields");
+scheduled = new Mongo.Collection("scheduled");
+ 
 Fields.schemas = {};
 Fields.hooks = {after:{update:{}, insert:{}, remove:{}, startup:{}}, before:{update:{}, insert:{}, remove:{}}};
 

@@ -52,3 +52,4 @@ standard-minifiers@1.0.6
 gwendall:impersonate
 check
 percolate:synced-cron
+almagest:schedules

@@ -22,12 +22,10 @@ Package.onUse(function(api) {
   api.use('dburles:collection-helpers');
   api.use('matb33:collection-hooks');
   api.use('aldeed:collection2');
-  api.use('percolate:synced-cron');
   api.use('check');
   api.mainModule('core.js');
 
   // Generated with: github.com/philcockfield/meteor-package-paths
-  api.addFiles('server/syncedcron.js', ['server']);
   api.addFiles('shared/types.js', ['client', 'server']);
   api.addFiles('shared/schema.js', ['client', 'server']);
   api.addFiles('shared/widgets.js', ['client', 'server']);
@@ -39,10 +37,7 @@ Package.onUse(function(api) {
   api.addFiles('client/lib/utils.js', 'client');
   api.addFiles('client/stylesheets/sidebar.css', 'client');
   api.addFiles('client/stylesheets/main.css', 'client');
-  api.export('gong');
-  api.export("Widgets");
-  api.export("Fields");
-  api.export("userIsInRole");
+  api.export(["Widgets", "Fields", 'gong']);
 });
 
 Package.onTest(function(api) {
