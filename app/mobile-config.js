@@ -1,7 +1,7 @@
 // This section sets up some basic app metadata,
 // the entire section is optional.
 App.info({
-  id: 'com.almagest.coas',
+  id: 'beanscount.co.za',
   name: 'Coastal Accounting',
   description: 'Coastal Accounting Dashboard',
   author: 'Almagest Fraternite',
@@ -13,4 +13,8 @@ App.icons({
 });
 
 App.launchScreens({
+});
+
+App.configurePlugin('phonegap-plugin-push', {
+  SENDER_ID: 669341428356
 });

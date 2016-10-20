@@ -41,6 +41,7 @@ almagest:carousel
 almagest:countdown
 almagest:currency
 almagest:calendar
+almagest:schedules
 
 udondan:slick
 
@@ -51,5 +52,4 @@ shell-server@0.2.1
 standard-minifiers@1.0.6
 gwendall:impersonate
 check
-percolate:synced-cron
-almagest:schedules
+force-ssl
