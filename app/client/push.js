@@ -1,4 +1,6 @@
-Cpn = {};
+/*Cpn = {};
+
+
 Cpn.serviceWorkerRegistration = function () {
   console.log("serviceWorkerRegistration called");
 
@@ -49,7 +51,8 @@ initialiseState = function () {
         }
 
         // Keep your server in sync with the latest subscriptionId
-        sendSubscriptionToServer(subscription);
+        console.log(subscription);
+        Meteor.call('gcmSubscription', subscription, function (r, e) {console.log(r, e);});
       })
       .catch(function (err) {
         console.warn('Error during getSubscription()', err);
@@ -59,12 +62,14 @@ initialiseState = function () {
 
 function subscribe() {
   navigator.serviceWorker.ready.then(function (serviceWorkerRegistration) {
-    serviceWorkerRegistration.pushManager.subscribe()
+    serviceWorkerRegistration.pushManager.subscribe({userVisibleOnly:true})
       .then(function (subscription) {
         // The subscription was successful
         // TODO: Send the subscription.endpoint to your server  
         // and save it to send a push message at a later date
-        return sendSubscriptionToServer(subscription);
+        console.log(subscription);
+        Meteor.call('gcmSubscription', subscription, function (r, e) {console.log(r, e);});
+        //return sendSubscriptionToServer(subscription);
       })
       .catch(function (e) {
         if (Notification.permission === 'denied') {
@@ -81,4 +86,4 @@ function subscribe() {
         }
       });
   });
-}
+}*/
