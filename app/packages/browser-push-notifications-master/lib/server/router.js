@@ -29,12 +29,13 @@ Router.map(function() {
         // We send the notifications in the response and as then the
         // notifictions have been requested, we can set the callback date so
         // they cannot be requested again
+        //Meteor.bindEnvironment(function() {
+        var remove = BrowserPushNotifications.removeWhenArchived;
+        bpNotifications.archive(notifications, remove);
+        //})
+
         this.response.end(
-          JSON.stringify({notifications: notifications}),
-          Meteor.bindEnvironment(function() {
-            var remove = BrowserPushNotifications.removeWhenArchived;
-            bpNotifications.archive(notifications, remove);
-          })
+          JSON.stringify({notifications: notifications})
         );
       }
     }
