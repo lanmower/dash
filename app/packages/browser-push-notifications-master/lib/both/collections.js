@@ -10,6 +10,10 @@ bpNotifications.attachSchema(new SimpleSchema({
     type: String,
     optional: true,
   },
+  url: {
+    type: String,
+    optional: true,
+  },
   callbackAt: {
     optional: true,
     type: Date,
@@ -49,6 +53,7 @@ bpNotifications.send = function(notification, userIds) {
     title: String,
     message: Match.Optional(String),
     icon: Match.Optional(String),
+    url: Match.Optional(String)
   });
 
   // If userIds is not set, default it to the current user
