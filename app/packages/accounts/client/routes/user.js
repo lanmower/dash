@@ -44,7 +44,6 @@ Router.route('user/edit/:_id', {
 			this.next();
 	  }
 });
-
 Router.route('user/profile', {
   name: 'editProfile',
 	parent: 'usersList',

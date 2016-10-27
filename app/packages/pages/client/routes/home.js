@@ -22,6 +22,15 @@ Router.route('/', {
 	title: 'Home'
 });
 
+Meteor.startup(function() {
+  Router.route('/(.*)', function() {//regex for every route, must be last
+      if (this.ready()) {
+          document.title = "404";
+          this.render('error');
+      } else this.render('loading');
+  })
+});
+
 T9n.setLanguage('en');
 
 // Protect all Routes

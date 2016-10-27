@@ -18,16 +18,18 @@ Package.onUse(function(api) {
   api.use('underscore');
   api.use('session');
   api.use('reactive-var');
+  api.use("iron:router");
 
   api.use('aldeed:autoform');
-  api.use("aldeed:delete-button");
+  api.use('aldeed:delete-button');
+  api.use('matb33:collection-hooks');
 
   api.mainModule('messaging.js');
 
-  // Generated with: github.com/philcockfield/meteor-package-paths
 
-    api.addFiles('shared/collections/messages.js', ['client', 'server']);
-    api.addFiles('server/publish.js', 'server');
+  api.addFiles('shared/collections/messages.js', ['client', 'server']);
+  api.addFiles('server/publish.js', 'server');
+  api.addFiles('routes/messages.js', 'client');
   api.addFiles('client/chat/chat.html', ['client']);
   api.addFiles('client/chat/chat.js', ['client']);
   api.addFiles('client/chat/chat.css', ['client']);
