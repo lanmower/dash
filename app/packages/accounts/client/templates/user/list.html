@@ -7,9 +7,11 @@
     </div>
 
     <div class="box-body">
+    <!--
     {{#callable name="changeAllPw" userId=_id}}
       <button class="btn btn-info" type="button">Force Change All Passwords</button>
     {{/callable}}
+    -->
 
     {{#if users}}
       {{> reactiveTable collection="tableUsers" fields=fields}}

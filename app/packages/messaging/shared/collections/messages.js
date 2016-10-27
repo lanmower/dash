@@ -31,21 +31,21 @@ Messages.attachSchema(new SimpleSchema(_.extend({
   },
 }, Meteor.schema())));
 
+Messages.allow({
+  insert: function (userId, doc) {
+    return true;
+  },
+
+  update: function (userId, doc, fieldNames, modifier) {
+    return true;
+  },
+
+  remove: function (userId, doc) {
+    return true;
+  }
+});
 if (Meteor.isServer) {
-  Messages.allow({
-    insert: function (userId, doc) {
-      return true;
-    },
-
-    update: function (userId, doc, fieldNames, modifier) {
-      return true;
-    },
-
-    remove: function (userId, doc) {
-      return true;
-    }
-  });
-  Messages.after.insert(function (userId, doc) {
+  Messages.after.insert(function (userId, doc)  {
     user = Meteor.users.findOne(userId);
     if(user) name = user.profile.name;
     bpNotifications.send({title:"From: "+ name, message:doc.body, url:"messages/userId"}, doc.to);
