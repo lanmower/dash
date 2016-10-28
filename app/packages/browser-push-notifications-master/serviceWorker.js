@@ -1,5 +1,4 @@
 self.addEventListener('push', showNotification);
-self.addEventListener('notificationclick', closeNotificationAndOpenWindow);
 
 function showNotification(event) {
   console.log('Received a push message', event);
@@ -7,6 +6,7 @@ function showNotification(event) {
   event.waitUntil(
     event.target.registration.pushManager.getSubscription().then(function(subscription) {
       console.log(subscription);
+      subscription.subscriptionId = subscription.endpoint.split('https://android.googleapis.com/gcm/send/')[1];
       var endpoint = event.target.registration.scope + 'bp_notifications/'
                    + encodeURIComponent(subscription.subscriptionId);
 
@@ -31,9 +31,13 @@ function showNotification(event) {
             sequence = sequence.then(
               self.registration.showNotification(notification.title, {
                 body: notification.message,
+                data: {url: notification.url},
                 icon: notification.icon,
+                actions: [  
+                   {action: 'reply', title: 'Reply'}
+                 ]  
               })
-            );
+              );
           });
           return sequence;
         });
@@ -43,6 +47,7 @@ function showNotification(event) {
           body: 'We were unable to get the information for this push message',
           icon: '/packages/femiveys_chrome-push-notifications/img/error.png',
           tag: 'notification-error'
+
         });
       })
     }).catch(function(err) {
@@ -50,26 +55,22 @@ function showNotification(event) {
     })
   );
 }
-
-
-function closeNotificationAndOpenWindow(event) {
-  console.log('event: ', event);
-  console.log('On notification click: ', event.notification.tag);
-  // Android doesn’t close the notification when you click on it
-  // See: http://crbug.com/463146
-  event.notification.close()
-
-  // This looks to see if the current is already open and
-  // focuses if it is
-  event.waitUntil(clients.matchAll({
-    type: "window"
-  }).then(function(clientList) {
-    for (var i = 0; i < clientList.length; i++) {
-      var client = clientList[i]
-      if (client.url == '/' && 'focus' in client)
-        return client.focus()
+self.addEventListener('notificationclick', event => {
+    const rootUrl = new URL('/', event.notification.data.url).href;
+    event.notification.close();
+    // Enumerate windows, and call window.focus(), or open a new one.
+    if (event.action === 'reply') {  
+      clients.openWindow(rootUrl);  
+    } else { event.waitUntil(
+      clients.matchAll().then(matchedClients => {
+        for (let client of matchedClients) {
+          if (client.url === rootUrl) {
+            return client.focus();
+          }
+        }
+        return clients.openWindow(rootUrl);
+      })
+    );
     }
-    if (clients.openWindow)
-      return clients.openWindow('/')
-  }))
-}
+    }
+  );

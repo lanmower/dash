@@ -46,6 +46,6 @@ Package.onUse(function(api) {
   api.export('bpNotifications');
   api.addFiles('img/check.png', 'client', {isAsset: true});
   api.addFiles('img/error.png', 'client', {isAsset: true});
-  api.addFiles('serviceWorker.js', 'client', {isAsset: true});
+  //api.addFiles('serviceWorker.js', 'client', {isAsset: true});
 });
 
