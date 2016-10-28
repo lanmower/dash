@@ -6,14 +6,14 @@
 
 meteor-base@1.0.4             # Packages every Meteor app needs to have
 mobile-experience@1.0.4       # Packages for a great mobile UX
-mongo@1.1.12                   # The database Meteor supports right now
+mongo@1.1.14                   # The database Meteor supports right now
 blaze-html-templates@1.0.4    # Compile .html files into Meteor Blaze views
-session@1.1.6                 # Client-side reactive dictionary for your app
-jquery@1.11.9                  # Helpful client-side library
-tracker@1.1.0                 # Meteor's client-side reactive programming library
+session@1.1.7                 # Client-side reactive dictionary for your app
+jquery@1.11.10                  # Helpful client-side library
+tracker@1.1.1                 # Meteor's client-side reactive programming library
 
-es5-shim@4.6.14                # ECMAScript 5 compatibility for older browsers.
-ecmascript@0.5.8              # Enable ECMAScript2015+ syntax in app code
+es5-shim@4.6.15                # ECMAScript 5 compatibility for older browsers.
+ecmascript@0.5.9              # Enable ECMAScript2015+ syntax in app code
 
 iron:router
 
@@ -23,11 +23,11 @@ richsilv:pikaday
 
 meteorhacks:fast-render
 
-service-configuration@1.0.10
+service-configuration@1.0.11
 accounts-ui@1.1.9
 #accounts-password
 #accounts-facebook
-accounts-google@1.0.10
+accounts-google@1.0.11
 
 almagest:files
 almagest:accounts
@@ -45,13 +45,10 @@ almagest:schedules
 
 udondan:slick
 
-ejson@1.0.12
-liberation:subscription-audit
+ejson@1.0.13
 meteorhacks:inject-initial
 shell-server@0.2.1
 standard-minifiers@1.0.6
 gwendall:impersonate
-check
-appcache
+check@1.2.4
 femiveys:browser-push-notifications
-mrt:cookies
