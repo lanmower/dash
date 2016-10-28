@@ -56,7 +56,7 @@ function showNotification(event) {
   );
 }
 self.addEventListener('notificationclick', event => {
-    const rootUrl = new URL('/', event.notification.data.url).href;
+    const rootUrl = '/'+event.notification.data.url;
     event.notification.close();
     // Enumerate windows, and call window.focus(), or open a new one.
     if (event.action === 'reply') {  
