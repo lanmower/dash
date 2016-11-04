@@ -21,7 +21,7 @@ Router.map(function() {
       // If not logged in send an error JSON
       if(!user) {
         this.response.statusCode = 401;
-        this.response.end(JSON.stringify({error: "Not allowed"}));
+        this.response.end(JSON.stringify({error: "Not logged in"}));
       } else {
         var subscriptionId = decodeURIComponent(this.params.subscription_id);
         var notifications = bpSubscriptions.getNotifications(subscriptionId, user._id);

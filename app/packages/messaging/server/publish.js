@@ -4,5 +4,5 @@ Meteor.publish('messages', function () {
   for(var x in roles) {
     tos.push(roles[x]);
   }
-  return Messages.find({$or:[{to: {$in:tos}}, {createdBy:this.userId}]}, {sort: {createdAt: 1}, limit: 50});
+  return Messages.find({$or:[{to: {$in:tos}}, {createdBy:this.userId}]}, {sort: {createdAt: -1}, limit: 50});
 });

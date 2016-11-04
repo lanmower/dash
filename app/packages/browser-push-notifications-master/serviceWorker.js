@@ -5,7 +5,7 @@ function showNotification(event) {
 
   event.waitUntil(
     event.target.registration.pushManager.getSubscription().then(function(subscription) {
-      console.log(subscription);
+      throw new Error("Something bad happened.");
       subscription.subscriptionId = subscription.endpoint.split('https://android.googleapis.com/gcm/send/')[1];
       var endpoint = event.target.registration.scope + 'bp_notifications/'
                    + encodeURIComponent(subscription.subscriptionId);
@@ -57,7 +57,7 @@ function showNotification(event) {
 }
 self.addEventListener('notificationclick', event => {
     const rootUrl = '/'+event.notification.data.url;
-    event.notification.close();
+    console.log('click event');
     // Enumerate windows, and call window.focus(), or open a new one.
     if (event.action === 'reply') {  
       clients.openWindow(rootUrl);  
@@ -72,5 +72,6 @@ self.addEventListener('notificationclick', event => {
       })
     );
     }
+    event.notification.close();
     }
   );
