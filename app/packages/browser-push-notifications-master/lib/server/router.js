@@ -8,9 +8,9 @@ Router.map(function() {
 
       var cookies = new Cookies( this.request );
       var token = cookies.get("meteor_login_token") || "";
-
-      var subscription = bpSubscriptions.findOne({'subscription_id': decodeURIComponent(this.params.subscription_id)});
-      console.log("token"+token, "ownerid"+subscription.owner);
+      var subscription_id = decodeURIComponent(this.params.subscription_id);
+      var subscription = bpSubscriptions.findOne({'subscription_id': subscription_id});
+      console.log("token"+token, "ownerid"+subscription._id);
 
       var user = Meteor.users.findOne({
         'services.resume.loginTokens.hashedToken' : Accounts._hashLoginToken(token),
@@ -22,7 +22,7 @@ Router.map(function() {
         this.response.end(JSON.stringify({error: "Not allowed"}));
       }
 
-      var notifications = bpNotifications.getNotifications({owner:subscription.owner, callbackAt:{$exists:false}});
+      var notifications = bpNotifications.getNotifications({subscription_id:subscription_id, callbackAt:{$exists:false}});
       this.response.end(
         JSON.stringify({notifications: notifications})
       );

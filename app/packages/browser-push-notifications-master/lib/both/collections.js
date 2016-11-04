@@ -30,6 +30,9 @@ bpNotifications.attachSchema(new SimpleSchema({
     },
     denyUpdate: true,
   },
+  subscription_id: {
+    type: String,
+  },
   createdAt: {
     type: Date,
     autoValue: function() {
@@ -68,7 +71,9 @@ bpNotifications.send = function(notification, userIds) {
 
   // We save the notification to be sent for every user in the db
   userIds.forEach(function(userId, index, array) {
-    bpNotifications.insert(_.extend(notification, {owner: userId}));
+    bpSubscriptions.find({owner:userId}).forEach(function(doc) {
+      bpNotifications.insert(_.extend(notification, {owner: userId, subscription_id:doc.subscription_id}));
+    })
   });
 
   // Finally we send the push request to the cloud for all subscriptions
