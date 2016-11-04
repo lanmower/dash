@@ -7,7 +7,7 @@ registerServiceWorker = function() {
     // First check some precondition for push notifictaions
     checkPreconditions();
 
-    navigator.serviceWorker.register(SW_FOLDER + '/serviceWorker.js')
+    navigator.serviceWorker.register('/serviceWorker.js')
     .then(waitForServiceWorkerToBeReady)
     .then(getPushSubscription)
     .then(setCheckbox)
@@ -29,9 +29,6 @@ registerServiceWorker = function() {
   function checkPreconditions() {
     var errorType = 'pNotifications';
 
-    Cookie.set("meteor_user_id", Meteor.userId());
-    Cookie.set("meteor_token", localStorage.getItem("Meteor.loginToken"));
-
     if (!('showNotification' in ServiceWorkerRegistration.prototype)) {
       throw new Meteor.Error(errorType, 'Notifications are not supported.');
     }
@@ -42,14 +39,6 @@ registerServiceWorker = function() {
 
     if (!('PushManager' in window)) {
       throw new Meteor.Error(errorType, 'Push messaging is not supported.');
-    }
-
-    if(!Cookie.get("meteor_user_id")) {
-      throw new Meteor.Error(errorType, 'The meteor_user_id cookie is missing.');
-    }
-
-    if(!Cookie.get("meteor_token")) {
-      throw new Meteor.Error(errorType, 'The meteor_token cookie is missing.');
     }
   }
 
@@ -75,18 +64,7 @@ registerServiceWorker = function() {
   }
 
   function setCheckbox(subscription) {
-    // If there is no subscription, we leave the checkbox as is
-    // and make sure the isPushEnabled is false
-    if (!subscription) {
-      Session.set('isPushEnabled', false);
-      return;
-    }
-    // If we have a subscription, we set the checkbox to checked
-    // and make sure the isPushEnabled is true
-    else {
-      $('#push-button').attr('checked', 'checked')
-      Session.set('isPushEnabled', true);
-    }
+    if(subscription) $('#push-button')[0].checked = true;
   }
 }
 

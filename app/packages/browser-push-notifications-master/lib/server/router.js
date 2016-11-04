@@ -1,43 +1,34 @@
 Router.map(function() {
   this.route('bpNotifications', {
     where: 'server',
-    path: SW_FOLDER + '/bp_notifications/:subscription_id',
+    path: '/bp_notifications/:subscription_id',
     action: function() {
-      // Check the values in the cookies
-      var cookies = new Cookies( this.request );
-      var userId = cookies.get("meteor_user_id") || "";
-      var token  = cookies.get("meteor_token")   || "";
-      console.log(userId, token);
-
-      // Check a valid user with this token exists
-      var user = Meteor.users.findOne({
-        'services.resume.loginTokens.hashedToken' : Accounts._hashLoginToken(token),
-        _id: userId,
-      });
-
       // Prepare the response
       this.response.writeHead(200, {'Content-Type': 'application/json'});
 
-      // If not logged in send an error JSON
+      var cookies = new Cookies( this.request );
+      var token = cookies.get("meteor_login_token") || "";
+
+      var subscription = bpSubscriptions.findOne({'subscription_id': decodeURIComponent(this.params.subscription_id)});
+      console.log("token"+token, "ownerid"+subscription.owner);
+
+      var user = Meteor.users.findOne({
+        'services.resume.loginTokens.hashedToken' : Accounts._hashLoginToken(token),
+        _id: subscription.owner,
+      });
+
       if(!user) {
         this.response.statusCode = 401;
-        this.response.end(JSON.stringify({error: "Not logged in"}));
-      } else {
-        var subscriptionId = decodeURIComponent(this.params.subscription_id);
-        var notifications = bpSubscriptions.getNotifications(subscriptionId, user._id);
-
-        // We send the notifications in the response and as then the
-        // notifictions have been requested, we can set the callback date so
-        // they cannot be requested again
-        //Meteor.bindEnvironment(function() {
-        var remove = BrowserPushNotifications.removeWhenArchived;
-        bpNotifications.archive(notifications, remove);
-        //})
-
-        this.response.end(
-          JSON.stringify({notifications: notifications})
-        );
+        this.response.end(JSON.stringify({error: "Not allowed"}));
       }
+
+      var notifications = bpNotifications.getNotifications({owner:subscription.owner, callbackAt:{$exists:false}});
+      this.response.end(
+        JSON.stringify({notifications: notifications})
+      );
+      notifications.forEach(function(notification) {
+        bpNotifications.update(notification._id, {$set:{callbackAt:new Date()}});
+      });
     }
   });
 });

@@ -35,25 +35,3 @@ function getSettingsKey () {
 }
 
 
-Meteor.startup(function() {
-  setHeader();
-
-  /**
-   * Set the Service-Worker-Allowed HTTP header
-   * https://github.com/slightlyoff/ServiceWorker/issues/604
-   */
-  function setHeader() {
-    if(SW_FOLDER) {
-      if (typeof __meteor_bootstrap__.app !== 'undefined') {
-        connectHandlers = __meteor_bootstrap__.app;
-      } else {
-        connectHandlers = WebApp.connectHandlers;
-      }
-      connectHandlers.use(function(req, res, next) {
-        res.setHeader('Service-Worker-Allowed', SW_FOLDER);
-        next();
-      });
-    }
-  }
-});
-

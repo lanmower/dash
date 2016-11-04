@@ -77,6 +77,24 @@ bpNotifications.send = function(notification, userIds) {
 }
 
 /**
+ * Gets a list of all notifications that have not been requested for yet
+ * @param  {string} subscriptionId
+ * @param  {string} userId
+ * @returns {[Object]}
+ */
+bpNotifications.getNotifications = function(notificationId, userId) {
+  var notifications = bpNotifications.find(notificationId).fetch();
+
+  if(!notifications) {
+    throw new Meteor.Error('notification not found',
+           'Subscription with subscriptionId= ' + subscriptionId + 'not found');
+  }
+
+  return notifications;
+};
+
+
+/**
  * Send a push notification to all subscriptions.
  * DANGEROUS Has to be used with caution.
  * @param  {[type]}
@@ -97,3 +115,4 @@ bpNotifications.allow({
     return true;
   }
 });
+

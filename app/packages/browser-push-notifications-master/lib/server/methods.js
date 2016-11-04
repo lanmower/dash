@@ -12,10 +12,7 @@ Meteor.methods({
   },
   requestPushNotification: function(userIds) {
     bpSubscriptions.requestUsersPush(userIds);
-  },
-  broadcastPushNotification: function(notification) {
-    bpSubscriptions.broadcast(notification);
-  },
+  }
 });
 
 

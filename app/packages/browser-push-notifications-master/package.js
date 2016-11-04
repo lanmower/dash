@@ -17,10 +17,8 @@ Package.onUse(function(api) {
   api.use('aldeed:simple-schema@1.3.3');
   api.use('mrt:cookies@0.3.0');
   api.use('thepumpinglemma:cookies@1.0.0');
-
-  api.addFiles(
+    api.addFiles(
   [
-    'lib/both/constants.js',
     'lib/both/collections.js',
   ],
   both);

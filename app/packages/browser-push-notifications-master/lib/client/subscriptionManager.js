@@ -42,14 +42,6 @@ SubscriptionManager = function(pushButton) {
  
     // Save subscription on the server
     Meteor.call('saveSubscription', subscription.subscriptionId);
-
-    // Set cookies so we know to whom the subscription belongs
-
-    // Make sure we know the subscription is enabled
-    Session.set('isPushEnabled', true);
-
-    // Log some feedback
-    console.log('subscribed');
   }
 
   function deactivateSubscription(subscription) {
@@ -62,12 +54,6 @@ SubscriptionManager = function(pushButton) {
 
     // Remove subscription from the server
     Meteor.call('removeSubscription', subscription.subscriptionId);
-
-    // Make sure we know the subscription is disabled
-    Session.set('isPushEnabled', false);
-
-    // Log some feedback
-    console.log('unsubscribed')
   }
 }
 
