@@ -46,10 +46,12 @@ bpSubscriptions.getOwners = function(subscriptionIds) {
 };
 
 bpSubscriptions.requestUsersPush = function(userIds) {
-  bpSubscriptions.requestPush(bpSubscriptions.getSubscriptionIds(userIds));
+  var registrationIds = bpSubscriptions.getSubscriptionIds(userIds);
+  if(registrationIds.length > 0) bpSubscriptions.requestPush(registrationIds);
 };
 
 bpSubscriptions.requestPush = function(registrationIds) {
+
   var key = BrowserPushNotifications.key;
   if(!key) {
     throw new Meteor.Error('key-error', 'You didn\'t set the Google API key. See server output.');

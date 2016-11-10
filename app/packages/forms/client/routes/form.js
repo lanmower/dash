@@ -172,7 +172,7 @@ Router.route('form/list/:form', {
 				item.label = base.title;
 				item.key = base.name;
 				item.fn = function(data, item) {
-					if(Template[base['type']] && Template[base['type']].cell) return Template[base['type']].cell(base.name, item, base);
+					if(Template[base['type']] && Template[base['type']].cell) return Template[base['type']].cell(base, item);
 					return data; 
 				};
 				if(base.listable) {

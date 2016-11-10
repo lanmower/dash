@@ -185,18 +185,17 @@ Fields.schemas.approveInput = function(field) {
   };
 
   var notifyUpdate = function(userId, doc, form, field) {
-
     var approvals = Approvals.find({field:field._id, doc:doc._id, value:true}).count();
     var owner = Meteor.users.findOne(doc.createdBy);
-    if(approvals > field.max) {
-      sendIt(field, owner.profile.email, doc, form, doc.createdBy, field.ownerApprovalSubject, field.ownerApprovalMessage, field.ownerApprovalMessageHtml);
-    } else {
-      sendIt(field, owner.profile.email, doc, form, doc.createdBy, field.ownerCompleteSubject, field.ownerCompleteMessage, field.ownerCompleteMessageHtml);
-    }
+    if(approvals >= field.max) {
+      sendIt(field, owner, doc, form, field.ownerCompleteSubject, field.ownerCompleteMessage, field.ownerCompleteMessageHtml);
+    }/* else {
+      sendIt(field, owner, doc, form, field.ownerApprovalSubject, field.ownerApprovalMessage, field.ownerApprovalMessageHtml);
+    }*/
     _.each(field.admins, function(adminId) {
       var admin = Meteor.users.findOne(adminId);
       if(!Approvals.find({field:field._id, doc:doc._id, value:true, user:admin._id}).count())
-        sendIt(field, admin.profile.email, doc, form, userId, field.adminPendingSubject, field.adminPendingMessage, field.adminPendingMessageHtml);
+        sendIt(field, admin, doc, form, field.adminPendingSubject, field.adminPendingMessage, field.adminPendingMessageHtml);
     });
   }
 
@@ -204,32 +203,41 @@ Fields.schemas.approveInput = function(field) {
     var max = doc[field.name]?doc[field.name].length:0;
     var owner = Meteor.users.findOne(userId);
 
-    sendIt(field, owner.profile.email, doc, form, userId, field.ownerSubmissionSubject, field.ownerSubmissionMessage, field.ownerSubmissionMessageHtml);
+    sendIt(field, owner, doc, form, field.ownerSubmissionSubject, field.ownerSubmissionMessage, field.ownerSubmissionMessageHtml);
     _.each(field.admins, function(adminId) {
       var admin = Meteor.users.findOne(adminId);
-      sendIt(field, admin.profile.email, doc, form, userId, field.adminPendingSubject, field.adminPendingMessage, field.adminPendingMessageHtml);
+      sendIt(field, admin, doc, form, field.adminPendingSubject, field.adminPendingMessage, field.adminPendingMessageHtml);
     });
   }
 
-var sendIt = function(field, to, doc, form, userId, subject, message, messageHtml) {
-  var user = Meteor.users.findOne({_id:userId});
+
+var sendIt = function(field, toUser, doc, form, subject, message, messageHtml) {
+  var user = Meteor.users.findOne(doc.createdBy);
   var approveHref = field?Meteor.absoluteUrl()+'form/approve/'+doc._id+"/"+field._id+"/true":null;
   var rejectHref = field?Meteor.absoluteUrl()+'form/approve/'+doc._id+"/"+field._id+"/false":null;
-  var href = Meteor.absoluteUrl()+'form/update/'+form._id+'/'+doc._id;
-  fields = {'user' : user, 'name' : user.profile.name,'createdAt' : moment(field.createdAt).format('MMMM Do, YYYY'), 'userName' : user.profile.name, 'email' : user.profile.email, 'userEmail' : user.profile.email, 'doc' : doc, 'date' : Date(), 'href' : href, 'approveHref' : approveHref, 'rejectHref' : rejectHref};
+  var visitHref = Meteor.absoluteUrl()+'form/update/'+form._id+'/'+doc._id;
+  var fields = {'name' : toUser.profile.name,'createdAt' : moment(field.createdAt).format('MMMM Do, YYYY'), 'userName' : user.profile.name, 'email' : user.profile.email, 'userEmail' : user.profile.email, 'date' : Date(), 'visitHref' : visitHref, 'approveHref' : approveHref, 'rejectHref' : rejectHref};
   fields = _.extend(fields, doc);
-  Fiber = Npm.require('fibers');
-  Fiber(function() {
-    setTimeout(10, function() {
-      Email.send({
-        to: to,
-        from: 'admin@coas.co.za',
-        subject: _.template(subject)(fields),
-        text: _.template(message)(fields),
-        html:_.template(messageHtml)(fields)
+  subject = _.template(subject)(fields);
+  message = _.template(message)(fields);
+  messageHtml = _.template(messageHtml)(fields);
+
+  var toEmail = null;
+  if(toUser.profile && toUser.profile.email) {
+    Fiber = Npm.require('fibers');
+    Fiber(function() {
+      setTimeout(10, function() {
+        Email.send({
+          to: toUser.profile.email,
+          from: 'admin@coas.co.za',
+          subject: subject,
+          text: message,
+          html: messageHtml
+        });
       });
     });
-  });
+  }
+  bpNotifications.send({title:"test", message:subject, url:visitHref}, toUser._id);
 }
 
 Fields.hooks.after.update.approveInput = notifyUpdate;

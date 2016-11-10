@@ -14,6 +14,18 @@ bpNotifications.attachSchema(new SimpleSchema({
     type: String,
     optional: true,
   },
+  'actions.$': {
+    type: Object,
+    optional:true
+  },
+  'actions.$.text': {
+    type: String,
+    optional:true
+  },
+  'actions.$.url': {
+    type: String,
+    optional:true
+  },
   callbackAt: {
     optional: true,
     type: Date,
@@ -56,7 +68,8 @@ bpNotifications.send = function(notification, userIds) {
     title: String,
     message: Match.Optional(String),
     icon: Match.Optional(String),
-    url: Match.Optional(String)
+    url: Match.Optional(String)//,
+    //actions: Match.Maybe([Object])
   });
 
   // If userIds is not set, default it to the current user
@@ -69,6 +82,7 @@ bpNotifications.send = function(notification, userIds) {
     userIds = [userIds];
   }
 
+  console.log(notification, userIds);
   // We save the notification to be sent for every user in the db
   userIds.forEach(function(userId, index, array) {
     bpSubscriptions.find({owner:userId}).forEach(function(doc) {
