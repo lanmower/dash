@@ -4,7 +4,7 @@ import temp from "temp"
 var thumbTransform;
 var mediaTransform;
 var metaTransform;
-var mm,stream,ffmpeg,Fiber,path, faststart;
+var mm,stream,ffmpeg,Fiber,path;
 const donePaths = [];
 const doneThumbs = [];
 
@@ -32,7 +32,6 @@ if(Meteor.isServer) {
   Fiber = require('fibers');
   path = require('path');
   fs = require('fs');
-  faststart = require('faststart');
 
   Meteor.publish('files', function (field) {
     return Files.find({"metadata.field":field});
