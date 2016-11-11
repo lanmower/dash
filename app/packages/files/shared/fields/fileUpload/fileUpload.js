@@ -60,23 +60,11 @@ if(Meteor.isClient) {
   };
 
   Template.afFileUpload.helpers({
-    image: function() {
-      return getFind(this.name,'image');
+    files: function(type) {
+      return getFind(this.name,type);
     },
-    imageCount: function() {
-      return getFind(this.name,'image').count();
-    },
-    video: function() {
-      return getFind(this.name,'video');
-    },
-    videoCount: function() {
-      return getFind(this.name,'video').count();
-    },
-    audio: function() {
-      return getFind(this.name,'audio');
-    },
-    audioCount: function() {
-      return getFind(this.name,'audio').count();
+    fileCount: function(type) {
+      return getFind(this.name,type).count();
     },
     title: function() {
       return getTitle(this);

@@ -4,8 +4,27 @@ import temp from "temp"
 var thumbTransform;
 var mediaTransform;
 var metaTransform;
-var mm,stream,ffmpeg,Fiber,path;
-var donePaths = [];
+var mm,stream,ffmpeg,Fiber,path, faststart;
+const donePaths = [];
+const doneThumbs = [];
+
+function isVideo(type) {
+  if(type == 'video/mp4' ||
+        type == 'video/ogv' ||
+        type == 'application/x-troff-msvideo' ||
+        type == 'video/mpeg' ||
+        type == 'video/x-msvideo' ||
+        type == 'video/m4v' ||
+        type == 'video/avi' ||
+        type == 'video/flv' ||
+        type == 'application/x-troff-msvideo' ||
+        type == 'video/msvideo' ||
+        type == 'video/x-msvideo' ||
+        type == 'video/m4v' ||
+        type == 'video/webm') return true;
+  return false;
+}
+
 if(Meteor.isServer) {
   mm = require('musicmetadata');
   stream = require('stream');
@@ -13,6 +32,7 @@ if(Meteor.isServer) {
   Fiber = require('fibers');
   path = require('path');
   fs = require('fs');
+  faststart = require('faststart');
 
   Meteor.publish('files', function (field) {
     return Files.find({"metadata.field":field});
@@ -46,12 +66,59 @@ if(Meteor.isServer) {
     } catch (e) {
 
     }
+    if(isVideo(fileObj.original.type)) {
+      if(doneThumbs.includes(writeStream.path)) return false;
+      doneThumbs.push(writeStream.path);
+      //if(donePaths.includes(writeStream.path)) return false;
+      //donePaths.push(writeStream.path);
+      if(typeof Files === 'undefined') {
+        return false;
+      }
+      var tmp = temp.createWriteStream();
+      tmp.on('finish', () => {
+        console.log('screenshot tmp write finish');
+        var run = null;
+        //ffmpeg.ffprobe(readStream, function(err, metadata) {
+        //  console.log(err);
+        //  console.log(metadata);
+        //});
+
+        var url=absolutePath+"/"+masterStore.adapter.fileKey(fileObj);
+        ffm = ffmpeg(tmp.path);
+        var count = 0;
+        var run = false;
+        console.log('found video for thumb');
+        ffm.format('mjpeg').frames(1).seek('0:05').size('300x?');
+        run = true;
+
+        ffm.on('error', (err, stdout, stderr) => {
+          console.log(err.message,err,stderr);
+        }).on('progress', (progress) => {
+          perc = progress.percent;
+          console.log('progress', progress, perc);
+        }).on('end', () => {
+          console.log('end');
+        });
+
+        if(run) queue.add((done) => {
+          var stream =ffm.stream();
+          Fiber(() => {
+            console.log('thumbnailing');
+            stream.pipe(writeStream);
+            done();
+          }).run();
+        });
+      });
+
+      console.log('streaming to temp');
+      readStream.pipe(tmp);
+      return true;
+    }
     //gm(readStream, fileObj.name).resize(300,300,"^").pipe(writeStream);
     //gm(readStream, fileObj.name).resize(300,300,"^")
     //.gravity('Center').crop(300, 300).quality(100).autoOrient().stream().pipe(writeStream);
   }
   mediaTransform = (fileObj, readStream, writeStream) => {
-    console.log('media transform', donePaths, writeStream.path);
     if(donePaths.includes(writeStream.path)) return false;
     donePaths.push(writeStream.path);
     if(typeof Files === 'undefined') {
@@ -71,24 +138,14 @@ if(Meteor.isServer) {
       var count = 0;
       var run = false;
       if(fileObj.original.type == 'audio/mp3') {
+        console.log('found audio');
         ffm.audioCodec('libmp3lame')
           .audioBitrate(128 * 1000)
           .format('mp3');
           run = true;
         }
-      if(fileObj.original.type == 'video/mp4' ||
-        fileObj.original.type == 'video/ogv' ||
-        fileObj.original.type == 'application/x-troff-msvideo' ||
-        fileObj.original.type == 'video/mpeg' ||
-        fileObj.original.type == 'video/x-msvideo' ||
-        fileObj.original.type == 'video/m4v' ||
-        fileObj.original.type == 'video/avi' ||
-        fileObj.original.type == 'video/flv' ||
-        fileObj.original.type == 'application/x-troff-msvideo' ||
-        fileObj.original.type == 'video/msvideo' ||
-        fileObj.original.type == 'video/x-msvideo' ||
-        fileObj.original.type == 'video/m4v' ||
-        fileObj.original.type == 'video/webm') {
+      if(isVideo(fileObj.original.type)) {
+          console.log('found video');
           ffm.videoCodec('libx264')
           .videoBitrate(800 * 1000)
           .size('?x100')
@@ -99,16 +156,16 @@ if(Meteor.isServer) {
         }
 
       ffm.on('error', (err, stdout, stderr) => {
-        console.log('error');
         Fiber(() => {
           Files.update({_id:fileObj._id},{$set:{'metadata.conversionError':err.message, 'metadata.err':err, 'metadata.stderr':stderr}});
           console.log(err.message,err,stderr);
         }).run();
       }).on('progress', (progress) => {
         perc = progress.percent;
-        console.log('progress', perc);
+        console.log('progress', progress, perc);
         if(perc) {
           Fiber(() => {
+            if(Files.findOne(fileObj._id))
             Files.update({_id:fileObj._id},{$set:{"metadata.conversionProgress":Math.round(perc)}});
           }).run();
         }
@@ -120,11 +177,11 @@ if(Meteor.isServer) {
         }).run();
       });
 
-      var stream =ffm.stream();
-      stream.on('finish', () => {
-        console.log('cleanup');
-      });
       if(run) queue.add((done) => {
+        var stream =ffm.stream();
+        stream.on('finish', () => {
+          console.log('cleanup');
+        });
         Fiber(() => {
           console.log('converting');
           stream.pipe(writeStream);
@@ -140,28 +197,13 @@ if(Meteor.isServer) {
 
   metaTransform = (fileObj, readStream, writeStream) => {
     if(!Files) return false;
-    if(fileObj.original.type == 'video/mp4' ||
-      fileObj.original.type == 'video/ogv' ||
-      fileObj.original.type == 'application/x-troff-msvideo' ||
-      fileObj.original.type == 'video/mpeg' ||
-      fileObj.original.type == 'video/x-msvideo' ||
-      fileObj.original.type == 'video/m4v' ||
-      fileObj.original.type == 'video/avi' ||
-      fileObj.original.type == 'application/x-troff-msvideo' ||
-      fileObj.original.type == 'video/msvideo' ||
-      fileObj.original.type == 'video/x-msvideo' ||
-      fileObj.original.type == 'video/m4v' ||
-      fileObj.original.type == 'video/webm') {
-
+    if(isVideo(fileObj.original.type)) {
       Files.update({_id:fileObj._id},{$set:{'metadata.type':'video'}});
     }
     if(fileObj.original.type.startsWith("image/")) Files.update({_id:fileObj._id},{$set:{'metadata.type':'image'}});
     if(fileObj.original.type == 'application/pdf') Files.update({_id:fileObj._id},{$set:{'metadata.type':'document'}});
-    //return false;
     if(fileObj.original.type == 'audio/mp3') {
-       Files.update({_id:fileObj._id},{$set:{'metadata.type':'audio'}});
-    }
-    if(fileObj.original.type == 'audio/mp3') {
+      Files.update({_id:fileObj._id},{$set:{'metadata.type':'audio'}});
       if(!Files) return false;
       var s = new stream.Readable();
       s._read = function noop() {}; // redundant? see update below
@@ -220,7 +262,7 @@ Files = new FS.Collection("files", {
 });
 Files.on('uploaded', function (file) {
   var readStream = file.createReadStream();
-  console.log(file.metadata);
+  console.log("doing metadata");
   var field = null;
   if(file.metadata) field = file.metadata.field;
   if(!field) return false;
