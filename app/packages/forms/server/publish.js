@@ -59,7 +59,7 @@ Meteor.publishComposite('field', function(id) {
 );
 
 
-Meteor.publishComposite('formSearch', function(form, query) {
+/*Meteor.publishComposite('formSearch', function(form, query) {
   return {
     find: function() {
       var protection = {$or: [
@@ -135,4 +135,4 @@ Meteor.publishComposite('formSearch-admin', function(form, query) {
       }
     ],
   }
-});
+});*/

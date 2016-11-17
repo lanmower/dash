@@ -4,7 +4,11 @@ Widgets.schemas.linkInput = function() {
   title:{
     type: String,
     optional: false,
+  },
+  'searchable': {
+    type: Boolean,
   }
+
 }
 };
 if(Meteor.isClient) {
@@ -40,7 +44,6 @@ Fields.schemas.linkInput = function(data) {
         type: String,
         label: 'link'
       };
-
   return output;
 
   };

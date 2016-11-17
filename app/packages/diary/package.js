@@ -19,6 +19,7 @@ Package.onUse(function(api) {
   api.use("reactive-var")
   api.use('momentjs:moment');
   api.use('almagest:core');
+  api.use('aslagle:reactive-table');
 
   api.mainModule('diary.js');
 

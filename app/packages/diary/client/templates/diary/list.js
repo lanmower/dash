@@ -25,6 +25,7 @@ Template.diaryList.helpers({
     {
         key: 'diary',
         label: 'Diary',
+        hidden: true,
         fn: function (value, object, key) { 
             return new Spacebars.SafeString(value);
           }

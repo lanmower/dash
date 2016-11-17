@@ -9,7 +9,7 @@ Template.diaryAdmin.onCreated( function() {
 
 Template.diaryAdmin.helpers({
   col: function() {
-    return Diaries.find();
+    return 'diaries';
   },
   fields: function() {
     return [
@@ -29,6 +29,15 @@ Template.diaryAdmin.helpers({
           if(user) return user.profile.name;
           }
     }, 
+      {
+        key: 'diary',
+        label: 'Diary',
+        hidden: true,
+        fn: function (value, object, key) { 
+            return new Spacebars.SafeString(value);
+          }
+      },
+
         {
           key: 'buttons',
           label: '',

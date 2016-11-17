@@ -6,7 +6,7 @@ Router.route('form/list', {
     return Meteor.subscribe('forms');
   },
   data: function() {
-    return {forms:Forms.find(), col:Forms, fields: ['title', 'collectionName', { key: 'buttons', label: '',tmpl: Template.FormsListCellButtons}]};
+    return {forms:Forms.find(), col:Forms, fields: ['title', 'diary', 'collectionName', { key: 'buttons', label: '',tmpl: Template.FormsListCellButtons}]};
   },
   fastRender: true,
   where: 'client',
@@ -156,9 +156,7 @@ Router.route('form/list/:form', {
     ];
   },
   data: function () {
-
     var form = Forms.findOne({_id:this.params.form});
-
 
 		var canAdmin = false;
 		var listSchema = Fields.find({parent:this.params.form},{sort: { listposition: 1 }}).fetch();
@@ -168,15 +166,15 @@ Router.route('form/list/:form', {
     if(this.ready()) {
 			var schema = [];
 			_.each(listSchema, function(base) {
-				var item = {};
-				item.label = base.title;
-				item.key = base.name;
-				item.fn = function(data, item) {
-					if(Template[base['type']] && Template[base['type']].cell) return Template[base['type']].cell(base, item);
-					return data; 
-				};
 				if(base.listable) {
-          schema.push(item);
+          var item = {};
+          item.label = base.title;
+          item.key = base.name;
+          item.fn = function(data, item) {
+            if(Template[base['type']] && Template[base['type']].cell) return Template[base['type']].cell(base, item);
+            return data; 
+          };
+          schema.push(item);  
         }
 			});
 			schema.push({ key: 'Actions', label: '',tmpl: Template.submissionsCellButtons});
@@ -187,7 +185,7 @@ Router.route('form/list/:form', {
 				form:form,
         title:title,
 				fields: schema,
-				currentForm: Router.current().params.form,
+				currentForm: this.params.form,
 				col: getCollection(this.params.form),
 				canAdmin: canAdmin
 			};

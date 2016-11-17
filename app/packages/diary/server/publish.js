@@ -2,23 +2,14 @@ Widgets.publishers.diary = function(widget, userId) {
   return Diaries.find({user:userId}, {limit: 1, sort: {date: -1}});
 };
 
-Meteor.publish('diaries', function () {
-  return Diaries.find({user:this.userId});
+ReactiveTable.publish('diaries', Diaries, function () {
+  //return {createdBy: this.userId};
+  return {};
+}, {enableRegex: true});
+
+ReactiveTable.publish("diaries-admin", Diaries, function () {
+  var protection = {createdBy: this.userId};
+  if(Roles.userIsInRole( this.userId, 'admin' )) return {};
+  else return protection;
 });
 
-Meteor.publishComposite('diaries-admin', function(path) {
-  if(Roles.userIsInRole(this.userId, "admin") ||
-     Roles.userIsInRole(this.userId, "diaries-admin"))  return {
-    find: function() {
-      return Diaries.find();
-    },
-    children: [
-      {
-        find: function(diary) {
-          return Meteor.users.find(diary.user);
-        }
-      }
-    ]
-  };
-}
-);

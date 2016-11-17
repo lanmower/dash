@@ -47,7 +47,7 @@ processForm = function(id, formData) {
         ]}
       ]}
       return protection;
-    });
+    }, {enableRegex: true});
 
     if(!form.created) {
     form.collection.allow({

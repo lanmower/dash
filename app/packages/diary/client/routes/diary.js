@@ -55,7 +55,7 @@ Router.route('diary/today', {
   where: 'client',
   waitOn: function() {
     return [
-      this.subscribe("diaries")
+      this.subscribe("diary")
     ];
   },
   data: function () {
