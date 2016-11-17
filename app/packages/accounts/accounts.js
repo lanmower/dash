@@ -4,6 +4,10 @@
 // applications. See accounts-tests.js for an example of importing.
 export const name = 'accounts';
 
+AccountsTemplates.configure({
+	socialLoginStyle: "redirect"
+});
+
 AccountsTemplates.addField({
     _id: 'name',
     type: 'text',

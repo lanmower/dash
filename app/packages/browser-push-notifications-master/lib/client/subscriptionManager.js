@@ -1,3 +1,4 @@
+if (!Meteor.isCordova) {
 SubscriptionManager = function(pushButton) {
   return {
     subscribe: function() {
@@ -55,3 +56,4 @@ SubscriptionManager = function(pushButton) {
   }
 }
 
+}

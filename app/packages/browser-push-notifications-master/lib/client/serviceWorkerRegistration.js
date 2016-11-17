@@ -2,6 +2,7 @@
  * Register a Service Worker
  * @return {null}
  */
+if (!Meteor.isCordova) {
 registerServiceWorker = function() {
   if ('serviceWorker' in navigator) {
     // First check some precondition for push notifictaions
@@ -68,3 +69,4 @@ registerServiceWorker = function() {
   }
 }
 
+}

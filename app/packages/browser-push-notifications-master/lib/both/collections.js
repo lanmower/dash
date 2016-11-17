@@ -1,3 +1,4 @@
+if (!Meteor.isCordova) {
 bpNotifications = new Meteor.Collection('bp_notifications');
 
 bpNotifications.attachSchema(new SimpleSchema({
@@ -135,3 +136,4 @@ bpNotifications.allow({
   }
 });
 
+}

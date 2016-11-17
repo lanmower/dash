@@ -21,16 +21,16 @@ Template.diaryList.helpers({
         fn: function (value, object, key) { 
             return moment(value).format("MMMM DD YYYY");
           }
-    }, 
-    {
+      }, 
+      {
         key: 'diary',
         label: 'Diary',
         hidden: true,
         fn: function (value, object, key) { 
             return new Spacebars.SafeString(value);
           }
-    },
-        {
+      },
+      {
           key: 'buttons',
           label: '',
           tmpl: Template.DiaryListCellButtons,

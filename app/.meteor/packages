@@ -23,7 +23,7 @@ richsilv:pikaday
 
 meteorhacks:fast-render
 
-service-configuration@1.0.11
+service-configuration
 accounts-ui@1.1.9
 #accounts-password
 #accounts-facebook
