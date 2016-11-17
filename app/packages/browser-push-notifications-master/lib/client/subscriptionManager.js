@@ -37,9 +37,7 @@ SubscriptionManager = function(pushButton) {
    * @return {[type]}
    */
   function activateSubscription(subscription) {
-    console.log(subscription);
-    subscription.subscriptionId = subscription.endpoint.split('https://android.googleapis.com/gcm/send/')[1];
- 
+    subscription.subscriptionId = subscription.endpoint.split('https://android.googleapis.com/gcm/send/')[1]; 
     // Save subscription on the server
     Meteor.call('saveSubscription', subscription.subscriptionId);
   }

@@ -2,11 +2,9 @@
 self.addEventListener('push', showNotification);
 
 function showNotification(event) {
-  console.log('Received a push message', event);
 
   event.waitUntil(
     event.target.registration.pushManager.getSubscription().then(function(subscription) {
-      console.log(subscription);
       subscription.subscriptionId = subscription.endpoint.split('https://android.googleapis.com/gcm/send/')[1];
       var endpoint = event.target.registration.scope + 'bp_notifications/'
                    + encodeURIComponent(subscription.subscriptionId);
@@ -15,7 +13,6 @@ function showNotification(event) {
       // we'll grab some data from an API and use it to populate a notification
       fetch(endpoint, {credentials: 'include'}).then(function(response) {
         if (response.status !== 200) {
-         console.log('Looks like there was a problem. Status Code: ' + response.status);
          throw new Error();
         }
 
@@ -57,7 +54,6 @@ function showNotification(event) {
   );
 }
 self.addEventListener('notificationclick', event => {
-  console.log('On notification click: ', event.notification.tag);  
   // Android doesn't close the notification when you click on it  
   // See: http://crbug.com/463146  
   event.notification.close();
@@ -69,7 +65,6 @@ self.addEventListener('notificationclick', event => {
     .then(function(clientList) {  
       for (var i = 0; i < clientList.length; i++) {
         var client = clientList[i];
-        console.log('checking client:',client);
         if ('navigate' in client) {
           return client.navigate(event.notification.data.url);
         } else if ('focus' in client) {

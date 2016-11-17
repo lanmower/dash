@@ -9,7 +9,6 @@ DownloadAvatar = function(userId) {
   var user=Meteor.users.findOne(userId);
   if(!user) return;
   if(user.profile.picture) {
-    console.log('Removing old avatar for:',userId);
     var file = Files.findOne(user.profile.picture);
     if(file) Files.remove(user.profile.picture);
   }
@@ -41,7 +40,6 @@ Accounts.onCreateUser(function(options, user) {
     DownloadAvatar(user);
   }
   if(Meteor.users.find().count() === 0){
-     console.log('first user, promoting to admin');
      user.roles = ["admin"]
   }
   user.profile = {name:options.profile.name, email:email};//

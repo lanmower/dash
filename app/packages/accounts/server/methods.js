@@ -66,7 +66,6 @@ Meteor.methods({
     }
   },
   downloadAvatar: function(userId) {
-    console.log("Downloading avatar for:"+userId);
     this.unblock();
     DownloadAvatar(userId);
   },
@@ -155,10 +154,6 @@ Meteor.methods({
         console.log(e);
       }
     });
-  },
-  testMethod: function() {
-    console.log('testMethod');
   }
-
 
 });

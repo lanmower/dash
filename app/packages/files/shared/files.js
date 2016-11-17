@@ -75,7 +75,6 @@ if(Meteor.isServer) {
       }
       var tmp = temp.createWriteStream();
       tmp.on('finish', () => {
-        console.log('screenshot tmp write finish');
         var run = null;
         //ffmpeg.ffprobe(readStream, function(err, metadata) {
         //  console.log(err);
@@ -86,30 +85,28 @@ if(Meteor.isServer) {
         ffm = ffmpeg(tmp.path);
         var count = 0;
         var run = false;
-        console.log('found video for thumb');
+
         ffm.format('mjpeg').frames(1).seek('0:05').size('300x?');
         run = true;
 
         ffm.on('error', (err, stdout, stderr) => {
-          console.log(err.message,err,stderr);
+          //console.log(err.message,err,stderr);
         }).on('progress', (progress) => {
           perc = progress.percent;
-          console.log('progress', progress, perc);
+          //console.log('progress', progress, perc);
         }).on('end', () => {
-          console.log('end');
+          //console.log('end');
         });
 
         if(run) queue.add((done) => {
           var stream =ffm.stream();
           Fiber(() => {
-            console.log('thumbnailing');
             stream.pipe(writeStream);
             done();
           }).run();
         });
       });
 
-      console.log('streaming to temp');
       readStream.pipe(tmp);
       return true;
     }
@@ -125,26 +122,19 @@ if(Meteor.isServer) {
     }
     var tmp = temp.createWriteStream();
     tmp.on('finish', () => {
-      console.log('tmp write finish, streaming out');
       var run = null;
-      //ffmpeg.ffprobe(readStream, function(err, metadata) {
-      //  console.log(err);
-      //  console.log(metadata);
-      //});
 
       var url=absolutePath+"/"+masterStore.adapter.fileKey(fileObj);
       ffm = ffmpeg(tmp.path);
       var count = 0;
       var run = false;
       if(fileObj.original.type == 'audio/mp3') {
-        console.log('found audio');
         ffm.audioCodec('libmp3lame')
           .audioBitrate(128 * 1000)
           .format('mp3');
           run = true;
         }
       if(isVideo(fileObj.original.type)) {
-          console.log('found video');
           ffm.videoCodec('libx264')
           .videoBitrate(800 * 1000)
           .size('?x100')
@@ -157,11 +147,9 @@ if(Meteor.isServer) {
       ffm.on('error', (err, stdout, stderr) => {
         Fiber(() => {
           Files.update({_id:fileObj._id},{$set:{'metadata.conversionError':err.message, 'metadata.err':err, 'metadata.stderr':stderr}});
-          console.log(err.message,err,stderr);
         }).run();
       }).on('progress', (progress) => {
         perc = progress.percent;
-        console.log('progress', progress, perc);
         if(perc) {
           Fiber(() => {
             if(Files.findOne(fileObj._id))
@@ -169,8 +157,6 @@ if(Meteor.isServer) {
           }).run();
         }
       }).on('end', () => {
-        console.log('end');
-
         Fiber(() => {
           Files.update({_id:fileObj._id},{$set:{'metadata.converted':true}});
         }).run();
@@ -178,18 +164,13 @@ if(Meteor.isServer) {
 
       if(run) queue.add((done) => {
         var stream =ffm.stream();
-        stream.on('finish', () => {
-          console.log('cleanup');
-        });
         Fiber(() => {
-          console.log('converting');
           stream.pipe(writeStream);
           done();
         }).run();
       });
     });
 
-    console.log('streaming to temp');
     readStream.pipe(tmp);
     return true;
   };
@@ -208,7 +189,6 @@ if(Meteor.isServer) {
       s._read = function noop() {}; // redundant? see update below
       var parser = mm(readStream, function (err, metadata) {
         if (err) {
-          console.log(err);
           throw err;
         }
         s.push("Processed");
@@ -261,7 +241,6 @@ Files = new FS.Collection("files", {
 });
 Files.on('uploaded', function (file) {
   var readStream = file.createReadStream();
-  console.log("doing metadata");
   var field = null;
   if(file.metadata) field = file.metadata.field;
   if(!field) return false;
@@ -271,7 +250,6 @@ Files.on('uploaded', function (file) {
   if(!collection) return false;
   doc = collection.findOne({_id:file.metadata.parentId});
   if(!doc) return false;
-  console.log("Meteor.forms['"+form._id+"'].collection.update({_id: '"+doc._id+"'}, {$push: {"+field+":'"+file._id+"'}});")
   var push = {};
   push[field] = file._id;
   collection.update({_id: doc._id}, {$push: push})

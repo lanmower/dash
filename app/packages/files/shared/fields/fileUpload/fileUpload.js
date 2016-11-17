@@ -22,14 +22,11 @@ if(Meteor.isClient) {
     var template = this;
     template.destroyForm = new ReactiveVar(true);
 
-    console.log('test');
     template.autorun(function () {
-      console.log('test');
       template.destroyForm.set(true);
     });
 
     template.autorun(function () {
-      console.log('test');
       if (template.destroyForm.get()) {
         template.destroyForm.set(false);
         $(template.find('.carousel')).slick({
@@ -44,7 +41,6 @@ if(Meteor.isClient) {
   });
 
   Template.afFileUpload.onCreated(function () {
-    console.log('subscribing','formFiles', Router.current().params.form, Router.current().params._id);
 
     this.subscribe('formFiles', Router.current().params.form, Router.current().params._id);
   });
@@ -76,7 +72,6 @@ if(Meteor.isClient) {
 
   Template.afFileUpload.events({
     'click .playTrack': function(event, template) {
-      console.log(this.url('media'));
       var pl = playlist.get();
       pl.push({type:"audio/mp3",title:getTitle(this),src:this.url('media')});
       playlist.set(pl);
@@ -87,7 +82,6 @@ if(Meteor.isClient) {
       playlist.set(pl);
     },
     'change .fileInput': function(event, template) {
-      console.log(template.data);
       targetField = template.data.name; //Template.parentData(4).fields[Template.parentData(4).fields.indexOf(Template.parentData(4).name)+1]
       doc = Router.current().data().item;
       $("#uploadsNotificationsTrigger").click();

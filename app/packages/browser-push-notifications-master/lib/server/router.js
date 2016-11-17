@@ -10,7 +10,6 @@ Router.map(function() {
       var token = cookies.get("meteor_login_token") || "";
       var subscription_id = decodeURIComponent(this.params.subscription_id);
       var subscription = bpSubscriptions.findOne({'subscription_id': subscription_id});
-      console.log("token"+token, "ownerid"+subscription._id);
 
       var user = Meteor.users.findOne({
         'services.resume.loginTokens.hashedToken' : Accounts._hashLoginToken(token),

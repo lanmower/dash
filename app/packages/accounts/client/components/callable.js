@@ -5,7 +5,6 @@ Template.callable.events({
       event.stopPropagation();
       var name = this.name;
       var params = [this.name];
-      console.log('test');
       for (var key in this) {
         if (key != "name" && this.hasOwnProperty(key)) {
           params.push(this[key]);

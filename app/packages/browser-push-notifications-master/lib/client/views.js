@@ -8,12 +8,9 @@ Template.bpNotificationsCheckbox.onRendered(function() {
 Template.bpNotificationsCheckbox.events({
   'click #push-button': function (evt) {
     var subscriptionManager = SubscriptionManager(evt.currentTarget);
-    console.log(evt.currentTarget.checked);
     if (evt.currentTarget.checked == true) {
-      console.log("subscribing");
       subscriptionManager.subscribe();
     } else {
-      console.log("unsubscribing");
       subscriptionManager.unsubscribe();
     }
   }
