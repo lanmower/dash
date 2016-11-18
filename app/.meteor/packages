@@ -13,7 +13,7 @@ jquery@1.11.10                  # Helpful client-side library
 tracker@1.1.1                 # Meteor's client-side reactive programming library
 
 es5-shim@4.6.15                # ECMAScript 5 compatibility for older browsers.
-ecmascript@0.5.9              # Enable ECMAScript2015+ syntax in app code
+ecmascript@0.6.1              # Enable ECMAScript2015+ syntax in app code
 
 iron:router
 
@@ -23,7 +23,7 @@ richsilv:pikaday
 
 meteorhacks:fast-render
 
-service-configuration
+service-configuration@1.0.11
 accounts-ui@1.1.9
 #accounts-password
 #accounts-facebook
@@ -52,3 +52,4 @@ standard-minifiers@1.0.6
 gwendall:impersonate
 check@1.2.4
 femiveys:browser-push-notifications
+raix:push

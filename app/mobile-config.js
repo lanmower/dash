@@ -6,7 +6,7 @@ App.info({
   description: 'Coastal Accounting Dashboard',
   author: 'Almagest Fraternite',
   email: 'almagestfraternite@gmail.com',
-  website: 'http://almagestfraternite.com'
+  website: 'http://beanscount.co.za'
 });
 
 App.icons({

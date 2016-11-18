@@ -30,7 +30,7 @@ anti:i18n@0.4.3
 aslagle:reactive-table@0.8.38
 autoupdate@1.3.12
 babel-compiler@6.13.0
-babel-runtime@1.0.0
+babel-runtime@1.0.1
 base64@1.0.10
 binary-heap@1.0.10
 blaze@2.2.0
@@ -72,7 +72,7 @@ ddp-server@1.3.12
 deps@1.0.12
 diff-sequence@1.0.7
 differential:event-hooks@1.5.0
-ecmascript@0.6.0
+ecmascript@0.6.1
 ecmascript-runtime@0.3.15
 ejson@1.0.13
 es5-shim@4.6.15
@@ -141,6 +141,8 @@ percolate:google-api@1.0.3
 percolate:synced-cron@1.3.2
 promise@0.8.8
 raix:eventemitter@0.1.3
+raix:eventstate@0.0.4
+raix:push@3.0.2
 raix:ui-dropped-event@0.0.7
 random@1.0.10
 rate-limit@1.0.6
