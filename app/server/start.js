@@ -1,0 +1,36 @@
+if(Meteor.isCordova) {
+  Push.Configure({
+  /*apn: {
+    certData: Assets.getText('apnDevCert.pem'),
+    keyData: Assets.getText('apnDevKey.pem'),
+    passphrase: 'xxxxxxxxx',
+    production: true,
+    //gateway: 'gateway.push.apple.com',
+  },*/
+  gcm: {
+    apiKey: 'AIzaSyC5H1T_OnDBz14RMpXJBYDjKRlmJn7f_Pg',
+  }
+  // production: true,
+  // 'sound' true,
+  // 'badge' true,
+  // 'alert' true,
+  // 'vibrate' true,
+  // 'sendInterval': 15000, Configurable interval between sending
+  // 'sendBatchSize': 1, Configurable number of notifications to send per batch
+  // 'keepNotifications': false,
+  //
+  });
+
+  Push.allow({
+      send: function(userId, notification) {
+          return true; // Allow all users to send
+      }
+  });
+
+  // Or...
+  Push.deny({
+      send: function(userId, notification) {
+          return false; // Allow all users to send
+      }
+  });
+} 
