@@ -8,12 +8,13 @@ Push.Configure({
 },*/
 gcm: {
   apiKey: 'AIzaSyC5H1T_OnDBz14RMpXJBYDjKRlmJn7f_Pg',
+  "projectNumber": "669341428356"
 }
-// production: true,
-// 'sound' true,
-// 'badge' true,
-// 'alert' true,
-// 'vibrate' true,
+  "production": true,
+  "badge": true,
+  "sound": true,
+  "alert": true,
+  "vibrate": true
 // 'sendInterval': 15000, Configurable interval between sending
 // 'sendBatchSize': 1, Configurable number of notifications to send per batch
 // 'keepNotifications': false,
