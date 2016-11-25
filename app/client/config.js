@@ -7,6 +7,7 @@ var AdminLTEOptions = {
   }
 };
 //test
+
 Accounts.ui.config({
   forceApprovalPrompt: { google: true },
   requestOfflineToken: { google: true },
@@ -20,5 +21,35 @@ Accounts.ui.config({
     'https://www.googleapis.com/auth/userinfo.profile',
     'https://www.googleapis.com/auth/tasks',
     'https://mail.google.com/']
+  }
+});
+
+if (Meteor.isCordova){
+  Meteor.startup(function () {
+    Push.debug = true;
+
+    Push.Configure({
+      android: {
+        senderID: 669341428356,
+        alert: true,
+        badge: true,
+        sound: true,
+        vibrate: true,
+        clearNotifications: true
+        // icon: '',
+        // iconColor: ''
+      },
+      ios: {
+        alert: true,
+        badge: true,
+        sound: true
+      }
+    });
+  });
+}
+
+UI.registerHelper('isCordova', function(){
+  if (Meteor.isCordova){
+    return true;
   }
 });
