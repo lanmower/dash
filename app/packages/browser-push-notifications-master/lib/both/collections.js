@@ -1,4 +1,5 @@
 if (!Meteor.isCordova) {
+  bpSubscriptions = new Meteor.Collection('bp_subscriptions');
   bpNotifications = new Meteor.Collection('bp_notifications');
 
   bpNotifications.attachSchema(new SimpleSchema({
