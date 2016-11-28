@@ -50,7 +50,9 @@ if (Meteor.isServer) {
     if(user) name = user.profile.name;
 
     //notify(name, doc.body, doc.to, "messages/"+userId);
-    Meteor.call("notify", name, doc.body, doc.to, "messages/"+userId);
+    _.forEach(doc.to, function(to) {
+      Meteor.call("notify", name, doc.body, doc.to, "messages/"+userId);
+    });
   });
 }
 
