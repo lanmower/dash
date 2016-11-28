@@ -2,8 +2,6 @@
 // Subscritopns //
 //////////////////
 
-bpSubscriptions = new Meteor.Collection('bp_subscriptions');
-
 bpSubscriptions.attachSchema(new SimpleSchema({
   subscription_id: {
     type: String,
