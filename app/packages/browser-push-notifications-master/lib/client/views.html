@@ -1,0 +1,8 @@
+<template name="bpNotificationsCheckbox">
+  {{#unless isCordova}}
+	  <div class="push-notifications-checkbox {{classes}}">
+	    <input disabled type="checkbox" id='push-button'>
+	    <label for="push-button">{{label}}</label>
+	  </div>
+  {{/unless}}
+</template>
