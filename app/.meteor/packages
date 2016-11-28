@@ -51,3 +51,4 @@ shell-server@0.2.1
 gwendall:impersonate
 check@1.2.4
 raix:push
+femiveys:browser-push-notifications

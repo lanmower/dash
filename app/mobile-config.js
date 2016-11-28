@@ -9,6 +9,11 @@ App.info({
   website: 'http://beanscount.co.za'
 });
 
+App.accessRule('https://fonts.googleapis.com', {
+  //'minimum-tls-version': 'TLSv1.0',
+  //'requires-forward-secrecy': false,
+});
+
 App.icons({
 });
 
