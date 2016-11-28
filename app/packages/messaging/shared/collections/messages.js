@@ -51,7 +51,7 @@ if (Meteor.isServer) {
 
     //notify(name, doc.body, doc.to, "messages/"+userId);
     _.forEach(doc.to, function(to) {
-      Meteor.call("notify", name, doc.body, doc.to, "messages/"+userId);
+      Meteor.call("notify", name, doc.body, to, "messages/"+userId);
     });
   });
 }
