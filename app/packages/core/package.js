@@ -37,7 +37,7 @@ Package.onUse(function(api) {
   api.addFiles('client/lib/utils.js', 'client');
   api.addFiles('client/stylesheets/sidebar.css', 'client');
   api.addFiles('client/stylesheets/main.css', 'client');
-  api.export(["Widgets", "Fields", 'gong']);
+  api.export(["Widgets", "Fields", 'gong', 'notify']);
 });
 
 Package.onTest(function(api) {

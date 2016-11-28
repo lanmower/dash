@@ -46,9 +46,10 @@ Messages.allow({
 });
 if (Meteor.isServer) {
   Messages.after.insert(function (userId, doc)  {
-    user = Meteor.users.findOne(userId);
+    var user = Meteor.users.findOne(userId);
     if(user) name = user.profile.name;
-    bpNotifications.send({title:"From: "+ name, message:doc.body, url:"messages/"+userId}, doc.to);
+
+    notify(name, doc.body, doc.to, "messages/"+userId);
   });
 }
 

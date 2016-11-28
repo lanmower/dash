@@ -237,7 +237,7 @@ var sendIt = function(field, toUser, doc, form, subject, message, messageHtml) {
       });
     });
   }
-  bpNotifications.send({title:"test", message:subject, url:visitHref}, toUser._id);
+  notify("Form", message:subject, toUser._id, visitHref);
 }
 
 Fields.hooks.after.update.approveInput = notifyUpdate;

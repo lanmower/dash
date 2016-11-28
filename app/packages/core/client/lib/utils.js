@@ -18,3 +18,4 @@ calculateDistance= function(lat1, lon1, lat2, lon2) {
 Number.prototype.toRad = function() {
   return this * Math.PI / 180;
 }
+
