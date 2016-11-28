@@ -237,7 +237,7 @@ var sendIt = function(field, toUser, doc, form, subject, message, messageHtml) {
       });
     });
   }
-  notify("Form", message:subject, toUser._id, visitHref);
+  Meteor.call("notify", "Form", subject, toUser._id, visitHref);
 }
 
 Fields.hooks.after.update.approveInput = notifyUpdate;
