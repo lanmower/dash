@@ -47,17 +47,41 @@ Template.directChat.events({
   "click .sendBtn" : function(event, template) {
     sendBtnClick(template.find("input").value);
   },
-  "click .closeBtn" : function(event, template) {
-    Session.set('chat', null);
+  "click .contactsToggleSelector" : function(event, template) {
+    $(template.find(".direct-chat")).toggleClass("direct-chat-contacts-open");
   },
   'keypress input': function (evt, template) {
      if (evt.which === 13) {
        sendBtnClick(template.find("input").value);
      }
-   }
+   },
+  "click .closeBtn" : function(event, template) {
+    Session.set('chat', null);
+  },
+  "click .contactButton" : function(event, template) {
+    $(template.find(".direct-chat")).toggleClass("direct-chat-contacts-open");
+		Session.set('chat', this._id)
+  }
  });
  var objDiv = null;
+
 Template.directChat.helpers({
+   userImage: function (id) {
+    var user = Meteor.users.findOne({_id:id});
+    if(user && user.profile) return user.profile.picture;
+  },
+    lastmessage: function(_id) {
+    const userId = Meteor.userId();
+    const toId = _id;
+    const message = Messages.findOne({
+          $or:[
+            {$and:[{createdBy: userId}, {to:{$in:[toId,"all"]}}]},
+            {$and:[{createdBy: toId}, {to:{$in:[userId,"all"]}}]}
+          ]
+        },
+        {sort: {createdAt: -1}});
+    return message;
+  },
   messageOwner: function() {
     return this.createdBy == Meteor.userId();
   },
@@ -66,6 +90,9 @@ Template.directChat.helpers({
   },
   to: function() {
     return Meteor.users.findOne(Session.get('chat'));
+  },
+  users: function() {
+    return Meteor.users.find();
   }
 
 });

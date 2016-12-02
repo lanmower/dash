@@ -9,3 +9,9 @@ Router.route('messages/:userId', {
 		this.next();
 	  }
 });
+Router.route('messages', {
+  name: 'messageList',
+  title: 'Message',
+  fastRender: true,
+  where: 'client'
+});

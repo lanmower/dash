@@ -2,7 +2,7 @@ Meteor.methods({
   // Subscriptions
   notify: function(from, body, to, uri) {
   	if(Array.isArray(to)) {
-	    _.forEach(doc.to, function(to) {
+	    _.forEach(to, function(to) {
 	      notify(from, body, to, uri);
 	    });
     } else {
