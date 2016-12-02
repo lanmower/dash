@@ -1,5 +1,5 @@
 Meteor.startup(function () {
-  Push.debug = true;
+  //Push.debug = true;
   Push.Configure({
   /*apn: {
     certData: Assets.getText('apnDevCert.pem'),

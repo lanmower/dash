@@ -26,7 +26,7 @@ Accounts.ui.config({
 
 if (Meteor.isCordova){
   Meteor.startup(function () {
-    Push.debug = true;
+    //Push.debug = true;
 
     Push.Configure({
       android: {

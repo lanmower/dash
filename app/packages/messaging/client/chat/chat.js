@@ -58,14 +58,14 @@ Template.directChat.events({
   "click .closeBtn" : function(event, template) {
     Session.set('chat', null);
   },
-  "click .contactButton" : function(event, template) {
-    $(template.find(".direct-chat")).toggleClass("direct-chat-contacts-open");
-		Session.set('chat', this._id)
-  }
  });
  var objDiv = null;
-
-Template.directChat.helpers({
+Template.directChat.events({
+  "click .contactButton" : function(event, template) {
+    Session.set('chat',this._id);
+  },
+});
+Template.chatContact.helpers({
    userImage: function (id) {
     var user = Meteor.users.findOne({_id:id});
     if(user && user.profile) return user.profile.picture;
@@ -81,7 +81,11 @@ Template.directChat.helpers({
         },
         {sort: {createdAt: -1}});
     return message;
-  },
+  }
+
+});
+
+Template.directChat.helpers({
   messageOwner: function() {
     return this.createdBy == Meteor.userId();
   },

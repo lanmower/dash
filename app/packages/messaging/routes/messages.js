@@ -13,5 +13,6 @@ Router.route('messages', {
   name: 'messageList',
   title: 'Message',
   fastRender: true,
-  where: 'client'
+  where: 'client',
+  waitOn: function() {return this.subscribe("users")}
 });

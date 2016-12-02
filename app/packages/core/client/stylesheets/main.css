@@ -13,13 +13,14 @@ margin-bottom: 0px;
 
 
 body,html {
-  height:100%
-    background-color: #222d32;
-  }
-  .sidebar-menu li.header {
-      color: #4b646f;
-      background: #1a2226;
-  }
+  height:100%;
+  background-color: #222d32;
+}
+
+.sidebar-menu li.header {
+    color: #4b646f;
+    background: #1a2226;
+}
 
 .fill {
   left:0px;
@@ -89,7 +90,7 @@ box-shadow: 3px 2px 5px rgba(0, 0, 0, 0.3);
   bottom: 0px;
 }
 body .fill .contain > div {
-      height: 100%;
+  height: 100%;
 }
 .messages-menu .offline {
   background:#eee;
@@ -157,7 +158,13 @@ width:430px;
 .content-wrapper, .right-side {
     min-height: auto !important;
 }
+.chats {
+  min-width: 300px;
+  max-width: 600px;
+  height: auto;
+}
 
 .sidebar-menu, .main-sidebar .user-panel, .sidebar-menu>li.header {
     overflow: visible; 
 }
+

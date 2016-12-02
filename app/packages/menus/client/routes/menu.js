@@ -1,3 +1,4 @@
+
 Router.route('menu/list', {
 	parent: 'home',
   name: 'menusList',

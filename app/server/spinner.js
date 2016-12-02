@@ -1,4 +1,4 @@
-Inject.rawHead('loader-style', '<meta name="viewport" content="width=device-width,maximum-scale=1,'
+/*Inject.rawHead('loader-style', '<meta name="viewport" content="width=device-width,maximum-scale=1,'
 + 'initial-scale=1,user-scalable=no">'
 + '<style>'
 //+ 'html{background-color: #36342e;}'
@@ -41,4 +41,5 @@ Inject.rawHead('loader-style', '<meta name="viewport" content="width=device-widt
 + 'to {transform: rotate(359deg);}'
 + '}'
 + '</style>');
-Inject.rawHead('loader-body2', '<head><link rel="manifest" href="/manifest.json"></head><body><div class="spinner"><div class="rotate"></div></div></body>');
+Inject.rawHead('loader-body2', '<head><link rel="manifest" href="/gongmanifest.json"></head><body><div class="spinner"><div class="rotate"></div></div></body>');
+*/

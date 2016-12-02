@@ -73,18 +73,7 @@
         <ul class="contacts-list">
           {{#each users}}
             <li>
-              <a class="contactButton" data-user="{{_id}}" href="#">
-                {{#with FS.GetFile "files" (userImage _id)}}<img class="contacts-list-img" src="{{url}}" alt="Contact Avatar">{{/with}}
-                <div class="contacts-list-info">
-                  <span class="contacts-list-name">
-                    {{profile.name}}
-                    <small class="contacts-list-date pull-right">2/28/2015</small>
-                  </span>
-                  {{#with lastmessage _id}}
-                  <span class="contacts-list-msg">{{body}}</span>
-                  {{/with}}
-                </div><!-- /.contacts-list-info -->
-              </a>
+              {{> chatContact}}
             </li>
           {{/each}}
         </ul><!-- /.contatcts-list -->
@@ -101,6 +90,20 @@
   </div>
 </template>
 
+<template name="chatContact">
+            <a class="contactButton" href="#">
+              {{#with FS.GetFile "files" (userImage _id)}}<img class="contacts-list-img" src="{{url}}" alt="Contact Avatar">{{/with}}
+              <div class="contacts-list-info">
+                <span class="contacts-list-name">
+                  {{profile.name}}
+                  <small class="contacts-list-date pull-right">2/28/2015</small>
+                </span>
+                {{#with lastmessage _id}}
+                <span class="contacts-list-msg">{{body}}</span>
+                {{/with}}
+              </div><!-- /.contacts-list-info -->
+            </a>
+</template>
 
 <template name="chats">
   <div class="chats">

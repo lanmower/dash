@@ -30,6 +30,8 @@ Package.onUse(function(api) {
   api.addFiles('shared/collections/messages.js', ['client', 'server']);
   api.addFiles('server/publish.js', 'server');
   api.addFiles('routes/messages.js', 'client');
+  api.addFiles('client/chat/messageList.html', ['client']);
+  api.addFiles('client/chat/messageList.js', ['client']);
   api.addFiles('client/chat/chat.html', ['client']);
   api.addFiles('client/chat/chat.js', ['client']);
   api.addFiles('client/chat/chat.css', ['client']);

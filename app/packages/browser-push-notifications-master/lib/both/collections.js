@@ -66,35 +66,7 @@ if (!Meteor.isCordova) {
    * @param  {string|string[]} [userIds]
    */
   bpNotifications.send = function(notification, userIds) {
-    check(notification, {
-      title: String,
-      message: Match.Optional(String),
-      icon: Match.Optional(String),
-      url: Match.Optional(String)//,
-      //actions: Match.Maybe([Object])
-    });
-
-    // If userIds is not set, default it to the current user
-    if(!userIds) {
-      userIds = [Meteor.userId()];
-    }
-
-    // If userIds is not an Array, we make it an array
-    if(!Array.isArray(userIds)) {
-      userIds = [userIds];
-    }
-
-    console.log(notification, userIds);
-    // We save the notification to be sent for every user in the db
-    userIds.forEach(function(userId, index, array) {
-      bpSubscriptions.find({owner:userId}).forEach(function(doc) {
-        bpNotifications.insert(_.extend(notification, {owner: userId, subscription_id:doc.subscription_id}));
-      })
-    });
-
-    // Finally we send the push request to the cloud for all subscriptions
-    // corresponding to the userIds
-    Meteor.call('requestPushNotification', userIds);
+    Meteor.call("bpSend", notification, userIds);
   }
 
   /**
