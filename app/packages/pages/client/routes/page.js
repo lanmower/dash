@@ -33,8 +33,8 @@ Router.route('page/insert', {
 			this.next();
 
 		}
-
 });
+
 Router.route('page/edit/:_id', {
 	parent: 'pagesList',
 	title: 'Edit Page',
@@ -45,10 +45,10 @@ Router.route('page/edit/:_id', {
     ];
   },
   data: function() {
-    if(this.ready()){
+    if(this.ready()) {
       page = Pages.findOne({_id:this.params._id});
     	var widgets;
-		  if(page) widgets = Widgets.find({parent:page._id});
+		  if(page) widgets = Widgets.find({parent:page._id}, {sort:{listposition:1}});
       return {types:Meteor.widgetTypes, page:page, Widgets:widgets};
     }
   },
@@ -59,10 +59,9 @@ Router.route('page/edit/:_id', {
 				Router.go('/');
 			}
 			this.next();
-
 		}
-
 });
+
 Router.route('/page/:path', {
 	parent: 'home',
 	//title: 'Edit Page',
@@ -75,7 +74,7 @@ Router.route('/page/:path', {
     if(this.ready()){
 	    var page = Pages.findOne({path:this.params.path});
 	    this.subscribe("Widgets", page._id);
-	    var widgets = Widgets.find({parent:page._id});
+	    var widgets = Widgets.find({parent:page._id}, {sort:{listposition:1}});
 	    return {page:page, Widgets:widgets};
     }
   },

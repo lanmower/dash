@@ -14,11 +14,37 @@
       {{> quickForm collection=getCol doc=page id="editPageForm" type="update" omitFields="createdBy" buttonContent="Update"}}
       {{/if}}
       <hr>
-      <h4>Widgets</h4>
       {{#linkTo route="insertWidget" parent=page._id}}<i class="fa fa-plus"></i> New Widget{{/linkTo}}
-      <div class="box">
-        <div class="box-body table-responsivesubmissionsAdminCalendar">
+      <div class="widgetList">
+      {{> widgetList Widgets=Widgets editing=editings}}
+      </div>
+      {{#each Widgets}}
+        <a name="{{_id}}">
+          {{#if isEditing }}
+            <div class="box box-warning box-solid">
+              <div class="box-header with-border">
+                <h3 class="box-title">Editing</h3>
+              </div>
+              <!-- /.box-header -->
+              <div class="box-body">
+                {{> Template.dynamic template=type data=this}}
+                {{> EditWidget}}
+              </div>
+              <!-- /.box-body -->
+            </div>
+          {{else}}
+            {{> Template.dynamic template=type data=this}}
+          {{/if}}
+        </a>
+      {{/each}}
+    </div>
+  </div>
+</template>
 
+<template name="widgetList">
+        <h4>Widgets</h4>
+        
+        <div class="box-body table-responsivesubmissionsAdminCalendar">
           <table id="items" class="table table-hover">
             <thead>
               <tr>
@@ -27,23 +53,25 @@
               </tr>
             </thead>
             <tbody>
-              {{#each Widgets}}
-              <tr data-id='{{_id}}' data-listposition='{{listposition}}'>
-                <td><i class="fa fa-sort pull-right"></i></td>
-                <td>{{type}}</td>
-                <td>
+              {{#each widgets}}
+                <tr data-id='{{_id}}' class="widgetRow" data-listposition='{{listposition}}'>
+                  <td><i class="fa fa-sort pull-right"></i></td>
+                  <td>{{type}}</td>
                   {{#if (can "update" this)}}
-                  {{#linkTo route='editWidget'}}
-                  <button class="btn btn-info" type="button">Edit</button>
-                  {{/linkTo}}
+                  {{debug}}
+                    {{#if isEditing}}
+                      <td class="alert alert-warning">
+                            <button class="btn btn-info editButton" type="button">Edit</button>
+                      </td>
+                    {{else}}
+                      <td>
+                            <button class="btn btn-info editButton" type="button">Edit</button>
+                      </td>
+                    {{/if}}
                   {{/if}}
-                </td>
-              </tr>
+                </tr>
               {{/each}}
             </tbody>
           </table>
         </div>
-      </div>
-    </div>
-  </div>
 </template>

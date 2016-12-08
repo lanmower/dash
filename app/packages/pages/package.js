@@ -11,7 +11,7 @@ Package.describe({
 });
 
 Package.onUse(function(api) {
-  api.versionsFrom("1.3.2.4")
+  api.versionsFrom("1.3.2.4");
   api.use('ecmascript');
   api.use('underscore');
   api.use("templating", "client");
@@ -24,20 +24,20 @@ Package.onUse(function(api) {
   api.use('almagest:files');
   api.use('aldeed:autoform');
   api.use("aldeed:delete-button");
-  api.use('mrt:jquery-ui-sortable');
+  api.use('mizzao:jquery-ui');
   api.use('monbro:iron-router-breadcrumb');
-
+ 
   api.use('aldeed:collection2');
   api.use('matb33:collection-hooks');
   api.use('reywood:publish-composite');
   api.use('reactive-var');
+  api.use('reactive-dict');
   api.use('iron:router');
   api.use('mpowaga:autoform-summernote');
   api.use("vazco:universe-autoform-select");
   api.use('dburles:collection-helpers');
   api.use('jrudio:videojs');
 
-  // Generated with: github.com/philcockfield/meteor-package-paths
   api.addFiles('shared/collections/pages.js', ['client', 'server']);
   api.addFiles('client/widgets/player/player.css', 'client');
   api.addFiles('client/widgets/player/player.html', 'client');
@@ -91,8 +91,4 @@ Package.onTest(function(api) {
   api.use('tinytest');
   api.use('almagest:pages');
   api.mainModule('pages-tests.js');
-
-  // Generated with: github.com/philcockfield/meteor-package-paths
-
-
 });

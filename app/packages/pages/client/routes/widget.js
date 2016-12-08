@@ -8,15 +8,8 @@ Router.route('widget/edit/:_id', {
     ];
   },
   data: function () {
-		var fields = Fields.find({parent:this.params._id},{sort: { listPosition: 1 }});
     var widget = Widgets.findOne({_id: this.params._id});
-    var schema = null;
-
-    if(widget && Pages.findOne({_id: widget.parent})) {
-      schema = new SimpleSchema(gong.createDisplaySchema(widget.parent, widget.type, Pages, Meteor.widgetTypes));
-    }
-
-    return {widget:widget, schema:schema, fields:fields};
+    return widget;
   },
   fastRender: true,
   where: 'client',

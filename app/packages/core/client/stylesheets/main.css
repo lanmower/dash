@@ -168,3 +168,6 @@ width:430px;
     overflow: visible; 
 }
 
+.ui-dialog {
+  z-index: 1000 !important ;
+}

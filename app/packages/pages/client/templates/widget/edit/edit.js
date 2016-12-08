@@ -1,13 +1,16 @@
 Template.EditWidget.helpers({
-  isForm: function(widget) {
-    if(widget) return widget.type == "formWidget";
-  },
-  isWidget: function(widget) {
-    if(widget) return true;
-  }
-  ,
   getCol:function() {
     return Widgets;
+  },
+  fields: function() {
+		var fields = Fields.find({parent:this._id},{sort: { listPosition: 1 }});
+  },
+  schema: function() {
+    const instance = Template.instance();
+    if(Pages.findOne({_id: this.parent})) {
+      instance.schema = new SimpleSchema(gong.createDisplaySchema(this.parent, this.type, Pages, Meteor.widgetTypes));
+    }
+    return instance.schema;
   }
 });
 Template.EditWidget.created = function () {
