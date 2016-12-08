@@ -11,7 +11,7 @@ Template.chats.helpers({
             {$and:[{createdBy: toId}, {to:{$in:[userId,"all"]}}]}
           ]
         },
-        {sort: {createdAt: 1}, limit: 50});
+        {sort: {createdAt: 1}});
       return {
         toId:toId,
         messages:messages
