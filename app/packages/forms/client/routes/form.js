@@ -63,6 +63,7 @@ Router.route('form/edit/:form', {
 
 Router.route('form/update/:form/:_id', {
   title: 'Update',
+  parent: "formsList",
   name: 'updateForm',
   fastRender: true,
   where: 'client',

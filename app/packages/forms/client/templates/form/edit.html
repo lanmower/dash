@@ -5,7 +5,7 @@
       <h3 class="box-title">Edit form</h3>
       {{#if (can "update" form)}}
         <span style="float:right">{{> breadcrumb}}</span>
-        <span style="float:right">{{> quickRemoveButton collection=getCol _id=form._id class="btn btn-danger"}}</span>
+        <span style="float:right">{{> quickRemoveButton beforeRemove=beforeRemove collection=getCol _id=form._id class="btn btn-danger"}}</span>
 
       {{/if}}
     </div>

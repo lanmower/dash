@@ -6,10 +6,10 @@
             <h3 class="box-title">Edit Field</h3>
             <span style="float:right">{{> breadcrumb}}</span>
             {{#if (can "remove" field)}}
-              {{> quickRemoveButton collection=getCol _id=field._id class="btn btn-danger"}}
+              {{> quickRemoveButton beforeRemove=beforeRemove collection=getCol _id=field._id class="btn btn-danger"}}
             {{/if}}
           </div>
-          <div class="box-body">
+          <div class="box-body table-responsive">
 
       {{#if (can "update" field)}}
         {{> quickForm collection=getCol doc=field schema=schema id="editFieldForm" type="update" omitFields="createdBy" buttonContent="Update"}}

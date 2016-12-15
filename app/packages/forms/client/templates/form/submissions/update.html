@@ -10,7 +10,7 @@
           {{/linkTo}}
         </li>
         <li>
-            {{> quickRemoveButton collection=collection _id=item._id onSuccess=onSuccess onError=onError class="btn btn-danger" style="margin-top: -27px;" }}
+            {{> quickRemoveButton collection=collection _id=item._id beforeRemove=beforeRemove onError=onError class="btn btn-danger" style="margin-top: -27px;" }}
         </li>
         <li>
           {{> breadcrumb}}

@@ -65,7 +65,7 @@ Meteor.methods({
           console.log(error);
         }
       }
-        if(response && response.messages) {
+      if(response && response.messages) {
       _.each(response.messages, function(item) {
         var id = item.id;
         var existing = gmail.findOne({_id: id});

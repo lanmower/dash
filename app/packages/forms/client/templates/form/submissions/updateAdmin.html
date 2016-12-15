@@ -3,7 +3,7 @@
   <div class="box box-info">
     <div class="box-header with-border">
       <h3 class="box-title">{{form.title}} - {{userName item.createdBy}}</h3>
-      <span style="float:right">{{> quickRemoveButton collection=collection _id=item._id onSuccess=onSuccess onError=onError class="btn btn-danger"}}</span>
+      <span style="float:right">{{> quickRemoveButton collection=collection _id=item._id  beforeRemove=beforeRemove onSuccess=onSuccess onError=onError class="btn btn-danger"}}</span>
     </div>
     <div class="box-body">
 

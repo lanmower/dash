@@ -77,3 +77,15 @@ Template.registerHelper("userIsInRole", function (role, group) {
     if(Roles.userIsInRole(user, 'admin')) return true;
     return Roles.userIsInRole(user, roles)
   });
+  
+  //route parenting
+  
+Template.registerHelper("beforeRemove", function() {
+  return function (collection, id) {
+    console.log(collection, id);
+    if (confirm('Are you sure?')) {
+      Router.go(Router.current().route.options.parent,Router.current().params);
+      this.remove();
+    }
+  };
+});

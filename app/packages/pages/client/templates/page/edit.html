@@ -4,7 +4,7 @@
       <h3 class="box-title">Edit page</h3>
       {{#if (can "update" page)}}
       <span style="float:right">
-        {{> quickRemoveButton collection=getCol _id=page._id onSuccess=onSuccess class="btn btn-danger"}}
+        {{> quickRemoveButton collection=getCol _id=page._id  beforeRemove=beforeRemove onSuccess=onSuccess class="btn btn-danger"}}
       </span>
       <section style="float:right">{{> breadcrumb}}</section>
       {{/if}}
