@@ -1,5 +1,5 @@
 <template name="submissionsAdmin">
-  <div class="box">
+  <div class="box box-info">
     <div class="box-header with-border">
 
       <h3 class="box-title">Submissions admin - {{title}}</h3>
@@ -19,7 +19,7 @@
         </li>
       </ul>
     </div>
-    <div class="box-body table-responsivesubmissionsAdminCalendar">
+    <div class="box-body">
       {{#if col}}
       {{> reactiveTable collection=col fields=fields}}
       {{/if}}

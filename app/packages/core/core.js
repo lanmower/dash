@@ -90,7 +90,7 @@ var types = function(parent, parentType, allTypes) {
 }
 
 //display items have type and parent, as well as field or widget additions
-createDisplaySchema = function(parent, type, parentType, allTypes) {
+createDisplaySchema = function(parent, type, parentType, allTypes = Meteor.widgetTypes) {
   var tschema = Meteor.schema();
   tschema.parent = {
     type: String,
@@ -101,8 +101,9 @@ createDisplaySchema = function(parent, type, parentType, allTypes) {
     }
   },
   tschema.public = {
-            type: Boolean,
-        };
+    type: Boolean,
+    optional: true,
+  };
   tschema.type = {
             type: String,
             optional: false,

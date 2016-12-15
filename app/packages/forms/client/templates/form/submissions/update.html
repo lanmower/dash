@@ -1,6 +1,6 @@
 <template name="updateForm">
   {{#if schema}}
-  <div class="box">
+  <div class="box box-info">
     <div class="box-header with-border">
       <h3 class="box-title">Update form - {{title}} - {{userName item.createdBy}}</h3>
       <ul class="box-header-list" style="float:right">
@@ -19,7 +19,7 @@
 
       <h3 class="box-title">{{form.title}} - {{userName item.createdBy}}</h3>
     </div>
-    <div class="box-body table-responsive">
+    <div class="box-body">
 
   {{> quickForm collection=collection doc=item schema=schema id="updateForm" type="update" omitFields="createdBy" buttonContent="Submit"}}
   </div>

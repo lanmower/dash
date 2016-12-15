@@ -30,6 +30,7 @@ Router.route('user/edit/:_id', {
 	waitOn: function() {
     return [
       Meteor.subscribe("user", this.params._id),
+      Meteor.subscribe("signatures", this.params._id)
     ];
   },
   data: function() {
@@ -44,6 +45,7 @@ Router.route('user/edit/:_id', {
 			this.next();
 	  }
 });
+
 Router.route('user/profile', {
   name: 'editProfile',
 	parent: 'usersList',

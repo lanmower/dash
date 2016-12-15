@@ -31,11 +31,6 @@ Router.route('widget/insert/:parent', {
     	this.subscribe("widget", this.params.parent)]
   },
   data: function () {
-    var page = Pages.findOne({_id: this.params.parent});
-    if(page) {
-      var schema = new SimpleSchema(gong.createDisplaySchema(page._id, null, Pages, Meteor.widgetTypes));
-      return page;
-    }
   },
   name: 'insertWidget',
   fastRender: true,

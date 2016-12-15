@@ -64,18 +64,17 @@ Meteor.schema = function() {
     // Force value to be current date (on server) upon update
     // and don't allow it to be set upon insert.
     updatedAt: {
-      type: Date,
-      autoform: {
+        type: Date,
+        autoform: {
           type: "hidden",
-          label: false
-      },
-      autoValue: function() {
-        if (this.isUpdate) {
-          return new Date();
+          label: false,
+          value: function() {
+              return new Date();
+          },
+        },
+        autoValue: function() {
+            return new Date();
         }
-      },
-      //denyInsert: true,
-      optional: true
     }
   });
 };
@@ -87,6 +86,10 @@ Meteor.protectSchema = function() {
           optional: true,
           // minCount: 1,
           autoform: {
+              type: "hidden",
+              label: false
+          },
+          /*autoform: {
             type: "universe-select",
             afFieldInput: {
               multiple: true,
@@ -94,13 +97,17 @@ Meteor.protectSchema = function() {
                 return Meteor.rolesList();
               }
             }
-          }
+          }*/
       },
       update:{
             type: [String],
             optional: true,
             // minCount: 1,
             autoform: {
+                type: "hidden",
+                label: false
+            },
+            /*autoform: {
               type: "universe-select",
               afFieldInput: {
                 multiple: true,
@@ -108,13 +115,17 @@ Meteor.protectSchema = function() {
                   return Meteor.rolesList();
                 }
               }
-            }
+            }*/
         },
         remove:{
               type: [String],
               optional: true,
               // minCount: 1,
               autoform: {
+                  type: "hidden",
+                  label: false
+              },
+              /*autoform: {
                 type: "universe-select",
                 afFieldInput: {
                   multiple: true,
@@ -122,7 +133,7 @@ Meteor.protectSchema = function() {
                     return Meteor.rolesList();
                   }
                 }
-              }
+              }*/
           }
   });
 };

@@ -1,5 +1,5 @@
 <template name="EditPage">
-  <div class="box">
+  <div class="box box-info">
     <div class="box-header with-border">
       <h3 class="box-title">Edit page</h3>
       {{#if (can "update" page)}}
@@ -9,21 +9,21 @@
       <section style="float:right">{{> breadcrumb}}</section>
       {{/if}}
     </div>
-    <div class="box-body table-responsive">
+    <div class="box-body">
       {{#if (can "update" page)}}
       {{> quickForm collection=getCol doc=page id="editPageForm" type="update" omitFields="createdBy" buttonContent="Update"}}
       {{/if}}
       <hr>
-      {{#linkTo route="insertWidget" parent=page._id}}<i class="fa fa-plus"></i> New Widget{{/linkTo}}
       <div class="widgetList">
-      {{> widgetList Widgets=Widgets editing=editings}}
+      {{> widgetList Widgets=Widgets editing=editings highlight=highlights}}
       </div>
       {{#each Widgets}}
-        <a name="{{_id}}">
+        <section name="{{_id}}" class="{{isHighlighted}}">
           {{#if isEditing }}
             <div class="box box-warning box-solid">
               <div class="box-header with-border">
                 <h3 class="box-title">Editing</h3>
+                {{> quickRemoveButton collection=getWidgetCol style="float:right" _id=_id beforeRemove=beforeRemove class="btn btn-danger"}}
               </div>
               <!-- /.box-header -->
               <div class="box-body">
@@ -35,43 +35,31 @@
           {{else}}
             {{> Template.dynamic template=type data=this}}
           {{/if}}
-        </a>
+        </section>
       {{/each}}
     </div>
   </div>
 </template>
 
 <template name="widgetList">
-        <h4>Widgets</h4>
-        
-        <div class="box-body table-responsivesubmissionsAdminCalendar">
-          <table id="items" class="table table-hover">
-            <thead>
-              <tr>
-                <th>type</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {{#each widgets}}
-                <tr data-id='{{_id}}' class="widgetRow" data-listposition='{{listposition}}'>
-                  <td><i class="fa fa-sort pull-right"></i></td>
-                  <td>{{type}}</td>
-                  {{#if (can "update" this)}}
-                  {{debug}}
-                    {{#if isEditing}}
-                      <td class="alert alert-warning">
-                            <button class="btn btn-info editButton" type="button">Edit</button>
-                      </td>
-                    {{else}}
-                      <td>
-                            <button class="btn btn-info editButton" type="button">Edit</button>
-                      </td>
-                    {{/if}}
-                  {{/if}}
-                </tr>
-              {{/each}}
-            </tbody>
-          </table>
-        </div>
+  {{> quickForm collection=getWidgetCol class="form-inline" schema=widgetSchema id="insertWidgetInlineForm" type="insert" omitFields="createdBy" buttonContent="Create"}}
+  <table id="items" class="table table-hover widgetsTable">
+    <tbody>
+      {{#each widgets}}
+        {{> widgetListItem}}
+      {{/each}}
+    </tbody>
+  </table>
+</template>
+
+<template name="widgetListItem">
+    <tr data-id='{{_id}}' class="{{isEditing}} widgetRow" data-listposition='{{listposition}}'>
+    <td><i class="fa fa-sort"></i></td>
+    <td>{{type}}</td>
+    {{#if (can "update" this)}}
+      <td>
+            <a class="editButton">Edit</a>
+      </td>
+    {{/if}}
+  </tr>
 </template>

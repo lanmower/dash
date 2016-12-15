@@ -1,0 +1,14 @@
+<template name="SignatureStatus">
+  <div class="box box-info">
+    <div class="box-header with-border">
+      <h3 class="box-title">Signature Status</h3>
+    </div>
+    <div class="box-body">
+      <ul>
+        {{#each users}}
+          <li class='{{isNewer ../date profile.signatureSet}} alert'>{{profile.name}}</li>
+        {{/each}}
+      </ul>
+    </div>
+</div>
+</template>

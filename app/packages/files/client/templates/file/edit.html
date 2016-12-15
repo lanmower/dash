@@ -1,5 +1,5 @@
 <template name="EditFile">
-  <div class="box">
+  <div class="box box-info">
     <div class="box-header with-border">
       <h3 class="box-title">
         Edit file
@@ -8,8 +8,8 @@
         {{> quickRemoveButton collection="Files" _id=this.file._id beforeRemove=beforeRemove class="btn btn-danger"}}
       </span>
     </div>
-    <div class="box-body table-responsive">
-    {{> quickForm collection="Files" doc=this.file id="editFileForm" type="update" omitFields="createdBy" buttonContent="Update"}}
-  </div>
+    <div class="box-body">
+      {{> quickForm collection="Files" doc=this.file id="editFileForm" type="update" omitFields="createdBy" buttonContent="Update"}}
+    </div>
 </div>
 </template>

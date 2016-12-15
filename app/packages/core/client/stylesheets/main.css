@@ -171,3 +171,36 @@ width:430px;
 .ui-dialog {
   z-index: 1000 !important ;
 }
+
+.widgetList, .widgetsTable, .widgetList td {
+  margin:0;
+  padding:0 !important;
+}
+.widgetList td i {
+  margin-top:3px;
+  margin-left:3px;
+}
+
+.widgetRow:hover {
+  background:#FFEE99 !important;
+}
+.editing {
+  background:#FFA500;
+}
+.editing:hover {
+  background:#FFCC66 !important;
+}
+.highlight {
+  -webkit-box-shadow: 0px 0px 20px 2px rgba(0,0,0,0.3);
+  -moz-box-shadow: 0px 0px 20px 2px rgba(0,0,0,0.3);
+  box-shadow: 0px 0px 20px 2px rgba(0,0,0,0.3);
+}
+.widgetList select {
+ margin-top: 10px;
+ margin-left: 3px;
+ margin-right: 3px;
+}
+
+.ui-dialog .ui-dialog-titlebar {
+  padding:0px 0px 0px 3px !important;
+}

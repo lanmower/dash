@@ -1,0 +1,16 @@
+<template name="SignaturesList">
+  <div class="box box-info">
+    <div class="box-header with-border">
+      <h3 class="box-title">Signatures</h3>
+      <span style="float:right">{{#linkTo route="insertSignature"}}<button class="btn btn-info" type="button"><i class="fa fa-plus"></i> New Signature</button>{{/linkTo}}</span>
+    </div>
+    <div class="box-body">
+      {{> reactiveTable collection=col fields=fields}}
+</div>
+</div>
+</template>
+<template name="SignaturesListCellButtons">
+  {{#linkTo route='editSignature' form=this._id}}
+    <button class="btn btn-info" type="button">Edit</button>
+  {{/linkTo}}
+</template>

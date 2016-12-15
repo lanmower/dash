@@ -1,5 +1,5 @@
 <template name="submitForm">
-  <div class="box">
+  <div class="box box-info">
     <div class="box-header with-border">
       <h3 class="box-title">Submit form - {{title}}</h3>
       <ul class="box-header-list" style="float:right">
@@ -13,7 +13,7 @@
         </li>
       </ul>
     </div>
-    <div class="box-body table-responsive">
+    <div class="box-body">
       {{#if destroyForm}}
           {{! this is a wonky workaround for the fact that autoform doesn't handle reactively changing schema attribute, which should be fixed eventually}}
       {{else}}

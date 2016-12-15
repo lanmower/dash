@@ -27,6 +27,7 @@ Package.onUse(function(api) {
   api.use('differential:event-hooks');
   api.use('matb33:collection-hooks');
   api.mainModule('accounts.js');
+  api.use('almagest:signatures');
   api.use('almagest:core');
   api.use('almagest:files');
   api.use('percolate:google-api');

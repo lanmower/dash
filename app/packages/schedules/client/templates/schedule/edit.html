@@ -1,5 +1,5 @@
 <template name="EditSchedule">
-  <div class="box">
+  <div class="box box-info">
     <div class="box-header with-border">
       <h3 class="box-title">
         Edit schedule
@@ -8,7 +8,7 @@
         {{> quickRemoveButton collection="Schedules" _id=this.schedule._id beforeRemove=beforeRemove class="btn btn-danger"}}
       </span>
     </div>
-    <div class="box-body table-responsive">
+    <div class="box-body">
     {{> quickForm collection="Schedules" doc=this.schedule id="editScheduleForm" type="update" omitFields="createdBy" buttonContent="Update"}}
   </div>
 </div>

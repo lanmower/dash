@@ -1,0 +1,16 @@
+<template name="EditSignature">
+  <div class="box box-info">
+    <div class="box-header with-border">
+      <h3 class="box-title">
+        Edit signature
+      </h3>
+      <span style="float:right">
+        <button class="btn btn-info setSignatureButton">Set signature</button>
+        {{> quickRemoveButton collection="Signatures" _id=this.signature._id beforeRemove=beforeRemove class="btn btn-danger"}}
+      </span>
+    </div>
+    <div class="box-body">
+    {{> quickForm collection="Signatures" doc=this.signature id="editSignatureForm" type="update" omitFields="createdBy" buttonContent="Update"}}
+  </div>
+</div>
+</template>

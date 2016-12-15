@@ -1,10 +1,10 @@
 <template name="SchedulesList">
-  <div class="box">
+  <div class="box box-info">
     <div class="box-header with-border">
       <h3 class="box-title">Schedules</h3>
       <span style="float:right">{{#linkTo route="insertSchedule"}}<button class="btn btn-info" type="button"><i class="fa fa-plus"></i> New Schedule</button>{{/linkTo}}</span>
     </div>
-    <div class="box-body table-responsivesubmissionsAdminCalendar">
+    <div class="box-body">
       {{> reactiveTable collection=col fields=fields}}
 </div>
 </div>
