@@ -49,6 +49,7 @@ Template.EditForm.helpers({
     return Forms;
   },
   isEditing: function() {
+    console.log('test');
     let self = Template.instance();
     return self.editing.get(this._id) ? 'editing' : '';
   },
