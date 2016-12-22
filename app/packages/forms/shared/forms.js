@@ -1,44 +1,46 @@
 Forms = new Mongo.Collection('forms');
 Forms.helpers({
-  collectionType: function() {return Forms}
+  collectionType: function() {
+    return Forms
+  }
 });
 
 Forms.attachSchema(new SimpleSchema(_.extend({
-  title:{
+  title: {
     type: String,
     optional: false,
   },
-  collectionName:{
+  collectionName: {
     type: String,
     optional: false,
   },
-  types:{
-        type: [String],
-        autoform: {
-          label: "Allowed types",
-          type: "universe-select",
-          afFieldInput: {
-            multiple: true,
-            options: function () {
-              return Meteor.fieldTypes;
-            }
-          }
+  types: {
+    type: [String],
+    autoform: {
+      label: "Allowed types",
+      type: "universe-select",
+      afFieldInput: {
+        multiple: true,
+        options: function() {
+          return Meteor.fieldTypes;
         }
-    },
-    "types.$": {
-          type: String,
-          optional: true,
-      },
+      }
+    }
+  },
+  "types.$": {
+    type: String,
+    optional: true,
+  },
 }, Meteor.schema())));
 
 Forms.allow({
-  insert: function (userId, widget) {
-      return true;
-  },
-  update: function (userId, widget, fields, modifier) {
+  insert: function(userId, widget) {
     return true;
   },
-  remove: function (userId, widget) {
-      return true;
+  update: function(userId, widget, fields, modifier) {
+    return true;
+  },
+  remove: function(userId, widget) {
+    return true;
   }
 });

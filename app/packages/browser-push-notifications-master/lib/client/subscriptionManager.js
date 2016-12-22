@@ -3,19 +3,19 @@ if (!Meteor.isCordova) {
     return {
       subscribe: function() {
         navigator.serviceWorker.ready
-        .then(subscribePushSubscription)
-        .then(activateSubscription)
-        .catch(function(e) {
-          console.error(e)
-        })
+          .then(subscribePushSubscription)
+          .then(activateSubscription)
+          .catch(function(e) {
+            console.error(e)
+          })
       },
       unsubscribe: function() {
         navigator.serviceWorker.ready
-        .then(subscribePushSubscription) // TODO: this is strange
-        .then(deactivateSubscription)
-        .catch(function(e) {
-          console.error(e)
-        })
+          .then(subscribePushSubscription) // TODO: this is strange
+          .then(deactivateSubscription)
+          .catch(function(e) {
+            console.error(e)
+          })
       }
     };
 
@@ -29,7 +29,9 @@ if (!Meteor.isCordova) {
      * @return {Promise.PushSubscription}
      */
     function subscribePushSubscription(serviceWorkerRegistration) {
-      return serviceWorkerRegistration.pushManager.subscribe({userVisibleOnly: true});
+      return serviceWorkerRegistration.pushManager.subscribe({
+        userVisibleOnly: true
+      });
     }
 
     /**
@@ -38,7 +40,7 @@ if (!Meteor.isCordova) {
      * @return {[type]}
      */
     function activateSubscription(subscription) {
-      subscription.subscriptionId = subscription.endpoint.split('https://android.googleapis.com/gcm/send/')[1]; 
+      subscription.subscriptionId = subscription.endpoint.split('https://android.googleapis.com/gcm/send/')[1];
       // Save subscription on the server
       Meteor.call('saveSubscription', subscription.subscriptionId);
     }

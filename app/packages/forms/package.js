@@ -36,7 +36,7 @@ Package.onUse(function(api) {
   // Generated with: github.com/philcockfield/meteor-package-paths
   api.addFiles('shared/forms.js', ['client', 'server']);
   api.addFiles('client/lib/helpers.js', 'client');
-  api.addFiles('shared/lib/form.js', ['client','server']);
+  api.addFiles('shared/lib/form.js', ['client', 'server']);
   api.addFiles('shared/fields/approveInput/approveForm.html', ['client']);
   api.addFiles('shared/fields/approveInput/approveInput.html', ['client']);
   api.addFiles('shared/fields/code/codeField.html', ['client']);

@@ -28,16 +28,34 @@ bpSubscriptions.attachSchema(new SimpleSchema({
 }));
 
 bpSubscriptions.getSubscriptionIds = function(userIds) {
-  var selector = {owner: { $in: userIds }};
-  var options = {fields: {subscription_id: 1, _id: 0}};
+  var selector = {
+    owner: {
+      $in: userIds
+    }
+  };
+  var options = {
+    fields: {
+      subscription_id: 1,
+      _id: 0
+    }
+  };
   return bpSubscriptions.find(selector, options).map(function(subscription) {
     return subscription.subscription_id;
   });
 };
 
 bpSubscriptions.getOwners = function(subscriptionIds) {
-  var selector = {subscription_id: { $in: subscriptionIds }};
-  var options = {fields: {owner: 1, _id: 0}};
+  var selector = {
+    subscription_id: {
+      $in: subscriptionIds
+    }
+  };
+  var options = {
+    fields: {
+      owner: 1,
+      _id: 0
+    }
+  };
   return bpSubscriptions.find(selector, options).map(function(subscription) {
     return subscription.owner;
   });
@@ -45,13 +63,13 @@ bpSubscriptions.getOwners = function(subscriptionIds) {
 
 bpSubscriptions.requestUsersPush = function(userIds) {
   var registrationIds = bpSubscriptions.getSubscriptionIds(userIds);
-  if(registrationIds.length > 0) bpSubscriptions.requestPush(registrationIds);
+  if (registrationIds.length > 0) bpSubscriptions.requestPush(registrationIds);
 };
 
 bpSubscriptions.requestPush = function(registrationIds) {
 
   var key = BrowserPushNotifications.key;
-  if(!key) {
+  if (!key) {
     throw new Meteor.Error('key-error', 'You didn\'t set the Google API key. See server output.');
   }
   var url = 'https://android.googleapis.com/gcm/send';
@@ -65,10 +83,10 @@ bpSubscriptions.requestPush = function(registrationIds) {
     }
   };
 
-  HTTP.post(url, options, function (error, result) {
+  HTTP.post(url, options, function(error, result) {
     if (error) {
       throw new Meteor.Error('api-error',
-                      'Error while trying to contact google.' + error, error);
+        'Error while trying to contact google.' + error, error);
     }
   });
 };
@@ -81,10 +99,11 @@ bpSubscriptions.broadcast = function(notification) {
 
   // Insert a notificataion for all owners of the subscriptions
   bpSubscriptions.getOwners(subscriptionIds).forEach(function(userId) {
-    bpNotifications.insert(_.extend(notification, {owner: userId}));
+    bpNotifications.insert(_.extend(notification, {
+      owner: userId
+    }));
   });
 
   // Finally request a push for all the subscriptions
   bpSubscriptions.requestPush(subscriptionIds);
 }
-

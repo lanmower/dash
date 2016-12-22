@@ -16,7 +16,7 @@ Package.onUse(function(api) {
   api.use('ecmascript');
   api.use('mongo');
   api.use('aldeed:autoform');
-  api.use('templating', "client"  );
+  api.use('templating', "client");
   api.use('reactive-var');
   api.use('momentjs:moment');
   api.use('dburles:collection-helpers');

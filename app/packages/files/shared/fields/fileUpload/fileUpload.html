@@ -1,90 +1,80 @@
 <template name="afFileUploadImage">
-    <thead>
-  <tr>
-    <th>Images</th>
-  </tr>
-    </thead>
-    {{#if destroyForm}}
-    {{else}}
-          <div class="carousel">
-      {{#each files}}
-          {{> carouselItem}}
-      {{/each}}
-      </div>
+  <thead>
+    <tr>
+      <th>Images</th>
+    </tr>
+  </thead>
+  {{#if destroyForm}} {{else}}
+  <div class="carousel">
+    {{#each files}} {{> carouselItem}} {{/each}}
+  </div>
 
-    {{/if}}
+  {{/if}}
 </template>
 
 <template name="carouselItem">
-    <div><img src="{{this.url store='thumbs'}}"/></div>
+  <div><img src="{{this.url store='thumbs'}}" /></div>
 </template>
 
 <template name="afFileUploadAudio">
-    <thead>
-  <tr>
-    <th>Audio</th>
-  </tr>
-    </thead>
+  <thead>
+    <tr>
+      <th>Audio</th>
+    </tr>
+  </thead>
   <tbody>
     {{#each files}}
     <tr>
       <td>{{metadata.id3.title}}</td>
       <td><a href="{{this.url download=true}}" target="_blank">download</a></td>
       {{#if metadata.converted}}
-        <td class="playTrack">play</td>
-      {{else}}
-        {{#if metadata.conversionProgress}}
-          Converting: {{metadata.conversionProgress}}%
-          {{else}}
-          {{#if metadata.conversionError}}
-          Conversion error. {{metadata.conversionError}} 
-          <pre>
+      <td class="playTrack">play</td>
+      {{else}} {{#if metadata.conversionProgress}} Converting: {{metadata.conversionProgress}}% {{else}} {{#if metadata.conversionError}} Conversion error. {{metadata.conversionError}}
+      <pre>
           {{metadata.stderr}}
-          </pre>
-          {{else}}Queued for conversion.{{/if}}
-        {{/if}}
-      {{/if}}
+          </pre> {{else}}Queued for conversion.{{/if}} {{/if}} {{/if}}
     </tr>
     {{/each}}
-    </tbody>
+  </tbody>
 </template>
 
 <template name="afFileUploadDocument">
-    <thead>
+  <thead>
     <tr>
       <th>Documents</th>
     </tr>
-    </thead>
-    <tbody>
+  </thead>
+  <tbody>
     {{#each files}}
     <tr>
-      <td><a href="{{this.url download=true}}" target="_blank"><img src="{{this.url store='thumbs' alt='download'}}"/></a></td>
+      <td>
+        <a href="{{this.url download=true}}" target="_blank"><img src="{{this.url store='thumbs' alt='download'}}" /></a>
+      </td>
       <td>{{this.original.name}}</td>
     </tr>
     {{/each}}
-    </tbody>
+  </tbody>
 </template>
 
 <template name="afFileUploadVideo">
-    <thead>
-  <tr>
-    <th>Videos</th>
-  </tr>
-    </thead>
+  <thead>
+    <tr>
+      <th>Videos</th>
+    </tr>
+  </thead>
   {{#each files}}
   <tr>
-    <td><a class="playVideo"><img src="{{this.url store='thumbs'}}" alt="Play"/><br/>{{this.original.name}}</a></td>
-    {{#if metadata.converted}}<td><a href="{{this.url download=true}}">download</a></td>
-    {{else}}
-      {{#if metadata.conversionProgress}}
-        <td>
-          Converting: {{metadata.conversionProgress}}%
-          {{#if metadata.conversionError}} Conversion error: {{metadata.conversionError}}
-          {{else}}Queued for conversion.
-          {{/if}}
-        </td>   
-      {{/if}}
-    {{/if}}
+    <td>
+      <a class="playVideo"><img src="{{this.url store='thumbs'}}" alt="Play" />
+        <br/>{{this.original.name}}</a>
+    </td>
+    {{#if metadata.converted}}
+    <td><a href="{{this.url download=true}}">download</a></td>
+    {{else}} {{#if metadata.conversionProgress}}
+    <td>
+      Converting: {{metadata.conversionProgress}}% {{#if metadata.conversionError}} Conversion error: {{metadata.conversionError}} {{else}}Queued for conversion. {{/if}}
+    </td>
+    {{/if}} {{/if}}
   </tr>
   {{/each}}
 </template>
@@ -94,23 +84,8 @@
   <input type="file" name="{{name}}" style="visibility:hidden;position:absolute;top:0;left:0" class="fileInput" multiple/>
   <input type=button value="Upload files" class="btn btn-primary" onclick="$(this).prev().click()">
   <table class="table table-striped table-hover col-sm-12">
-    {{#if fileCount "document"}}
-    {{> afFileUploadDocument files=(files "document")}}
-    {{/if}}
-
-    {{#if fileCount "audio"}}
-    Audio:
-    {{> afFileUploadAudio files=(files "audio")}}
-    {{/if}}
-
-    {{#if fileCount "video"}}
-    {{> afFileUploadVideo files=(files "video")}}
-    {{/if}}
-
-    {{#if fileCount "image"}}
-    Images:
-    {{> afFileUploadImage files=(files "image")}}
-    {{/if}}
-    </table>
+    {{#if fileCount "document"}} {{> afFileUploadDocument files=(files "document")}} {{/if}} {{#if fileCount "audio"}} Audio: {{> afFileUploadAudio files=(files "audio")}} {{/if}} {{#if fileCount "video"}} {{> afFileUploadVideo files=(files "video")}} {{/if}}
+    {{#if fileCount "image"}} Images: {{> afFileUploadImage files=(files "image")}} {{/if}}
+  </table>
   {{/if}}
 </template>

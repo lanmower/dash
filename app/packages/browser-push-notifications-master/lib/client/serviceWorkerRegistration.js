@@ -9,11 +9,14 @@ if (!Meteor.isCordova) {
       checkPreconditions();
 
       navigator.serviceWorker.register('/serviceWorker.js')
-      .then(waitForServiceWorkerToBeReady)
-      .then(getPushSubscription)
-      .then(setCheckbox)
-      .catch(function(err) { console.error(err) });
-    } else {
+        .then(waitForServiceWorkerToBeReady)
+        .then(getPushSubscription)
+        .then(setCheckbox)
+        .catch(function(err) {
+          console.error(err)
+        });
+    }
+    else {
       console.warn('Service workers aren\'t supported in this browser.')
     }
 
@@ -65,7 +68,7 @@ if (!Meteor.isCordova) {
     }
 
     function setCheckbox(subscription) {
-      if(subscription) $('#push-button')[0].checked = true;
+      if (subscription) $('#push-button')[0].checked = true;
     }
   }
 

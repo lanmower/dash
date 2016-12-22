@@ -1,5 +1,5 @@
 <template name="diary">
-  
+
   <div class="box box-info">
     <table class="table">
       <tbody>
@@ -8,14 +8,7 @@
             Todays diary:
           </td>
           <td style="text-align: right">
-            {{#if userIsInRole "admin"}}
-              {{#linkTo route="diaryAdmin"}}
-                Admin
-              {{/linkTo}}
-            {{/if}}
-            {{#linkTo route="diaryList"}}
-              History
-            {{/linkTo}}
+            {{#if userIsInRole "admin"}} {{#linkTo route="diaryAdmin"}} Admin {{/linkTo}} {{/if}} {{#linkTo route="diaryList"}} History {{/linkTo}}
 
           </td>
         </tr>
@@ -24,7 +17,7 @@
             <div class="diary">{{diary}}</div>
           </td>
         </tr>
-        </tbody>
+      </tbody>
     </table>
   </div>
 </template>

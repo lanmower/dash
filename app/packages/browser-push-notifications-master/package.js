@@ -18,31 +18,36 @@ Package.onUse(function(api) {
   api.use('mrt:cookies@0.3.0');
   api.use('thepumpinglemma:cookies@1.0.0');
   api.addFiles(
-  [
-    'lib/both/collections.js',
-  ],
-  both);
+    [
+      'lib/both/collections.js',
+    ],
+    both);
 
   api.addFiles(
-  [
-    'lib/client/serviceWorkerRegistration.js',
-    'lib/client/subscriptionManager.js',
-    'lib/client/views.html',
-    'lib/client/views.js',
-  ],
-  'client');
+    [
+      'lib/client/serviceWorkerRegistration.js',
+      'lib/client/subscriptionManager.js',
+      'lib/client/views.html',
+      'lib/client/views.js',
+    ],
+    'client');
 
   api.addFiles(
-  [
-    'lib/server/collections.js',
-    'lib/server/methods.js',
-    'lib/server/server.js',
-    'lib/server/router.js',
-  ],
-  'server');
+    [
+      'lib/server/collections.js',
+      'lib/server/methods.js',
+      'lib/server/server.js',
+      'lib/server/router.js',
+    ],
+    'server');
   api.export('bpNotifications');
-  api.addFiles('img/check.png', 'client', {isAsset: true});
-  api.addFiles('img/error.png', 'client', {isAsset: true});
-  api.addFiles('serviceWorker.js', 'client', {isAsset: true});
+  api.addFiles('img/check.png', 'client', {
+    isAsset: true
+  });
+  api.addFiles('img/error.png', 'client', {
+    isAsset: true
+  });
+  api.addFiles('serviceWorker.js', 'client', {
+    isAsset: true
+  });
 });
-
