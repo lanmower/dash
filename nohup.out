@@ -1,2 +1,152 @@
 Building App Bundle Locally
- 
+ error: unknown command dpeloy
+update 1.0.3 => 1.0.4
+Building App Bundle Locally
+[34m[1m
+Started TaskList: Pushing Meteor[22m[39m
+[36m[35m[beanscount.co.za] [39m- Pushing Meteor App Bundle to The Server[39m
+[36m[35m[beanscount.co.za] [39m[32m- Pushing Meteor App Bundle to The Server: SUCCESS[39m[39m
+[36m[35m[beanscount.co.za] [39m- Pushing the Startup Script[39m
+[36m[35m[beanscount.co.za] [39m[32m- Pushing the Startup Script: SUCCESS[39m[39m
+[34m[1m
+Started TaskList: Configuring  Meteor Environment Variables[22m[39m
+[36m[35m[beanscount.co.za] [39m- Sending Environment Variables[39m
+[36m[35m[beanscount.co.za] [39m[32m- Sending Environment Variables: SUCCESS[39m[39m
+[34m[1m
+Started TaskList: Start Meteor[22m[39m
+[36m[35m[beanscount.co.za] [39m- Start Meteor[39m
+[36m[35m[beanscount.co.za] [39m[32m- Start Meteor: SUCCESS[39m[39m
+[36m[35m[beanscount.co.za] [39m- Verifying Deployment[39m
+[36m[35m[beanscount.co.za] [39m[32m- Verifying Deployment: SUCCESS[39m[39m
+error: unknown command delpoy
+update 1.0.3 => 1.0.4
+Building App Bundle Locally
+
+You are attempting to run Meteor as the "root" user. If you are developing,
+this is almost certainly *not* what you want to do and will likely result in
+incorrect file permissions. However, if you are running this in a build process
+(CI, etc.) or you are absolutely sure you know what you are doing, add the
+`--unsafe-perm` flag to this command to proceed.
+
+
+=> Build Error. Check the logs printed above.
+update 1.0.3 => 1.0.4
+Building App Bundle Locally
+[34m[1m
+Started TaskList: Pushing Meteor[22m[39m
+[36m[35m[beanscount.co.za] [39m- Pushing Meteor App Bundle to The Server[39m
+[36m[35m[beanscount.co.za] [39m[32m- Pushing Meteor App Bundle to The Server: SUCCESS[39m[39m
+[36m[35m[beanscount.co.za] [39m- Pushing the Startup Script[39m
+[36m[35m[beanscount.co.za] [39m[32m- Pushing the Startup Script: SUCCESS[39m[39m
+[34m[1m
+Started TaskList: Configuring  Meteor Environment Variables[22m[39m
+[36m[35m[beanscount.co.za] [39m- Sending Environment Variables[39m
+[36m[35m[beanscount.co.za] [39m[32m- Sending Environment Variables: SUCCESS[39m[39m
+[34m[1m
+Started TaskList: Start Meteor[22m[39m
+[36m[35m[beanscount.co.za] [39m- Start Meteor[39m
+[36m[35m[beanscount.co.za] [39m[32m- Start Meteor: SUCCESS[39m[39m
+[36m[35m[beanscount.co.za] [39m- Verifying Deployment[39m
+[36m[35m[beanscount.co.za] [39m[32m- Verifying Deployment: SUCCESS[39m[39m
+update 1.0.3 => 1.0.4
+Building App Bundle Locally
+
+You are attempting to run Meteor as the "root" user. If you are developing,
+this is almost certainly *not* what you want to do and will likely result in
+incorrect file permissions. However, if you are running this in a build process
+(CI, etc.) or you are absolutely sure you know what you are doing, add the
+`--unsafe-perm` flag to this command to proceed.
+
+
+=> Build Error. Check the logs printed above.
+update 1.0.3 => 1.0.4
+Building App Bundle Locally
+[34m[1m
+Started TaskList: Pushing Meteor[22m[39m
+[36m[35m[beanscount.co.za] [39m- Pushing Meteor App Bundle to The Server[39m
+[36m[35m[beanscount.co.za] [39m[32m- Pushing Meteor App Bundle to The Server: SUCCESS[39m[39m
+[36m[35m[beanscount.co.za] [39m- Pushing the Startup Script[39m
+[36m[35m[beanscount.co.za] [39m[32m- Pushing the Startup Script: SUCCESS[39m[39m
+[34m[1m
+Started TaskList: Configuring  Meteor Environment Variables[22m[39m
+[36m[35m[beanscount.co.za] [39m- Sending Environment Variables[39m
+[36m[35m[beanscount.co.za] [39m[32m- Sending Environment Variables: SUCCESS[39m[39m
+[34m[1m
+Started TaskList: Start Meteor[22m[39m
+[36m[35m[beanscount.co.za] [39m- Start Meteor[39m
+[36m[35m[beanscount.co.za] [39m[32m- Start Meteor: SUCCESS[39m[39m
+[36m[35m[beanscount.co.za] [39m- Verifying Deployment[39m
+[36m[35m[beanscount.co.za] [39m[32m- Verifying Deployment: SUCCESS[39m[39m
+update 1.0.3 => 1.0.4
+Building App Bundle Locally
+/home/lanmower/.meteor/packages/meteor-tool/.1.4.2_3.81ha8m++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/isopackets/ddp/npm/node_modules/meteor/promise/node_modules/meteor-promise/promise_server.js:190
+      throw error;
+      ^
+
+Error: ENOSPC: no space left on device, open '/tmp/c518552b-c992-4276-bef3-bd681d6ca958/.build722310.bundle/programs/.build465880.server/npm/node_modules/meteor/matb33_collection-hooks/node_modules/es5-ext/array/#/@@iterator/index.js'
+    at Error (native)
+    at Object.fs.openSync (fs.js:549:18)
+    at Object.fs.writeFileSync (fs.js:1156:15)
+    at Object.wrapper [as writeFile] (/tools/fs/files.js:1535:35)
+    at /tools/isobuild/builder.js:571:17
+    at Array.forEach (native)
+    at walk (/tools/isobuild/builder.js:463:34)
+    at /tools/isobuild/builder.js:552:13
+    at Array.forEach (native)
+    at walk (/tools/isobuild/builder.js:463:34)
+    at /tools/isobuild/builder.js:552:13
+    at Array.forEach (native)
+    at walk (/tools/isobuild/builder.js:463:34)
+    at /tools/isobuild/builder.js:552:13
+    at Array.forEach (native)
+    at walk (/tools/isobuild/builder.js:463:34)
+    at /tools/isobuild/builder.js:552:13
+    at Array.forEach (native)
+    at walk (/tools/isobuild/builder.js:463:34)
+    at Builder.copyDirectory (/tools/isobuild/builder.js:591:5)
+    at /tools/isobuild/bundler.js:2013:17
+    at Function._.each._.forEach (/home/lanmower/.meteor/packages/meteor-tool/.1.4.2_3.81ha8m++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/dev_bundle/lib/node_modules/underscore/underscore.js:87:22)
+    at JsImage.write (/tools/isobuild/bundler.js:1972:7)
+    at ServerTarget.write (/tools/isobuild/bundler.js:2241:13)
+    at /tools/isobuild/bundler.js:2336:30
+    at /tools/isobuild/bundler.js:2469:9
+    at Array.forEach (native)
+    at /tools/isobuild/bundler.js:2459:26
+    at /tools/isobuild/bundler.js:2399:7
+    at /tools/isobuild/bundler.js:2800:22
+    at /tools/utils/buildmessage.js:271:13
+    at [object Object].withValue (/tools/utils/fiber-helpers.js:89:14)
+    at /tools/utils/buildmessage.js:264:29
+    at [object Object].withValue (/tools/utils/fiber-helpers.js:89:14)
+    at /tools/utils/buildmessage.js:262:18
+    at [object Object].withValue (/tools/utils/fiber-helpers.js:89:14)
+    at /tools/utils/buildmessage.js:253:23
+    at [object Object].withValue (/tools/utils/fiber-helpers.js:89:14)
+    at Object.capture (/tools/utils/buildmessage.js:252:19)
+    at bundle (/tools/isobuild/bundler.js:2633:31)
+    at /tools/isobuild/bundler.js:2580:32
+    at Object.withCache (/tools/fs/files.js:1601:12)
+    at Object.exports.bundle (/tools/isobuild/bundler.js:2580:16)
+    at buildCommand (/tools/cli/commands.js:952:30)
+    at Command.func (/tools/cli/commands.js:827:12)
+    at /tools/cli/main.js:1483:23
+
+=> Build Error. Check the logs printed above.
+update 1.0.3 => 1.0.4
+Building App Bundle Locally
+[34m[1m
+Started TaskList: Pushing Meteor[22m[39m
+[36m[35m[beanscount.co.za] [39m- Pushing Meteor App Bundle to The Server[39m
+[36m[35m[beanscount.co.za] [39m[32m- Pushing Meteor App Bundle to The Server: SUCCESS[39m[39m
+[36m[35m[beanscount.co.za] [39m- Pushing the Startup Script[39m
+[36m[35m[beanscount.co.za] [39m[32m- Pushing the Startup Script: SUCCESS[39m[39m
+[34m[1m
+Started TaskList: Configuring  Meteor Environment Variables[22m[39m
+[36m[35m[beanscount.co.za] [39m- Sending Environment Variables[39m
+[36m[35m[beanscount.co.za] [39m[32m- Sending Environment Variables: SUCCESS[39m[39m
+[34m[1m
+Started TaskList: Start Meteor[22m[39m
+[36m[35m[beanscount.co.za] [39m- Start Meteor[39m
+[36m[35m[beanscount.co.za] [39m[32m- Start Meteor: SUCCESS[39m[39m
+[36m[35m[beanscount.co.za] [39m- Verifying Deployment[39m
+[36m[35m[beanscount.co.za] [39m[32m- Verifying Deployment: SUCCESS[39m[39m
