@@ -3,40 +3,38 @@
     <div class="box-header with-border">
       <h3 class="box-title">Admin Calendar - {{title}}</h3>
 
-    <ul class="box-header-list">
-      <li>
-      <form action="#" method="get" class="form" style="width:200px">
-        <div class="input-group">
-          <input type="text" name="q" class="form-control form-search" placeholder="Search..." value="{{searchQuery}}">
-          <span class="input-group-btn">
+      <ul class="box-header-list">
+        <li>
+          <form action="#" method="get" class="form" style="width:200px">
+            <div class="input-group">
+              <input type="text" name="q" class="form-control form-search" placeholder="Search..." value="{{searchQuery}}">
+              <span class="input-group-btn">
             <button type="submit" name="search" id="search-btn" class="btn btn-flat" ><i class="fa fa-search"></i></button>
           </span>
-        </div>
-      </form>
-    </li>
-    <li>
-      {{#if canAdmin}}
-      {{#linkTo route="submissionsAdmin" form=currentForm}}<button class="btn btn-danger" style="margin-top: -27px;" type="button">Admin</button>{{/linkTo}}
-      {{/if}}
-    </li>
-    <li>
-      {{#linkTo route='submissions' form=currentForm}}
-        <button class="btn btn-info" style="margin-top: -27px;" type="button">List Submissions</button>
-      {{/linkTo}}
-    </li>
-  <li>
-      {{#linkTo route="submitForm" form=currentForm}}<button class="btn btn-info" style="margin-top: -27px;" type="button">New submission</button>{{/linkTo}}
-    </li>
-    <li>
+            </div>
+          </form>
+        </li>
+        <li>
+          {{#if canAdmin}} {{#linkTo route="submissionsAdmin" form=currentForm}}
+          <button class="btn btn-danger" style="margin-top: -27px;" type="button">Admin</button>{{/linkTo}} {{/if}}
+        </li>
+        <li>
+          {{#linkTo route='submissions' form=currentForm}}
+          <button class="btn btn-info" style="margin-top: -27px;" type="button">List Submissions</button>
+          {{/linkTo}}
+        </li>
+        <li>
+          {{#linkTo route="submitForm" form=currentForm}}
+          <button class="btn btn-info" style="margin-top: -27px;" type="button">New submission</button>{{/linkTo}}
+        </li>
+        <li>
 
-      {{> breadcrumb}}
-    </li>
-  </ul>
+          {{> breadcrumb}}
+        </li>
+      </ul>
     </div>
     <div class="box-body submissionsAdminCalendar">
-      {{> fullcalendar
-        events=events
-      }}
+      {{> fullcalendar events=events }}
     </div>
   </div>
 </template>

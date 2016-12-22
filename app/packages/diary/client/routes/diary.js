@@ -8,8 +8,10 @@ Router.route('diary/view/:_id', {
       this.subscribe("diaries"),
     ];
   },
-  data: function () {
-    var diary = Diaries.findOne({_id:this.params._id});
+  data: function() {
+    var diary = Diaries.findOne({
+      _id: this.params._id
+    });
     return {
       diary: diary
     };
@@ -26,8 +28,10 @@ Router.route('diary/adminView/:_id', {
       this.subscribe("diaries-admin"),
     ];
   },
-  data: function () {
-    var diary = Diaries.findOne({_id:this.params._id});
+  data: function() {
+    var diary = Diaries.findOne({
+      _id: this.params._id
+    });
     return {
       diary: diary
     };
@@ -58,8 +62,10 @@ Router.route('diary/today', {
       this.subscribe("diary")
     ];
   },
-  data: function () {
-    var diary = Diaries.findOne({_id:this.params._id});
+  data: function() {
+    var diary = Diaries.findOne({
+      _id: this.params._id
+    });
     return {
       diary: diary
     };

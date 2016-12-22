@@ -1,8 +1,11 @@
-Meteor.fieldTypes.push({label:"Editor Input", value: "editorInput"});
+Meteor.fieldTypes.push({
+  label: "Editor Input",
+  value: "editorInput"
+});
 
 Widgets.schemas.editorInput = function() {
   return {
-    title:{
+    title: {
       type: String,
       optional: false,
     }
@@ -12,12 +15,12 @@ Fields.schemas.editorInput = function(data) {
   var name = data.name
   var output = {};
   output[name] = {
-        "type": String,
-        autoform: {
-          afFieldInput: {
-            type: 'summernote',
-          }
-        }
-      };
-      return output;
+    "type": String,
+    autoform: {
+      afFieldInput: {
+        type: 'summernote',
+      }
+    }
   };
+  return output;
+};

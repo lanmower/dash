@@ -5,12 +5,12 @@
 
       <ul class="box-header-list" style="float:right">
         <li>
-          {{#if canAdmin}}
-          {{#linkTo route="submissionsAdmin" form=currentForm}}<button class="btn btn-danger" style="margin-top: -27px;" type="button">Admin</button>{{/linkTo}}
-          {{/if}}
+          {{#if canAdmin}} {{#linkTo route="submissionsAdmin" form=currentForm}}
+          <button class="btn btn-danger" style="margin-top: -27px;" type="button">Admin</button>{{/linkTo}} {{/if}}
         </li>
         <li>
-          {{#linkTo route="submitForm" form=currentForm}}<button class="btn btn-info" style="margin-top: -27px;" type="button">New submission</button>{{/linkTo}}
+          {{#linkTo route="submitForm" form=currentForm}}
+          <button class="btn btn-info" style="margin-top: -27px;" type="button">New submission</button>{{/linkTo}}
         </li>
         <li>
           {{> breadcrumb}}
@@ -26,9 +26,7 @@
       </form>
     </div>
     <div class="box-body">
-      {{> fullcalendar
-        events=events
-      }}
+      {{> fullcalendar events=events }}
     </div>
   </div>
 </template>

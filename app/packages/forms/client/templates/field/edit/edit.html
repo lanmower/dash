@@ -1,5 +1,5 @@
 <template name="EditField">
-  <div class="fill">
+  <!--div class="fill">
     <div class="contain" style="overflow-y:auto;padding:10px">
         <div class="box box-info">
           <div class="box-header with-border">
@@ -9,14 +9,15 @@
               {{> quickRemoveButton beforeRemove=beforeRemove collection=getCol _id=field._id class="btn btn-danger"}}
             {{/if}}
           </div>
-          <div class="box-body table-responsive">
+          <div class="box-body table-responsive"
 
-      {{#if (can "update" field)}}
-        {{> quickForm collection=getCol doc=field schema=schema id="editFieldForm" type="update" omitFields="createdBy" buttonContent="Update"}}
-      {{else}}
+      {{#if (can "update" field)}}-->
+      
+        {{> quickForm collection=getCol doc=field schema=getSchema id="editFieldForm" type="update" omitFields="createdBy" buttonContent="Update"}}
+      <!-- {{else}}
         You do not have permission to update this field.
       {{/if}}
-      <!-- Sidebar -->
+      Sidebar -->
       <!--div id="split-right" class="split-right collapse" >
       <div class="right-container">
       <div class="right-wrapper">
@@ -30,9 +31,9 @@
 </div>
 </div>
 </div>
-<button class="fab" data-toggle="collapse" data-target="#split-right"><i class="fa fa-search"></i></button-->
+<button class="fab" data-toggle="collapse" data-target="#split-right"><i class="fa fa-search"></i></button>
     </div>
     </div>
     </div>
-  </div>
+  </div-->
 </template>

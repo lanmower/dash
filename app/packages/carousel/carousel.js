@@ -2,18 +2,21 @@
 
 // Variables exported by this module can be imported by other packages and
 // applications. See carousel-tests.js for an example of importing.
-Meteor.widgetTypes.push({label:"Carousel", value:"carousel"});
+Meteor.widgetTypes.push({
+  label: "Carousel",
+  value: "carousel"
+});
 
 Widgets.schemas.carousel = function() {
   return {
-    'slides':{
+    'slides': {
       type: Array,
       optional: false,
     },
-    'slides.$':{
+    'slides.$': {
       type: Object,
     },
-    'slides.$.body':{
+    'slides.$.body': {
       type: String,
       optional: false,
       autoform: {
@@ -26,8 +29,8 @@ Widgets.schemas.carousel = function() {
 };
 
 Template.carousel.rendered = function() {
-    $(this.find('#carousel')).slick({
-      dots: true,
-      arrows: true
-    });
-  }
+  $(this.find('#carousel')).slick({
+    dots: true,
+    arrows: true
+  });
+}

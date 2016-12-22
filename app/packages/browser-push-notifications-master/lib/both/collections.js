@@ -3,7 +3,9 @@ if (!Meteor.isCordova) {
   bpNotifications = new Meteor.Collection('bp_notifications');
 
   bpNotifications.attachSchema(new SimpleSchema({
-    title: { type: String },
+    title: {
+      type: String
+    },
     message: {
       type: String,
       optional: true,
@@ -18,15 +20,15 @@ if (!Meteor.isCordova) {
     },
     'actions.$': {
       type: Object,
-      optional:true
+      optional: true
     },
     'actions.$.text': {
       type: String,
-      optional:true
+      optional: true
     },
     'actions.$.url': {
       type: String,
-      optional:true
+      optional: true
     },
     callbackAt: {
       optional: true,
@@ -36,7 +38,7 @@ if (!Meteor.isCordova) {
       type: String,
       regEx: SimpleSchema.RegEx.Id,
       autoValue: function() {
-        if(!this.isSet) {
+        if (!this.isSet) {
           if (this.isInsert) {
             return Meteor.userId();
           }
@@ -78,9 +80,9 @@ if (!Meteor.isCordova) {
   bpNotifications.getNotifications = function(notificationId, userId) {
     var notifications = bpNotifications.find(notificationId).fetch();
 
-    if(!notifications) {
+    if (!notifications) {
       throw new Meteor.Error('notification not found',
-             'Subscription with subscriptionId= ' + subscriptionId + 'not found');
+        'Subscription with subscriptionId= ' + subscriptionId + 'not found');
     }
 
     return notifications;
@@ -98,13 +100,13 @@ if (!Meteor.isCordova) {
   }
 
   bpNotifications.allow({
-    insert: function (userId, item) {
-        return true;
+    insert: function(userId, item) {
+      return true;
     },
-    update: function (userId, item, fields, modifier) {
-      return  true;
+    update: function(userId, item, fields, modifier) {
+      return true;
     },
-    remove: function (userId, item) {
+    remove: function(userId, item) {
       return true;
     }
   });

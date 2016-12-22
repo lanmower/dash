@@ -1,19 +1,19 @@
 <template name="diaryAdmin">
-  <div class="box box-info">
-    <div class="box-header with-border">
-      <h3 class="box-title">Diary admin</h3>
-    </div>
-    <div class="box-body">
-	  <div class="box box-info">
-	    <div class="box-body">
-	      {{> reactiveTable collection="diaries-admin" fields=fields}}
-	    </div>
-	  </div>
-    </div>
-  </div>
+	<div class="box box-info">
+		<div class="box-header with-border">
+			<h3 class="box-title">Diary admin</h3>
+		</div>
+		<div class="box-body">
+			<div class="box box-info">
+				<div class="box-body">
+					{{> reactiveTable collection="diaries-admin" fields=fields}}
+				</div>
+			</div>
+		</div>
+	</div>
 </template>
-	<template name="DiaryAdminCellButtons">
-	  {{#linkTo route='adminViewDiary' form=this._id}}
-	    <button class="btn btn-info" type="button">View</button>
-	  {{/linkTo}}
+<template name="DiaryAdminCellButtons">
+	{{#linkTo route='adminViewDiary' form=this._id}}
+	<button class="btn btn-info" type="button">View</button>
+	{{/linkTo}}
 </template>

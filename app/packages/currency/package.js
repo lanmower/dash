@@ -24,7 +24,7 @@ Package.onUse(function(api) {
   api.addFiles('calculator.html', 'client');
   api.addFiles('calculator.js', 'client');
   api.addFiles('currencyInput/currencyInput.html', 'client');
-  api.addFiles('currencyInput/currencyInput.js', ['client','server']);
+  api.addFiles('currencyInput/currencyInput.js', ['client', 'server']);
 });
 
 Package.onTest(function(api) {

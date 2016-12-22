@@ -17,6 +17,7 @@ Package.onUse(function(api) {
   api.use('templating', "client");
   api.use('mongo');
   api.use('reactive-var');
+  api.use('reactive-dict');
   api.use("iron:router");
   api.use('aldeed:autoform');
   api.use('aslagle:reactive-table');
@@ -35,7 +36,7 @@ Package.onUse(function(api) {
   // Generated with: github.com/philcockfield/meteor-package-paths
   api.addFiles('shared/forms.js', ['client', 'server']);
   api.addFiles('client/lib/helpers.js', 'client');
-  api.addFiles('shared/lib/form.js', ['client','server']);
+  api.addFiles('shared/lib/form.js', ['client', 'server']);
   api.addFiles('shared/fields/approveInput/approveForm.html', ['client']);
   api.addFiles('shared/fields/approveInput/approveInput.html', ['client']);
   api.addFiles('shared/fields/code/codeField.html', ['client']);

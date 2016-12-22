@@ -1,5 +1,8 @@
-Meteor.fieldTypes.push({label:"Html field", value: "htmlField"});
-if(Meteor.isClient) {
+Meteor.fieldTypes.push({
+  label: "Html field",
+  value: "htmlField"
+});
+if (Meteor.isClient) {
   Template.afHtmlField.helpers({
     content: function() {
       return AutoForm.getSchemaForField(this.name).autoform.afFieldInput.content;
@@ -9,7 +12,7 @@ if(Meteor.isClient) {
 
 Widgets.schemas.htmlField = function() {
   return {
-    content:{
+    content: {
       type: String,
       optional: false,
       autoform: {
@@ -18,7 +21,7 @@ Widgets.schemas.htmlField = function() {
         }
       }
     },
-    name:{
+    name: {
       type: String,
       optional: true,
       //autoform: {
@@ -28,8 +31,8 @@ Widgets.schemas.htmlField = function() {
   }
 };
 
-Meteor.startup(function () {
-  if(Meteor.isClient) {
+Meteor.startup(function() {
+  if (Meteor.isClient) {
     AutoForm.addInputType("htmlField", {
       template: "afHtmlField",
     });
@@ -40,17 +43,17 @@ Fields.schemas.htmlField = function(data) {
   var name = data.name
   var output = {};
   output[name] = {
-        type: String,
-        label: "",
-        optional: true,
-        autoform: {
-          label: " ",
-          afFieldInput: {
-            type: 'htmlField',
-            content: data.content,
-          }
-        }
-    };
-    return output;
-
+    type: String,
+    label: "",
+    optional: true,
+    autoform: {
+      label: " ",
+      afFieldInput: {
+        type: 'htmlField',
+        content: data.content,
+      }
+    }
   };
+  return output;
+
+};

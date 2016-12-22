@@ -12,7 +12,7 @@ Fields.schemas.userSelectInput = function(data) {
   var users = Meteor.usersList()
   var allowed = [];
   _.each(users, function(user) {
-    allowed.push(user.value);
+        allowed.push(user.value);
   });
   var output = {};
   output[name] = {

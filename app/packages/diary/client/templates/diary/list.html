@@ -1,12 +1,12 @@
 <template name="diaryList">
-	  <div class="box box-info">
-	    <div class="box-body">
-	      {{> reactiveTable collection="diaries" fields=fields}}
-	    </div>
-	  </div>
+	<div class="box box-info">
+		<div class="box-body">
+			{{> reactiveTable collection="diaries" fields=fields}}
+		</div>
+	</div>
 </template>
-	<template name="DiaryListCellButtons">
-	  {{#linkTo route='viewDiary' form=this._id}}
-	    <button class="btn btn-info" type="button">Edit</button>
-	  {{/linkTo}}
+<template name="DiaryListCellButtons">
+	{{#linkTo route='viewDiary' form=this._id}}
+	<button class="btn btn-info" type="button">Edit</button>
+	{{/linkTo}}
 </template>

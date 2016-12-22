@@ -3,40 +3,40 @@ var schema = {};
 schema.UserCountry = new SimpleSchema({
     name: {
         type: String,
-        optional:true
+        optional: true
     },
     code: {
         type: String,
         regEx: /^[A-Z]{2}$/,
-        optional:true
+        optional: true
     }
 });
 
 Fields.schemas.userSelectInput = function(data) {
-  var name = data.name
-  var users = Meteor.usersList()
-  var allowed = [];
-  _.each(users, function(user) {
-    allowed.push(user.value);
-  });
-  var output = {};
-  output[name] = {
+    var name = data.name
+    var users = Meteor.usersList()
+    var allowed = [];
+    _.each(users, function(user) {
+        allowed.push(user.value);
+    });
+    var output = {};
+    output[name] = {
         type: String,
         optional: true,
         label: data.title,
         allowedValues: allowed,
         autoform: {
-          //type: "universe-select",
-          afFieldInput: {
-            multiple: true,
-            options: function () {
-              return Meteor.usersList();
+            //type: "universe-select",
+            afFieldInput: {
+                multiple: true,
+                options: function() {
+                    return Meteor.usersList();
+                }
             }
-          }
         }
     };
     return output;
-  };
+};
 
 
 schema.UserProfile = new SimpleSchema({
@@ -65,7 +65,7 @@ schema.UserProfile = new SimpleSchema({
         allowedValues: ['Male', 'Female'],
         optional: true
     },
-    organization : {
+    organization: {
         type: String,
         optional: true
     },
@@ -79,10 +79,10 @@ schema.UserProfile = new SimpleSchema({
         optional: true
     },
     employmentStartDate: {
-      type: String,
-      autoform: {
-        type: "datetimepicker"
-      }
+        type: String,
+        autoform: {
+            type: "datetimepicker"
+        }
     }
 });
 
@@ -98,9 +98,9 @@ schema.User = new SimpleSchema({
 });
 
 schema.Role = new SimpleSchema({
-  name: {
-    type: String
-  }
+    name: {
+        type: String
+    }
 });
 
 Meteor.users.attachSchema(schema.User);
