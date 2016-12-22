@@ -1,45 +1,71 @@
 <template name="EditForm">
-
   <div class="box box-info">
     <div class="box-header with-border">
       <h3 class="box-title">Edit form</h3>
       {{#if (can "update" form)}}
         <span style="float:right">{{> breadcrumb}}</span>
         <span style="float:right">{{> quickRemoveButton beforeRemove=beforeRemove collection=getCol _id=form._id class="btn btn-danger"}}</span>
-
       {{/if}}
     </div>
     <div class="box-body">
+      {{#if (can "update" form)}}
+        {{> quickForm collection=getCol doc=form id="editFormForm" type="update" omitFields="createdBy" buttonContent="Update"}}
+      {{/if}}
+      <div class="fieldList">
+        {{> fieldList Fields=fields editing=editings highlight=highlights}}
+      </div>
+      <h3>Form fields</h3>
+      <hr>
+      {{#each fields}}
+        <section name="{{_id}}" class="{{isHighlighted}}">
+          {{#if isEditing }}
+            <div class="box box-warning box-solid">
+              <div class="box-header with-border">
+                <h3 class="box-title">Editing</h3>
+                {{> quickRemoveButton collection=getFieldCol style="float:right" _id=_id class="btn btn-danger"}}
+              </div>
+              <!-- /.box-header -->
+              <div class="box-body">
+                {{> EditField field=this}}
+                {{> fieldForm this}}
+              </div>
+              <!-- /.box-body -->
+            </div>
+          {{else}}
+            {{> fieldForm}}
+          {{/if}}
+        </section>
+      {{/each}}
+    </div>
+  </div>
+</template>
 
-  {{#if (can "update" form)}}
-    {{> quickForm collection=getCol doc=form id="editFormForm" type="update" omitFields="createdBy" buttonContent="Update"}}
-  {{/if}}
-  <hr>
-  <h4>Fields</h4>
-  {{#linkTo route="insertField" parent=form._id}}<i class="fa fa-plus"></i> New field{{/linkTo}}
+<template name="fieldForm">
+  <span class="fieldForm">
+    {{> quickForm id=(getId this) schema=(getSchema this) type="insert" omitFields="createdBy"  buttonContent="Create"}}
+  </span>
+</template>
 
-  <table id="items" class="table table-hover">
-    <thead>
-      <tr>
-        <th>type</th>
-        <th></th>
-      </tr>
-    </thead>
+
+<template name="fieldList">
+  {{> quickForm collection=getFieldCol class="form-inline" schema=fieldSchema id="insertFieldInlineForm" type="insert" omitFields="createdBy" buttonContent="Create"}}
+  <table id="items" class="table table-hover fieldsTable">
     <tbody>
-    {{#each fields}}
-      <tr data-id='{{_id}}' data-listposition='{{listposition}}'>
-        <td><i class="fa fa-sort pull-right"></i></td>
-        <td>{{name}}</td>
-        <td>{{type}}</td>
-        <td>
-          {{#linkTo route='editField' form=(formId)}}
-          <button class="btn btn-info" type="button">Edit</button>
-          {{/linkTo}}
-        </td>
-      </tr>
-    {{/each}}
+      {{#each fields}}
+        {{> fieldListItem}}
+      {{/each}}
     </tbody>
   </table>
-</div>
-</div>
+</template>
+
+<template name="fieldListItem">
+    <tr data-id='{{_id}}' class="{{isEditing}} fieldRow" data-listposition='{{listposition}}'>
+    <td><i class="fa fa-sort"></i></td>
+    <td>{{name}}</td>
+    {{#if (can "update" this)}}
+      <td>
+          <a class="editButton">Edit</a>
+      </td>
+    {{/if}}
+  </tr>
 </template>

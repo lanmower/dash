@@ -17,6 +17,7 @@ Package.onUse(function(api) {
   api.use('templating', "client");
   api.use('mongo');
   api.use('reactive-var');
+  api.use('reactive-dict');
   api.use("iron:router");
   api.use('aldeed:autoform');
   api.use('aslagle:reactive-table');

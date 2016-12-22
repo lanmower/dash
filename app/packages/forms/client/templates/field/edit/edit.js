@@ -1,5 +1,6 @@
 Template.EditField.helpers({
-  /*schema: function() {
+  schema: function() {
+    console.log('test');
     var formSchema = {name:{type:String}};
     _.extend(
       formSchema,
@@ -9,8 +10,7 @@ Template.EditField.helpers({
       label: "Display in list?"
     };
     return new SimpleSchema(formSchema);
-  }
-  ,*/
+  },
   getCol:function() {
     return Fields;
   }

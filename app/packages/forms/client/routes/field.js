@@ -21,6 +21,7 @@ Router.route('field/edit/:form/:_id', {
         type: Boolean,
         label: "Display in list?"
       };
+      return new SimpleSchema(formSchema)
       return {field:field, schema:new SimpleSchema(formSchema)};
     }
 

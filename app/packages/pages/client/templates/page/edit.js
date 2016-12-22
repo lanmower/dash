@@ -8,6 +8,7 @@ Template.widgetList.helpers({
     schema = gong.createDisplaySchema(Router.current().params._id, Widgets, Pages);
     schema.public.autoform = {type:'hidden'};
     schema.type.autoform.label = false;
+    console.log(schema);
     return new SimpleSchema(schema);
   },
   getWidgetCol:function() {
@@ -61,12 +62,6 @@ Template.EditPage.helpers({
   }
 });
 
-jQuery.fn.scrollTo = function(elem, speed) { 
-    $(this).animate({
-        scrollTop:  $(this).scrollTop() - $(this).offset().top + $(elem).offset().top 
-    }, speed == undefined ? 1000 : speed); 
-    return this; 
-};
 
 Template.widgetListItem.events({
 	'click tr': function (evt) {

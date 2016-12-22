@@ -3,15 +3,13 @@
     <div class="box-header with-border">
       <h3 class="box-title">Edit page</h3>
       {{#if (can "update" page)}}
-      <span style="float:right">
-        {{> quickRemoveButton collection=getCol _id=page._id  beforeRemove=beforeRemove onSuccess=onSuccess class="btn btn-danger"}}
-      </span>
-      <section style="float:right">{{> breadcrumb}}</section>
+        <span style="float:right">{{> breadcrumb}}</span>
+        <span style="float:right">{{> quickRemoveButton collection=getCol _id=page._id  beforeRemove=beforeRemove onSuccess=onSuccess class="btn btn-danger"}}</span>
       {{/if}}
     </div>
     <div class="box-body">
       {{#if (can "update" page)}}
-      {{> quickForm collection=getCol doc=page id="editPageForm" type="update" omitFields="createdBy" buttonContent="Update"}}
+        {{> quickForm collection=getCol doc=page id="editPageForm" type="update" omitFields="createdBy" buttonContent="Update"}}
       {{/if}}
       <hr>
       <div class="widgetList">
@@ -23,12 +21,12 @@
             <div class="box box-warning box-solid">
               <div class="box-header with-border">
                 <h3 class="box-title">Editing</h3>
-                {{> quickRemoveButton collection=getWidgetCol style="float:right" _id=_id beforeRemove=beforeRemove class="btn btn-danger"}}
+                {{> quickRemoveButton collection=getWidgetCol style="float:right" _id=_id class="btn btn-danger"}}
               </div>
               <!-- /.box-header -->
               <div class="box-body">
                 {{> Template.dynamic template=type data=this}}
-                {{> EditWidget}}
+                {{> EditWidget field=this}}
               </div>
               <!-- /.box-body -->
             </div>

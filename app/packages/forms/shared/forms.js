@@ -15,6 +15,7 @@ Forms.attachSchema(new SimpleSchema(_.extend({
   types:{
         type: [String],
         autoform: {
+          label: "Allowed types",
           type: "universe-select",
           afFieldInput: {
             multiple: true,
