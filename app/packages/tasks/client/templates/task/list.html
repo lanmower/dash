@@ -1,0 +1,27 @@
+<template name="TasksList">
+  <div class="box box-info">
+    <div class="box-header with-border">
+      <h3 class="box-title">{{#if done}} Pending{{else}} Completed{{/if}} Tasks</h3>
+      <span style="float:right">{{#linkTo route="insertTask"}}<button class="btn btn-info" type="button"><i class="fa fa-plus"></i> New Task</button>{{/linkTo}}</span>
+        <span style="float:right">{{#linkTo route="tasksList" done=flipDone}}<button class="btn btn-info" type="button">{{#if done}} Completed{{else}} Pending{{/if}} Tasks</button>{{/linkTo}}</span>
+    </div>
+    <div class="box-body">
+      {{> reactiveTable collection=col fields=fields}}
+    </div>
+  </div>
+</template>
+
+<template name="TasksListCellButtons">
+  {{#if done}}
+    {{#linkTo route='completeTask' form=this._id}}
+      <button class="btn btn-info" type="button">Done</button>
+    {{/linkTo}}
+    {{#linkTo route='editTask'}}
+    <button class="btn btn-info" type="button">Edit</button>
+    {{/linkTo}}
+  {{/if}}
+</template>
+
+<template name="taskDescriptionCell">
+  {{{description}}}
+</template>

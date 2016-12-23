@@ -1,0 +1,10 @@
+<template name="InsertTask">
+  <div class="box box-info">
+    <div class="box-header with-border">
+      <h3 class="box-title">Insert Task</h3>
+    </div>
+    <div class="box-body">
+      {{> quickForm collection="Tasks" id="insertTaskForm" type="insert" omitFields="createdBy" buttonContent="Create"}}
+    </div>
+  </div>
+</template>

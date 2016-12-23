@@ -130,7 +130,11 @@ Template.fieldForm.helpers({
   getSchema: (self) => {
     const si = schemaItem(self);
     const schema = [si];
-    return new SimpleSchema(schema);
+    try {
+      return new SimpleSchema(schema);
+    } catch(e) {
+      return new SimpleSchema();
+    }
   },
   getId: (self) => {
     return 'fieldEditor-' + self._id;
@@ -141,7 +145,8 @@ Template.fieldForm.helpers({
 formSchema = function(form) {
 
   var fields = Fields.find({
-    parent: form._id
+    parent: form._id,
+    name:{$exists:true}
   }, {
     sort: {
       listposition: 1

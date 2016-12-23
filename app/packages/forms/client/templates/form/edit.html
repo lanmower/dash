@@ -1,40 +1,31 @@
 <template name="EditForm">
   <div class="box box-info">
     <div class="box-header with-border">
-      <h3 class="box-title">Edit form</h3>
-      {{#if (can "update" form)}}
-        <span style="float:right">{{> breadcrumb}}</span>
-        <span style="float:right">{{> quickRemoveButton beforeRemove=beforeRemove collection=getCol _id=form._id class="btn btn-danger"}}</span>
-      {{/if}}
+      <h3 class="box-title">Edit form</h3> {{#if (can "update" form)}}
+      <span style="float:right">{{> breadcrumb}}</span>
+      <span style="float:right">{{> quickRemoveButton beforeRemove=beforeRemove collection=getCol _id=form._id class="btn btn-danger"}}</span> {{/if}}
     </div>
     <div class="box-body">
-      {{#if (can "update" form)}}
-        {{> quickForm collection=getCol doc=form id="editFormForm" type="update" omitFields="createdBy" buttonContent="Update"}}
-      {{/if}}
+      {{#if (can "update" form)}} {{> quickForm collection=getCol doc=form id="editFormForm" type="update" omitFields="createdBy" buttonContent="Update"}} {{/if}}
       <div class="fieldList">
         {{> fieldList Fields=fields editing=editings highlight=highlights}}
       </div>
       <h3>Form fields</h3>
-      <hr>
-      {{#each fields}}
-        <section name="{{_id}}" class="{{isHighlighted}}">
-          {{#if isEditing }}
-            <div class="box box-warning box-solid">
-              <div class="box-header with-border">
-                <h3 class="box-title">Editing</h3>
-                {{> quickRemoveButton collection=getFieldCol style="float:right" _id=_id class="btn btn-danger"}}
-              </div>
-              <!-- /.box-header -->
-              <div class="box-body">
-                {{> EditField}}
-                {{> fieldForm}}
-              </div>
-              <!-- /.box-body -->
-            </div>
-          {{else}}
-            {{> fieldForm}}
-          {{/if}}
-        </section>
+      <hr> {{#each fields}}
+      <section name="{{_id}}" class="{{isHighlighted}}">
+        {{#if isEditing }}
+        <div class="box box-warning box-solid">
+          <div class="box-header with-border">
+            <h3 class="box-title">Editing</h3> {{> quickRemoveButton collection=getFieldCol style="float:right" _id=_id class="btn btn-danger"}}
+          </div>
+          <!-- /.box-header -->
+          <div class="box-body">
+            {{> EditField}} {{> fieldForm}}
+          </div>
+          <!-- /.box-body -->
+        </div>
+        {{else}} {{> fieldForm}} {{/if}}
+      </section>
       {{/each}}
     </div>
   </div>
@@ -51,21 +42,19 @@
   {{> quickForm collection=getFieldCol class="form-inline" schema=fieldSchema id="insertFieldInlineForm" type="insert" omitFields="createdBy" buttonContent="Create"}}
   <table id="items" class="table table-hover fieldsTable">
     <tbody>
-      {{#each fields}}
-        {{> fieldListItem}}
-      {{/each}}
+      {{#each fields}} {{> fieldListItem}} {{/each}}
     </tbody>
   </table>
 </template>
 
 <template name="fieldListItem">
-    <tr data-id='{{_id}}' class="{{isEditing}} fieldRow" data-listposition='{{listposition}}'>
+  <tr data-id='{{_id}}' class="{{isEditing}} fieldRow" data-listposition='{{listposition}}'>
     <td><i class="fa fa-sort"></i></td>
     <td>{{name}}</td>
     {{#if (can "update" this)}}
-      <td>
-          <a class="editButton">Edit</a>
-      </td>
+    <td>
+      <a class="editButton">Edit</a>
+    </td>
     {{/if}}
   </tr>
 </template>

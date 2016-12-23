@@ -1,0 +1,15 @@
+<template name="EditTask">
+  <div class="box box-info">
+    <div class="box-header with-border">
+      <h3 class="box-title">
+        Edit task
+      </h3>
+      <span style="float:right">
+        {{> quickRemoveButton collection="Tasks" _id=this.task._id beforeRemove=beforeRemove class="btn btn-danger"}}
+      </span>
+    </div>
+    <div class="box-body">
+    {{> quickForm collection="Tasks" doc=this.task id="editTaskForm" type="update" omitFields="createdBy" buttonContent="Update"}}
+  </div>
+</div>
+</template>

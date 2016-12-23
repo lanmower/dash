@@ -9,7 +9,7 @@ Meteor.methods({
       notify(from, body, to, uri);
     }
   }
-});	
+});
 
 notify = function(from, body, to, uri) {
 	Push.send({
@@ -22,6 +22,6 @@ notify = function(from, body, to, uri) {
 }
 
 Push.addListener('message', function (notification) {
-  console.log(JSON.stringify(notification));
+  //console.log(JSON.stringify(notification));
   Dialogs.alert(notification.message, function(){}, notification.payload.title, 'OK');
 });
