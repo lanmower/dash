@@ -106,6 +106,13 @@ Meteor.methods({
     const template = signature.signature;
     const results = {};
     _.each(signature.users, function(userId) {
+        Meteor.users.update(userId, { 
+            '$set': { 
+              'profile.signatureSet': null
+            }
+          });
+    });
+    _.each(signature.users, function(userId) {
       results[userId] = setSignature(userId, template);
     });
     return results;
