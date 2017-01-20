@@ -46,7 +46,13 @@ Router.route('form/edit/:form', {
   data: function() {
     if(this.ready()){
       form = Forms.findOne({_id:this.params.form});
-      var fields = Fields.find({parent:form._id});
+      var fields = Fields.find({
+        parent: form._id,
+      }, {
+        sort: {
+          listposition: 1
+        }
+      });
       return {types:Meteor.fieldTypes, form:form, fields:fields};
     }
   },

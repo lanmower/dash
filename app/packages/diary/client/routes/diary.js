@@ -5,7 +5,7 @@ Router.route('diary/view/:_id', {
   where: 'client',
   waitOn: function() {
     return [
-      this.subscribe("diaries"),
+      this.subscribe("diary", this.params._id),
     ];
   },
   data: function() {
@@ -17,6 +17,7 @@ Router.route('diary/view/:_id', {
     };
   }
 });
+
 Router.route('diary/adminView/:_id', {
   title: 'Admin View Diary',
   name: 'adminViewDiary',
@@ -25,7 +26,7 @@ Router.route('diary/adminView/:_id', {
   where: 'client',
   waitOn: function() {
     return [
-      this.subscribe("diaries-admin"),
+      this.subscribe("diary-admin", this.params._id),
     ];
   },
   data: function() {
@@ -59,7 +60,7 @@ Router.route('diary/today', {
   where: 'client',
   waitOn: function() {
     return [
-      this.subscribe("diary")
+     this.subscribe("diary-today")
     ];
   },
   data: function() {

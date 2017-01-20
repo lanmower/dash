@@ -4,7 +4,6 @@ Meteor.widgetTypes.push({
 });
 Template.viewDiary.helpers({
   date: function() {
-    console.log(this);
-    return moment(this.diary.date).format("MMMM DD YYYY");
+    if(this.diary) return moment(this.diary.date).format("MMMM DD YYYY");
   }
 });
