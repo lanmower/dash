@@ -5,7 +5,7 @@ Fields.schemas = {};
 Fields.hooks = {after:{update:{}, insert:{}, remove:{}, startup:{}}, before:{update:{}, insert:{}, remove:{}}};
 
 Fields.helpers({
-  collectionType: function() {return fields},
+  collectionType: function() {return Fields},
   parentType: function() {return Forms}
 });
 

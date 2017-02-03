@@ -1,4 +1,3 @@
-
 Router.route('menu/list', {
 	parent: 'home',
   name: 'menusList',
@@ -14,9 +13,10 @@ Router.route('menu/list', {
 				Router.go('/');
 			}
 			this.next();
-		}
-});
 
+		}
+
+});
 Router.route('menu/insert', {
 	parent: 'menusList',
 	title: 'Insert Menu',
@@ -27,9 +27,10 @@ Router.route('menu/insert', {
 				Router.go('/');
 			}
 			this.next();
-		}
-});
 
+		}
+
+});
 Router.route('menu/edit/:_id', {
   name: 'editMenu',
 	parent: 'menusList',
