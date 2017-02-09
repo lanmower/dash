@@ -1,0 +1,16 @@
+<template name="PunchesList">
+  <div class="box box-info">
+    <div class="box-header with-border">
+      <h3 class="box-title">Punches</h3>
+      <span style="float:right">{{#linkTo route="insertPunch"}}<button class="btn btn-info" type="button"><i class="fa fa-plus"></i> New Punch</button>{{/linkTo}}</span>
+    </div>
+    <div class="box-body">
+      {{> reactiveTable collection=col fields=fields}}
+</div>
+</div>
+</template>
+<template name="PunchesListCellButtons">
+  {{#linkTo route='editPunch' form=this._id}}
+    <button class="btn btn-info" type="button">Edit</button>
+  {{/linkTo}}
+</template>

@@ -1,0 +1,12 @@
+<template name="EditPunch">
+  <div class="box box-info">
+    <div class="box-header with-border">
+      <h3 class="box-title">
+        Edit punch
+      </h3>
+    </div>
+    <div class="box-body">
+    {{> quickForm collection="Punches" doc=this.punch id="editPunchForm" type="update" omitFields="createdBy" buttonContent="Update"}}
+  </div>
+</div>
+</template>
