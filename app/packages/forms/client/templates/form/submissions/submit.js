@@ -35,6 +35,7 @@ Template.submitForm.helpers({
   },
   getSchema: function() {
     if(Template.instance().schema) {
+      console.log(Template.instance().schema);
       return new SimpleSchema(Template.instance().schema.get());
     }
   },

@@ -1,6 +1,6 @@
 Template.InsertField.helpers({
   schema: function() {
-    var formSchema = new SimpleSchema(gong.createDisplaySchema(Router.current().params.parent, null, Forms, Meteor.fieldTypes));
+    var formSchema = new SimpleSchema(core.createDisplaySchema(Router.current().params.parent, null, Forms, Meteor.fieldTypes));
     formSchema.name = {type:String};
     return formSchema;
   }  ,

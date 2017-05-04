@@ -1,10 +1,10 @@
 
 Meteor.publish('menus', function () {
-  var additions = gong.additions(this);
+  var additions = core.additions(this);
   return Menus.find({$or:additions});
 });
 
 Meteor.publish('menu', function (id) {
-  var additions = gong.additions(this);
+  var additions = core.additions(this);
   return Menus.find({_id: id,$or:additions});
 });

@@ -17,9 +17,8 @@ Package.onUse(function(api) {
   api.use('underscore');
   api.use('templating', "client");
   api.use("iron:router");
-  api.use('percolate:google-api');
 
-  api.use('momentjs:moment');
+  api.use('momentjs:moment'); 
   api.mainModule('gmail.js');
 
   // Generated with: github.com/philcockfield/meteor-package-paths

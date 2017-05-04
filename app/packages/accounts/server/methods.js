@@ -14,6 +14,9 @@ Meteor.methods({
     });
       return future.wait();
   },
+  listUsers: function() {
+    
+  },
   exchangeRefreshTokenAdmin: function(userId) {
     if(!Roles.userIsInRole(this.userId, "admin")) return;
 

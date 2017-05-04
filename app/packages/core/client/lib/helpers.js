@@ -48,7 +48,7 @@ Template.registerHelper("fromNow", function(dateToPass) {
 Template.registerHelper("can", function(action, impactedDocument, fieldNames) {
   if(!impactedDocument) return false;
   if(!fieldNames.isArray) fieldNames = null;
-  return gong.can(Meteor.userId(), impactedDocument, action, fieldNames);
+  return core.can(Meteor.userId(), impactedDocument, action, fieldNames);
 });
 
 Template.registerHelper("userIsInRole", function (role, group) {

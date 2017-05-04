@@ -8,7 +8,7 @@ Template.EditWidget.helpers({
   schema: function() {
     const instance = Template.instance();
     if(Pages.findOne({_id: this.parent})) {
-      instance.schema = new SimpleSchema(gong.createDisplaySchema(this.parent, this.type, Pages, Meteor.widgetTypes));
+      instance.schema = new SimpleSchema(core.createDisplaySchema(this.parent, this.type, Pages, Meteor.widgetTypes));
     }
     return instance.schema;
   }

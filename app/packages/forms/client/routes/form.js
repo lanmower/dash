@@ -185,7 +185,6 @@ Router.route('form/list/:form', {
         }
 			});
 			schema.push({ key: 'Actions', label: '',tmpl: Template.submissionsCellButtons});
-      console.log(schema);
       var title = "";
       if(form) title = form.title;
 			return {

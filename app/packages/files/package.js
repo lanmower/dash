@@ -26,7 +26,6 @@ Package.onUse(function(api) {
   api.use('cfs:filesystem');
   api.use('cfs:graphicsmagick');
   api.use('cfs:power-queue');
-  api.use('percolate:synced-cron');
 
   api.mainModule('files.js');
 

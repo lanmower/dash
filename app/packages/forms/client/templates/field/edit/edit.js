@@ -1,10 +1,9 @@
 Template.EditField.helpers({
   schema: function() {
-    console.log('test');
-    var formSchema = {name:{type:String}};
+    var formSchema = {};
     _.extend(
       formSchema,
-      gong.createDisplaySchema(this.parent, this.type, Forms, Meteor.fieldTypes));
+      core.createDisplaySchema(this.parent, this.type, Forms, Meteor.fieldTypes));
     formSchema.listable = {
       type: Boolean,
       label: "Display in list?"
@@ -12,6 +11,7 @@ Template.EditField.helpers({
     return new SimpleSchema(formSchema);
   },
   getCol:function() {
+    
     return Fields;
   }
 });

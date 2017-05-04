@@ -11,9 +11,6 @@ getCollection = function(_id) {
   
 
   if(form && form.data) {
-    if(!form) {
-       throw new Meteor.Error(404,name+" not found.");
-    }
     return Meteor.forms[_id].collection;
   }
 }

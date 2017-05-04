@@ -253,7 +253,9 @@ Fields.schemas.leaveInput = function(data) {
           if (this.fieldsList) return this.fieldsList.get();
           var template = Template.instance().view.closest("Template.afQuickFields")._templateInstance;
           if (!template.fieldsList) template.fieldsList = ReactiveVar([]);
+          
           this.fieldsList = template.fieldsList;
+          console.log(this.fieldsList);
           return this.fieldsList.get();
         }
       }

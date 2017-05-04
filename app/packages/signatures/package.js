@@ -19,7 +19,6 @@ Package.onUse(function(api) {
   api.use("iron:router");
   api.use('aslagle:reactive-table');
   api.use('almagest:core');
-  api.use('percolate:google-api');
   api.use('aldeed:autoform');
   api.use("aldeed:delete-button");
   api.use("vazco:universe-autoform-select");

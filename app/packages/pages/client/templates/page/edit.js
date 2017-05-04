@@ -5,7 +5,7 @@
 
 Template.widgetList.helpers({
   widgetSchema: function() {
-    schema = gong.createDisplaySchema(Router.current().params._id, Widgets, Pages);
+    schema = core.createDisplaySchema(Router.current().params._id, Widgets, Pages);
     schema.public.autoform = {
       type: 'hidden'
     };

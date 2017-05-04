@@ -1,6 +1,6 @@
 Meteor.publish('forms', function () {
   console.log("Subscribing all forms");
-  var additions = gong.additions(this);
+  var additions = core.additions(this);
   return Forms.find({$or:additions});
 });
 
@@ -19,7 +19,7 @@ Meteor.publish('approvals-form', function (form) {
 });
 
 Meteor.publishComposite('form', function(_id) {
-  var additions = gong.additions(this);
+  var additions = core.additions(this);
   console.log("Subscribing form",_id);
   return {
     find: function() {
@@ -36,8 +36,8 @@ Meteor.publishComposite('form', function(_id) {
 });
 
 Meteor.publishComposite('field', function(id) {
-  var additions = gong.additions(this);
-  var widgetAdditions = gong.additions(this);
+  var additions = core.additions(this);
+  var widgetAdditions = core.additions(this);
 
   return {
     find: function() {
@@ -59,7 +59,7 @@ Meteor.publishComposite('field', function(id) {
 );
 
 
-/*Meteor.publishComposite('formSearch', function(form, query) {
+Meteor.publishComposite('formSearch', function(form, query) {
   return {
     find: function() {
       var protection = {$or: [
@@ -135,4 +135,4 @@ Meteor.publishComposite('formSearch-admin', function(form, query) {
       }
     ],
   }
-});*/
+});

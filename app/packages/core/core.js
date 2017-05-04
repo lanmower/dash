@@ -100,6 +100,10 @@ createDisplaySchema = function(parent, type, parentType, allTypes = Meteor.widge
       value: parent
     }
   },
+  tschema.name = {
+    type: String,
+    optional: false,
+  };
   tschema.public = {
     type: Boolean,
     optional: true,
@@ -122,5 +126,5 @@ createDisplaySchema = function(parent, type, parentType, allTypes = Meteor.widge
 }
 
 
-gong = {additions:additions, can:can, createDisplaySchema:createDisplaySchema};
+core = {additions:additions, can:can, createDisplaySchema:createDisplaySchema};
 export const name = 'core';

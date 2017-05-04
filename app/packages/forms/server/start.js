@@ -164,7 +164,7 @@ var updateField = function(id, field) {
 
 
 Meteor.startup(function () {
-
+  
   Forms.find({}).observeChanges({
     added : processForm
   })

@@ -20,12 +20,12 @@ Widgets.before.upsert(function (userId, selector, modifier, options) {
 
 Widgets.allow({
   insert: function (userId, widget) {
-      return gong.can(userId, widget, 'insert');
+      return core.can(userId, widget, 'insert');
   },
   update: function (userId, widget, fields, modifier) {
-    return gong.can(userId, widget, 'update');
+    return core.can(userId, widget, 'update');
   },
   remove: function (userId, widget) {
-    return gong.can(userId, widget, 'remove');
+    return core.can(userId, widget, 'remove');
   }
 });

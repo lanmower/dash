@@ -1,6 +1,6 @@
 // Import and rename a variable exported by pages.js.
 Meteor.publish("pages", function (path, options) {
-  var additions = gong.additions(this);
+  var additions = core.additions(this);
   if (path == null)  path = '';
   return Pages.find({
     'path' : { '$regex' : '.*' + path || '' + '.*', '$options' : 'i' },
@@ -9,7 +9,7 @@ Meteor.publish("pages", function (path, options) {
 );
 
 Meteor.publishComposite('pageByPath', function(path) {
-  var additions = gong.additions(this);
+  var additions = core.additions(this);
 
   return {
     find: function() {
@@ -37,7 +37,7 @@ Meteor.publishComposite('pageByPath', function(path) {
 );
 
 Meteor.publishComposite('page', function(id) {
-  var additions = gong.additions(this);
+  var additions = core.additions(this);
 
   return {
     find: function() {
@@ -63,9 +63,9 @@ Meteor.publishComposite('page', function(id) {
 );
 
 Meteor.publishComposite('widget', function(id) {
-  var additions = gong.additions(this);
-  var pageAdditions = gong.additions(this);
-  var fieldAdditions = gong.additions(this);
+  var additions = core.additions(this);
+  var pageAdditions = core.additions(this);
+  var fieldAdditions = core.additions(this);
   return {
     find: function() {
       return Widgets.find({_id:id},

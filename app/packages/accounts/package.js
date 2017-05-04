@@ -30,7 +30,6 @@ Package.onUse(function(api) {
   api.use('almagest:signatures');
   api.use('almagest:core');
   api.use('almagest:files');
-  api.use('percolate:google-api');
   //api.use('blaze-html-templates', "client");
 
   // Generated with: github.com/philcockfield/meteor-package-paths

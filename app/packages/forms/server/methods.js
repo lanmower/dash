@@ -27,6 +27,6 @@ Meteor.methods({
       }
       retval = true;
     }
-    Fields.hooks.after.update.approveInput(userId, Meteor.forms[form._id].collection.findOne(docId), Meteor.forms[form._id], field);
+    Fields.hooks.after.update.approveInput(userId, getCollection(form._id).findOne(docId), Meteor.forms[form._id], field);
   }
 });

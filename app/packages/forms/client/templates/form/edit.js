@@ -1,6 +1,6 @@
 Template.fieldList.helpers({
   fieldSchema: function() {
-    schema = gong.createDisplaySchema(Router.current().params.form, null, Forms, Meteor.fieldTypes);
+    schema = core.createDisplaySchema(Router.current().params.form, null, Forms, Meteor.fieldTypes);
     /*const options = {};
     for(type in Router.current().data().form.types) {
       options[type] = type;
@@ -9,7 +9,6 @@ Template.fieldList.helpers({
       type: 'hidden'
     };
     schema.type.autoform.label = false;
-    console.log(schema);
     return new SimpleSchema(schema);
   },
   getFieldCol: function() {
@@ -49,7 +48,6 @@ Template.EditForm.helpers({
     return Forms;
   },
   isEditing: function() {
-    console.log('test');
     let self = Template.instance();
     return self.editing.get(this._id) ? 'editing' : '';
   },

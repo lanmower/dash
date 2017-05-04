@@ -35,12 +35,12 @@ Pages.attachSchema(new SimpleSchema(_.extend({
 
 Pages.allow({
   insert: function (userId, page) {
-      return gong.can(userId, page, 'insert');
+      return core.can(userId, page, 'insert');
   },
   update: function (userId, page, fields, modifier) {
-    return gong.can(userId, page, 'update');
+    return core.can(userId, page, 'update');
   },
   remove: function (userId, page) {
-    return gong.can(userId, page, 'remove');
+    return core.can(userId, page, 'remove');
   }
 });
