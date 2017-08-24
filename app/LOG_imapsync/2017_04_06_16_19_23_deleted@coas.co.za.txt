@@ -1,0 +1,1496 @@
+Transfer started at Thu Apr  6 16:19:23 2017
+PID is 4290
+Log file is LOG_imapsync/2017_04_06_16_19_23_deleted@coas.co.za.txt ( to change it, use --logfile path ; or use --nolog to turn off logging )
+$RCSfile: imapsync,v $ $Revision: 1.727 $ $Date: 2016/08/19 10:30:36 $ 
+Here is a [linux] system (Linux beanscount 4.4.0-63-generic #84-Ubuntu SMP Wed Feb 1 17:20:32 UTC 2017 x86_64)
+with Perl 5.22.1 Mail::IMAPClient 3.38
+Command line used:
+/usr/bin/imapsync --host1 imap.gmail.com --user1 katelyn@coas.co.za --password1 MASKED --prefix2 [katelyn] --host2 imap.gmail.com --user2 deleted@coas.co.za --password2 MASKED --syncinternaldates --ssl1 -ssl2 --noauthmd5 --split1 100 --split2 100 --port1 993 --port2 993 --exclude All Mail|Spam --allowsizemismatch
+Temp directory is /tmp  ( to change it use --tmpdir dirpath )
+PID file is /tmp/imapsync.pid ( to change it use --pidfile filepath ; to avoid it use --pidfile "" )
+/tmp/imapsync.pid already exists, overwriting it ( use --pidfilelocking to avoid concurrent runs )
+Could not open /tmp/imapsync.pid for writing. Check permissions or disk space.Modules version list:
+Mail::IMAPClient     3.38
+IO::Socket           1.38
+IO::Socket::INET     1.35
+IO::Socket::INET6    2.72
+IO::Socket::SSL      2.024
+Net::SSLeay          1.72
+Compress::Zlib       2.069
+Digest::MD5          2.54
+Digest::HMAC_MD5     1.01
+Digest::HMAC_SHA1    1.03
+Term::ReadKey        2.33
+File::Spec           3.56
+Time::HiRes          1.9726
+Unicode::String      2.09
+IO::Tee              0.64
+File::Copy::Recursive 0.38
+Authen::NTLM         1.09
+URI::Escape          3.31
+Data::Uniqid         ?
+JSON                 ?
+JSON::WebToken       ?
+Crypt::OpenSSL::RSA  ?
+LWP                  6.15
+HTML::Entities       3.69
+Getopt::Long         2.45
+Test::MockObject     ?
+( use --no-modulesversion to turn off printing this Perl modules list )
+SSL debug mode level is --debugssl 1 (can be set from 0 meaning no debug to 4 meaning max debug)
+Host1: SSL default mode is like --sslargs1 SSL_verify_mode=0 meaning SSL_VERIFY_NONE on host1 (do not check the certificate server)
+Host1: Use --sslargs1 SSL_verify_mode=1 for SSL_VERIFY_PEER on host1
+Host2: SSL default mode is like --sslargs2 SSL_verify_mode=0 meaning SSL_VERIFY_NONE on host2 (do not check the certificate server)
+Host2: Use --sslargs2 SSL_verify_mode=1 for SSL_VERIFY_PEER on host2
+Info: turned ON syncinternaldates, will set the internal dates (arrival dates) on host2 same as host1.
+Host1: will try to use LOGIN authentication on host1
+Host2: will try to use LOGIN authentication on host2
+Host1: imap connexion timeout is 120 seconds
+Host2: imap connexion timeout is 120 seconds
+Host1: IMAP server [imap.gmail.com] port [993] user [katelyn@coas.co.za]
+Host2: IMAP server [imap.gmail.com] port [993] user [deleted@coas.co.za]
+Host1: connecting and login on host1 [imap.gmail.com] port [993] with user [katelyn@coas.co.za]
+Host1 banner: * OK Gimap ready for requests from 197.242.148.67 3mb585501344eds
+Host1: imap.gmail.com says it has NO CAPABILITY for AUTHENTICATE LOGIN
+Host1: success login on [imap.gmail.com] with user [katelyn@coas.co.za] auth [LOGIN]
+Host2: connecting and login on host2 [imap.gmail.com] port [993] with user [deleted@coas.co.za]
+Host2 banner: * OK Gimap ready for requests from 197.242.148.67 s13mb563853900eds
+Host2: imap.gmail.com says it has NO CAPABILITY for AUTHENTICATE LOGIN
+Host2: success login on [imap.gmail.com] with user [deleted@coas.co.za] auth [LOGIN]
+Host1: state Authenticated
+Host2: state Authenticated
+Host1 capability: IMAP4rev1 UNSELECT IDLE NAMESPACE QUOTA ID XLIST CHILDREN X-GM-EXT-1 UIDPLUS COMPRESS=DEFLATE ENABLE MOVE CONDSTORE ESEARCH UTF8=ACCEPT LIST-EXTENDED LIST-STATUS LITERAL- SPECIAL-USE APPENDLIMIT=35651584
+Host2 capability: IMAP4rev1 UNSELECT IDLE NAMESPACE QUOTA ID XLIST CHILDREN X-GM-EXT-1 UIDPLUS COMPRESS=DEFLATE ENABLE MOVE CONDSTORE ESEARCH UTF8=ACCEPT LIST-EXTENDED LIST-STATUS LITERAL- SPECIAL-USE APPENDLIMIT=35651584
+
+Host2: found quota, presented in raw IMAP
+Sending: 4 GETQUOTAROOT INBOX
+Sent 22 bytes
+Read: 	* QUOTAROOT "INBOX" ""
+  	* QUOTA "" (STORAGE 31865131 136314880)
+  	4 OK Success
+
+Host2: Quota current storage is 32629894144 bytes. Limit is 139586437120 bytes. So 23.38 % full
+Host1: found 12 folders.
+Host2: found 324 folders.
+Including all folders found by default. Use --subscribed or --folder or --folderrec or --include to select specific folders. Use --exclude to unselect specific folders.
+Excluding folders matching pattern All Mail|Spam
+[[Gmail]/All Mail]
+[[Gmail]/Spam]
+
+Host1: checking all wanted folders exist.
+Host1: checking all wanted folders are selectable. Use --nocheckselectable to avoid this check.
+Host1: warning! ignoring folder [Gmail] because it is not selectable
+Host1: guessing separator from folder listing: [/]
+Host1: separator given by NAMESPACE: [/]
+Host2: guessing separator from folder listing: [/]
+Host2: separator given by NAMESPACE: [/]
+Host1: guessing prefix from folder listing: []
+Host1: prefix given by NAMESPACE: []
+Host2: guessing prefix from folder listing: []
+Host2: prefix given by NAMESPACE: []
+Host2: but using [[katelyn]] given by --prefix2
+Host1 separator and prefix: [/][]
+Host2 separator and prefix: [/][[katelyn]]
+Turned off automapping folders ( use --automap to turn on automapping )
+
+++++ Listing folders
+All foldernames are presented between brackets like [X] where X is the foldername.
+When a foldername contains non-ASCII characters it is presented in the form
+[X] = [Y] where
+X is the imap foldername you have to use in command line options and
+Y is the uft8 output just printed for convenience, to recognize it.
+
+Host1 folders list:
+[GQ Updates]
+[Goolam Attorneys]
+[INBOX]
+[Provisional Tax]
+[[Gmail]]
+[[Gmail]/All Mail]
+[[Gmail]/Drafts]
+[[Gmail]/Important]
+[[Gmail]/Sent Mail]
+[[Gmail]/Spam]
+[[Gmail]/Starred]
+[[Gmail]/Trash]
+
+Host2 folders list:
+[INBOX]
+[[Gmail]]
+[[Gmail]/All Mail]
+[[Gmail]/Drafts]
+[[Gmail]/Important]
+[[Gmail]/Sent Mail]
+[[Gmail]/Spam]
+[[Gmail]/Starred]
+[[Gmail]/Trash]
+[[ashely]INBOX]
+[[ashely][Gmail]]
+[[ashely][Gmail]/Drafts]
+[[ashely][Gmail]/Important]
+[[ashely][Gmail]/Sent Mail]
+[[ashely][Gmail]/Starred]
+[[ashely][Gmail]/Trash]
+[[ashen]INBOX]
+[[ashen]Outlook]
+[[ashen]Outlook/Drafts]
+[[ashen]Outlook/Inbox]
+[[ashen]Outlook/Inbox/JD Drilling]
+[[ashen]Outlook/Inbox/Kokstad Audit]
+[[ashen]Outlook/Inbox/Kwamanzi Drilling]
+[[ashen]Outlook/Inbox/Multiwood]
+[[ashen]Outlook/Inbox/PG Glass]
+[[ashen]Outlook/Inbox/Read Receipts]
+[[ashen]Outlook/Inbox/SAIPA Logbook]
+[[ashen]Outlook/Inbox/Vijay Naidoo]
+[[ashen]Outlook/Outbox]
+[[ashen]Outlook/Sent Items]
+[[ashen][Gmail]]
+[[ashen][Gmail]/Drafts]
+[[ashen][Gmail]/Important]
+[[ashen][Gmail]/Sent Mail]
+[[ashen][Gmail]/Starred]
+[[ashen][Gmail]/Trash]
+[[ashen]archive]
+[[ashen]archive/Inbox]
+[[ashen]archive/Outbox]
+[[ashen]archive/Sent Items]
+[[ashley]Amafa Emails]
+[[ashley]INBOX]
+[[ashley][Gmail]]
+[[ashley][Gmail]/Drafts]
+[[ashley][Gmail]/Important]
+[[ashley][Gmail]/Sent Mail]
+[[ashley][Gmail]/Starred]
+[[ashley][Gmail]/Trash]
+[[asisipho]INBOX]
+[[asisipho][Gmail]]
+[[asisipho][Gmail]/Drafts]
+[[asisipho][Gmail]/Important]
+[[asisipho][Gmail]/Sent Mail]
+[[asisipho][Gmail]/Starred]
+[[asisipho][Gmail]/Trash]
+[[ayesha]Elliot backup]
+[[ayesha]Elliot backup/Inbox]
+[[ayesha]Elliot backup/Inbox/Deleted Items]
+[[ayesha]Elliot backup/Inbox/Inbox]
+[[ayesha]Elliot backup/Inbox/Inbox/e-mails]
+[[ayesha]Estate Late Naazneen Abdool]
+[[ayesha]INBOX]
+[[ayesha]Job Applications]
+[[ayesha]Outlook]
+[[ayesha]Outlook/AK]
+[[ayesha]Outlook/Drafts]
+[[ayesha]Outlook/Inbox]
+[[ayesha]Outlook/Inbox/Job Applications]
+[[ayesha]Outlook/Inbox/Tax]
+[[ayesha]Outlook/Outbox]
+[[ayesha]Outlook/Sent Items]
+[[ayesha][Gmail]]
+[[ayesha][Gmail]/Drafts]
+[[ayesha][Gmail]/Important]
+[[ayesha][Gmail]/Sent Mail]
+[[ayesha][Gmail]/Starred]
+[[ayesha][Gmail]/Trash]
+[[ayesha]archive]
+[[ayesha]archive/Inbox]
+[[ayesha]archive/Outbox]
+[[ayesha]archive/Sent Items]
+[[deren]INBOX]
+[[deren][Gmail]]
+[[deren][Gmail]/Drafts]
+[[deren][Gmail]/Important]
+[[deren][Gmail]/Sent Mail]
+[[deren][Gmail]/Starred]
+[[deren][Gmail]/Trash]
+[[dorothy]INBOX]
+[[dorothy][Gmail]]
+[[dorothy][Gmail]/Drafts]
+[[dorothy][Gmail]/Important]
+[[dorothy][Gmail]/Sent Mail]
+[[dorothy][Gmail]/Starred]
+[[dorothy][Gmail]/Trash]
+[[fathimah]INBOX]
+[[fathimah][Gmail]]
+[[fathimah][Gmail]/Drafts]
+[[fathimah][Gmail]/Important]
+[[fathimah][Gmail]/Sent Mail]
+[[fathimah][Gmail]/Starred]
+[[fathimah][Gmail]/Trash]
+[[husain]INBOX]
+[[husain][Gmail]]
+[[husain][Gmail]/Drafts]
+[[husain][Gmail]/Important]
+[[husain][Gmail]/Sent Mail]
+[[husain][Gmail]/Starred]
+[[husain][Gmail]/Trash]
+[[husain]new client form]
+[[irwen]INBOX]
+[[irwen][Gmail]]
+[[irwen][Gmail]/Drafts]
+[[irwen][Gmail]/Important]
+[[irwen][Gmail]/Sent Mail]
+[[irwen][Gmail]/Starred]
+[[irwen][Gmail]/Trash]
+[[katelyn]GQ Updates]
+[[katelyn]Goolam Attorneys]
+[[katelyn]INBOX]
+[[katelyn]Provisional Tax]
+[[katelyn][Gmail]]
+[[katelyn][Gmail]/Drafts]
+[[katelyn][Gmail]/Important]
+[[katelyn][Gmail]/Sent Mail]
+[[kelly]INBOX]
+[[kelly]Invoices Jan]
+[[kelly][Gmail]]
+[[kelly][Gmail]/Drafts]
+[[kelly][Gmail]/Important]
+[[kelly][Gmail]/Sent Mail]
+[[kelly][Gmail]/Starred]
+[[kelly][Gmail]/Trash]
+[[lungelwa]Apollo]
+[[lungelwa]Bundle]
+[[lungelwa]Estate Agents]
+[[lungelwa]Harry Gwala]
+[[lungelwa]INBOX]
+[[lungelwa]IT Audits]
+[[lungelwa]Imraan]
+[[lungelwa]Khan - Zeyn]
+[[lungelwa]Neresha]
+[[lungelwa]Office Admin]
+[[lungelwa]Outlook]
+[[lungelwa]Outlook/Conversation Action Settings]
+[[lungelwa]Outlook/Drafts]
+[[lungelwa]Outlook/Inbox]
+[[meronisha]INBOX]
+[[meronisha][Gmail]]
+[[meronisha][Gmail]/Drafts]
+[[meronisha][Gmail]/Important]
+[[meronisha][Gmail]/Sent Mail]
+[[meronisha][Gmail]/Starred]
+[[meronisha][Gmail]/Trash]
+[[mineshree]INBOX]
+[[nancy]INBOX]
+[[nancy][Gmail]]
+[[nancy][Gmail]/Drafts]
+[[nancy][Gmail]/Important]
+[[nancy][Gmail]/Sent Mail]
+[[nancy][Gmail]/Starred]
+[[nancy][Gmail]/Trash]
+[[natalie]INBOX]
+[[natalie]Lexco]
+[[natalie][Gmail]]
+[[natalie][Gmail]/Drafts]
+[[natalie][Gmail]/Important]
+[[natalie][Gmail]/Sent Mail]
+[[natalie][Gmail]/Starred]
+[[natalie][Gmail]/Trash]
+[[nickara]INBOX]
+[[nickara][Gmail]]
+[[nickara][Gmail]/Drafts]
+[[nickara][Gmail]/Important]
+[[nickara][Gmail]/Sent Mail]
+[[nickara][Gmail]/Starred]
+[[nickara][Gmail]/Trash]
+[[nivash]INBOX]
+[[nivash][Gmail]]
+[[nivash][Gmail]/Drafts]
+[[nivash][Gmail]/Important]
+[[nivash][Gmail]/Sent Mail]
+[[nivash][Gmail]/Starred]
+[[nivash][Gmail]/Trash]
+[[omega]Afri-Corp - Expenses]
+[[omega]INBOX]
+[[omega][Gmail]]
+[[omega][Gmail]/Drafts]
+[[omega][Gmail]/Important]
+[[omega][Gmail]/Sent Mail]
+[[omega][Gmail]/Starred]
+[[omega][Gmail]/Trash]
+[[reception]INBOX]
+[[reception]Outlook]
+[[reception]Outlook/CoastalAcc &- L-Inc] = [[reception]Outlook/CoastalAcc & L-Inc]
+[[reception]Outlook/CoastalAcc &- L-Inc/Ahmed] = [[reception]Outlook/CoastalAcc & L-Inc/Ahmed]
+[[reception]Outlook/CoastalAcc &- L-Inc/Ayesha] = [[reception]Outlook/CoastalAcc & L-Inc/Ayesha]
+[[reception]Outlook/CoastalAcc &- L-Inc/Charmaine N] = [[reception]Outlook/CoastalAcc & L-Inc/Charmaine N]
+[[reception]Outlook/CoastalAcc &- L-Inc/Fax] = [[reception]Outlook/CoastalAcc & L-Inc/Fax]
+[[reception]Outlook/CoastalAcc &- L-Inc/Femida] = [[reception]Outlook/CoastalAcc & L-Inc/Femida]
+[[reception]Outlook/CoastalAcc &- L-Inc/Herbert] = [[reception]Outlook/CoastalAcc & L-Inc/Herbert]
+[[reception]Outlook/CoastalAcc &- L-Inc/Imraan] = [[reception]Outlook/CoastalAcc & L-Inc/Imraan]
+[[reception]Outlook/CoastalAcc &- L-Inc/Info] = [[reception]Outlook/CoastalAcc & L-Inc/Info]
+[[reception]Outlook/CoastalAcc &- L-Inc/Ismail] = [[reception]Outlook/CoastalAcc & L-Inc/Ismail]
+[[reception]Outlook/CoastalAcc &- L-Inc/Jean] = [[reception]Outlook/CoastalAcc & L-Inc/Jean]
+[[reception]Outlook/CoastalAcc &- L-Inc/June] = [[reception]Outlook/CoastalAcc & L-Inc/June]
+[[reception]Outlook/CoastalAcc &- L-Inc/Kajal] = [[reception]Outlook/CoastalAcc & L-Inc/Kajal]
+[[reception]Outlook/CoastalAcc &- L-Inc/Kevin] = [[reception]Outlook/CoastalAcc & L-Inc/Kevin]
+[[reception]Outlook/CoastalAcc &- L-Inc/Krishnen] = [[reception]Outlook/CoastalAcc & L-Inc/Krishnen]
+[[reception]Outlook/CoastalAcc &- L-Inc/Luthfiya] = [[reception]Outlook/CoastalAcc & L-Inc/Luthfiya]
+[[reception]Outlook/CoastalAcc &- L-Inc/Newsletter: Unsubscribe] = [[reception]Outlook/CoastalAcc & L-Inc/Newsletter: Unsubscribe]
+[[reception]Outlook/CoastalAcc &- L-Inc/Nickara] = [[reception]Outlook/CoastalAcc & L-Inc/Nickara]
+[[reception]Outlook/CoastalAcc &- L-Inc/Pieter] = [[reception]Outlook/CoastalAcc & L-Inc/Pieter]
+[[reception]Outlook/CoastalAcc &- L-Inc/Praneshree] = [[reception]Outlook/CoastalAcc & L-Inc/Praneshree]
+[[reception]Outlook/CoastalAcc &- L-Inc/Priya] = [[reception]Outlook/CoastalAcc & L-Inc/Priya]
+[[reception]Outlook/CoastalAcc &- L-Inc/Rory] = [[reception]Outlook/CoastalAcc & L-Inc/Rory]
+[[reception]Outlook/CoastalAcc &- L-Inc/Roy] = [[reception]Outlook/CoastalAcc & L-Inc/Roy]
+[[reception]Outlook/CoastalAcc &- L-Inc/Sabeeha] = [[reception]Outlook/CoastalAcc & L-Inc/Sabeeha]
+[[reception]Outlook/CoastalAcc &- L-Inc/Samantha] = [[reception]Outlook/CoastalAcc & L-Inc/Samantha]
+[[reception]Outlook/CoastalAcc &- L-Inc/Searchworks] = [[reception]Outlook/CoastalAcc & L-Inc/Searchworks]
+[[reception]Outlook/CoastalAcc &- L-Inc/Tenders] = [[reception]Outlook/CoastalAcc & L-Inc/Tenders]
+[[reception]Outlook/CoastalAcc &- L-Inc/Tenders/Supplier Registrations] = [[reception]Outlook/CoastalAcc & L-Inc/Tenders/Supplier Registrations]
+[[reception]Outlook/Drafts]
+[[reception]Outlook/Inbox]
+[[reception]Outlook/Inbox/Ahmed]
+[[reception]Outlook/Inbox/Ayesha]
+[[reception]Outlook/Inbox/Charmaine N]
+[[reception]Outlook/Inbox/Client corresp.]
+[[reception]Outlook/Inbox/Deleted Items]
+[[reception]Outlook/Inbox/Durban - CIPC Doc's]
+[[reception]Outlook/Inbox/Fax]
+[[reception]Outlook/Inbox/Faxes]
+[[reception]Outlook/Inbox/Femida]
+[[reception]Outlook/Inbox/Herbert]
+[[reception]Outlook/Inbox/Imraan]
+[[reception]Outlook/Inbox/Info]
+[[reception]Outlook/Inbox/Ismail]
+[[reception]Outlook/Inbox/Jean]
+[[reception]Outlook/Inbox/June]
+[[reception]Outlook/Inbox/Kajal]
+[[reception]Outlook/Inbox/Kevin]
+[[reception]Outlook/Inbox/Krishnen]
+[[reception]Outlook/Inbox/Luthfiya]
+[[reception]Outlook/Inbox/Newsletter: Unsubscribe]
+[[reception]Outlook/Inbox/Nickara]
+[[reception]Outlook/Inbox/Old emails]
+[[reception]Outlook/Inbox/Pieter]
+[[reception]Outlook/Inbox/Praneshree]
+[[reception]Outlook/Inbox/Priya]
+[[reception]Outlook/Inbox/Read Receipts]
+[[reception]Outlook/Inbox/Rory]
+[[reception]Outlook/Inbox/Roy]
+[[reception]Outlook/Inbox/Sabeeha]
+[[reception]Outlook/Inbox/Samantha]
+[[reception]Outlook/Inbox/Search Works]
+[[reception]Outlook/Inbox/Searchworks]
+[[reception]Outlook/Inbox/Tenders]
+[[reception]Outlook/Inbox/Tenders/Supplier Registrations]
+[[reception]Outlook/Outbox]
+[[reception]Outlook/Sent Items]
+[[sandy]INBOX]
+[[sandy][Gmail]]
+[[sandy][Gmail]/Drafts]
+[[sandy][Gmail]/Important]
+[[sandy][Gmail]/Sent Mail]
+[[sandy][Gmail]/Starred]
+[[sandy][Gmail]/Trash]
+[[shante]INBOX]
+[[shante][Gmail]]
+[[shante][Gmail]/Drafts]
+[[shante][Gmail]/Important]
+[[shante][Gmail]/Sent Mail]
+[[shante][Gmail]/Starred]
+[[shante][Gmail]/Trash]
+[[spencer]INBOX]
+[[spencer][Gmail]]
+[[spencer][Gmail]/Drafts]
+[[spencer][Gmail]/Important]
+[[spencer][Gmail]/Sent Mail]
+[[spencer][Gmail]/Starred]
+[[spencer][Gmail]/Trash]
+[[spencer]cloned]
+[[tanja]2nd partner review]
+[[tanja]Amigo Foods]
+[[tanja]Annies Carriers]
+[[tanja]Doo Twah Builders]
+[[tanja]Dr T Singh]
+[[tanja]Exceed Props 1008 CC]
+[[tanja]Faxes sent]
+[[tanja]INBOX]
+[[tanja]New client forms sent]
+[[tanja]Newsletters]
+[[tanja]Outlook1]
+[[tanja]Outlook1/Drafts]
+[[tanja]Outlook1/Inbox]
+[[treshen]INBOX]
+[[treshen][Gmail]]
+[[treshen][Gmail]/Drafts]
+[[treshen][Gmail]/Important]
+[[treshen][Gmail]/Sent Mail]
+[[veno]INBOX]
+[[veno][Gmail]]
+[[veno][Gmail]/Drafts]
+[[veno][Gmail]/Important]
+[[veno][Gmail]/Sent Mail]
+[[veno][Gmail]/Starred]
+[[veno][Gmail]/Trash]
+[[wendy]INBOX]
+[[wendy][Gmail]]
+[[wendy][Gmail]/Drafts]
+[[wendy][Gmail]/Important]
+[[wendy][Gmail]/Sent Mail]
+[[wendy][Gmail]/Starred]
+[[wendy][Gmail]/Trash]
+[[zaakir]INBOX]
+[[zaakir][Gmail]]
+[[zaakir][Gmail]/Drafts]
+[[zaakir][Gmail]/Important]
+[[zama]INBOX]
+[mayeshree]
+[nontando@coas.co.za]
+[nozibusiso]
+[senzo]
+[staff]
+
+Folders in host2 not in host1:
+[staff]
+[senzo]
+[nozibusiso]
+[nontando@coas.co.za]
+[mayeshree]
+[[zama]INBOX]
+[[zaakir][Gmail]/Important]
+[[zaakir][Gmail]/Drafts]
+[[zaakir][Gmail]]
+[[zaakir]INBOX]
+[[wendy][Gmail]/Trash]
+[[wendy][Gmail]/Starred]
+[[wendy][Gmail]/Sent Mail]
+[[wendy][Gmail]/Important]
+[[wendy][Gmail]/Drafts]
+[[wendy][Gmail]]
+[[wendy]INBOX]
+[[veno][Gmail]/Trash]
+[[veno][Gmail]/Starred]
+[[veno][Gmail]/Sent Mail]
+[[veno][Gmail]/Important]
+[[veno][Gmail]/Drafts]
+[[veno][Gmail]]
+[[veno]INBOX]
+[[treshen][Gmail]/Sent Mail]
+[[treshen][Gmail]/Important]
+[[treshen][Gmail]/Drafts]
+[[treshen][Gmail]]
+[[treshen]INBOX]
+[[tanja]Outlook1/Inbox]
+[[tanja]Outlook1/Drafts]
+[[tanja]Outlook1]
+[[tanja]Newsletters]
+[[tanja]New client forms sent]
+[[tanja]INBOX]
+[[tanja]Faxes sent]
+[[tanja]Exceed Props 1008 CC]
+[[tanja]Dr T Singh]
+[[tanja]Doo Twah Builders]
+[[tanja]Annies Carriers]
+[[tanja]Amigo Foods]
+[[tanja]2nd partner review]
+[[spencer]cloned]
+[[spencer][Gmail]/Trash]
+[[spencer][Gmail]/Starred]
+[[spencer][Gmail]/Sent Mail]
+[[spencer][Gmail]/Important]
+[[spencer][Gmail]/Drafts]
+[[spencer][Gmail]]
+[[spencer]INBOX]
+[[shante][Gmail]/Trash]
+[[shante][Gmail]/Starred]
+[[shante][Gmail]/Sent Mail]
+[[shante][Gmail]/Important]
+[[shante][Gmail]/Drafts]
+[[shante][Gmail]]
+[[shante]INBOX]
+[[sandy][Gmail]/Trash]
+[[sandy][Gmail]/Starred]
+[[sandy][Gmail]/Sent Mail]
+[[sandy][Gmail]/Important]
+[[sandy][Gmail]/Drafts]
+[[sandy][Gmail]]
+[[sandy]INBOX]
+[[reception]Outlook/Sent Items]
+[[reception]Outlook/Outbox]
+[[reception]Outlook/Inbox/Tenders/Supplier Registrations]
+[[reception]Outlook/Inbox/Tenders]
+[[reception]Outlook/Inbox/Searchworks]
+[[reception]Outlook/Inbox/Search Works]
+[[reception]Outlook/Inbox/Samantha]
+[[reception]Outlook/Inbox/Sabeeha]
+[[reception]Outlook/Inbox/Roy]
+[[reception]Outlook/Inbox/Rory]
+[[reception]Outlook/Inbox/Read Receipts]
+[[reception]Outlook/Inbox/Priya]
+[[reception]Outlook/Inbox/Praneshree]
+[[reception]Outlook/Inbox/Pieter]
+[[reception]Outlook/Inbox/Old emails]
+[[reception]Outlook/Inbox/Nickara]
+[[reception]Outlook/Inbox/Newsletter: Unsubscribe]
+[[reception]Outlook/Inbox/Luthfiya]
+[[reception]Outlook/Inbox/Krishnen]
+[[reception]Outlook/Inbox/Kevin]
+[[reception]Outlook/Inbox/Kajal]
+[[reception]Outlook/Inbox/June]
+[[reception]Outlook/Inbox/Jean]
+[[reception]Outlook/Inbox/Ismail]
+[[reception]Outlook/Inbox/Info]
+[[reception]Outlook/Inbox/Imraan]
+[[reception]Outlook/Inbox/Herbert]
+[[reception]Outlook/Inbox/Femida]
+[[reception]Outlook/Inbox/Faxes]
+[[reception]Outlook/Inbox/Fax]
+[[reception]Outlook/Inbox/Durban - CIPC Doc's]
+[[reception]Outlook/Inbox/Deleted Items]
+[[reception]Outlook/Inbox/Client corresp.]
+[[reception]Outlook/Inbox/Charmaine N]
+[[reception]Outlook/Inbox/Ayesha]
+[[reception]Outlook/Inbox/Ahmed]
+[[reception]Outlook/Inbox]
+[[reception]Outlook/Drafts]
+[[reception]Outlook/CoastalAcc &- L-Inc/Tenders/Supplier Registrations] = [[reception]Outlook/CoastalAcc & L-Inc/Tenders/Supplier Registrations]
+[[reception]Outlook/CoastalAcc &- L-Inc/Tenders] = [[reception]Outlook/CoastalAcc & L-Inc/Tenders]
+[[reception]Outlook/CoastalAcc &- L-Inc/Searchworks] = [[reception]Outlook/CoastalAcc & L-Inc/Searchworks]
+[[reception]Outlook/CoastalAcc &- L-Inc/Samantha] = [[reception]Outlook/CoastalAcc & L-Inc/Samantha]
+[[reception]Outlook/CoastalAcc &- L-Inc/Sabeeha] = [[reception]Outlook/CoastalAcc & L-Inc/Sabeeha]
+[[reception]Outlook/CoastalAcc &- L-Inc/Roy] = [[reception]Outlook/CoastalAcc & L-Inc/Roy]
+[[reception]Outlook/CoastalAcc &- L-Inc/Rory] = [[reception]Outlook/CoastalAcc & L-Inc/Rory]
+[[reception]Outlook/CoastalAcc &- L-Inc/Priya] = [[reception]Outlook/CoastalAcc & L-Inc/Priya]
+[[reception]Outlook/CoastalAcc &- L-Inc/Praneshree] = [[reception]Outlook/CoastalAcc & L-Inc/Praneshree]
+[[reception]Outlook/CoastalAcc &- L-Inc/Pieter] = [[reception]Outlook/CoastalAcc & L-Inc/Pieter]
+[[reception]Outlook/CoastalAcc &- L-Inc/Nickara] = [[reception]Outlook/CoastalAcc & L-Inc/Nickara]
+[[reception]Outlook/CoastalAcc &- L-Inc/Newsletter: Unsubscribe] = [[reception]Outlook/CoastalAcc & L-Inc/Newsletter: Unsubscribe]
+[[reception]Outlook/CoastalAcc &- L-Inc/Luthfiya] = [[reception]Outlook/CoastalAcc & L-Inc/Luthfiya]
+[[reception]Outlook/CoastalAcc &- L-Inc/Krishnen] = [[reception]Outlook/CoastalAcc & L-Inc/Krishnen]
+[[reception]Outlook/CoastalAcc &- L-Inc/Kevin] = [[reception]Outlook/CoastalAcc & L-Inc/Kevin]
+[[reception]Outlook/CoastalAcc &- L-Inc/Kajal] = [[reception]Outlook/CoastalAcc & L-Inc/Kajal]
+[[reception]Outlook/CoastalAcc &- L-Inc/June] = [[reception]Outlook/CoastalAcc & L-Inc/June]
+[[reception]Outlook/CoastalAcc &- L-Inc/Jean] = [[reception]Outlook/CoastalAcc & L-Inc/Jean]
+[[reception]Outlook/CoastalAcc &- L-Inc/Ismail] = [[reception]Outlook/CoastalAcc & L-Inc/Ismail]
+[[reception]Outlook/CoastalAcc &- L-Inc/Info] = [[reception]Outlook/CoastalAcc & L-Inc/Info]
+[[reception]Outlook/CoastalAcc &- L-Inc/Imraan] = [[reception]Outlook/CoastalAcc & L-Inc/Imraan]
+[[reception]Outlook/CoastalAcc &- L-Inc/Herbert] = [[reception]Outlook/CoastalAcc & L-Inc/Herbert]
+[[reception]Outlook/CoastalAcc &- L-Inc/Femida] = [[reception]Outlook/CoastalAcc & L-Inc/Femida]
+[[reception]Outlook/CoastalAcc &- L-Inc/Fax] = [[reception]Outlook/CoastalAcc & L-Inc/Fax]
+[[reception]Outlook/CoastalAcc &- L-Inc/Charmaine N] = [[reception]Outlook/CoastalAcc & L-Inc/Charmaine N]
+[[reception]Outlook/CoastalAcc &- L-Inc/Ayesha] = [[reception]Outlook/CoastalAcc & L-Inc/Ayesha]
+[[reception]Outlook/CoastalAcc &- L-Inc/Ahmed] = [[reception]Outlook/CoastalAcc & L-Inc/Ahmed]
+[[reception]Outlook/CoastalAcc &- L-Inc] = [[reception]Outlook/CoastalAcc & L-Inc]
+[[reception]Outlook]
+[[reception]INBOX]
+[[omega][Gmail]/Trash]
+[[omega][Gmail]/Starred]
+[[omega][Gmail]/Sent Mail]
+[[omega][Gmail]/Important]
+[[omega][Gmail]/Drafts]
+[[omega][Gmail]]
+[[omega]INBOX]
+[[omega]Afri-Corp - Expenses]
+[[nivash][Gmail]/Trash]
+[[nivash][Gmail]/Starred]
+[[nivash][Gmail]/Sent Mail]
+[[nivash][Gmail]/Important]
+[[nivash][Gmail]/Drafts]
+[[nivash][Gmail]]
+[[nivash]INBOX]
+[[nickara][Gmail]/Trash]
+[[nickara][Gmail]/Starred]
+[[nickara][Gmail]/Sent Mail]
+[[nickara][Gmail]/Important]
+[[nickara][Gmail]/Drafts]
+[[nickara][Gmail]]
+[[nickara]INBOX]
+[[natalie][Gmail]/Trash]
+[[natalie][Gmail]/Starred]
+[[natalie][Gmail]/Sent Mail]
+[[natalie][Gmail]/Important]
+[[natalie][Gmail]/Drafts]
+[[natalie][Gmail]]
+[[natalie]Lexco]
+[[natalie]INBOX]
+[[nancy][Gmail]/Trash]
+[[nancy][Gmail]/Starred]
+[[nancy][Gmail]/Sent Mail]
+[[nancy][Gmail]/Important]
+[[nancy][Gmail]/Drafts]
+[[nancy][Gmail]]
+[[nancy]INBOX]
+[[mineshree]INBOX]
+[[meronisha][Gmail]/Trash]
+[[meronisha][Gmail]/Starred]
+[[meronisha][Gmail]/Sent Mail]
+[[meronisha][Gmail]/Important]
+[[meronisha][Gmail]/Drafts]
+[[meronisha][Gmail]]
+[[meronisha]INBOX]
+[[lungelwa]Outlook/Inbox]
+[[lungelwa]Outlook/Drafts]
+[[lungelwa]Outlook/Conversation Action Settings]
+[[lungelwa]Outlook]
+[[lungelwa]Office Admin]
+[[lungelwa]Neresha]
+[[lungelwa]Khan - Zeyn]
+[[lungelwa]Imraan]
+[[lungelwa]IT Audits]
+[[lungelwa]INBOX]
+[[lungelwa]Harry Gwala]
+[[lungelwa]Estate Agents]
+[[lungelwa]Bundle]
+[[lungelwa]Apollo]
+[[kelly][Gmail]/Trash]
+[[kelly][Gmail]/Starred]
+[[kelly][Gmail]/Sent Mail]
+[[kelly][Gmail]/Important]
+[[kelly][Gmail]/Drafts]
+[[kelly][Gmail]]
+[[kelly]Invoices Jan]
+[[kelly]INBOX]
+[[irwen][Gmail]/Trash]
+[[irwen][Gmail]/Starred]
+[[irwen][Gmail]/Sent Mail]
+[[irwen][Gmail]/Important]
+[[irwen][Gmail]/Drafts]
+[[irwen][Gmail]]
+[[irwen]INBOX]
+[[husain]new client form]
+[[husain][Gmail]/Trash]
+[[husain][Gmail]/Starred]
+[[husain][Gmail]/Sent Mail]
+[[husain][Gmail]/Important]
+[[husain][Gmail]/Drafts]
+[[husain][Gmail]]
+[[husain]INBOX]
+[[fathimah][Gmail]/Trash]
+[[fathimah][Gmail]/Starred]
+[[fathimah][Gmail]/Sent Mail]
+[[fathimah][Gmail]/Important]
+[[fathimah][Gmail]/Drafts]
+[[fathimah][Gmail]]
+[[fathimah]INBOX]
+[[dorothy][Gmail]/Trash]
+[[dorothy][Gmail]/Starred]
+[[dorothy][Gmail]/Sent Mail]
+[[dorothy][Gmail]/Important]
+[[dorothy][Gmail]/Drafts]
+[[dorothy][Gmail]]
+[[dorothy]INBOX]
+[[deren][Gmail]/Trash]
+[[deren][Gmail]/Starred]
+[[deren][Gmail]/Sent Mail]
+[[deren][Gmail]/Important]
+[[deren][Gmail]/Drafts]
+[[deren][Gmail]]
+[[deren]INBOX]
+[[ayesha]archive/Sent Items]
+[[ayesha]archive/Outbox]
+[[ayesha]archive/Inbox]
+[[ayesha]archive]
+[[ayesha][Gmail]/Trash]
+[[ayesha][Gmail]/Starred]
+[[ayesha][Gmail]/Sent Mail]
+[[ayesha][Gmail]/Important]
+[[ayesha][Gmail]/Drafts]
+[[ayesha][Gmail]]
+[[ayesha]Outlook/Sent Items]
+[[ayesha]Outlook/Outbox]
+[[ayesha]Outlook/Inbox/Tax]
+[[ayesha]Outlook/Inbox/Job Applications]
+[[ayesha]Outlook/Inbox]
+[[ayesha]Outlook/Drafts]
+[[ayesha]Outlook/AK]
+[[ayesha]Outlook]
+[[ayesha]Job Applications]
+[[ayesha]INBOX]
+[[ayesha]Estate Late Naazneen Abdool]
+[[ayesha]Elliot backup/Inbox/Inbox/e-mails]
+[[ayesha]Elliot backup/Inbox/Inbox]
+[[ayesha]Elliot backup/Inbox/Deleted Items]
+[[ayesha]Elliot backup/Inbox]
+[[ayesha]Elliot backup]
+[[asisipho][Gmail]/Trash]
+[[asisipho][Gmail]/Starred]
+[[asisipho][Gmail]/Sent Mail]
+[[asisipho][Gmail]/Important]
+[[asisipho][Gmail]/Drafts]
+[[asisipho][Gmail]]
+[[asisipho]INBOX]
+[[ashley][Gmail]/Trash]
+[[ashley][Gmail]/Starred]
+[[ashley][Gmail]/Sent Mail]
+[[ashley][Gmail]/Important]
+[[ashley][Gmail]/Drafts]
+[[ashley][Gmail]]
+[[ashley]INBOX]
+[[ashley]Amafa Emails]
+[[ashen]archive/Sent Items]
+[[ashen]archive/Outbox]
+[[ashen]archive/Inbox]
+[[ashen]archive]
+[[ashen][Gmail]/Trash]
+[[ashen][Gmail]/Starred]
+[[ashen][Gmail]/Sent Mail]
+[[ashen][Gmail]/Important]
+[[ashen][Gmail]/Drafts]
+[[ashen][Gmail]]
+[[ashen]Outlook/Sent Items]
+[[ashen]Outlook/Outbox]
+[[ashen]Outlook/Inbox/Vijay Naidoo]
+[[ashen]Outlook/Inbox/SAIPA Logbook]
+[[ashen]Outlook/Inbox/Read Receipts]
+[[ashen]Outlook/Inbox/PG Glass]
+[[ashen]Outlook/Inbox/Multiwood]
+[[ashen]Outlook/Inbox/Kwamanzi Drilling]
+[[ashen]Outlook/Inbox/Kokstad Audit]
+[[ashen]Outlook/Inbox/JD Drilling]
+[[ashen]Outlook/Inbox]
+[[ashen]Outlook/Drafts]
+[[ashen]Outlook]
+[[ashen]INBOX]
+[[ashely][Gmail]/Trash]
+[[ashely][Gmail]/Starred]
+[[ashely][Gmail]/Sent Mail]
+[[ashely][Gmail]/Important]
+[[ashely][Gmail]/Drafts]
+[[ashely][Gmail]]
+[[ashely]INBOX]
+
+Folders mapping from --automap feature (use --f1f2 to override any mapping):
+
+Folders mapping from --f1f2 options, it overrides --automap:
+
+
+Folders sizes before the synchronization.
+You can remove foldersizes listings by using "--nofoldersizes" and  "--nofoldersizesatend"
+but then you will also loose the ETA (Estimation Time of Arrival) given after each message copy.
+++++ Calculating sizes of 9 folders on Host1
+Host1 folder     1/9 [GQ Updates]                        Size:         0 Messages:     0 Biggest:         0
+Host1 folder     2/9 [Goolam Attorneys]                  Size:         0 Messages:     0 Biggest:         0
+Host1 folder     3/9 [INBOX]                             Size: 530908059 Messages:  1016 Biggest:  26426187
+Host1 folder     4/9 [Provisional Tax]                   Size:         0 Messages:     0 Biggest:         0
+Host1 folder     5/9 [[Gmail]/Drafts]                    Size:         0 Messages:     0 Biggest:         0
+Host1 folder     6/9 [[Gmail]/Important]                 Size: 607742405 Messages:  1096 Biggest:  26426187
+Host1 folder     7/9 [[Gmail]/Sent Mail]                 Size: 359969414 Messages:   513 Biggest:  35690794
+Host1 folder     8/9 [[Gmail]/Starred]                   Size:  31562899 Messages:   111 Biggest:   8928822
+Host1 folder     9/9 [[Gmail]/Trash]                     Size:  69041829 Messages:   244 Biggest:   7517843
+Host1 Nb folders:                9 folders
+Host1 Nb messages:            2980 messages
+Host1 Total size:       1599224606 bytes (1.489 GiB)
+Host1 Biggest message:    35690794 bytes (34.037 MiB)
+Host1 Time spent:             51.7 seconds
+++++ Calculating sizes of 9 folders on Host2
+Host2 folder     1/9 [[katelyn]GQ Updates]               Size:         0 Messages:     0 Biggest:         0
+Host2 folder     2/9 [[katelyn]Goolam Attorneys]         Size:         0 Messages:     0 Biggest:         0
+Host2 folder     3/9 [[katelyn]INBOX]                    Size: 530816701 Messages:  1014 Biggest:  26426187
+Host2 folder     4/9 [[katelyn]Provisional Tax]          Size:         0 Messages:     0 Biggest:         0
+Host2 folder     5/9 [[katelyn][Gmail]/Drafts]           Size:         0 Messages:     0 Biggest:         0
+Host2 folder     6/9 [[katelyn][Gmail]/Important]        Size: 607693234 Messages:  1096 Biggest:  26426187
+Host2 folder     7/9 [[katelyn][Gmail]/Sent Mail]        Size: 220377663 Messages:   466 Biggest:  18319363
+Host2 folder     8/9 [[katelyn][Gmail]/Starred]          does not exist yet
+Host2 folder     9/9 [[katelyn][Gmail]/Trash]            does not exist yet
+Host2 Nb folders:                9 folders
+Host2 Nb messages:            2576 messages
+Host2 Total size:       1358887598 bytes (1.266 GiB)
+Host2 Biggest message:    26426187 bytes (25.202 MiB)
+Host2 Time spent:              6.3 seconds
+++++ Looping on each one of 9 folders to sync
+Folder     1/9 [GQ Updates]                        -> [[katelyn]GQ Updates]              
+Host1 folder [GQ Updates] has 0 messages in total (mentioned by SELECT)
+Host2 folder [[katelyn]GQ Updates] has 0 messages in total (mentioned by SELECT)
+Host1 folder [GQ Updates] considering 0 messages
+Host2 folder [[katelyn]GQ Updates] considering 0 messages
+Folder     2/9 [Goolam Attorneys]                  -> [[katelyn]Goolam Attorneys]        
+Host1 folder [Goolam Attorneys] has 0 messages in total (mentioned by SELECT)
+Host2 folder [[katelyn]Goolam Attorneys] has 0 messages in total (mentioned by SELECT)
+Host1 folder [Goolam Attorneys] considering 0 messages
+Host2 folder [[katelyn]Goolam Attorneys] considering 0 messages
+Folder     3/9 [INBOX]                             -> [[katelyn]INBOX]                   
+Host1 folder [INBOX] has 1016 messages in total (mentioned by SELECT)
+Host2 folder [[katelyn]INBOX] has 1014 messages in total (mentioned by SELECT)
+Host1 folder [INBOX] considering 1016 messages
+Host2 folder [[katelyn]INBOX] considering 1014 messages
+msg INBOX/8 {13058}           copied to [katelyn]INBOX/1015       0.08 msgs/s  0.983 KiB/s 12.752 KiB copied  ETA: Fri Apr  7 03:03:24 2017  38571 s  2972/2980 msgs left
+msg INBOX/21 {17819}          copied to [katelyn]INBOX/1016       0.14 msgs/s  2.101 KiB/s 30.153 KiB copied  ETA: Thu Apr  6 22:14:26 2017  21231 s  2959/2980 msgs left
+msg INBOX/22 {21489}          copied to [katelyn]INBOX/1017       0.19 msgs/s  3.274 KiB/s 51.139 KiB copied  ETA: Thu Apr  6 20:37:18 2017  15402 s  2958/2980 msgs left
+msg INBOX/25 {7561}           copied to [katelyn]INBOX/1018       0.24 msgs/s  3.493 KiB/s 58.522 KiB copied  ETA: Thu Apr  6 19:46:55 2017  12378 s  2955/2980 msgs left
+msg INBOX/41 {24499}          copied to [katelyn]INBOX/1019       0.28 msgs/s  4.570 KiB/s 82.447 KiB copied  ETA: Thu Apr  6 19:17:23 2017  10604 s  2939/2980 msgs left
+msg INBOX/42 {15057}          copied to [katelyn]INBOX/1020       0.31 msgs/s  5.032 KiB/s 97.151 KiB copied  ETA: Thu Apr  6 18:58:14 2017  9454 s  2938/2980 msgs left
+msg INBOX/43 {15332}          copied to [katelyn]INBOX/1021       0.34 msgs/s  5.431 KiB/s 112.124 KiB copied  ETA: Thu Apr  6 18:45:03 2017  8662 s  2937/2980 msgs left
+msg INBOX/44 {18353}          copied to [katelyn]INBOX/1022       0.36 msgs/s  5.912 KiB/s 130.047 KiB copied  ETA: Thu Apr  6 18:35:15 2017  8073 s  2936/2980 msgs left
+msg INBOX/46 {1682148}        copied to [katelyn]INBOX/1023       0.30 msgs/s  58.688 KiB/s 1.731 MiB copied  ETA: Thu Apr  6 19:04:58 2017  9847 s  2934/2980 msgs left
+msg INBOX/51 {38547}          copied to [katelyn]INBOX/1024       0.32 msgs/s  57.255 KiB/s 1.768 MiB copied  ETA: Thu Apr  6 18:55:14 2017  9261 s  2929/2980 msgs left
+msg INBOX/58 {69912}          copied to [katelyn]INBOX/1025       0.33 msgs/s  56.176 KiB/s 1.835 MiB copied  ETA: Thu Apr  6 18:49:01 2017  8887 s  2923/2980 msgs left
+msg INBOX/65 {14327}          copied to [katelyn]INBOX/1026       0.35 msgs/s  54.454 KiB/s 1.848 MiB copied  ETA: Thu Apr  6 18:41:41 2017  8446 s  2916/2980 msgs left
+msg INBOX/76 {5375}           copied to [katelyn]INBOX/1027       0.36 msgs/s  52.904 KiB/s 1.853 MiB copied  ETA: Thu Apr  6 18:34:33 2017  8017 s  2905/2980 msgs left
+msg INBOX/78 {28174}          copied to [katelyn]INBOX/1028       0.38 msgs/s  51.812 KiB/s 1.880 MiB copied  ETA: Thu Apr  6 18:29:23 2017  7706 s  2903/2980 msgs left
+msg INBOX/79 {28193}          copied to [katelyn]INBOX/1029       0.39 msgs/s  50.802 KiB/s 1.907 MiB copied  ETA: Thu Apr  6 18:24:56 2017  7437 s  2902/2980 msgs left
+msg INBOX/103 {1279234}       copied to [katelyn]INBOX/1030       0.30 msgs/s  59.844 KiB/s 3.127 MiB copied  ETA: Thu Apr  6 19:02:02 2017  9648 s  2885/2980 msgs left
+msg INBOX/104 {17484}         copied to [katelyn]INBOX/1031       0.31 msgs/s  58.742 KiB/s 3.144 MiB copied  ETA: Thu Apr  6 18:56:13 2017  9297 s  2884/2980 msgs left
+msg INBOX/131 {10707}         copied to [katelyn]INBOX/1032       0.32 msgs/s  57.725 KiB/s 3.154 MiB copied  ETA: Thu Apr  6 18:49:33 2017  8896 s  2862/2980 msgs left
+msg INBOX/133 {11726}         copied to [katelyn]INBOX/1033       0.33 msgs/s  56.796 KiB/s 3.165 MiB copied  ETA: Thu Apr  6 18:44:28 2017  8590 s  2860/2980 msgs left
+msg INBOX/134 {10449}         copied to [katelyn]INBOX/1034       0.34 msgs/s  55.822 KiB/s 3.175 MiB copied  ETA: Thu Apr  6 18:40:05 2017  8326 s  2859/2980 msgs left
+msg INBOX/141 {48182}         copied to [katelyn]INBOX/1035       0.35 msgs/s  55.011 KiB/s 3.221 MiB copied  ETA: Thu Apr  6 18:37:15 2017  8154 s  2856/2980 msgs left
+msg INBOX/148 {186296}        copied to [katelyn]INBOX/1036       0.35 msgs/s  54.595 KiB/s 3.399 MiB copied  ETA: Thu Apr  6 18:39:08 2017  8264 s  2852/2980 msgs left
+msg INBOX/154 {208483}        copied to [katelyn]INBOX/1037       0.34 msgs/s  53.724 KiB/s 3.598 MiB copied  ETA: Thu Apr  6 18:43:00 2017  8491 s  2848/2980 msgs left
+msg INBOX/162 {15999}         copied to [katelyn]INBOX/1038       0.34 msgs/s  52.734 KiB/s 3.613 MiB copied  ETA: Thu Apr  6 18:40:04 2017  8313 s  2844/2980 msgs left
+msg INBOX/163 {17409}         copied to [katelyn]INBOX/1039       0.35 msgs/s  52.002 KiB/s 3.630 MiB copied  ETA: Thu Apr  6 18:37:00 2017  8128 s  2843/2980 msgs left
+msg INBOX/166 {27679}         copied to [katelyn]INBOX/1040       0.36 msgs/s  51.292 KiB/s 3.656 MiB copied  ETA: Thu Apr  6 18:34:32 2017  7978 s  2842/2980 msgs left
+msg INBOX/178 {133224}        copied to [katelyn]INBOX/1041       0.35 msgs/s  50.926 KiB/s 3.783 MiB copied  ETA: Thu Apr  6 18:34:46 2017  7990 s  2836/2980 msgs left
+msg INBOX/181 {93321}         copied to [katelyn]INBOX/1042       0.36 msgs/s  50.738 KiB/s 3.872 MiB copied  ETA: Thu Apr  6 18:33:28 2017  7909 s  2834/2980 msgs left
+msg INBOX/207 {50208}         copied to [katelyn]INBOX/1043       0.36 msgs/s  49.687 KiB/s 3.920 MiB copied  ETA: Thu Apr  6 18:32:17 2017  7836 s  2813/2980 msgs left
+msg INBOX/211 {14426}         copied to [katelyn]INBOX/1044       0.36 msgs/s  48.966 KiB/s 3.934 MiB copied  ETA: Thu Apr  6 18:30:08 2017  7705 s  2810/2980 msgs left
+msg INBOX/216 {580175}        copied to [katelyn]INBOX/1045       0.35 msgs/s  51.159 KiB/s 4.487 MiB copied  ETA: Thu Apr  6 18:37:25 2017  8135 s  2808/2980 msgs left
+msg INBOX/225 {70829}         copied to [katelyn]INBOX/1046       0.35 msgs/s  50.878 KiB/s 4.554 MiB copied  ETA: Thu Apr  6 18:35:33 2017  8021 s  2800/2980 msgs left
+msg INBOX/228 {43804}         copied to [katelyn]INBOX/1047       0.35 msgs/s  50.320 KiB/s 4.596 MiB copied  ETA: Thu Apr  6 18:34:04 2017  7930 s  2798/2980 msgs left
+msg INBOX/233 {196993}        copied to [katelyn]INBOX/1048       0.35 msgs/s  50.591 KiB/s 4.784 MiB copied  ETA: Thu Apr  6 18:34:32 2017  7955 s  2793/2980 msgs left
+msg INBOX/257 {36951}         copied to [katelyn]INBOX/1049       0.36 msgs/s  50.205 KiB/s 4.819 MiB copied  ETA: Thu Apr  6 18:31:52 2017  7793 s  2775/2980 msgs left
+msg INBOX/272 {14587}         copied to [katelyn]INBOX/1050       0.36 msgs/s  49.684 KiB/s 4.833 MiB copied  ETA: Thu Apr  6 18:29:37 2017  7656 s  2767/2980 msgs left
+msg INBOX/276 {42184}         copied to [katelyn]INBOX/1051       0.37 msgs/s  49.363 KiB/s 4.873 MiB copied  ETA: Thu Apr  6 18:27:54 2017  7552 s  2764/2980 msgs left
+msg INBOX/277 {7198428}       copied to [katelyn]INBOX/1052       0.23 msgs/s  73.379 KiB/s 11.738 MiB copied  ETA: Thu Apr  6 19:41:35 2017  11911 s  2763/2980 msgs left
+msg INBOX/291 {84297}         copied to [katelyn]INBOX/1053       0.24 msgs/s  73.041 KiB/s 11.819 MiB copied  ETA: Thu Apr  6 19:38:24 2017  11718 s  2758/2980 msgs left
+msg INBOX/300 {65270}         copied to [katelyn]INBOX/1054       0.24 msgs/s  72.622 KiB/s 11.881 MiB copied  ETA: Thu Apr  6 19:35:26 2017  11538 s  2755/2980 msgs left
+msg INBOX/369 {63707}         copied to [katelyn]INBOX/1055       0.24 msgs/s  72.202 KiB/s 11.942 MiB copied  ETA: Thu Apr  6 19:29:48 2017  11199 s  2711/2980 msgs left
+msg INBOX/402 {393373}        copied to [katelyn]INBOX/1056       0.24 msgs/s  72.627 KiB/s 12.317 MiB copied  ETA: Thu Apr  6 19:28:33 2017  11118 s  2689/2980 msgs left
+msg INBOX/406 {393040}        copied to [katelyn]INBOX/1057       0.24 msgs/s  72.424 KiB/s 12.692 MiB copied  ETA: Thu Apr  6 19:30:13 2017  11213 s  2687/2980 msgs left
+msg INBOX/442 {55535}         copied to [katelyn]INBOX/1058       0.24 msgs/s  71.994 KiB/s 12.745 MiB copied  ETA: Thu Apr  6 19:25:56 2017  10955 s  2659/2980 msgs left
+msg INBOX/585 {14310}         copied to [katelyn]INBOX/1059       0.25 msgs/s  71.531 KiB/s 12.758 MiB copied  ETA: Thu Apr  6 19:16:42 2017  10398 s  2562/2980 msgs left
+msg INBOX/610 {24775}         copied to [katelyn]INBOX/1060       0.25 msgs/s  71.182 KiB/s 12.782 MiB copied  ETA: Thu Apr  6 19:12:50 2017  10165 s  2543/2980 msgs left
+msg INBOX/657 {15395}         copied to [katelyn]INBOX/1061       0.25 msgs/s  70.771 KiB/s 12.797 MiB copied  ETA: Thu Apr  6 19:09:05 2017  9939 s  2523/2980 msgs left
+msg INBOX/663 {59759}         copied to [katelyn]INBOX/1062       0.26 msgs/s  70.448 KiB/s 12.854 MiB copied  ETA: Thu Apr  6 19:06:48 2017  9801 s  2518/2980 msgs left
+msg INBOX/664 {59826}         copied to [katelyn]INBOX/1063       0.26 msgs/s  70.171 KiB/s 12.911 MiB copied  ETA: Thu Apr  6 19:04:47 2017  9678 s  2517/2980 msgs left
+msg INBOX/665 {59715}         copied to [katelyn]INBOX/1064       0.26 msgs/s  69.902 KiB/s 12.968 MiB copied  ETA: Thu Apr  6 19:02:49 2017  9559 s  2516/2980 msgs left
+msg INBOX/699 {15485}         copied to [katelyn]INBOX/1065       0.27 msgs/s  69.502 KiB/s 12.982 MiB copied  ETA: Thu Apr  6 18:59:55 2017  9384 s  2502/2980 msgs left
+msg INBOX/740 {14466}         copied to [katelyn]INBOX/1066       0.27 msgs/s  69.102 KiB/s 12.996 MiB copied  ETA: Thu Apr  6 18:56:57 2017  9203 s  2485/2980 msgs left
+msg INBOX/748 {15876}         copied to [katelyn]INBOX/1067       0.27 msgs/s  68.735 KiB/s 13.011 MiB copied  ETA: Thu Apr  6 18:54:48 2017  9074 s  2481/2980 msgs left
+msg INBOX/755 {53647}         copied to [katelyn]INBOX/1068       0.28 msgs/s  68.414 KiB/s 13.063 MiB copied  ETA: Thu Apr  6 18:53:15 2017  8979 s  2480/2980 msgs left
+msg INBOX/778 {57957}         copied to [katelyn]INBOX/1069       0.28 msgs/s  68.084 KiB/s 13.118 MiB copied  ETA: Thu Apr  6 18:51:25 2017  8868 s  2472/2980 msgs left
+msg INBOX/780 {395376}        copied to [katelyn]INBOX/1070       0.28 msgs/s  68.703 KiB/s 13.495 MiB copied  ETA: Thu Apr  6 18:51:37 2017  8875 s  2471/2980 msgs left
+msg INBOX/843 {65982}         copied to [katelyn]INBOX/1071       0.28 msgs/s  68.322 KiB/s 13.558 MiB copied  ETA: Thu Apr  6 18:49:43 2017  8759 s  2457/2980 msgs left
+msg INBOX/905 {251618}        copied to [katelyn]INBOX/1072       0.28 msgs/s  68.468 KiB/s 13.798 MiB copied  ETA: Thu Apr  6 18:47:10 2017  8603 s  2418/2980 msgs left
+msg INBOX/906 {15688}         copied to [katelyn]INBOX/1073       0.28 msgs/s  68.000 KiB/s 13.813 MiB copied  ETA: Thu Apr  6 18:45:50 2017  8521 s  2417/2980 msgs left
+msg INBOX/955 {1159724}       copied to [katelyn]INBOX/1074       0.28 msgs/s  70.493 KiB/s 14.919 MiB copied  ETA: Thu Apr  6 18:47:03 2017  8585 s  2377/2980 msgs left
+msg INBOX/979 {22172}         copied to [katelyn]INBOX/1075       0.28 msgs/s  70.155 KiB/s 14.940 MiB copied  ETA: Thu Apr  6 18:44:25 2017  8426 s  2357/2980 msgs left
+msg INBOX/993 {6669}          copied to [katelyn]INBOX/1076       0.28 msgs/s  69.749 KiB/s 14.946 MiB copied  ETA: Thu Apr  6 18:42:41 2017  8321 s  2351/2980 msgs left
+msg INBOX/1026 {23369}        copied to [katelyn]INBOX/1077       0.28 msgs/s  69.321 KiB/s 14.969 MiB copied  ETA: Thu Apr  6 18:40:19 2017  8178 s  2330/2980 msgs left
+msg INBOX/1054 {16270}        copied to [katelyn]INBOX/1078       0.29 msgs/s  68.983 KiB/s 14.984 MiB copied  ETA: Thu Apr  6 18:38:05 2017  8042 s  2314/2980 msgs left
+msg INBOX/1091 {1138774}      copied to [katelyn]INBOX/1079       0.28 msgs/s  70.548 KiB/s 16.070 MiB copied  ETA: Thu Apr  6 18:40:46 2017  8193 s  2283/2980 msgs left
+msg INBOX/1101 {15764}        copied to [katelyn]INBOX/1080       0.28 msgs/s  70.216 KiB/s 16.085 MiB copied  ETA: Thu Apr  6 18:39:12 2017  8096 s  2278/2980 msgs left
+msg INBOX/1122 {6157398}      copied to [katelyn]INBOX/1081       0.25 msgs/s  82.475 KiB/s 21.957 MiB copied  ETA: Thu Apr  6 18:58:29 2017  9216 s  2265/2980 msgs left
+msg INBOX/1141 {12731}        copied to [katelyn]INBOX/1082       0.25 msgs/s  82.177 KiB/s 21.969 MiB copied  ETA: Thu Apr  6 18:56:13 2017  9078 s  2255/2980 msgs left
+msg INBOX/1149 {21775}        copied to [katelyn]INBOX/1083       0.25 msgs/s  81.811 KiB/s 21.990 MiB copied  ETA: Thu Apr  6 18:54:27 2017  8971 s  2249/2980 msgs left
+msg INBOX/1204 {15948}        copied to [katelyn]INBOX/1084       0.25 msgs/s  81.470 KiB/s 22.005 MiB copied  ETA: Thu Apr  6 18:51:05 2017  8768 s  2219/2980 msgs left
+msg INBOX/1206 {73196}        copied to [katelyn]INBOX/1085       0.26 msgs/s  81.188 KiB/s 22.075 MiB copied  ETA: Thu Apr  6 18:49:57 2017  8698 s  2218/2980 msgs left
+msg INBOX/1207 {1219132}      copied to [katelyn]INBOX/1086       0.25 msgs/s  82.166 KiB/s 23.238 MiB copied  ETA: Thu Apr  6 18:53:47 2017  8917 s  2217/2980 msgs left
+msg INBOX/1212 {16261}        copied to [katelyn]INBOX/1087       0.25 msgs/s  81.834 KiB/s 23.253 MiB copied  ETA: Thu Apr  6 18:52:16 2017  8825 s  2214/2980 msgs left
+msg INBOX/1292 {43047}        copied to [katelyn]INBOX/1088       0.25 msgs/s  81.442 KiB/s 23.294 MiB copied  ETA: Thu Apr  6 18:47:39 2017  8545 s  2159/2980 msgs left
+msg INBOX/1312 {15088}        copied to [katelyn]INBOX/1089       0.25 msgs/s  81.125 KiB/s 23.309 MiB copied  ETA: Thu Apr  6 18:45:21 2017  8407 s  2143/2980 msgs left
+msg INBOX/1335 {30843}        copied to [katelyn]INBOX/1090       0.26 msgs/s  80.844 KiB/s 23.338 MiB copied  ETA: Thu Apr  6 18:43:09 2017  8273 s  2127/2980 msgs left
+msg INBOX/1336 {35414}        copied to [katelyn]INBOX/1091       0.26 msgs/s  80.526 KiB/s 23.372 MiB copied  ETA: Thu Apr  6 18:42:04 2017  8206 s  2126/2980 msgs left
+msg INBOX/1353 {13275}        copied to [katelyn]INBOX/1092       0.26 msgs/s  80.263 KiB/s 23.385 MiB copied  ETA: Thu Apr  6 18:40:28 2017  8109 s  2120/2980 msgs left
+msg INBOX/1368 {101363}       copied to [katelyn]INBOX/1093       0.26 msgs/s  79.975 KiB/s 23.481 MiB copied  ETA: Thu Apr  6 18:39:07 2017  8026 s  2109/2980 msgs left
+msg INBOX/1402 {86339}        copied to [katelyn]INBOX/1094       0.26 msgs/s  79.712 KiB/s 23.564 MiB copied  ETA: Thu Apr  6 18:36:30 2017  7867 s  2079/2980 msgs left
+msg INBOX/1406 {16684}        copied to [katelyn]INBOX/1095       0.27 msgs/s  79.429 KiB/s 23.580 MiB copied  ETA: Thu Apr  6 18:35:19 2017  7795 s  2077/2980 msgs left
+msg INBOX/1409 {185513}       copied to [katelyn]INBOX/1096       0.27 msgs/s  79.192 KiB/s 23.756 MiB copied  ETA: Thu Apr  6 18:35:01 2017  7773 s  2075/2980 msgs left
+msg INBOX/1410 {40137}        copied to [katelyn]INBOX/1097       0.27 msgs/s  78.897 KiB/s 23.795 MiB copied  ETA: Thu Apr  6 18:34:06 2017  7717 s  2074/2980 msgs left
+msg INBOX/1411 {162462}       copied to [katelyn]INBOX/1098       0.27 msgs/s  78.798 KiB/s 23.950 MiB copied  ETA: Thu Apr  6 18:33:32 2017  7681 s  2073/2980 msgs left
+msg INBOX/1415 {15158}        copied to [katelyn]INBOX/1099       0.27 msgs/s  78.520 KiB/s 23.964 MiB copied  ETA: Thu Apr  6 18:32:28 2017  7615 s  2071/2980 msgs left
+msg INBOX/1416 {26902}        copied to [katelyn]INBOX/1100       0.27 msgs/s  78.269 KiB/s 23.990 MiB copied  ETA: Thu Apr  6 18:31:29 2017  7555 s  2070/2980 msgs left
+msg INBOX/1419 {113482}       copied to [katelyn]INBOX/1101       0.28 msgs/s  78.116 KiB/s 24.098 MiB copied  ETA: Thu Apr  6 18:30:42 2017  7505 s  2067/2980 msgs left
+msg INBOX/1420 {155656}       copied to [katelyn]INBOX/1102       0.28 msgs/s  78.001 KiB/s 24.246 MiB copied  ETA: Thu Apr  6 18:30:12 2017  7473 s  2066/2980 msgs left
+msg INBOX/1566 {13835}        copied to [katelyn]INBOX/1103       0.28 msgs/s  77.682 KiB/s 24.260 MiB copied  ETA: Thu Apr  6 18:25:37 2017  7197 s  2003/2980 msgs left
+msg INBOX/1604 {12982}        copied to [katelyn]INBOX/1104       0.28 msgs/s  77.407 KiB/s 24.272 MiB copied  ETA: Thu Apr  6 18:22:32 2017  7010 s  1965/2980 msgs left
+msg INBOX/1605 {13039}        copied to [katelyn]INBOX/1105       0.28 msgs/s  77.104 KiB/s 24.284 MiB copied  ETA: Thu Apr  6 18:21:44 2017  6961 s  1964/2980 msgs left
+Folder     4/9 [Provisional Tax]                   -> [[katelyn]Provisional Tax]         
+Host1 folder [Provisional Tax] has 0 messages in total (mentioned by SELECT)
+Host2 folder [[katelyn]Provisional Tax] has 0 messages in total (mentioned by SELECT)
+Host1 folder [Provisional Tax] considering 0 messages
+Host2 folder [[katelyn]Provisional Tax] considering 0 messages
+Folder     5/9 [[Gmail]/Drafts]                    -> [[katelyn][Gmail]/Drafts]          
+Host1 folder [[Gmail]/Drafts] has 0 messages in total (mentioned by SELECT)
+Host2 folder [[katelyn][Gmail]/Drafts] has 0 messages in total (mentioned by SELECT)
+Host1 folder [[Gmail]/Drafts] considering 0 messages
+Host2 folder [[katelyn][Gmail]/Drafts] considering 0 messages
+Folder     6/9 [[Gmail]/Important]                 -> [[katelyn][Gmail]/Important]       
+Host1 folder [[Gmail]/Important] has 1096 messages in total (mentioned by SELECT)
+Host2 folder [[katelyn][Gmail]/Important] has 1096 messages in total (mentioned by SELECT)
+Host1 folder [[Gmail]/Important] considering 1096 messages
+Host2 folder [[katelyn][Gmail]/Important] considering 1096 messages
+msg [Gmail]/Important/30 {15057}          copied to [katelyn][Gmail]/Important/1097       0.28 msgs/s  74.530 KiB/s 24.299 MiB copied  ETA: Thu Apr  6 18:22:53 2017  7018 s  1934/2980 msgs left
+msg [Gmail]/Important/31 {18353}          copied to [katelyn][Gmail]/Important/1098       0.28 msgs/s  74.303 KiB/s 24.316 MiB copied  ETA: Thu Apr  6 18:22:01 2017  6965 s  1933/2980 msgs left
+msg [Gmail]/Important/32 {1682148}        copied to [katelyn][Gmail]/Important/1099       0.27 msgs/s  75.867 KiB/s 25.921 MiB copied  ETA: Thu Apr  6 18:26:01 2017  7191 s  1932/2980 msgs left
+msg [Gmail]/Important/33 {15332}          copied to [katelyn][Gmail]/Important/1100       0.27 msgs/s  75.634 KiB/s 25.935 MiB copied  ETA: Thu Apr  6 18:25:09 2017  7137 s  1931/2980 msgs left
+msg [Gmail]/Important/34 {38547}          copied to [katelyn][Gmail]/Important/1101       0.27 msgs/s  75.430 KiB/s 25.972 MiB copied  ETA: Thu Apr  6 18:24:21 2017  7088 s  1930/2980 msgs left
+msg [Gmail]/Important/40 {69912}          copied to [katelyn][Gmail]/Important/1102       0.27 msgs/s  75.237 KiB/s 26.039 MiB copied  ETA: Thu Apr  6 18:23:28 2017  7033 s  1925/2980 msgs left
+msg [Gmail]/Important/47 {14327}          copied to [katelyn][Gmail]/Important/1103       0.28 msgs/s  75.012 KiB/s 26.052 MiB copied  ETA: Thu Apr  6 18:22:17 2017  6960 s  1918/2980 msgs left
+msg [Gmail]/Important/57 {28174}          copied to [katelyn][Gmail]/Important/1104       0.28 msgs/s  74.817 KiB/s 26.079 MiB copied  ETA: Thu Apr  6 18:20:57 2017  6879 s  1908/2980 msgs left
+msg [Gmail]/Important/58 {28193}          copied to [katelyn][Gmail]/Important/1105       0.28 msgs/s  74.630 KiB/s 26.106 MiB copied  ETA: Thu Apr  6 18:20:10 2017  6831 s  1907/2980 msgs left
+msg [Gmail]/Important/110 {10707}         copied to [katelyn][Gmail]/Important/1106       0.28 msgs/s  74.428 KiB/s 26.116 MiB copied  ETA: Thu Apr  6 18:16:58 2017  6638 s  1866/2980 msgs left
+msg [Gmail]/Important/111 {11726}         copied to [katelyn][Gmail]/Important/1107       0.28 msgs/s  74.235 KiB/s 26.127 MiB copied  ETA: Thu Apr  6 18:16:11 2017  6590 s  1865/2980 msgs left
+msg [Gmail]/Important/112 {10449}         copied to [katelyn][Gmail]/Important/1108       0.28 msgs/s  74.037 KiB/s 26.137 MiB copied  ETA: Thu Apr  6 18:15:24 2017  6542 s  1864/2980 msgs left
+msg [Gmail]/Important/119 {48182}         copied to [katelyn][Gmail]/Important/1109       0.29 msgs/s  73.850 KiB/s 26.183 MiB copied  ETA: Thu Apr  6 18:14:40 2017  6497 s  1861/2980 msgs left
+msg [Gmail]/Important/125 {186296}        copied to [katelyn][Gmail]/Important/1110       0.29 msgs/s  73.836 KiB/s 26.361 MiB copied  ETA: Thu Apr  6 18:14:12 2017  6466 s  1857/2980 msgs left
+msg [Gmail]/Important/132 {208483}        copied to [katelyn][Gmail]/Important/1111       0.29 msgs/s  73.858 KiB/s 26.560 MiB copied  ETA: Thu Apr  6 18:13:42 2017  6434 s  1852/2980 msgs left
+msg [Gmail]/Important/142 {15999}         copied to [katelyn][Gmail]/Important/1112       0.29 msgs/s  73.643 KiB/s 26.575 MiB copied  ETA: Thu Apr  6 18:12:45 2017  6375 s  1846/2980 msgs left
+msg [Gmail]/Important/143 {17409}         copied to [katelyn][Gmail]/Important/1113       0.29 msgs/s  73.424 KiB/s 26.592 MiB copied  ETA: Thu Apr  6 18:12:07 2017  6335 s  1845/2980 msgs left
+msg [Gmail]/Important/146 {27679}         copied to [katelyn][Gmail]/Important/1114       0.29 msgs/s  73.238 KiB/s 26.618 MiB copied  ETA: Thu Apr  6 18:11:29 2017  6296 s  1844/2980 msgs left
+msg [Gmail]/Important/161 {133224}        copied to [katelyn][Gmail]/Important/1115       0.29 msgs/s  73.116 KiB/s 26.745 MiB copied  ETA: Thu Apr  6 18:10:44 2017  6249 s  1835/2980 msgs left
+msg [Gmail]/Important/164 {93321}         copied to [katelyn][Gmail]/Important/1116       0.29 msgs/s  72.989 KiB/s 26.834 MiB copied  ETA: Thu Apr  6 18:10:14 2017  6217 s  1833/2980 msgs left
+msg [Gmail]/Important/187 {50208}         copied to [katelyn][Gmail]/Important/1117       0.30 msgs/s  72.630 KiB/s 26.882 MiB copied  ETA: Thu Apr  6 18:09:01 2017  6142 s  1815/2980 msgs left
+msg [Gmail]/Important/192 {14426}         copied to [katelyn][Gmail]/Important/1118       0.30 msgs/s  72.423 KiB/s 26.896 MiB copied  ETA: Thu Apr  6 18:08:15 2017  6095 s  1811/2980 msgs left
+msg [Gmail]/Important/197 {580175}        copied to [katelyn][Gmail]/Important/1119       0.29 msgs/s  72.687 KiB/s 27.449 MiB copied  ETA: Thu Apr  6 18:09:03 2017  6136 s  1809/2980 msgs left
+msg [Gmail]/Important/207 {70829}         copied to [katelyn][Gmail]/Important/1120       0.30 msgs/s  72.525 KiB/s 27.517 MiB copied  ETA: Thu Apr  6 18:08:10 2017  6081 s  1800/2980 msgs left
+msg [Gmail]/Important/210 {43804}         copied to [katelyn][Gmail]/Important/1121       0.30 msgs/s  72.330 KiB/s 27.558 MiB copied  ETA: Thu Apr  6 18:07:38 2017  6047 s  1798/2980 msgs left
+msg [Gmail]/Important/219 {196993}        copied to [katelyn][Gmail]/Important/1122       0.30 msgs/s  72.349 KiB/s 27.746 MiB copied  ETA: Thu Apr  6 18:06:58 2017  6005 s  1789/2980 msgs left
+msg [Gmail]/Important/220 {182643}        copied to [katelyn][Gmail]/Important/1123       0.30 msgs/s  72.382 KiB/s 27.920 MiB copied  ETA: Thu Apr  6 18:06:41 2017  5985 s  1788/2980 msgs left
+msg [Gmail]/Important/244 {36951}         copied to [katelyn][Gmail]/Important/1124       0.30 msgs/s  72.241 KiB/s 27.956 MiB copied  ETA: Thu Apr  6 18:05:11 2017  5894 s  1770/2980 msgs left
+msg [Gmail]/Important/260 {14587}         copied to [katelyn][Gmail]/Important/1125       0.30 msgs/s  72.053 KiB/s 27.970 MiB copied  ETA: Thu Apr  6 18:04:11 2017  5833 s  1761/2980 msgs left
+msg [Gmail]/Important/265 {42184}         copied to [katelyn][Gmail]/Important/1126       0.30 msgs/s  71.884 KiB/s 28.010 MiB copied  ETA: Thu Apr  6 18:03:33 2017  5794 s  1757/2980 msgs left
+msg [Gmail]/Important/266 {7198428}       copied to [katelyn][Gmail]/Important/1127       0.28 msgs/s  81.791 KiB/s 34.875 MiB copied  ETA: Thu Apr  6 18:12:22 2017  6284 s  1756/2980 msgs left
+msg [Gmail]/Important/279 {84297}         copied to [katelyn][Gmail]/Important/1128       0.28 msgs/s  81.648 KiB/s 34.955 MiB copied  ETA: Thu Apr  6 18:11:40 2017  6241 s  1751/2980 msgs left
+msg [Gmail]/Important/287 {65270}         copied to [katelyn][Gmail]/Important/1129       0.28 msgs/s  81.510 KiB/s 35.017 MiB copied  ETA: Thu Apr  6 18:11:05 2017  6205 s  1749/2980 msgs left
+msg [Gmail]/Important/393 {393040}        copied to [katelyn][Gmail]/Important/1130       0.28 msgs/s  81.588 KiB/s 35.392 MiB copied  ETA: Thu Apr  6 18:06:43 2017  5938 s  1671/2980 msgs left
+msg [Gmail]/Important/394 {393373}        copied to [katelyn][Gmail]/Important/1131       0.28 msgs/s  81.619 KiB/s 35.767 MiB copied  ETA: Thu Apr  6 18:06:57 2017  5948 s  1670/2980 msgs left
+msg [Gmail]/Important/597 {14310}         copied to [katelyn][Gmail]/Important/1132       0.28 msgs/s  81.396 KiB/s 35.781 MiB copied  ETA: Thu Apr  6 17:56:20 2017  5310 s  1498/2980 msgs left
+msg [Gmail]/Important/629 {24775}         copied to [katelyn][Gmail]/Important/1133       0.28 msgs/s  81.189 KiB/s 35.805 MiB copied  ETA: Thu Apr  6 17:54:22 2017  5190 s  1471/2980 msgs left
+msg [Gmail]/Important/675 {15395}         copied to [katelyn][Gmail]/Important/1134       0.28 msgs/s  80.975 KiB/s 35.819 MiB copied  ETA: Thu Apr  6 17:52:41 2017  5088 s  1449/2980 msgs left
+msg [Gmail]/Important/681 {59759}         copied to [katelyn][Gmail]/Important/1135       0.29 msgs/s  80.826 KiB/s 35.876 MiB copied  ETA: Thu Apr  6 17:52:00 2017  5045 s  1443/2980 msgs left
+msg [Gmail]/Important/682 {59826}         copied to [katelyn][Gmail]/Important/1136       0.29 msgs/s  80.656 KiB/s 35.933 MiB copied  ETA: Thu Apr  6 17:51:38 2017  5022 s  1442/2980 msgs left
+msg [Gmail]/Important/683 {59715}         copied to [katelyn][Gmail]/Important/1137       0.29 msgs/s  80.462 KiB/s 35.990 MiB copied  ETA: Thu Apr  6 17:51:19 2017  5000 s  1441/2980 msgs left
+msg [Gmail]/Important/715 {15485}         copied to [katelyn][Gmail]/Important/1138       0.29 msgs/s  80.251 KiB/s 36.005 MiB copied  ETA: Thu Apr  6 17:50:13 2017  4933 s  1428/2980 msgs left
+msg [Gmail]/Important/749 {14466}         copied to [katelyn][Gmail]/Important/1139       0.29 msgs/s  80.063 KiB/s 36.019 MiB copied  ETA: Thu Apr  6 17:48:55 2017  4854 s  1412/2980 msgs left
+msg [Gmail]/Important/754 {15876}         copied to [katelyn][Gmail]/Important/1140       0.29 msgs/s  79.877 KiB/s 36.034 MiB copied  ETA: Thu Apr  6 17:48:20 2017  4818 s  1408/2980 msgs left
+msg [Gmail]/Important/761 {53647}         copied to [katelyn][Gmail]/Important/1141       0.29 msgs/s  79.712 KiB/s 36.085 MiB copied  ETA: Thu Apr  6 17:48:00 2017  4796 s  1407/2980 msgs left
+msg [Gmail]/Important/775 {395376}        copied to [katelyn][Gmail]/Important/1142       0.29 msgs/s  80.015 KiB/s 36.462 MiB copied  ETA: Thu Apr  6 17:47:29 2017  4762 s  1398/2980 msgs left
+msg [Gmail]/Important/819 {65982}         copied to [katelyn][Gmail]/Important/1143       0.29 msgs/s  79.855 KiB/s 36.525 MiB copied  ETA: Thu Apr  6 17:46:19 2017  4691 s  1382/2980 msgs left
+msg [Gmail]/Important/878 {251618}        copied to [katelyn][Gmail]/Important/1144       0.30 msgs/s  79.979 KiB/s 36.765 MiB copied  ETA: Thu Apr  6 17:43:25 2017  4514 s  1333/2980 msgs left
+msg [Gmail]/Important/925 {1159724}       copied to [katelyn][Gmail]/Important/1145       0.29 msgs/s  81.426 KiB/s 37.871 MiB copied  ETA: Thu Apr  6 17:41:12 2017  4375 s  1286/2980 msgs left
+msg [Gmail]/Important/948 {22172}         copied to [katelyn][Gmail]/Important/1146       0.30 msgs/s  81.254 KiB/s 37.892 MiB copied  ETA: Thu Apr  6 17:39:36 2017  4278 s  1263/2980 msgs left
+msg [Gmail]/Important/976 {23369}         copied to [katelyn][Gmail]/Important/1147       0.30 msgs/s  81.089 KiB/s 37.915 MiB copied  ETA: Thu Apr  6 17:37:47 2017  4167 s  1236/2980 msgs left
+msg [Gmail]/Important/996 {16270}         copied to [katelyn][Gmail]/Important/1148       0.30 msgs/s  80.881 KiB/s 37.930 MiB copied  ETA: Thu Apr  6 17:36:31 2017  4090 s  1218/2980 msgs left
+msg [Gmail]/Important/1027 {1138774}      copied to [katelyn][Gmail]/Important/1149       0.30 msgs/s  82.238 KiB/s 39.016 MiB copied  ETA: Thu Apr  6 17:35:11 2017  4005 s  1187/2980 msgs left
+msg [Gmail]/Important/1030 {15764}        copied to [katelyn][Gmail]/Important/1150       0.30 msgs/s  82.059 KiB/s 39.031 MiB copied  ETA: Thu Apr  6 17:34:45 2017  3977 s  1184/2980 msgs left
+msg [Gmail]/Important/1047 {6157398}      copied to [katelyn][Gmail]/Important/1151       0.28 msgs/s  88.946 KiB/s 44.903 MiB copied  ETA: Thu Apr  6 17:38:04 2017  4146 s  1171/2980 msgs left
+msg [Gmail]/Important/1060 {12731}        copied to [katelyn][Gmail]/Important/1152       0.28 msgs/s  88.780 KiB/s 44.915 MiB copied  ETA: Thu Apr  6 17:37:07 2017  4088 s  1160/2980 msgs left
+msg [Gmail]/Important/1071 {21775}        copied to [katelyn][Gmail]/Important/1153       0.28 msgs/s  88.594 KiB/s 44.936 MiB copied  ETA: Thu Apr  6 17:36:12 2017  4032 s  1149/2980 msgs left
+msg [Gmail]/Important/1105 {15948}        copied to [katelyn][Gmail]/Important/1154       0.29 msgs/s  88.395 KiB/s 44.951 MiB copied  ETA: Thu Apr  6 17:33:58 2017  3897 s  1115/2980 msgs left
+msg [Gmail]/Important/1106 {73196}        copied to [katelyn][Gmail]/Important/1155       0.29 msgs/s  88.239 KiB/s 45.021 MiB copied  ETA: Thu Apr  6 17:33:43 2017  3880 s  1114/2980 msgs left
+msg [Gmail]/Important/1107 {1219132}      copied to [katelyn][Gmail]/Important/1156       0.28 msgs/s  88.875 KiB/s 46.184 MiB copied  ETA: Thu Apr  6 17:34:35 2017  3922 s  1113/2980 msgs left
+msg [Gmail]/Important/1110 {16261}        copied to [katelyn][Gmail]/Important/1157       0.28 msgs/s  88.699 KiB/s 46.199 MiB copied  ETA: Thu Apr  6 17:34:09 2017  3895 s  1110/2980 msgs left
+msg [Gmail]/Important/1170 {130064}       copied to [katelyn][Gmail]/Important/1158       0.29 msgs/s  88.584 KiB/s 46.323 MiB copied  ETA: Thu Apr  6 17:30:45 2017  3689 s  1054/2980 msgs left
+msg [Gmail]/Important/1171 {125001}       copied to [katelyn][Gmail]/Important/1159       0.29 msgs/s  88.452 KiB/s 46.443 MiB copied  ETA: Thu Apr  6 17:30:35 2017  3676 s  1053/2980 msgs left
+msg [Gmail]/Important/1172 {125075}       copied to [katelyn][Gmail]/Important/1160       0.29 msgs/s  88.350 KiB/s 46.562 MiB copied  ETA: Thu Apr  6 17:30:23 2017  3663 s  1052/2980 msgs left
+msg [Gmail]/Important/1185 {43047}        copied to [katelyn][Gmail]/Important/1161       0.29 msgs/s  87.901 KiB/s 46.603 MiB copied  ETA: Thu Apr  6 17:29:43 2017  3619 s  1040/2980 msgs left
+msg [Gmail]/Important/1207 {15088}        copied to [katelyn][Gmail]/Important/1162       0.29 msgs/s  87.729 KiB/s 46.618 MiB copied  ETA: Thu Apr  6 17:28:16 2017  3532 s  1019/2980 msgs left
+msg [Gmail]/Important/1224 {35414}        copied to [katelyn][Gmail]/Important/1163       0.29 msgs/s  87.569 KiB/s 46.652 MiB copied  ETA: Thu Apr  6 17:27:09 2017  3463 s  1003/2980 msgs left
+msg [Gmail]/Important/1225 {30843}        copied to [katelyn][Gmail]/Important/1164       0.29 msgs/s  87.418 KiB/s 46.681 MiB copied  ETA: Thu Apr  6 17:26:53 2017  3446 s  1002/2980 msgs left
+msg [Gmail]/Important/1291 {86339}        copied to [katelyn][Gmail]/Important/1165       0.29 msgs/s  87.275 KiB/s 46.763 MiB copied  ETA: Thu Apr  6 17:23:19 2017  3230 s  942/2980 msgs left
+msg [Gmail]/Important/1293 {16684}        copied to [katelyn][Gmail]/Important/1166       0.29 msgs/s  87.090 KiB/s 46.779 MiB copied  ETA: Thu Apr  6 17:23:02 2017  3211 s  940/2980 msgs left
+msg [Gmail]/Important/1294 {11988}        copied to [katelyn][Gmail]/Important/1167       0.29 msgs/s  86.918 KiB/s 46.791 MiB copied  ETA: Thu Apr  6 17:22:47 2017  3195 s  939/2980 msgs left
+msg [Gmail]/Important/1297 {185513}       copied to [katelyn][Gmail]/Important/1168       0.29 msgs/s  86.847 KiB/s 46.968 MiB copied  ETA: Thu Apr  6 17:22:38 2017  3183 s  937/2980 msgs left
+msg [Gmail]/Important/1298 {40137}        copied to [katelyn][Gmail]/Important/1169       0.30 msgs/s  86.677 KiB/s 47.006 MiB copied  ETA: Thu Apr  6 17:22:25 2017  3169 s  936/2980 msgs left
+msg [Gmail]/Important/1299 {162462}       copied to [katelyn][Gmail]/Important/1170       0.30 msgs/s  86.609 KiB/s 47.161 MiB copied  ETA: Thu Apr  6 17:22:18 2017  3160 s  935/2980 msgs left
+msg [Gmail]/Important/1302 {15158}        copied to [katelyn][Gmail]/Important/1171       0.30 msgs/s  86.300 KiB/s 47.175 MiB copied  ETA: Thu Apr  6 17:22:03 2017  3143 s  932/2980 msgs left
+msg [Gmail]/Important/1303 {26902}        copied to [katelyn][Gmail]/Important/1172       0.30 msgs/s  85.911 KiB/s 47.201 MiB copied  ETA: Thu Apr  6 17:21:59 2017  3136 s  931/2980 msgs left
+msg [Gmail]/Important/1307 {113482}       copied to [katelyn][Gmail]/Important/1173       0.29 msgs/s  84.982 KiB/s 47.309 MiB copied  ETA: Thu Apr  6 17:22:16 2017  3145 s  927/2980 msgs left
+msg [Gmail]/Important/1308 {155656}       copied to [katelyn][Gmail]/Important/1174       0.29 msgs/s  83.954 KiB/s 47.458 MiB copied  ETA: Thu Apr  6 17:22:51 2017  3172 s  926/2980 msgs left
+msg [Gmail]/Important/1423 {13835}        copied to [katelyn][Gmail]/Important/1175       0.29 msgs/s  83.690 KiB/s 47.471 MiB copied  ETA: Thu Apr  6 17:19:51 2017  2990 s  875/2980 msgs left
+Folder     7/9 [[Gmail]/Sent Mail]                 -> [[katelyn][Gmail]/Sent Mail]       
+Host1 folder [[Gmail]/Sent Mail] has 513 messages in total (mentioned by SELECT)
+Host2 folder [[katelyn][Gmail]/Sent Mail] has 466 messages in total (mentioned by SELECT)
+Host1 folder [[Gmail]/Sent Mail] considering 513 messages
+Host2 folder [[katelyn][Gmail]/Sent Mail] considering 466 messages
+msg [Gmail]/Sent Mail/42 {278928}         copied to [katelyn][Gmail]/Sent Mail/467        0.28 msgs/s  81.161 KiB/s 47.737 MiB copied  ETA: Thu Apr  6 17:18:59 2017  2916 s  828/2980 msgs left
+msg [Gmail]/Sent Mail/43 {347670}         copied to [katelyn][Gmail]/Sent Mail/468        0.28 msgs/s  80.605 KiB/s 48.068 MiB copied  ETA: Thu Apr  6 17:19:27 2017  2936 s  827/2980 msgs left
+msg [Gmail]/Sent Mail/66 {589479}         copied to [katelyn][Gmail]/Sent Mail/469        0.28 msgs/s  80.535 KiB/s 48.631 MiB copied  ETA: Thu Apr  6 17:18:47 2017  2888 s  808/2980 msgs left
+msg [Gmail]/Sent Mail/70 {1872950}        copied to [katelyn][Gmail]/Sent Mail/470        0.27 msgs/s  80.991 KiB/s 50.417 MiB copied  ETA: Thu Apr  6 17:20:03 2017  2945 s  804/2980 msgs left
+msg [Gmail]/Sent Mail/72 {42366}          copied to [katelyn][Gmail]/Sent Mail/471        0.27 msgs/s  80.848 KiB/s 50.457 MiB copied  ETA: Thu Apr  6 17:19:52 2017  2932 s  803/2980 msgs left
+msg [Gmail]/Sent Mail/78 {409263}         copied to [katelyn][Gmail]/Sent Mail/472        0.27 msgs/s  80.836 KiB/s 50.847 MiB copied  ETA: Thu Apr  6 17:19:41 2017  2917 s  797/2980 msgs left
+msg [Gmail]/Sent Mail/84 {182643}         copied to [katelyn][Gmail]/Sent Mail/473        0.27 msgs/s  80.752 KiB/s 51.022 MiB copied  ETA: Thu Apr  6 17:19:19 2017  2891 s  791/2980 msgs left
+msg [Gmail]/Sent Mail/85 {195021}         copied to [katelyn][Gmail]/Sent Mail/474        0.27 msgs/s  80.686 KiB/s 51.208 MiB copied  ETA: Thu Apr  6 17:19:15 2017  2884 s  790/2980 msgs left
+msg [Gmail]/Sent Mail/105 {2000356}       copied to [katelyn][Gmail]/Sent Mail/475        0.27 msgs/s  81.859 KiB/s 53.115 MiB copied  ETA: Thu Apr  6 17:19:03 2017  2858 s  770/2980 msgs left
+msg [Gmail]/Sent Mail/111 {146361}        copied to [katelyn][Gmail]/Sent Mail/476        0.27 msgs/s  81.767 KiB/s 53.255 MiB copied  ETA: Thu Apr  6 17:18:38 2017  2831 s  764/2980 msgs left
+msg [Gmail]/Sent Mail/140 {77636}         copied to [katelyn][Gmail]/Sent Mail/477        0.27 msgs/s  81.674 KiB/s 53.329 MiB copied  ETA: Thu Apr  6 17:16:44 2017  2715 s  735/2980 msgs left
+msg [Gmail]/Sent Mail/481 {4471497}       copied to [katelyn][Gmail]/Sent Mail/478        0.26 msgs/s  85.086 KiB/s 57.593 MiB copied  ETA: Thu Apr  6 17:00:39 2017  1725 s  453/2980 msgs left
+- msg [Gmail]/Sent Mail/489 {35679093} couldn't append  (Subject:[Chitha Sikhunyana Attorney Audit - Review Queries]) to folder [katelyn][Gmail]/Sent Mail: Error sending 'APPEND "[katelyn][Gmail]/Sent Mail" (\Answered \Seen) "27-Jan-2017 13:11:12 +0000" {35679093}': 235 BAD [TOOBIG] Message too large. https://support.google.com/mail/answer/6584#limit
+- msg [Gmail]/Sent Mail/490 {35690794} couldn't append  (Subject:[Fwd: Chitha Sikhunyana Attorney Audit - Review Queries]) to folder [katelyn][Gmail]/Sent Mail: Error sending 'APPEND "[katelyn][Gmail]/Sent Mail" (\Seen) "27-Jan-2017 13:40:15 +0000" {35690794}': 236 BAD [TOOBIG] Message too large. https://support.google.com/mail/answer/6584#limit
+msg [Gmail]/Sent Mail/497 {125075}        copied to [katelyn][Gmail]/Sent Mail/479        0.24 msgs/s  78.115 KiB/s 57.713 MiB copied  ETA: Thu Apr  6 17:03:04 2017  1807 s  437/2980 msgs left
+msg [Gmail]/Sent Mail/498 {125001}        copied to [katelyn][Gmail]/Sent Mail/480        0.24 msgs/s  78.033 KiB/s 57.832 MiB copied  ETA: Thu Apr  6 17:02:58 2017  1798 s  436/2980 msgs left
+msg [Gmail]/Sent Mail/501 {130064}        copied to [katelyn][Gmail]/Sent Mail/481        0.24 msgs/s  77.827 KiB/s 57.956 MiB copied  ETA: Thu Apr  6 17:02:48 2017  1785 s  433/2980 msgs left
+msg [Gmail]/Sent Mail/535 {8940105}       copied to [katelyn][Gmail]/Sent Mail/482        0.23 msgs/s  82.456 KiB/s 66.482 MiB copied  ETA: Thu Apr  6 17:03:37 2017  1771 s  399/2980 msgs left
+msg [Gmail]/Sent Mail/536 {872636}        copied to [katelyn][Gmail]/Sent Mail/483        0.22 msgs/s  82.909 KiB/s 67.315 MiB copied  ETA: Thu Apr  6 17:03:41 2017  1769 s  398/2980 msgs left
+msg [Gmail]/Sent Mail/537 {11968}         copied to [katelyn][Gmail]/Sent Mail/484        0.23 msgs/s  82.806 KiB/s 67.326 MiB copied  ETA: Thu Apr  6 17:03:31 2017  1758 s  397/2980 msgs left
+msg [Gmail]/Sent Mail/538 {12206}         copied to [katelyn][Gmail]/Sent Mail/485        0.23 msgs/s  82.713 KiB/s 67.338 MiB copied  ETA: Thu Apr  6 17:03:21 2017  1747 s  396/2980 msgs left
+msg [Gmail]/Sent Mail/539 {11843}         copied to [katelyn][Gmail]/Sent Mail/486        0.23 msgs/s  82.606 KiB/s 67.349 MiB copied  ETA: Thu Apr  6 17:03:11 2017  1736 s  395/2980 msgs left
+msg [Gmail]/Sent Mail/540 {85951}         copied to [katelyn][Gmail]/Sent Mail/487        0.23 msgs/s  82.531 KiB/s 67.431 MiB copied  ETA: Thu Apr  6 17:03:03 2017  1726 s  394/2980 msgs left
+msg [Gmail]/Sent Mail/541 {67930}         copied to [katelyn][Gmail]/Sent Mail/488        0.23 msgs/s  82.424 KiB/s 67.496 MiB copied  ETA: Thu Apr  6 17:02:55 2017  1716 s  393/2980 msgs left
+msg [Gmail]/Sent Mail/542 {14484}         copied to [katelyn][Gmail]/Sent Mail/489        0.23 msgs/s  82.318 KiB/s 67.509 MiB copied  ETA: Thu Apr  6 17:02:46 2017  1706 s  392/2980 msgs left
+msg [Gmail]/Sent Mail/544 {39870}         copied to [katelyn][Gmail]/Sent Mail/490        0.23 msgs/s  82.183 KiB/s 67.547 MiB copied  ETA: Thu Apr  6 17:02:38 2017  1696 s  391/2980 msgs left
+msg [Gmail]/Sent Mail/545 {663229}        copied to [katelyn][Gmail]/Sent Mail/491        0.23 msgs/s  82.510 KiB/s 68.180 MiB copied  ETA: Thu Apr  6 17:02:39 2017  1692 s  390/2980 msgs left
+msg [Gmail]/Sent Mail/546 {79383}         copied to [katelyn][Gmail]/Sent Mail/492        0.23 msgs/s  82.315 KiB/s 68.256 MiB copied  ETA: Thu Apr  6 17:02:35 2017  1685 s  389/2980 msgs left
+msg [Gmail]/Sent Mail/547 {11692}         copied to [katelyn][Gmail]/Sent Mail/493        0.23 msgs/s  82.127 KiB/s 68.267 MiB copied  ETA: Thu Apr  6 17:02:28 2017  1676 s  388/2980 msgs left
+msg [Gmail]/Sent Mail/548 {194457}        copied to [katelyn][Gmail]/Sent Mail/494        0.23 msgs/s  82.079 KiB/s 68.452 MiB copied  ETA: Thu Apr  6 17:02:24 2017  1669 s  387/2980 msgs left
+msg [Gmail]/Sent Mail/549 {28162}         copied to [katelyn][Gmail]/Sent Mail/495        0.23 msgs/s  81.983 KiB/s 68.479 MiB copied  ETA: Thu Apr  6 17:02:15 2017  1659 s  386/2980 msgs left
+msg [Gmail]/Sent Mail/550 {18091}         copied to [katelyn][Gmail]/Sent Mail/496        0.23 msgs/s  81.767 KiB/s 68.496 MiB copied  ETA: Thu Apr  6 17:02:10 2017  1651 s  385/2980 msgs left
+msg [Gmail]/Sent Mail/551 {18109}         copied to [katelyn][Gmail]/Sent Mail/497        0.23 msgs/s  81.648 KiB/s 68.514 MiB copied  ETA: Thu Apr  6 17:02:01 2017  1642 s  384/2980 msgs left
+msg [Gmail]/Sent Mail/552 {9393}          copied to [katelyn][Gmail]/Sent Mail/498        0.23 msgs/s  81.555 KiB/s 68.523 MiB copied  ETA: Thu Apr  6 17:01:52 2017  1631 s  383/2980 msgs left
+msg [Gmail]/Sent Mail/553 {9399}          copied to [katelyn][Gmail]/Sent Mail/499        0.24 msgs/s  81.458 KiB/s 68.532 MiB copied  ETA: Thu Apr  6 17:01:43 2017  1621 s  382/2980 msgs left
+msg [Gmail]/Sent Mail/554 {14040}         copied to [katelyn][Gmail]/Sent Mail/500        0.24 msgs/s  81.338 KiB/s 68.545 MiB copied  ETA: Thu Apr  6 17:01:35 2017  1612 s  381/2980 msgs left
+msg [Gmail]/Sent Mail/555 {14049}         copied to [katelyn][Gmail]/Sent Mail/501        0.24 msgs/s  81.220 KiB/s 68.558 MiB copied  ETA: Thu Apr  6 17:01:27 2017  1602 s  380/2980 msgs left
+msg [Gmail]/Sent Mail/556 {18113}         copied to [katelyn][Gmail]/Sent Mail/502        0.24 msgs/s  80.906 KiB/s 68.576 MiB copied  ETA: Thu Apr  6 17:01:25 2017  1597 s  379/2980 msgs left
+msg [Gmail]/Sent Mail/557 {18129}         copied to [katelyn][Gmail]/Sent Mail/503        0.24 msgs/s  80.795 KiB/s 68.593 MiB copied  ETA: Thu Apr  6 17:01:17 2017  1588 s  378/2980 msgs left
+msg [Gmail]/Sent Mail/558 {61100}         copied to [katelyn][Gmail]/Sent Mail/504        0.24 msgs/s  80.682 KiB/s 68.651 MiB copied  ETA: Thu Apr  6 17:01:11 2017  1579 s  377/2980 msgs left
+msg [Gmail]/Sent Mail/559 {11988}         copied to [katelyn][Gmail]/Sent Mail/505        0.24 msgs/s  80.571 KiB/s 68.663 MiB copied  ETA: Thu Apr  6 17:01:03 2017  1570 s  376/2980 msgs left
+msg [Gmail]/Sent Mail/560 {23580}         copied to [katelyn][Gmail]/Sent Mail/506        0.24 msgs/s  80.477 KiB/s 68.685 MiB copied  ETA: Thu Apr  6 17:00:55 2017  1561 s  375/2980 msgs left
+msg [Gmail]/Sent Mail/561 {195410}        copied to [katelyn][Gmail]/Sent Mail/507        0.24 msgs/s  80.386 KiB/s 68.871 MiB copied  ETA: Thu Apr  6 17:00:53 2017  1555 s  374/2980 msgs left
+msg [Gmail]/Sent Mail/562 {16053}         copied to [katelyn][Gmail]/Sent Mail/508        0.24 msgs/s  80.265 KiB/s 68.887 MiB copied  ETA: Thu Apr  6 17:00:46 2017  1546 s  373/2980 msgs left
+msg [Gmail]/Sent Mail/563 {11824}         copied to [katelyn][Gmail]/Sent Mail/509        0.24 msgs/s  80.174 KiB/s 68.898 MiB copied  ETA: Thu Apr  6 17:00:37 2017  1537 s  372/2980 msgs left
+msg [Gmail]/Sent Mail/564 {1519107}       copied to [katelyn][Gmail]/Sent Mail/510        0.24 msgs/s  80.741 KiB/s 70.347 MiB copied  ETA: Thu Apr  6 17:00:59 2017  1547 s  371/2980 msgs left
+msg [Gmail]/Sent Mail/565 {55101}         copied to [katelyn][Gmail]/Sent Mail/511        0.24 msgs/s  80.531 KiB/s 70.399 MiB copied  ETA: Thu Apr  6 17:00:56 2017  1541 s  370/2980 msgs left
+msg [Gmail]/Sent Mail/566 {24099}         copied to [katelyn][Gmail]/Sent Mail/512        0.24 msgs/s  80.424 KiB/s 70.422 MiB copied  ETA: Thu Apr  6 17:00:49 2017  1532 s  369/2980 msgs left
+msg [Gmail]/Sent Mail/567 {53431}         copied to [katelyn][Gmail]/Sent Mail/513        0.24 msgs/s  80.319 KiB/s 70.473 MiB copied  ETA: Thu Apr  6 17:00:43 2017  1524 s  368/2980 msgs left
+msg [Gmail]/Sent Mail/574 {16043}         copied to [katelyn][Gmail]/Sent Mail/514        0.24 msgs/s  80.200 KiB/s 70.489 MiB copied  ETA: Thu Apr  6 17:00:36 2017  1515 s  367/2980 msgs left
+msg [Gmail]/Sent Mail/575 {124726}        copied to [katelyn][Gmail]/Sent Mail/515        0.24 msgs/s  80.135 KiB/s 70.608 MiB copied  ETA: Thu Apr  6 17:00:31 2017  1508 s  366/2980 msgs left
+msg [Gmail]/Sent Mail/576 {23381}         copied to [katelyn][Gmail]/Sent Mail/516        0.24 msgs/s  80.051 KiB/s 70.630 MiB copied  ETA: Thu Apr  6 17:00:23 2017  1499 s  365/2980 msgs left
+msg [Gmail]/Sent Mail/578 {2550519}       copied to [katelyn][Gmail]/Sent Mail/517        0.24 msgs/s  81.459 KiB/s 73.062 MiB copied  ETA: Thu Apr  6 17:00:52 2017  1513 s  364/2980 msgs left
+msg [Gmail]/Sent Mail/581 {524414}        copied to [katelyn][Gmail]/Sent Mail/518        0.24 msgs/s  81.601 KiB/s 73.562 MiB copied  ETA: Thu Apr  6 17:00:53 2017  1509 s  363/2980 msgs left
+msg [Gmail]/Sent Mail/582 {2883489}       copied to [katelyn][Gmail]/Sent Mail/519        0.24 msgs/s  83.201 KiB/s 76.312 MiB copied  ETA: Thu Apr  6 17:01:24 2017  1525 s  362/2980 msgs left
+msg [Gmail]/Sent Mail/583 {534936}        copied to [katelyn][Gmail]/Sent Mail/520        0.24 msgs/s  83.373 KiB/s 76.822 MiB copied  ETA: Thu Apr  6 17:01:25 2017  1521 s  361/2980 msgs left
+msg [Gmail]/Sent Mail/585 {80197}         copied to [katelyn][Gmail]/Sent Mail/521        0.24 msgs/s  83.289 KiB/s 76.899 MiB copied  ETA: Thu Apr  6 17:01:19 2017  1513 s  360/2980 msgs left
+msg [Gmail]/Sent Mail/586 {1888216}       copied to [katelyn][Gmail]/Sent Mail/522        0.24 msgs/s  84.170 KiB/s 78.700 MiB copied  ETA: Thu Apr  6 17:01:39 2017  1521 s  359/2980 msgs left
+msg [Gmail]/Sent Mail/587 {6024161}       copied to [katelyn][Gmail]/Sent Mail/523        0.23 msgs/s  88.068 KiB/s 84.445 MiB copied  ETA: Thu Apr  6 17:02:31 2017  1548 s  358/2980 msgs left
+msg [Gmail]/Sent Mail/588 {17443033}      copied to [katelyn][Gmail]/Sent Mail/524        0.21 msgs/s  97.409 KiB/s 101.080 MiB copied  ETA: Thu Apr  6 17:05:47 2017  1664 s  357/2980 msgs left
+msg [Gmail]/Sent Mail/589 {23042085}      copied to [katelyn][Gmail]/Sent Mail/525        0.19 msgs/s  106.715 KiB/s 123.054 MiB copied  ETA: Thu Apr  6 17:10:37 2017  1836 s  356/2980 msgs left
+msg [Gmail]/Sent Mail/590 {9375}          copied to [katelyn][Gmail]/Sent Mail/526        0.19 msgs/s  106.613 KiB/s 123.063 MiB copied  ETA: Thu Apr  6 17:10:27 2017  1824 s  355/2980 msgs left
+Folder     8/9 [[Gmail]/Starred]                   -> [[katelyn][Gmail]/Starred]         
+Host1 folder [[Gmail]/Starred] has 111 messages in total (mentioned by SELECT)
+Creating folder [[katelyn][Gmail]/Starred] on host2
+Created folder [[katelyn][Gmail]/Starred] on host2
+Host2 folder [[katelyn][Gmail]/Starred] has 0 messages in total (mentioned by SELECT)
+Host2: Subscribing to folder [katelyn][Gmail]/Starred
+Host1 folder [[Gmail]/Starred] considering 111 messages
+Host2 folder [[katelyn][Gmail]/Starred] considering 0 messages
+msg [Gmail]/Starred/8 {13187}           copied to [katelyn][Gmail]/Starred/1          0.19 msgs/s  106.095 KiB/s 123.076 MiB copied  ETA: Thu Apr  6 17:10:29 2017  1820 s  354/2980 msgs left
+msg [Gmail]/Starred/9 {14091}           copied to [katelyn][Gmail]/Starred/2          0.20 msgs/s  105.978 KiB/s 123.089 MiB copied  ETA: Thu Apr  6 17:10:19 2017  1810 s  353/2980 msgs left
+msg [Gmail]/Starred/10 {13127}          copied to [katelyn][Gmail]/Starred/3          0.20 msgs/s  105.878 KiB/s 123.102 MiB copied  ETA: Thu Apr  6 17:10:10 2017  1799 s  352/2980 msgs left
+msg [Gmail]/Starred/12 {4432}           copied to [katelyn][Gmail]/Starred/4          0.20 msgs/s  105.769 KiB/s 123.106 MiB copied  ETA: Thu Apr  6 17:10:00 2017  1788 s  351/2980 msgs left
+msg [Gmail]/Starred/13 {38408}          copied to [katelyn][Gmail]/Starred/5          0.20 msgs/s  105.639 KiB/s 123.143 MiB copied  ETA: Thu Apr  6 17:09:52 2017  1778 s  350/2980 msgs left
+msg [Gmail]/Starred/14 {88823}          copied to [katelyn][Gmail]/Starred/6          0.20 msgs/s  105.533 KiB/s 123.227 MiB copied  ETA: Thu Apr  6 17:09:44 2017  1768 s  349/2980 msgs left
+msg [Gmail]/Starred/15 {423831}         copied to [katelyn][Gmail]/Starred/7          0.20 msgs/s  105.612 KiB/s 123.632 MiB copied  ETA: Thu Apr  6 17:09:39 2017  1760 s  348/2980 msgs left
+msg [Gmail]/Starred/17 {12090}          copied to [katelyn][Gmail]/Starred/8          0.20 msgs/s  105.487 KiB/s 123.643 MiB copied  ETA: Thu Apr  6 17:09:31 2017  1750 s  347/2980 msgs left
+msg [Gmail]/Starred/18 {151192}         copied to [katelyn][Gmail]/Starred/9          0.20 msgs/s  105.413 KiB/s 123.787 MiB copied  ETA: Thu Apr  6 17:09:24 2017  1741 s  346/2980 msgs left
+msg [Gmail]/Starred/19 {13457}          copied to [katelyn][Gmail]/Starred/10         0.20 msgs/s  105.310 KiB/s 123.800 MiB copied  ETA: Thu Apr  6 17:09:15 2017  1730 s  345/2980 msgs left
+msg [Gmail]/Starred/20 {69912}          copied to [katelyn][Gmail]/Starred/11         0.20 msgs/s  105.203 KiB/s 123.867 MiB copied  ETA: Thu Apr  6 17:09:07 2017  1721 s  344/2980 msgs left
+msg [Gmail]/Starred/21 {538001}         copied to [katelyn][Gmail]/Starred/12         0.20 msgs/s  105.093 KiB/s 124.380 MiB copied  ETA: Thu Apr  6 17:09:10 2017  1718 s  343/2980 msgs left
+msg [Gmail]/Starred/22 {12826}          copied to [katelyn][Gmail]/Starred/13         0.20 msgs/s  104.989 KiB/s 124.392 MiB copied  ETA: Thu Apr  6 17:09:01 2017  1708 s  342/2980 msgs left
+msg [Gmail]/Starred/23 {12773}          copied to [katelyn][Gmail]/Starred/14         0.20 msgs/s  104.891 KiB/s 124.404 MiB copied  ETA: Thu Apr  6 17:08:52 2017  1697 s  341/2980 msgs left
+msg [Gmail]/Starred/25 {12613}          copied to [katelyn][Gmail]/Starred/15         0.20 msgs/s  104.795 KiB/s 124.416 MiB copied  ETA: Thu Apr  6 17:08:43 2017  1687 s  340/2980 msgs left
+msg [Gmail]/Starred/48 {402683}         copied to [katelyn][Gmail]/Starred/16         0.20 msgs/s  104.715 KiB/s 124.800 MiB copied  ETA: Thu Apr  6 17:08:43 2017  1682 s  339/2980 msgs left
+msg [Gmail]/Starred/49 {200463}         copied to [katelyn][Gmail]/Starred/17         0.20 msgs/s  104.629 KiB/s 124.991 MiB copied  ETA: Thu Apr  6 17:08:38 2017  1674 s  338/2980 msgs left
+msg [Gmail]/Starred/50 {48065}          copied to [katelyn][Gmail]/Starred/18         0.20 msgs/s  104.511 KiB/s 125.037 MiB copied  ETA: Thu Apr  6 17:08:30 2017  1665 s  337/2980 msgs left
+msg [Gmail]/Starred/52 {25426}          copied to [katelyn][Gmail]/Starred/19         0.20 msgs/s  104.408 KiB/s 125.062 MiB copied  ETA: Thu Apr  6 17:08:22 2017  1655 s  336/2980 msgs left
+msg [Gmail]/Starred/56 {6317499}        copied to [katelyn][Gmail]/Starred/20         0.20 msgs/s  107.308 KiB/s 131.086 MiB copied  ETA: Thu Apr  6 17:09:08 2017  1676 s  335/2980 msgs left
+msg [Gmail]/Starred/70 {8928822}        copied to [katelyn][Gmail]/Starred/21         0.19 msgs/s  110.715 KiB/s 139.602 MiB copied  ETA: Thu Apr  6 17:10:30 2017  1718 s  334/2980 msgs left
+msg [Gmail]/Starred/71 {190521}         copied to [katelyn][Gmail]/Starred/22         0.19 msgs/s  110.607 KiB/s 139.783 MiB copied  ETA: Thu Apr  6 17:10:25 2017  1710 s  333/2980 msgs left
+msg [Gmail]/Starred/72 {395611}         copied to [katelyn][Gmail]/Starred/23         0.19 msgs/s  110.614 KiB/s 140.161 MiB copied  ETA: Thu Apr  6 17:10:21 2017  1703 s  332/2980 msgs left
+msg [Gmail]/Starred/73 {24300}          copied to [katelyn][Gmail]/Starred/24         0.20 msgs/s  110.496 KiB/s 140.184 MiB copied  ETA: Thu Apr  6 17:10:13 2017  1693 s  331/2980 msgs left
+msg [Gmail]/Starred/74 {16191}          copied to [katelyn][Gmail]/Starred/25         0.20 msgs/s  110.385 KiB/s 140.199 MiB copied  ETA: Thu Apr  6 17:10:04 2017  1683 s  330/2980 msgs left
+msg [Gmail]/Starred/76 {116001}         copied to [katelyn][Gmail]/Starred/26         0.20 msgs/s  110.279 KiB/s 140.310 MiB copied  ETA: Thu Apr  6 17:09:58 2017  1674 s  329/2980 msgs left
+msg [Gmail]/Starred/78 {14225}          copied to [katelyn][Gmail]/Starred/27         0.20 msgs/s  110.165 KiB/s 140.323 MiB copied  ETA: Thu Apr  6 17:09:49 2017  1665 s  328/2980 msgs left
+msg [Gmail]/Starred/84 {170081}         copied to [katelyn][Gmail]/Starred/28         0.20 msgs/s  109.892 KiB/s 140.486 MiB copied  ETA: Thu Apr  6 17:09:49 2017  1659 s  327/2980 msgs left
+msg [Gmail]/Starred/86 {46612}          copied to [katelyn][Gmail]/Starred/29         0.20 msgs/s  109.778 KiB/s 140.530 MiB copied  ETA: Thu Apr  6 17:09:41 2017  1650 s  326/2980 msgs left
+msg [Gmail]/Starred/87 {2092524}        copied to [katelyn][Gmail]/Starred/30         0.20 msgs/s  110.426 KiB/s 142.526 MiB copied  ETA: Thu Apr  6 17:09:54 2017  1652 s  325/2980 msgs left
+msg [Gmail]/Starred/88 {47235}          copied to [katelyn][Gmail]/Starred/31         0.20 msgs/s  110.283 KiB/s 142.571 MiB copied  ETA: Thu Apr  6 17:09:48 2017  1643 s  324/2980 msgs left
+msg [Gmail]/Starred/89 {32127}          copied to [katelyn][Gmail]/Starred/32         0.20 msgs/s  110.145 KiB/s 142.601 MiB copied  ETA: Thu Apr  6 17:09:41 2017  1634 s  323/2980 msgs left
+msg [Gmail]/Starred/90 {199538}         copied to [katelyn][Gmail]/Starred/33         0.20 msgs/s  109.921 KiB/s 142.792 MiB copied  ETA: Thu Apr  6 17:09:39 2017  1629 s  322/2980 msgs left
+msg [Gmail]/Starred/91 {38056}          copied to [katelyn][Gmail]/Starred/34         0.20 msgs/s  109.799 KiB/s 142.828 MiB copied  ETA: Thu Apr  6 17:09:32 2017  1620 s  321/2980 msgs left
+msg [Gmail]/Starred/93 {35237}          copied to [katelyn][Gmail]/Starred/35         0.20 msgs/s  109.671 KiB/s 142.861 MiB copied  ETA: Thu Apr  6 17:09:25 2017  1611 s  320/2980 msgs left
+msg [Gmail]/Starred/94 {457835}         copied to [katelyn][Gmail]/Starred/36         0.20 msgs/s  109.442 KiB/s 143.298 MiB copied  ETA: Thu Apr  6 17:09:29 2017  1608 s  319/2980 msgs left
+msg [Gmail]/Starred/95 {345000}         copied to [katelyn][Gmail]/Starred/37         0.20 msgs/s  109.303 KiB/s 143.627 MiB copied  ETA: Thu Apr  6 17:09:29 2017  1603 s  318/2980 msgs left
+msg [Gmail]/Starred/96 {39206}          copied to [katelyn][Gmail]/Starred/38         0.20 msgs/s  109.179 KiB/s 143.665 MiB copied  ETA: Thu Apr  6 17:09:22 2017  1594 s  317/2980 msgs left
+msg [Gmail]/Starred/97 {28559}          copied to [katelyn][Gmail]/Starred/39         0.20 msgs/s  109.052 KiB/s 143.692 MiB copied  ETA: Thu Apr  6 17:09:15 2017  1585 s  316/2980 msgs left
+msg [Gmail]/Starred/100 {271558}        copied to [katelyn][Gmail]/Starred/40         0.20 msgs/s  108.918 KiB/s 143.951 MiB copied  ETA: Thu Apr  6 17:09:13 2017  1579 s  315/2980 msgs left
+msg [Gmail]/Starred/101 {21657}         copied to [katelyn][Gmail]/Starred/41         0.20 msgs/s  108.792 KiB/s 143.971 MiB copied  ETA: Thu Apr  6 17:09:06 2017  1570 s  314/2980 msgs left
+msg [Gmail]/Starred/102 {98079}         copied to [katelyn][Gmail]/Starred/42         0.20 msgs/s  108.660 KiB/s 144.065 MiB copied  ETA: Thu Apr  6 17:09:00 2017  1562 s  313/2980 msgs left
+msg [Gmail]/Starred/103 {87647}         copied to [katelyn][Gmail]/Starred/43         0.20 msgs/s  108.522 KiB/s 144.148 MiB copied  ETA: Thu Apr  6 17:08:55 2017  1554 s  312/2980 msgs left
+msg [Gmail]/Starred/104 {92942}         copied to [katelyn][Gmail]/Starred/44         0.20 msgs/s  108.404 KiB/s 144.237 MiB copied  ETA: Thu Apr  6 17:08:49 2017  1546 s  311/2980 msgs left
+msg [Gmail]/Starred/105 {11132}         copied to [katelyn][Gmail]/Starred/45         0.20 msgs/s  108.310 KiB/s 144.248 MiB copied  ETA: Thu Apr  6 17:08:42 2017  1537 s  310/2980 msgs left
+msg [Gmail]/Starred/106 {58502}         copied to [katelyn][Gmail]/Starred/46         0.20 msgs/s  108.187 KiB/s 144.304 MiB copied  ETA: Thu Apr  6 17:08:35 2017  1529 s  309/2980 msgs left
+msg [Gmail]/Starred/107 {57096}         copied to [katelyn][Gmail]/Starred/47         0.20 msgs/s  108.080 KiB/s 144.358 MiB copied  ETA: Thu Apr  6 17:08:29 2017  1521 s  308/2980 msgs left
+msg [Gmail]/Starred/108 {24634}         copied to [katelyn][Gmail]/Starred/48         0.20 msgs/s  107.981 KiB/s 144.381 MiB copied  ETA: Thu Apr  6 17:08:22 2017  1512 s  307/2980 msgs left
+msg [Gmail]/Starred/110 {25004}         copied to [katelyn][Gmail]/Starred/49         0.20 msgs/s  107.774 KiB/s 144.405 MiB copied  ETA: Thu Apr  6 17:08:17 2017  1505 s  306/2980 msgs left
+msg [Gmail]/Starred/111 {151901}        copied to [katelyn][Gmail]/Starred/50         0.20 msgs/s  107.638 KiB/s 144.550 MiB copied  ETA: Thu Apr  6 17:08:14 2017  1498 s  305/2980 msgs left
+msg [Gmail]/Starred/112 {29142}         copied to [katelyn][Gmail]/Starred/51         0.20 msgs/s  107.540 KiB/s 144.578 MiB copied  ETA: Thu Apr  6 17:08:07 2017  1489 s  304/2980 msgs left
+msg [Gmail]/Starred/114 {298717}        copied to [katelyn][Gmail]/Starred/52         0.20 msgs/s  107.402 KiB/s 144.863 MiB copied  ETA: Thu Apr  6 17:08:06 2017  1484 s  303/2980 msgs left
+msg [Gmail]/Starred/115 {942190}        copied to [katelyn][Gmail]/Starred/53         0.20 msgs/s  107.129 KiB/s 145.761 MiB copied  ETA: Thu Apr  6 17:08:21 2017  1487 s  302/2980 msgs left
+msg [Gmail]/Starred/116 {7000}          copied to [katelyn][Gmail]/Starred/54         0.20 msgs/s  107.037 KiB/s 145.768 MiB copied  ETA: Thu Apr  6 17:08:13 2017  1478 s  301/2980 msgs left
+msg [Gmail]/Starred/117 {677413}        copied to [katelyn][Gmail]/Starred/55         0.20 msgs/s  107.067 KiB/s 146.414 MiB copied  ETA: Thu Apr  6 17:08:15 2017  1474 s  300/2980 msgs left
+msg [Gmail]/Starred/118 {166543}        copied to [katelyn][Gmail]/Starred/56         0.20 msgs/s  106.989 KiB/s 146.573 MiB copied  ETA: Thu Apr  6 17:08:10 2017  1467 s  299/2980 msgs left
+msg [Gmail]/Starred/122 {38707}         copied to [katelyn][Gmail]/Starred/57         0.20 msgs/s  106.886 KiB/s 146.610 MiB copied  ETA: Thu Apr  6 17:08:03 2017  1458 s  298/2980 msgs left
+msg [Gmail]/Starred/124 {26461}         copied to [katelyn][Gmail]/Starred/58         0.20 msgs/s  106.790 KiB/s 146.635 MiB copied  ETA: Thu Apr  6 17:07:57 2017  1450 s  297/2980 msgs left
+msg [Gmail]/Starred/126 {8597}          copied to [katelyn][Gmail]/Starred/59         0.21 msgs/s  106.696 KiB/s 146.643 MiB copied  ETA: Thu Apr  6 17:07:49 2017  1441 s  296/2980 msgs left
+msg [Gmail]/Starred/128 {41694}         copied to [katelyn][Gmail]/Starred/60         0.21 msgs/s  106.604 KiB/s 146.683 MiB copied  ETA: Thu Apr  6 17:07:43 2017  1433 s  295/2980 msgs left
+msg [Gmail]/Starred/130 {14852}         copied to [katelyn][Gmail]/Starred/61         0.21 msgs/s  106.509 KiB/s 146.697 MiB copied  ETA: Thu Apr  6 17:07:36 2017  1425 s  294/2980 msgs left
+msg [Gmail]/Starred/131 {14130}         copied to [katelyn][Gmail]/Starred/62         0.21 msgs/s  106.412 KiB/s 146.711 MiB copied  ETA: Thu Apr  6 17:07:29 2017  1417 s  293/2980 msgs left
+msg [Gmail]/Starred/132 {15071}         copied to [katelyn][Gmail]/Starred/63         0.21 msgs/s  106.316 KiB/s 146.725 MiB copied  ETA: Thu Apr  6 17:07:22 2017  1408 s  292/2980 msgs left
+msg [Gmail]/Starred/133 {16208}         copied to [katelyn][Gmail]/Starred/64         0.21 msgs/s  106.218 KiB/s 146.741 MiB copied  ETA: Thu Apr  6 17:07:15 2017  1400 s  291/2980 msgs left
+msg [Gmail]/Starred/134 {28031}         copied to [katelyn][Gmail]/Starred/65         0.21 msgs/s  106.129 KiB/s 146.767 MiB copied  ETA: Thu Apr  6 17:07:09 2017  1392 s  290/2980 msgs left
+msg [Gmail]/Starred/135 {154524}        copied to [katelyn][Gmail]/Starred/66         0.21 msgs/s  105.939 KiB/s 146.915 MiB copied  ETA: Thu Apr  6 17:07:07 2017  1386 s  289/2980 msgs left
+msg [Gmail]/Starred/136 {82521}         copied to [katelyn][Gmail]/Starred/67         0.21 msgs/s  105.825 KiB/s 146.993 MiB copied  ETA: Thu Apr  6 17:07:02 2017  1379 s  288/2980 msgs left
+msg [Gmail]/Starred/137 {83510}         copied to [katelyn][Gmail]/Starred/68         0.21 msgs/s  105.716 KiB/s 147.073 MiB copied  ETA: Thu Apr  6 17:06:57 2017  1372 s  287/2980 msgs left
+msg [Gmail]/Starred/138 {83313}         copied to [katelyn][Gmail]/Starred/69         0.21 msgs/s  105.587 KiB/s 147.152 MiB copied  ETA: Thu Apr  6 17:06:53 2017  1365 s  286/2980 msgs left
+msg [Gmail]/Starred/139 {81812}         copied to [katelyn][Gmail]/Starred/70         0.21 msgs/s  105.487 KiB/s 147.230 MiB copied  ETA: Thu Apr  6 17:06:47 2017  1358 s  285/2980 msgs left
+msg [Gmail]/Starred/140 {658797}        copied to [katelyn][Gmail]/Starred/71         0.21 msgs/s  105.551 KiB/s 147.859 MiB copied  ETA: Thu Apr  6 17:06:48 2017  1353 s  284/2980 msgs left
+msg [Gmail]/Starred/141 {117102}        copied to [katelyn][Gmail]/Starred/72         0.21 msgs/s  105.478 KiB/s 147.970 MiB copied  ETA: Thu Apr  6 17:06:43 2017  1346 s  283/2980 msgs left
+msg [Gmail]/Starred/142 {154853}        copied to [katelyn][Gmail]/Starred/73         0.21 msgs/s  105.412 KiB/s 148.118 MiB copied  ETA: Thu Apr  6 17:06:38 2017  1339 s  282/2980 msgs left
+msg [Gmail]/Starred/143 {82416}         copied to [katelyn][Gmail]/Starred/74         0.21 msgs/s  105.313 KiB/s 148.197 MiB copied  ETA: Thu Apr  6 17:06:33 2017  1332 s  281/2980 msgs left
+msg [Gmail]/Starred/145 {81947}         copied to [katelyn][Gmail]/Starred/75         0.21 msgs/s  105.225 KiB/s 148.275 MiB copied  ETA: Thu Apr  6 17:06:28 2017  1325 s  280/2980 msgs left
+msg [Gmail]/Starred/146 {84072}         copied to [katelyn][Gmail]/Starred/76         0.21 msgs/s  105.133 KiB/s 148.355 MiB copied  ETA: Thu Apr  6 17:06:23 2017  1317 s  279/2980 msgs left
+msg [Gmail]/Starred/147 {82859}         copied to [katelyn][Gmail]/Starred/77         0.21 msgs/s  105.038 KiB/s 148.434 MiB copied  ETA: Thu Apr  6 17:06:18 2017  1310 s  278/2980 msgs left
+msg [Gmail]/Starred/149 {83131}         copied to [katelyn][Gmail]/Starred/78         0.21 msgs/s  104.915 KiB/s 148.513 MiB copied  ETA: Thu Apr  6 17:06:14 2017  1304 s  277/2980 msgs left
+msg [Gmail]/Starred/150 {81577}         copied to [katelyn][Gmail]/Starred/79         0.21 msgs/s  104.821 KiB/s 148.591 MiB copied  ETA: Thu Apr  6 17:06:09 2017  1297 s  276/2980 msgs left
+msg [Gmail]/Starred/151 {83188}         copied to [katelyn][Gmail]/Starred/80         0.21 msgs/s  104.728 KiB/s 148.670 MiB copied  ETA: Thu Apr  6 17:06:04 2017  1290 s  275/2980 msgs left
+msg [Gmail]/Starred/152 {73823}         copied to [katelyn][Gmail]/Starred/81         0.21 msgs/s  104.609 KiB/s 148.741 MiB copied  ETA: Thu Apr  6 17:05:59 2017  1283 s  274/2980 msgs left
+msg [Gmail]/Starred/156 {221015}        copied to [katelyn][Gmail]/Starred/82         0.21 msgs/s  104.554 KiB/s 148.952 MiB copied  ETA: Thu Apr  6 17:05:56 2017  1276 s  273/2980 msgs left
+msg [Gmail]/Starred/157 {82693}         copied to [katelyn][Gmail]/Starred/83         0.21 msgs/s  104.458 KiB/s 149.030 MiB copied  ETA: Thu Apr  6 17:05:51 2017  1270 s  272/2980 msgs left
+msg [Gmail]/Starred/158 {80613}         copied to [katelyn][Gmail]/Starred/84         0.21 msgs/s  104.355 KiB/s 149.107 MiB copied  ETA: Thu Apr  6 17:05:46 2017  1263 s  271/2980 msgs left
+msg [Gmail]/Starred/159 {21821}         copied to [katelyn][Gmail]/Starred/85         0.22 msgs/s  104.248 KiB/s 149.128 MiB copied  ETA: Thu Apr  6 17:05:41 2017  1256 s  270/2980 msgs left
+msg [Gmail]/Starred/160 {14413}         copied to [katelyn][Gmail]/Starred/86         0.22 msgs/s  104.150 KiB/s 149.142 MiB copied  ETA: Thu Apr  6 17:05:35 2017  1248 s  269/2980 msgs left
+msg [Gmail]/Starred/164 {58433}         copied to [katelyn][Gmail]/Starred/87         0.22 msgs/s  104.039 KiB/s 149.198 MiB copied  ETA: Thu Apr  6 17:05:30 2017  1241 s  268/2980 msgs left
+msg [Gmail]/Starred/166 {480946}        copied to [katelyn][Gmail]/Starred/88         0.22 msgs/s  103.780 KiB/s 149.656 MiB copied  ETA: Thu Apr  6 17:05:37 2017  1240 s  267/2980 msgs left
+msg [Gmail]/Starred/167 {7091}          copied to [katelyn][Gmail]/Starred/89         0.22 msgs/s  103.691 KiB/s 149.663 MiB copied  ETA: Thu Apr  6 17:05:31 2017  1232 s  266/2980 msgs left
+msg [Gmail]/Starred/168 {123973}        copied to [katelyn][Gmail]/Starred/90         0.22 msgs/s  103.579 KiB/s 149.781 MiB copied  ETA: Thu Apr  6 17:05:27 2017  1226 s  265/2980 msgs left
+msg [Gmail]/Starred/169 {126568}        copied to [katelyn][Gmail]/Starred/91         0.22 msgs/s  103.452 KiB/s 149.902 MiB copied  ETA: Thu Apr  6 17:05:25 2017  1220 s  264/2980 msgs left
+msg [Gmail]/Starred/170 {29232}         copied to [katelyn][Gmail]/Starred/92         0.22 msgs/s  103.343 KiB/s 149.930 MiB copied  ETA: Thu Apr  6 17:05:19 2017  1213 s  263/2980 msgs left
+msg [Gmail]/Starred/172 {477536}        copied to [katelyn][Gmail]/Starred/93         0.22 msgs/s  103.317 KiB/s 150.385 MiB copied  ETA: Thu Apr  6 17:05:20 2017  1209 s  262/2980 msgs left
+msg [Gmail]/Starred/174 {250167}        copied to [katelyn][Gmail]/Starred/94         0.22 msgs/s  103.270 KiB/s 150.624 MiB copied  ETA: Thu Apr  6 17:05:17 2017  1203 s  261/2980 msgs left
+msg [Gmail]/Starred/175 {9429}          copied to [katelyn][Gmail]/Starred/95         0.22 msgs/s  103.188 KiB/s 150.633 MiB copied  ETA: Thu Apr  6 17:05:11 2017  1196 s  260/2980 msgs left
+msg [Gmail]/Starred/183 {83413}         copied to [katelyn][Gmail]/Starred/96         0.22 msgs/s  103.081 KiB/s 150.712 MiB copied  ETA: Thu Apr  6 17:05:07 2017  1189 s  259/2980 msgs left
+msg [Gmail]/Starred/184 {26078}         copied to [katelyn][Gmail]/Starred/97         0.22 msgs/s  103.000 KiB/s 150.737 MiB copied  ETA: Thu Apr  6 17:05:01 2017  1182 s  258/2980 msgs left
+msg [Gmail]/Starred/185 {196369}        copied to [katelyn][Gmail]/Starred/98         0.22 msgs/s  102.901 KiB/s 150.925 MiB copied  ETA: Thu Apr  6 17:04:59 2017  1177 s  257/2980 msgs left
+msg [Gmail]/Starred/186 {359669}        copied to [katelyn][Gmail]/Starred/99         0.22 msgs/s  102.795 KiB/s 151.268 MiB copied  ETA: Thu Apr  6 17:05:00 2017  1173 s  256/2980 msgs left
+msg [Gmail]/Starred/187 {129720}        copied to [katelyn][Gmail]/Starred/100        0.22 msgs/s  102.690 KiB/s 151.391 MiB copied  ETA: Thu Apr  6 17:04:57 2017  1167 s  255/2980 msgs left
+msg [Gmail]/Starred/188 {130103}        copied to [katelyn][Gmail]/Starred/101        0.22 msgs/s  102.583 KiB/s 151.515 MiB copied  ETA: Thu Apr  6 17:04:54 2017  1161 s  254/2980 msgs left
+msg [Gmail]/Starred/189 {129693}        copied to [katelyn][Gmail]/Starred/102        0.22 msgs/s  102.519 KiB/s 151.639 MiB copied  ETA: Thu Apr  6 17:04:49 2017  1154 s  253/2980 msgs left
+msg [Gmail]/Starred/190 {123530}        copied to [katelyn][Gmail]/Starred/103        0.22 msgs/s  102.454 KiB/s 151.757 MiB copied  ETA: Thu Apr  6 17:04:45 2017  1148 s  252/2980 msgs left
+msg [Gmail]/Starred/191 {59715}         copied to [katelyn][Gmail]/Starred/104        0.22 msgs/s  102.381 KiB/s 151.814 MiB copied  ETA: Thu Apr  6 17:04:40 2017  1141 s  251/2980 msgs left
+msg [Gmail]/Starred/193 {886131}        copied to [katelyn][Gmail]/Starred/105        0.22 msgs/s  102.565 KiB/s 152.659 MiB copied  ETA: Thu Apr  6 17:04:42 2017  1137 s  250/2980 msgs left
+msg [Gmail]/Starred/194 {150530}        copied to [katelyn][Gmail]/Starred/106        0.22 msgs/s  102.484 KiB/s 152.802 MiB copied  ETA: Thu Apr  6 17:04:39 2017  1131 s  249/2980 msgs left
+msg [Gmail]/Starred/195 {238191}        copied to [katelyn][Gmail]/Starred/107        0.22 msgs/s  102.409 KiB/s 153.030 MiB copied  ETA: Thu Apr  6 17:04:37 2017  1126 s  248/2980 msgs left
+msg [Gmail]/Starred/196 {14048}         copied to [katelyn][Gmail]/Starred/108        0.22 msgs/s  102.323 KiB/s 153.043 MiB copied  ETA: Thu Apr  6 17:04:31 2017  1119 s  247/2980 msgs left
+msg [Gmail]/Starred/198 {9468}          copied to [katelyn][Gmail]/Starred/109        0.22 msgs/s  102.247 KiB/s 153.052 MiB copied  ETA: Thu Apr  6 17:04:26 2017  1112 s  246/2980 msgs left
+msg [Gmail]/Starred/199 {98712}         copied to [katelyn][Gmail]/Starred/110        0.22 msgs/s  102.171 KiB/s 153.146 MiB copied  ETA: Thu Apr  6 17:04:21 2017  1106 s  245/2980 msgs left
+msg [Gmail]/Starred/200 {18666}         copied to [katelyn][Gmail]/Starred/111        0.22 msgs/s  102.101 KiB/s 153.164 MiB copied  ETA: Thu Apr  6 17:04:16 2017  1099 s  244/2980 msgs left
+Folder     9/9 [[Gmail]/Trash]                     -> [[katelyn][Gmail]/Trash]           
+Host1 folder [[Gmail]/Trash] has 244 messages in total (mentioned by SELECT)
+Creating folder [[katelyn][Gmail]/Trash] on host2
+Created folder [[katelyn][Gmail]/Trash] on host2
+Host2 folder [[katelyn][Gmail]/Trash] has 0 messages in total (mentioned by SELECT)
+Host2: Subscribing to folder [katelyn][Gmail]/Trash
+Host1 folder [[Gmail]/Trash] considering 244 messages
+Host2 folder [[katelyn][Gmail]/Trash] considering 0 messages
+msg [Gmail]/Trash/877 {1752}          copied to [katelyn][Gmail]/Trash/1          0.22 msgs/s  101.739 KiB/s 153.166 MiB copied  ETA: Thu Apr  6 17:04:17 2017  1095 s  243/2980 msgs left
+msg [Gmail]/Trash/878 {1756}          copied to [katelyn][Gmail]/Trash/2          0.22 msgs/s  101.658 KiB/s 153.167 MiB copied  ETA: Thu Apr  6 17:04:12 2017  1089 s  242/2980 msgs left
+msg [Gmail]/Trash/879 {12951}         copied to [katelyn][Gmail]/Trash/3          0.22 msgs/s  101.591 KiB/s 153.180 MiB copied  ETA: Thu Apr  6 17:04:06 2017  1082 s  241/2980 msgs left
+msg [Gmail]/Trash/880 {12980}         copied to [katelyn][Gmail]/Trash/4          0.22 msgs/s  101.529 KiB/s 153.192 MiB copied  ETA: Thu Apr  6 17:04:00 2017  1075 s  240/2980 msgs left
+msg [Gmail]/Trash/881 {12992}         copied to [katelyn][Gmail]/Trash/5          0.22 msgs/s  101.468 KiB/s 153.204 MiB copied  ETA: Thu Apr  6 17:03:55 2017  1068 s  239/2980 msgs left
+msg [Gmail]/Trash/882 {13033}         copied to [katelyn][Gmail]/Trash/6          0.22 msgs/s  101.398 KiB/s 153.217 MiB copied  ETA: Thu Apr  6 17:03:49 2017  1061 s  238/2980 msgs left
+msg [Gmail]/Trash/883 {13200}         copied to [katelyn][Gmail]/Trash/7          0.22 msgs/s  101.337 KiB/s 153.229 MiB copied  ETA: Thu Apr  6 17:03:43 2017  1054 s  237/2980 msgs left
+msg [Gmail]/Trash/884 {12980}         copied to [katelyn][Gmail]/Trash/8          0.23 msgs/s  101.219 KiB/s 153.242 MiB copied  ETA: Thu Apr  6 17:03:39 2017  1048 s  236/2980 msgs left
+msg [Gmail]/Trash/885 {98620}         copied to [katelyn][Gmail]/Trash/9          0.23 msgs/s  101.154 KiB/s 153.336 MiB copied  ETA: Thu Apr  6 17:03:35 2017  1042 s  235/2980 msgs left
+msg [Gmail]/Trash/886 {228392}        copied to [katelyn][Gmail]/Trash/10         0.23 msgs/s  101.119 KiB/s 153.554 MiB copied  ETA: Thu Apr  6 17:03:32 2017  1037 s  234/2980 msgs left
+msg [Gmail]/Trash/887 {237840}        copied to [katelyn][Gmail]/Trash/11         0.23 msgs/s  101.091 KiB/s 153.780 MiB copied  ETA: Thu Apr  6 17:03:29 2017  1031 s  233/2980 msgs left
+msg [Gmail]/Trash/888 {102467}        copied to [katelyn][Gmail]/Trash/12         0.23 msgs/s  101.016 KiB/s 153.878 MiB copied  ETA: Thu Apr  6 17:03:26 2017  1025 s  232/2980 msgs left
+msg [Gmail]/Trash/889 {590801}        copied to [katelyn][Gmail]/Trash/13         0.23 msgs/s  101.061 KiB/s 154.442 MiB copied  ETA: Thu Apr  6 17:03:27 2017  1021 s  231/2980 msgs left
+msg [Gmail]/Trash/890 {242083}        copied to [katelyn][Gmail]/Trash/14         0.23 msgs/s  100.976 KiB/s 154.673 MiB copied  ETA: Thu Apr  6 17:03:25 2017  1016 s  230/2980 msgs left
+msg [Gmail]/Trash/891 {233566}        copied to [katelyn][Gmail]/Trash/15         0.23 msgs/s  100.817 KiB/s 154.895 MiB copied  ETA: Thu Apr  6 17:03:26 2017  1012 s  229/2980 msgs left
+msg [Gmail]/Trash/892 {239136}        copied to [katelyn][Gmail]/Trash/16         0.23 msgs/s  100.731 KiB/s 155.123 MiB copied  ETA: Thu Apr  6 17:03:25 2017  1007 s  228/2980 msgs left
+msg [Gmail]/Trash/893 {801165}        copied to [katelyn][Gmail]/Trash/17         0.23 msgs/s  100.789 KiB/s 155.887 MiB copied  ETA: Thu Apr  6 17:03:28 2017  1004 s  227/2980 msgs left
+msg [Gmail]/Trash/894 {2902865}       copied to [katelyn][Gmail]/Trash/18         0.22 msgs/s  101.668 KiB/s 158.656 MiB copied  ETA: Thu Apr  6 17:03:44 2017  1006 s  226/2980 msgs left
+msg [Gmail]/Trash/895 {2902845}       copied to [katelyn][Gmail]/Trash/19         0.22 msgs/s  102.576 KiB/s 161.424 MiB copied  ETA: Thu Apr  6 17:03:59 2017  1007 s  225/2980 msgs left
+msg [Gmail]/Trash/896 {224855}        copied to [katelyn][Gmail]/Trash/20         0.22 msgs/s  102.519 KiB/s 161.639 MiB copied  ETA: Thu Apr  6 17:03:57 2017  1002 s  224/2980 msgs left
+msg [Gmail]/Trash/897 {29224}         copied to [katelyn][Gmail]/Trash/21         0.22 msgs/s  102.447 KiB/s 161.666 MiB copied  ETA: Thu Apr  6 17:03:52 2017  995 s  223/2980 msgs left
+msg [Gmail]/Trash/898 {66428}         copied to [katelyn][Gmail]/Trash/22         0.22 msgs/s  102.362 KiB/s 161.730 MiB copied  ETA: Thu Apr  6 17:03:48 2017  989 s  222/2980 msgs left
+msg [Gmail]/Trash/899 {426794}        copied to [katelyn][Gmail]/Trash/23         0.22 msgs/s  102.359 KiB/s 162.137 MiB copied  ETA: Thu Apr  6 17:03:47 2017  985 s  221/2980 msgs left
+msg [Gmail]/Trash/900 {722119}        copied to [katelyn][Gmail]/Trash/24         0.22 msgs/s  102.460 KiB/s 162.825 MiB copied  ETA: Thu Apr  6 17:03:49 2017  981 s  220/2980 msgs left
+msg [Gmail]/Trash/901 {14388}         copied to [katelyn][Gmail]/Trash/25         0.22 msgs/s  102.378 KiB/s 162.839 MiB copied  ETA: Thu Apr  6 17:03:44 2017  975 s  219/2980 msgs left
+msg [Gmail]/Trash/902 {17699}         copied to [katelyn][Gmail]/Trash/26         0.23 msgs/s  102.309 KiB/s 162.856 MiB copied  ETA: Thu Apr  6 17:03:39 2017  968 s  218/2980 msgs left
+msg [Gmail]/Trash/903 {44783}         copied to [katelyn][Gmail]/Trash/27         0.23 msgs/s  102.232 KiB/s 162.899 MiB copied  ETA: Thu Apr  6 17:03:34 2017  962 s  217/2980 msgs left
+msg [Gmail]/Trash/904 {2353641}       copied to [katelyn][Gmail]/Trash/28         0.22 msgs/s  102.904 KiB/s 165.143 MiB copied  ETA: Thu Apr  6 17:03:46 2017  962 s  216/2980 msgs left
+msg [Gmail]/Trash/905 {363830}        copied to [katelyn][Gmail]/Trash/29         0.22 msgs/s  102.929 KiB/s 165.490 MiB copied  ETA: Thu Apr  6 17:03:44 2017  957 s  215/2980 msgs left
+msg [Gmail]/Trash/906 {989110}        copied to [katelyn][Gmail]/Trash/30         0.22 msgs/s  103.175 KiB/s 166.434 MiB copied  ETA: Thu Apr  6 17:03:45 2017  953 s  214/2980 msgs left
+msg [Gmail]/Trash/907 {12975}         copied to [katelyn][Gmail]/Trash/31         0.23 msgs/s  103.106 KiB/s 166.446 MiB copied  ETA: Thu Apr  6 17:03:40 2017  947 s  213/2980 msgs left
+msg [Gmail]/Trash/908 {172892}        copied to [katelyn][Gmail]/Trash/32         0.23 msgs/s  102.996 KiB/s 166.611 MiB copied  ETA: Thu Apr  6 17:03:38 2017  941 s  212/2980 msgs left
+msg [Gmail]/Trash/909 {991441}        copied to [katelyn][Gmail]/Trash/33         0.23 msgs/s  103.228 KiB/s 167.556 MiB copied  ETA: Thu Apr  6 17:03:40 2017  938 s  211/2980 msgs left
+msg [Gmail]/Trash/910 {171427}        copied to [katelyn][Gmail]/Trash/34         0.23 msgs/s  103.181 KiB/s 167.720 MiB copied  ETA: Thu Apr  6 17:03:37 2017  932 s  210/2980 msgs left
+msg [Gmail]/Trash/911 {193177}        copied to [katelyn][Gmail]/Trash/35         0.23 msgs/s  103.162 KiB/s 167.904 MiB copied  ETA: Thu Apr  6 17:03:34 2017  926 s  209/2980 msgs left
+msg [Gmail]/Trash/912 {38803}         copied to [katelyn][Gmail]/Trash/36         0.23 msgs/s  103.091 KiB/s 167.941 MiB copied  ETA: Thu Apr  6 17:03:29 2017  920 s  208/2980 msgs left
+msg [Gmail]/Trash/913 {57640}         copied to [katelyn][Gmail]/Trash/37         0.23 msgs/s  103.035 KiB/s 167.996 MiB copied  ETA: Thu Apr  6 17:03:24 2017  914 s  207/2980 msgs left
+msg [Gmail]/Trash/914 {54911}         copied to [katelyn][Gmail]/Trash/38         0.23 msgs/s  102.959 KiB/s 168.048 MiB copied  ETA: Thu Apr  6 17:03:20 2017  908 s  206/2980 msgs left
+msg [Gmail]/Trash/915 {22177}         copied to [katelyn][Gmail]/Trash/39         0.23 msgs/s  102.888 KiB/s 168.070 MiB copied  ETA: Thu Apr  6 17:03:16 2017  902 s  205/2980 msgs left
+msg [Gmail]/Trash/916 {22193}         copied to [katelyn][Gmail]/Trash/40         0.23 msgs/s  102.824 KiB/s 168.091 MiB copied  ETA: Thu Apr  6 17:03:11 2017  896 s  204/2980 msgs left
+msg [Gmail]/Trash/917 {12958}         copied to [katelyn][Gmail]/Trash/41         0.23 msgs/s  102.761 KiB/s 168.103 MiB copied  ETA: Thu Apr  6 17:03:06 2017  890 s  203/2980 msgs left
+msg [Gmail]/Trash/918 {1756}          copied to [katelyn][Gmail]/Trash/42         0.23 msgs/s  102.690 KiB/s 168.105 MiB copied  ETA: Thu Apr  6 17:03:01 2017  884 s  202/2980 msgs left
+msg [Gmail]/Trash/919 {13098}         copied to [katelyn][Gmail]/Trash/43         0.23 msgs/s  102.624 KiB/s 168.117 MiB copied  ETA: Thu Apr  6 17:02:56 2017  878 s  201/2980 msgs left
+msg [Gmail]/Trash/920 {13099}         copied to [katelyn][Gmail]/Trash/44         0.23 msgs/s  102.565 KiB/s 168.130 MiB copied  ETA: Thu Apr  6 17:02:51 2017  872 s  200/2980 msgs left
+msg [Gmail]/Trash/921 {11849}         copied to [katelyn][Gmail]/Trash/45         0.23 msgs/s  102.496 KiB/s 168.141 MiB copied  ETA: Thu Apr  6 17:02:46 2017  866 s  199/2980 msgs left
+msg [Gmail]/Trash/922 {14749}         copied to [katelyn][Gmail]/Trash/46         0.23 msgs/s  102.412 KiB/s 168.155 MiB copied  ETA: Thu Apr  6 17:02:42 2017  860 s  198/2980 msgs left
+msg [Gmail]/Trash/923 {12975}         copied to [katelyn][Gmail]/Trash/47         0.23 msgs/s  102.349 KiB/s 168.168 MiB copied  ETA: Thu Apr  6 17:02:37 2017  854 s  197/2980 msgs left
+msg [Gmail]/Trash/924 {22374}         copied to [katelyn][Gmail]/Trash/48         0.23 msgs/s  102.257 KiB/s 168.189 MiB copied  ETA: Thu Apr  6 17:02:33 2017  849 s  196/2980 msgs left
+msg [Gmail]/Trash/925 {12987}         copied to [katelyn][Gmail]/Trash/49         0.23 msgs/s  102.189 KiB/s 168.201 MiB copied  ETA: Thu Apr  6 17:02:29 2017  843 s  195/2980 msgs left
+msg [Gmail]/Trash/926 {7776}          copied to [katelyn][Gmail]/Trash/50         0.23 msgs/s  102.124 KiB/s 168.209 MiB copied  ETA: Thu Apr  6 17:02:24 2017  837 s  194/2980 msgs left
+msg [Gmail]/Trash/927 {222780}        copied to [katelyn][Gmail]/Trash/51         0.23 msgs/s  102.110 KiB/s 168.421 MiB copied  ETA: Thu Apr  6 17:02:21 2017  832 s  193/2980 msgs left
+msg [Gmail]/Trash/928 {38835}         copied to [katelyn][Gmail]/Trash/52         0.23 msgs/s  102.055 KiB/s 168.458 MiB copied  ETA: Thu Apr  6 17:02:17 2017  826 s  192/2980 msgs left
+msg [Gmail]/Trash/929 {82307}         copied to [katelyn][Gmail]/Trash/53         0.23 msgs/s  101.978 KiB/s 168.537 MiB copied  ETA: Thu Apr  6 17:02:13 2017  820 s  191/2980 msgs left
+msg [Gmail]/Trash/930 {13033}         copied to [katelyn][Gmail]/Trash/54         0.23 msgs/s  101.917 KiB/s 168.549 MiB copied  ETA: Thu Apr  6 17:02:09 2017  815 s  190/2980 msgs left
+msg [Gmail]/Trash/931 {12975}         copied to [katelyn][Gmail]/Trash/55         0.23 msgs/s  101.859 KiB/s 168.561 MiB copied  ETA: Thu Apr  6 17:02:04 2017  809 s  189/2980 msgs left
+msg [Gmail]/Trash/932 {13054}         copied to [katelyn][Gmail]/Trash/56         0.23 msgs/s  101.801 KiB/s 168.574 MiB copied  ETA: Thu Apr  6 17:01:59 2017  803 s  188/2980 msgs left
+msg [Gmail]/Trash/933 {13060}         copied to [katelyn][Gmail]/Trash/57         0.23 msgs/s  101.745 KiB/s 168.586 MiB copied  ETA: Thu Apr  6 17:01:54 2017  797 s  187/2980 msgs left
+msg [Gmail]/Trash/934 {12980}         copied to [katelyn][Gmail]/Trash/58         0.24 msgs/s  101.687 KiB/s 168.599 MiB copied  ETA: Thu Apr  6 17:01:50 2017  791 s  186/2980 msgs left
+msg [Gmail]/Trash/935 {13312}         copied to [katelyn][Gmail]/Trash/59         0.24 msgs/s  101.620 KiB/s 168.611 MiB copied  ETA: Thu Apr  6 17:01:45 2017  786 s  185/2980 msgs left
+msg [Gmail]/Trash/936 {34923}         copied to [katelyn][Gmail]/Trash/60         0.24 msgs/s  101.562 KiB/s 168.645 MiB copied  ETA: Thu Apr  6 17:01:41 2017  780 s  184/2980 msgs left
+msg [Gmail]/Trash/937 {34961}         copied to [katelyn][Gmail]/Trash/61         0.24 msgs/s  101.415 KiB/s 168.678 MiB copied  ETA: Thu Apr  6 17:01:39 2017  775 s  183/2980 msgs left
+msg [Gmail]/Trash/938 {25545}         copied to [katelyn][Gmail]/Trash/62         0.24 msgs/s  101.356 KiB/s 168.702 MiB copied  ETA: Thu Apr  6 17:01:35 2017  770 s  182/2980 msgs left
+msg [Gmail]/Trash/939 {7517843}       copied to [katelyn][Gmail]/Trash/63         0.23 msgs/s  103.772 KiB/s 175.872 MiB copied  ETA: Thu Apr  6 17:02:13 2017  778 s  181/2980 msgs left
+msg [Gmail]/Trash/940 {24673}         copied to [katelyn][Gmail]/Trash/64         0.23 msgs/s  103.708 KiB/s 175.896 MiB copied  ETA: Thu Apr  6 17:02:09 2017  772 s  180/2980 msgs left
+msg [Gmail]/Trash/941 {18287}         copied to [katelyn][Gmail]/Trash/65         0.23 msgs/s  103.631 KiB/s 175.913 MiB copied  ETA: Thu Apr  6 17:02:05 2017  766 s  179/2980 msgs left
+msg [Gmail]/Trash/942 {104697}        copied to [katelyn][Gmail]/Trash/66         0.23 msgs/s  103.572 KiB/s 176.013 MiB copied  ETA: Thu Apr  6 17:02:02 2017  761 s  178/2980 msgs left
+msg [Gmail]/Trash/943 {162231}        copied to [katelyn][Gmail]/Trash/67         0.23 msgs/s  103.520 KiB/s 176.168 MiB copied  ETA: Thu Apr  6 17:01:59 2017  756 s  177/2980 msgs left
+msg [Gmail]/Trash/944 {5184}          copied to [katelyn][Gmail]/Trash/68         0.23 msgs/s  103.443 KiB/s 176.173 MiB copied  ETA: Thu Apr  6 17:01:55 2017  750 s  176/2980 msgs left
+msg [Gmail]/Trash/945 {12087}         copied to [katelyn][Gmail]/Trash/69         0.23 msgs/s  103.385 KiB/s 176.184 MiB copied  ETA: Thu Apr  6 17:01:50 2017  745 s  175/2980 msgs left
+msg [Gmail]/Trash/946 {85442}         copied to [katelyn][Gmail]/Trash/70         0.24 msgs/s  103.320 KiB/s 176.266 MiB copied  ETA: Thu Apr  6 17:01:47 2017  740 s  174/2980 msgs left
+msg [Gmail]/Trash/947 {163306}        copied to [katelyn][Gmail]/Trash/71         0.24 msgs/s  103.276 KiB/s 176.421 MiB copied  ETA: Thu Apr  6 17:01:44 2017  735 s  173/2980 msgs left
+msg [Gmail]/Trash/948 {192896}        copied to [katelyn][Gmail]/Trash/72         0.24 msgs/s  103.255 KiB/s 176.605 MiB copied  ETA: Thu Apr  6 17:01:41 2017  729 s  172/2980 msgs left
+msg [Gmail]/Trash/949 {149218}        copied to [katelyn][Gmail]/Trash/73         0.24 msgs/s  103.220 KiB/s 176.748 MiB copied  ETA: Thu Apr  6 17:01:38 2017  724 s  171/2980 msgs left
+msg [Gmail]/Trash/950 {170926}        copied to [katelyn][Gmail]/Trash/74         0.24 msgs/s  103.198 KiB/s 176.911 MiB copied  ETA: Thu Apr  6 17:01:35 2017  719 s  170/2980 msgs left
+msg [Gmail]/Trash/951 {159318}        copied to [katelyn][Gmail]/Trash/75         0.24 msgs/s  103.166 KiB/s 177.062 MiB copied  ETA: Thu Apr  6 17:01:32 2017  714 s  169/2980 msgs left
+msg [Gmail]/Trash/952 {127289}        copied to [katelyn][Gmail]/Trash/76         0.24 msgs/s  103.121 KiB/s 177.184 MiB copied  ETA: Thu Apr  6 17:01:29 2017  709 s  168/2980 msgs left
+msg [Gmail]/Trash/953 {137692}        copied to [katelyn][Gmail]/Trash/77         0.24 msgs/s  103.093 KiB/s 177.315 MiB copied  ETA: Thu Apr  6 17:01:25 2017  704 s  167/2980 msgs left
+msg [Gmail]/Trash/954 {95925}         copied to [katelyn][Gmail]/Trash/78         0.24 msgs/s  103.040 KiB/s 177.407 MiB copied  ETA: Thu Apr  6 17:01:22 2017  698 s  166/2980 msgs left
+msg [Gmail]/Trash/955 {78542}         copied to [katelyn][Gmail]/Trash/79         0.24 msgs/s  102.977 KiB/s 177.482 MiB copied  ETA: Thu Apr  6 17:01:19 2017  693 s  165/2980 msgs left
+msg [Gmail]/Trash/956 {322976}        copied to [katelyn][Gmail]/Trash/80         0.24 msgs/s  102.990 KiB/s 177.790 MiB copied  ETA: Thu Apr  6 17:01:17 2017  689 s  164/2980 msgs left
+msg [Gmail]/Trash/957 {140356}        copied to [katelyn][Gmail]/Trash/81         0.24 msgs/s  102.911 KiB/s 177.923 MiB copied  ETA: Thu Apr  6 17:01:15 2017  684 s  163/2980 msgs left
+msg [Gmail]/Trash/958 {1084068}       copied to [katelyn][Gmail]/Trash/82         0.24 msgs/s  103.010 KiB/s 178.957 MiB copied  ETA: Thu Apr  6 17:01:21 2017  681 s  162/2980 msgs left
+msg [Gmail]/Trash/959 {670365}        copied to [katelyn][Gmail]/Trash/83         0.24 msgs/s  103.035 KiB/s 179.597 MiB copied  ETA: Thu Apr  6 17:01:23 2017  678 s  161/2980 msgs left
+msg [Gmail]/Trash/960 {2303339}       copied to [katelyn][Gmail]/Trash/84         0.24 msgs/s  103.403 KiB/s 181.793 MiB copied  ETA: Thu Apr  6 17:01:39 2017  678 s  160/2980 msgs left
+msg [Gmail]/Trash/961 {2297226}       copied to [katelyn][Gmail]/Trash/85         0.23 msgs/s  103.838 KiB/s 183.984 MiB copied  ETA: Thu Apr  6 17:01:52 2017  677 s  159/2980 msgs left
+msg [Gmail]/Trash/962 {154033}        copied to [katelyn][Gmail]/Trash/86         0.24 msgs/s  103.799 KiB/s 184.131 MiB copied  ETA: Thu Apr  6 17:01:49 2017  672 s  158/2980 msgs left
+msg [Gmail]/Trash/963 {155654}        copied to [katelyn][Gmail]/Trash/87         0.24 msgs/s  103.747 KiB/s 184.279 MiB copied  ETA: Thu Apr  6 17:01:47 2017  667 s  157/2980 msgs left
+msg [Gmail]/Trash/964 {660543}        copied to [katelyn][Gmail]/Trash/88         0.24 msgs/s  103.874 KiB/s 184.909 MiB copied  ETA: Thu Apr  6 17:01:46 2017  663 s  156/2980 msgs left
+msg [Gmail]/Trash/965 {865589}        copied to [katelyn][Gmail]/Trash/89         0.24 msgs/s  104.012 KiB/s 185.735 MiB copied  ETA: Thu Apr  6 17:01:48 2017  659 s  155/2980 msgs left
+msg [Gmail]/Trash/966 {867300}        copied to [katelyn][Gmail]/Trash/90         0.23 msgs/s  104.125 KiB/s 186.562 MiB copied  ETA: Thu Apr  6 17:01:51 2017  656 s  154/2980 msgs left
+msg [Gmail]/Trash/967 {662439}        copied to [katelyn][Gmail]/Trash/91         0.23 msgs/s  104.162 KiB/s 187.194 MiB copied  ETA: Thu Apr  6 17:01:53 2017  652 s  153/2980 msgs left
+msg [Gmail]/Trash/968 {1023869}       copied to [katelyn][Gmail]/Trash/92         0.23 msgs/s  104.324 KiB/s 188.170 MiB copied  ETA: Thu Apr  6 17:01:56 2017  648 s  152/2980 msgs left
+msg [Gmail]/Trash/969 {1025618}       copied to [katelyn][Gmail]/Trash/93         0.23 msgs/s  104.495 KiB/s 189.148 MiB copied  ETA: Thu Apr  6 17:01:59 2017  645 s  151/2980 msgs left
+msg [Gmail]/Trash/970 {325699}        copied to [katelyn][Gmail]/Trash/94         0.23 msgs/s  104.485 KiB/s 189.459 MiB copied  ETA: Thu Apr  6 17:01:58 2017  640 s  150/2980 msgs left
+msg [Gmail]/Trash/971 {594191}        copied to [katelyn][Gmail]/Trash/95         0.23 msgs/s  104.382 KiB/s 190.025 MiB copied  ETA: Thu Apr  6 17:02:02 2017  637 s  149/2980 msgs left
+msg [Gmail]/Trash/972 {16928}         copied to [katelyn][Gmail]/Trash/96         0.23 msgs/s  104.306 KiB/s 190.042 MiB copied  ETA: Thu Apr  6 17:01:58 2017  632 s  148/2980 msgs left
+msg [Gmail]/Trash/973 {1548129}       copied to [katelyn][Gmail]/Trash/97         0.23 msgs/s  104.476 KiB/s 191.518 MiB copied  ETA: Thu Apr  6 17:02:08 2017  630 s  147/2980 msgs left
+msg [Gmail]/Trash/974 {323230}        copied to [katelyn][Gmail]/Trash/98         0.23 msgs/s  104.462 KiB/s 191.826 MiB copied  ETA: Thu Apr  6 17:02:06 2017  625 s  146/2980 msgs left
+msg [Gmail]/Trash/975 {11349}         copied to [katelyn][Gmail]/Trash/99         0.23 msgs/s  104.409 KiB/s 191.837 MiB copied  ETA: Thu Apr  6 17:02:02 2017  620 s  145/2980 msgs left
+msg [Gmail]/Trash/976 {921314}        copied to [katelyn][Gmail]/Trash/100        0.23 msgs/s  104.487 KiB/s 192.716 MiB copied  ETA: Thu Apr  6 17:02:06 2017  617 s  144/2980 msgs left
+msg [Gmail]/Trash/977 {25133}         copied to [katelyn][Gmail]/Trash/101        0.23 msgs/s  104.430 KiB/s 192.740 MiB copied  ETA: Thu Apr  6 17:02:02 2017  611 s  143/2980 msgs left
+msg [Gmail]/Trash/978 {4028790}       copied to [katelyn][Gmail]/Trash/102        0.23 msgs/s  105.177 KiB/s 196.582 MiB copied  ETA: Thu Apr  6 17:02:28 2017  613 s  142/2980 msgs left
+msg [Gmail]/Trash/979 {31701}         copied to [katelyn][Gmail]/Trash/103        0.23 msgs/s  105.060 KiB/s 196.612 MiB copied  ETA: Thu Apr  6 17:02:25 2017  609 s  141/2980 msgs left
+msg [Gmail]/Trash/980 {11080}         copied to [katelyn][Gmail]/Trash/104        0.23 msgs/s  105.006 KiB/s 196.623 MiB copied  ETA: Thu Apr  6 17:02:21 2017  603 s  140/2980 msgs left
+msg [Gmail]/Trash/981 {11350}         copied to [katelyn][Gmail]/Trash/105        0.23 msgs/s  104.948 KiB/s 196.634 MiB copied  ETA: Thu Apr  6 17:02:17 2017  598 s  139/2980 msgs left
+msg [Gmail]/Trash/982 {4276166}       copied to [katelyn][Gmail]/Trash/106        0.23 msgs/s  106.127 KiB/s 200.712 MiB copied  ETA: Thu Apr  6 17:02:35 2017  598 s  138/2980 msgs left
+msg [Gmail]/Trash/983 {297070}        copied to [katelyn][Gmail]/Trash/107        0.23 msgs/s  106.124 KiB/s 200.995 MiB copied  ETA: Thu Apr  6 17:02:33 2017  593 s  137/2980 msgs left
+msg [Gmail]/Trash/984 {4264581}       copied to [katelyn][Gmail]/Trash/108        0.23 msgs/s  107.316 KiB/s 205.062 MiB copied  ETA: Thu Apr  6 17:02:50 2017  593 s  136/2980 msgs left
+msg [Gmail]/Trash/985 {11160}         copied to [katelyn][Gmail]/Trash/109        0.23 msgs/s  107.257 KiB/s 205.073 MiB copied  ETA: Thu Apr  6 17:02:46 2017  587 s  135/2980 msgs left
+msg [Gmail]/Trash/986 {31644}         copied to [katelyn][Gmail]/Trash/110        0.23 msgs/s  107.180 KiB/s 205.103 MiB copied  ETA: Thu Apr  6 17:02:42 2017  582 s  134/2980 msgs left
+msg [Gmail]/Trash/987 {53514}         copied to [katelyn][Gmail]/Trash/111        0.23 msgs/s  107.108 KiB/s 205.154 MiB copied  ETA: Thu Apr  6 17:02:39 2017  577 s  133/2980 msgs left
+msg [Gmail]/Trash/988 {27171}         copied to [katelyn][Gmail]/Trash/112        0.23 msgs/s  107.041 KiB/s 205.180 MiB copied  ETA: Thu Apr  6 17:02:35 2017  572 s  132/2980 msgs left
+msg [Gmail]/Trash/989 {39968}         copied to [katelyn][Gmail]/Trash/113        0.23 msgs/s  106.979 KiB/s 205.218 MiB copied  ETA: Thu Apr  6 17:02:32 2017  567 s  131/2980 msgs left
+msg [Gmail]/Trash/990 {199788}        copied to [katelyn][Gmail]/Trash/114        0.23 msgs/s  106.935 KiB/s 205.408 MiB copied  ETA: Thu Apr  6 17:02:29 2017  562 s  130/2980 msgs left
+msg [Gmail]/Trash/991 {9440}          copied to [katelyn][Gmail]/Trash/115        0.23 msgs/s  106.872 KiB/s 205.417 MiB copied  ETA: Thu Apr  6 17:02:25 2017  557 s  129/2980 msgs left
+msg [Gmail]/Trash/992 {12014}         copied to [katelyn][Gmail]/Trash/116        0.23 msgs/s  106.818 KiB/s 205.429 MiB copied  ETA: Thu Apr  6 17:02:21 2017  552 s  128/2980 msgs left
+msg [Gmail]/Trash/993 {4590898}       copied to [katelyn][Gmail]/Trash/117        0.23 msgs/s  108.045 KiB/s 209.807 MiB copied  ETA: Thu Apr  6 17:02:40 2017  551 s  127/2980 msgs left
+msg [Gmail]/Trash/994 {422844}        copied to [katelyn][Gmail]/Trash/118        0.23 msgs/s  108.095 KiB/s 210.210 MiB copied  ETA: Thu Apr  6 17:02:38 2017  547 s  126/2980 msgs left
+msg [Gmail]/Trash/995 {135754}        copied to [katelyn][Gmail]/Trash/119        0.23 msgs/s  108.045 KiB/s 210.340 MiB copied  ETA: Thu Apr  6 17:02:36 2017  542 s  125/2980 msgs left
+msg [Gmail]/Trash/996 {13047}         copied to [katelyn][Gmail]/Trash/120        0.23 msgs/s  107.985 KiB/s 210.352 MiB copied  ETA: Thu Apr  6 17:02:32 2017  537 s  124/2980 msgs left
+msg [Gmail]/Trash/997 {13586}         copied to [katelyn][Gmail]/Trash/121        0.23 msgs/s  107.934 KiB/s 210.365 MiB copied  ETA: Thu Apr  6 17:02:28 2017  531 s  123/2980 msgs left
+msg [Gmail]/Trash/998 {13228}         copied to [katelyn][Gmail]/Trash/122        0.23 msgs/s  107.868 KiB/s 210.378 MiB copied  ETA: Thu Apr  6 17:02:24 2017  526 s  122/2980 msgs left
+msg [Gmail]/Trash/999 {13448}         copied to [katelyn][Gmail]/Trash/123        0.23 msgs/s  107.814 KiB/s 210.391 MiB copied  ETA: Thu Apr  6 17:02:20 2017  521 s  121/2980 msgs left
+msg [Gmail]/Trash/1000 {12935}        copied to [katelyn][Gmail]/Trash/124        0.23 msgs/s  107.750 KiB/s 210.403 MiB copied  ETA: Thu Apr  6 17:02:16 2017  516 s  120/2980 msgs left
+msg [Gmail]/Trash/1001 {13002}        copied to [katelyn][Gmail]/Trash/125        0.23 msgs/s  107.696 KiB/s 210.415 MiB copied  ETA: Thu Apr  6 17:02:12 2017  511 s  119/2980 msgs left
+msg [Gmail]/Trash/1002 {13186}        copied to [katelyn][Gmail]/Trash/126        0.23 msgs/s  107.638 KiB/s 210.428 MiB copied  ETA: Thu Apr  6 17:02:08 2017  506 s  118/2980 msgs left
+msg [Gmail]/Trash/1003 {12287}        copied to [katelyn][Gmail]/Trash/127        0.23 msgs/s  107.585 KiB/s 210.440 MiB copied  ETA: Thu Apr  6 17:02:04 2017  501 s  117/2980 msgs left
+msg [Gmail]/Trash/1004 {12286}        copied to [katelyn][Gmail]/Trash/128        0.23 msgs/s  107.533 KiB/s 210.451 MiB copied  ETA: Thu Apr  6 17:02:00 2017  496 s  116/2980 msgs left
+msg [Gmail]/Trash/1005 {12261}        copied to [katelyn][Gmail]/Trash/129        0.23 msgs/s  107.481 KiB/s 210.463 MiB copied  ETA: Thu Apr  6 17:01:56 2017  491 s  115/2980 msgs left
+msg [Gmail]/Trash/1006 {12485}        copied to [katelyn][Gmail]/Trash/130        0.23 msgs/s  107.430 KiB/s 210.475 MiB copied  ETA: Thu Apr  6 17:01:52 2017  486 s  114/2980 msgs left
+msg [Gmail]/Trash/1007 {12296}        copied to [katelyn][Gmail]/Trash/131        0.24 msgs/s  107.379 KiB/s 210.487 MiB copied  ETA: Thu Apr  6 17:01:48 2017  481 s  113/2980 msgs left
+msg [Gmail]/Trash/1008 {13020}        copied to [katelyn][Gmail]/Trash/132        0.24 msgs/s  107.324 KiB/s 210.499 MiB copied  ETA: Thu Apr  6 17:01:44 2017  476 s  112/2980 msgs left
+msg [Gmail]/Trash/1009 {13052}        copied to [katelyn][Gmail]/Trash/133        0.24 msgs/s  107.266 KiB/s 210.512 MiB copied  ETA: Thu Apr  6 17:01:41 2017  471 s  111/2980 msgs left
+msg [Gmail]/Trash/1010 {13010}        copied to [katelyn][Gmail]/Trash/134        0.24 msgs/s  107.216 KiB/s 210.524 MiB copied  ETA: Thu Apr  6 17:01:37 2017  466 s  110/2980 msgs left
+msg [Gmail]/Trash/1011 {12292}        copied to [katelyn][Gmail]/Trash/135        0.24 msgs/s  107.158 KiB/s 210.536 MiB copied  ETA: Thu Apr  6 17:01:33 2017  461 s  109/2980 msgs left
+msg [Gmail]/Trash/1012 {12321}        copied to [katelyn][Gmail]/Trash/136        0.24 msgs/s  107.106 KiB/s 210.547 MiB copied  ETA: Thu Apr  6 17:01:29 2017  456 s  108/2980 msgs left
+msg [Gmail]/Trash/1013 {12322}        copied to [katelyn][Gmail]/Trash/137        0.24 msgs/s  107.056 KiB/s 210.559 MiB copied  ETA: Thu Apr  6 17:01:25 2017  451 s  107/2980 msgs left
+msg [Gmail]/Trash/1014 {12305}        copied to [katelyn][Gmail]/Trash/138        0.24 msgs/s  107.006 KiB/s 210.571 MiB copied  ETA: Thu Apr  6 17:01:21 2017  446 s  106/2980 msgs left
+msg [Gmail]/Trash/1015 {12504}        copied to [katelyn][Gmail]/Trash/139        0.24 msgs/s  106.955 KiB/s 210.583 MiB copied  ETA: Thu Apr  6 17:01:18 2017  441 s  105/2980 msgs left
+msg [Gmail]/Trash/1016 {12254}        copied to [katelyn][Gmail]/Trash/140        0.24 msgs/s  106.885 KiB/s 210.594 MiB copied  ETA: Thu Apr  6 17:01:14 2017  436 s  104/2980 msgs left
+msg [Gmail]/Trash/1017 {12329}        copied to [katelyn][Gmail]/Trash/141        0.24 msgs/s  106.824 KiB/s 210.606 MiB copied  ETA: Thu Apr  6 17:01:11 2017  431 s  103/2980 msgs left
+msg [Gmail]/Trash/1018 {12939}        copied to [katelyn][Gmail]/Trash/142        0.24 msgs/s  106.761 KiB/s 210.619 MiB copied  ETA: Thu Apr  6 17:01:07 2017  427 s  102/2980 msgs left
+msg [Gmail]/Trash/1019 {14033}        copied to [katelyn][Gmail]/Trash/143        0.24 msgs/s  106.701 KiB/s 210.632 MiB copied  ETA: Thu Apr  6 17:01:04 2017  422 s  101/2980 msgs left
+msg [Gmail]/Trash/1020 {12293}        copied to [katelyn][Gmail]/Trash/144        0.24 msgs/s  106.642 KiB/s 210.644 MiB copied  ETA: Thu Apr  6 17:01:00 2017  417 s  100/2980 msgs left
+msg [Gmail]/Trash/1021 {12303}        copied to [katelyn][Gmail]/Trash/145        0.24 msgs/s  106.589 KiB/s 210.655 MiB copied  ETA: Thu Apr  6 17:00:56 2017  412 s  99/2980 msgs left
+msg [Gmail]/Trash/1022 {12276}        copied to [katelyn][Gmail]/Trash/146        0.24 msgs/s  106.537 KiB/s 210.667 MiB copied  ETA: Thu Apr  6 17:00:53 2017  407 s  98/2980 msgs left
+msg [Gmail]/Trash/1023 {13175}        copied to [katelyn][Gmail]/Trash/147        0.24 msgs/s  106.487 KiB/s 210.680 MiB copied  ETA: Thu Apr  6 17:00:49 2017  403 s  97/2980 msgs left
+msg [Gmail]/Trash/1024 {12970}        copied to [katelyn][Gmail]/Trash/148        0.24 msgs/s  106.428 KiB/s 210.692 MiB copied  ETA: Thu Apr  6 17:00:46 2017  398 s  96/2980 msgs left
+msg [Gmail]/Trash/1025 {13068}        copied to [katelyn][Gmail]/Trash/149        0.24 msgs/s  106.377 KiB/s 210.705 MiB copied  ETA: Thu Apr  6 17:00:42 2017  393 s  95/2980 msgs left
+msg [Gmail]/Trash/1026 {13078}        copied to [katelyn][Gmail]/Trash/150        0.24 msgs/s  106.328 KiB/s 210.717 MiB copied  ETA: Thu Apr  6 17:00:38 2017  389 s  94/2980 msgs left
+msg [Gmail]/Trash/1027 {12978}        copied to [katelyn][Gmail]/Trash/151        0.24 msgs/s  106.278 KiB/s 210.729 MiB copied  ETA: Thu Apr  6 17:00:35 2017  384 s  93/2980 msgs left
+msg [Gmail]/Trash/1028 {13020}        copied to [katelyn][Gmail]/Trash/152        0.24 msgs/s  106.228 KiB/s 210.742 MiB copied  ETA: Thu Apr  6 17:00:31 2017  379 s  92/2980 msgs left
+msg [Gmail]/Trash/1029 {13565}        copied to [katelyn][Gmail]/Trash/153        0.24 msgs/s  106.170 KiB/s 210.755 MiB copied  ETA: Thu Apr  6 17:00:28 2017  374 s  91/2980 msgs left
+msg [Gmail]/Trash/1030 {13045}        copied to [katelyn][Gmail]/Trash/154        0.24 msgs/s  106.121 KiB/s 210.767 MiB copied  ETA: Thu Apr  6 17:00:24 2017  370 s  90/2980 msgs left
+msg [Gmail]/Trash/1031 {12929}        copied to [katelyn][Gmail]/Trash/155        0.24 msgs/s  106.072 KiB/s 210.779 MiB copied  ETA: Thu Apr  6 17:00:20 2017  365 s  89/2980 msgs left
+msg [Gmail]/Trash/1032 {12974}        copied to [katelyn][Gmail]/Trash/156        0.24 msgs/s  106.023 KiB/s 210.792 MiB copied  ETA: Thu Apr  6 17:00:17 2017  360 s  88/2980 msgs left
+msg [Gmail]/Trash/1033 {12668}        copied to [katelyn][Gmail]/Trash/157        0.24 msgs/s  105.972 KiB/s 210.804 MiB copied  ETA: Thu Apr  6 17:00:13 2017  356 s  87/2980 msgs left
+msg [Gmail]/Trash/1034 {12284}        copied to [katelyn][Gmail]/Trash/158        0.24 msgs/s  105.923 KiB/s 210.816 MiB copied  ETA: Thu Apr  6 17:00:10 2017  351 s  86/2980 msgs left
+msg [Gmail]/Trash/1035 {13068}        copied to [katelyn][Gmail]/Trash/159        0.25 msgs/s  105.860 KiB/s 210.828 MiB copied  ETA: Thu Apr  6 17:00:07 2017  347 s  85/2980 msgs left
+msg [Gmail]/Trash/1036 {13068}        copied to [katelyn][Gmail]/Trash/160        0.25 msgs/s  105.811 KiB/s 210.841 MiB copied  ETA: Thu Apr  6 17:00:03 2017  342 s  84/2980 msgs left
+msg [Gmail]/Trash/1037 {13124}        copied to [katelyn][Gmail]/Trash/161        0.25 msgs/s  105.761 KiB/s 210.853 MiB copied  ETA: Thu Apr  6 17:00:00 2017  338 s  83/2980 msgs left
+msg [Gmail]/Trash/1038 {13092}        copied to [katelyn][Gmail]/Trash/162        0.25 msgs/s  105.712 KiB/s 210.866 MiB copied  ETA: Thu Apr  6 16:59:56 2017  333 s  82/2980 msgs left
+msg [Gmail]/Trash/1039 {12971}        copied to [katelyn][Gmail]/Trash/163        0.25 msgs/s  105.621 KiB/s 210.878 MiB copied  ETA: Thu Apr  6 16:59:54 2017  329 s  81/2980 msgs left
+msg [Gmail]/Trash/1040 {13088}        copied to [katelyn][Gmail]/Trash/164        0.25 msgs/s  105.572 KiB/s 210.890 MiB copied  ETA: Thu Apr  6 16:59:50 2017  324 s  80/2980 msgs left
+msg [Gmail]/Trash/1041 {12999}        copied to [katelyn][Gmail]/Trash/165        0.25 msgs/s  105.523 KiB/s 210.903 MiB copied  ETA: Thu Apr  6 16:59:47 2017  320 s  79/2980 msgs left
+msg [Gmail]/Trash/1042 {13183}        copied to [katelyn][Gmail]/Trash/166        0.25 msgs/s  105.475 KiB/s 210.915 MiB copied  ETA: Thu Apr  6 16:59:43 2017  315 s  78/2980 msgs left
+msg [Gmail]/Trash/1043 {13265}        copied to [katelyn][Gmail]/Trash/167        0.25 msgs/s  105.415 KiB/s 210.928 MiB copied  ETA: Thu Apr  6 16:59:40 2017  311 s  77/2980 msgs left
+msg [Gmail]/Trash/1044 {12964}        copied to [katelyn][Gmail]/Trash/168        0.25 msgs/s  105.365 KiB/s 210.940 MiB copied  ETA: Thu Apr  6 16:59:37 2017  306 s  76/2980 msgs left
+msg [Gmail]/Trash/1045 {12739}        copied to [katelyn][Gmail]/Trash/169        0.25 msgs/s  105.306 KiB/s 210.953 MiB copied  ETA: Thu Apr  6 16:59:33 2017  302 s  75/2980 msgs left
+msg [Gmail]/Trash/1046 {13062}        copied to [katelyn][Gmail]/Trash/170        0.25 msgs/s  105.241 KiB/s 210.965 MiB copied  ETA: Thu Apr  6 16:59:30 2017  297 s  74/2980 msgs left
+msg [Gmail]/Trash/1047 {202353}       copied to [katelyn][Gmail]/Trash/171        0.25 msgs/s  105.163 KiB/s 211.158 MiB copied  ETA: Thu Apr  6 16:59:30 2017  293 s  73/2980 msgs left
+msg [Gmail]/Trash/1048 {26456}        copied to [katelyn][Gmail]/Trash/172        0.25 msgs/s  105.099 KiB/s 211.183 MiB copied  ETA: Thu Apr  6 16:59:27 2017  289 s  72/2980 msgs left
+msg [Gmail]/Trash/1049 {15700}        copied to [katelyn][Gmail]/Trash/173        0.25 msgs/s  105.043 KiB/s 211.198 MiB copied  ETA: Thu Apr  6 16:59:24 2017  284 s  71/2980 msgs left
+msg [Gmail]/Trash/1050 {11363}        copied to [katelyn][Gmail]/Trash/174        0.25 msgs/s  104.988 KiB/s 211.209 MiB copied  ETA: Thu Apr  6 16:59:20 2017  280 s  70/2980 msgs left
+msg [Gmail]/Trash/1051 {11323}        copied to [katelyn][Gmail]/Trash/175        0.25 msgs/s  104.933 KiB/s 211.220 MiB copied  ETA: Thu Apr  6 16:59:17 2017  276 s  69/2980 msgs left
+msg [Gmail]/Trash/1052 {11029}        copied to [katelyn][Gmail]/Trash/176        0.25 msgs/s  104.883 KiB/s 211.230 MiB copied  ETA: Thu Apr  6 16:59:14 2017  271 s  68/2980 msgs left
+msg [Gmail]/Trash/1053 {95154}        copied to [katelyn][Gmail]/Trash/177        0.25 msgs/s  104.830 KiB/s 211.321 MiB copied  ETA: Thu Apr  6 16:59:12 2017  267 s  67/2980 msgs left
+msg [Gmail]/Trash/1054 {2406460}      copied to [katelyn][Gmail]/Trash/178        0.25 msgs/s  105.230 KiB/s 213.616 MiB copied  ETA: Thu Apr  6 16:59:24 2017  264 s  66/2980 msgs left
+msg [Gmail]/Trash/1055 {19994}        copied to [katelyn][Gmail]/Trash/179        0.25 msgs/s  105.168 KiB/s 213.635 MiB copied  ETA: Thu Apr  6 16:59:21 2017  260 s  65/2980 msgs left
+msg [Gmail]/Trash/1056 {143673}       copied to [katelyn][Gmail]/Trash/180        0.25 msgs/s  105.117 KiB/s 213.772 MiB copied  ETA: Thu Apr  6 16:59:19 2017  256 s  64/2980 msgs left
+msg [Gmail]/Trash/1057 {25723}        copied to [katelyn][Gmail]/Trash/181        0.25 msgs/s  105.060 KiB/s 213.797 MiB copied  ETA: Thu Apr  6 16:59:16 2017  251 s  63/2980 msgs left
+msg [Gmail]/Trash/1058 {40383}        copied to [katelyn][Gmail]/Trash/182        0.25 msgs/s  104.992 KiB/s 213.835 MiB copied  ETA: Thu Apr  6 16:59:13 2017  247 s  62/2980 msgs left
+msg [Gmail]/Trash/1059 {25365}        copied to [katelyn][Gmail]/Trash/183        0.25 msgs/s  104.931 KiB/s 213.859 MiB copied  ETA: Thu Apr  6 16:59:10 2017  243 s  61/2980 msgs left
+msg [Gmail]/Trash/1060 {733598}       copied to [katelyn][Gmail]/Trash/184        0.25 msgs/s  105.066 KiB/s 214.559 MiB copied  ETA: Thu Apr  6 16:59:11 2017  239 s  60/2980 msgs left
+msg [Gmail]/Trash/1061 {673631}       copied to [katelyn][Gmail]/Trash/185        0.25 msgs/s  105.184 KiB/s 215.201 MiB copied  ETA: Thu Apr  6 16:59:11 2017  235 s  59/2980 msgs left
+msg [Gmail]/Trash/1062 {321919}       copied to [katelyn][Gmail]/Trash/186        0.25 msgs/s  105.148 KiB/s 215.419 MiB copied  ETA: Thu Apr  6 16:59:09 2017  231 s  58/2980 msgs left
+msg [Gmail]/Trash/1063 {16393}        copied to [katelyn][Gmail]/Trash/187        0.25 msgs/s  105.093 KiB/s 215.435 MiB copied  ETA: Thu Apr  6 16:59:06 2017  227 s  57/2980 msgs left
+msg [Gmail]/Trash/1064 {86899}        copied to [katelyn][Gmail]/Trash/188        0.25 msgs/s  105.037 KiB/s 215.517 MiB copied  ETA: Thu Apr  6 16:59:04 2017  222 s  56/2980 msgs left
+msg [Gmail]/Trash/1065 {1190046}      copied to [katelyn][Gmail]/Trash/189        0.25 msgs/s  105.152 KiB/s 216.652 MiB copied  ETA: Thu Apr  6 16:59:09 2017  219 s  55/2980 msgs left
+msg [Gmail]/Trash/1066 {350675}       copied to [katelyn][Gmail]/Trash/190        0.25 msgs/s  105.146 KiB/s 216.987 MiB copied  ETA: Thu Apr  6 16:59:09 2017  215 s  54/2980 msgs left
+msg [Gmail]/Trash/1067 {11012}        copied to [katelyn][Gmail]/Trash/191        0.25 msgs/s  105.096 KiB/s 216.997 MiB copied  ETA: Thu Apr  6 16:59:05 2017  211 s  53/2980 msgs left
+msg [Gmail]/Trash/1068 {14483}        copied to [katelyn][Gmail]/Trash/192        0.25 msgs/s  105.039 KiB/s 217.011 MiB copied  ETA: Thu Apr  6 16:59:02 2017  206 s  52/2980 msgs left
+msg [Gmail]/Trash/1069 {11363}        copied to [katelyn][Gmail]/Trash/193        0.25 msgs/s  104.990 KiB/s 217.022 MiB copied  ETA: Thu Apr  6 16:58:59 2017  202 s  51/2980 msgs left
+msg [Gmail]/Trash/1070 {10940}        copied to [katelyn][Gmail]/Trash/194        0.25 msgs/s  104.940 KiB/s 217.032 MiB copied  ETA: Thu Apr  6 16:58:56 2017  198 s  50/2980 msgs left
+msg [Gmail]/Trash/1071 {11171}        copied to [katelyn][Gmail]/Trash/195        0.25 msgs/s  104.892 KiB/s 217.043 MiB copied  ETA: Thu Apr  6 16:58:53 2017  194 s  49/2980 msgs left
+msg [Gmail]/Trash/1072 {303573}       copied to [katelyn][Gmail]/Trash/196        0.25 msgs/s  104.896 KiB/s 217.333 MiB copied  ETA: Thu Apr  6 16:58:52 2017  190 s  48/2980 msgs left
+msg [Gmail]/Trash/1073 {93457}        copied to [katelyn][Gmail]/Trash/197        0.25 msgs/s  104.640 KiB/s 217.422 MiB copied  ETA: Thu Apr  6 16:58:54 2017  186 s  47/2980 msgs left
+msg [Gmail]/Trash/1074 {11058}        copied to [katelyn][Gmail]/Trash/198        0.25 msgs/s  104.558 KiB/s 217.432 MiB copied  ETA: Thu Apr  6 16:58:52 2017  182 s  46/2980 msgs left
+msg [Gmail]/Trash/1075 {11011}        copied to [katelyn][Gmail]/Trash/199        0.25 msgs/s  104.487 KiB/s 217.443 MiB copied  ETA: Thu Apr  6 16:58:49 2017  178 s  45/2980 msgs left
+msg [Gmail]/Trash/1076 {11006}        copied to [katelyn][Gmail]/Trash/200        0.25 msgs/s  104.411 KiB/s 217.453 MiB copied  ETA: Thu Apr  6 16:58:47 2017  173 s  44/2980 msgs left
+msg [Gmail]/Trash/1077 {10973}        copied to [katelyn][Gmail]/Trash/201        0.25 msgs/s  104.343 KiB/s 217.464 MiB copied  ETA: Thu Apr  6 16:58:44 2017  169 s  43/2980 msgs left
+msg [Gmail]/Trash/1078 {10945}        copied to [katelyn][Gmail]/Trash/202        0.25 msgs/s  104.274 KiB/s 217.474 MiB copied  ETA: Thu Apr  6 16:58:41 2017  165 s  42/2980 msgs left
+msg [Gmail]/Trash/1079 {11038}        copied to [katelyn][Gmail]/Trash/203        0.25 msgs/s  104.204 KiB/s 217.485 MiB copied  ETA: Thu Apr  6 16:58:39 2017  161 s  41/2980 msgs left
+msg [Gmail]/Trash/1080 {11197}        copied to [katelyn][Gmail]/Trash/204        0.25 msgs/s  104.133 KiB/s 217.495 MiB copied  ETA: Thu Apr  6 16:58:36 2017  157 s  40/2980 msgs left
+msg [Gmail]/Trash/1081 {172178}       copied to [katelyn][Gmail]/Trash/205        0.25 msgs/s  103.819 KiB/s 217.660 MiB copied  ETA: Thu Apr  6 16:58:41 2017  153 s  39/2980 msgs left
+msg [Gmail]/Trash/1082 {11140}        copied to [katelyn][Gmail]/Trash/206        0.25 msgs/s  103.756 KiB/s 217.670 MiB copied  ETA: Thu Apr  6 16:58:38 2017  149 s  38/2980 msgs left
+msg [Gmail]/Trash/1083 {10831}        copied to [katelyn][Gmail]/Trash/207        0.25 msgs/s  103.694 KiB/s 217.681 MiB copied  ETA: Thu Apr  6 16:58:35 2017  145 s  37/2980 msgs left
+msg [Gmail]/Trash/1084 {223200}       copied to [katelyn][Gmail]/Trash/208        0.25 msgs/s  103.401 KiB/s 217.893 MiB copied  ETA: Thu Apr  6 16:58:40 2017  141 s  36/2980 msgs left
+msg [Gmail]/Trash/1085 {10870}        copied to [katelyn][Gmail]/Trash/209        0.25 msgs/s  103.342 KiB/s 217.904 MiB copied  ETA: Thu Apr  6 16:58:37 2017  137 s  35/2980 msgs left
+msg [Gmail]/Trash/1086 {79675}        copied to [katelyn][Gmail]/Trash/210        0.25 msgs/s  103.210 KiB/s 217.980 MiB copied  ETA: Thu Apr  6 16:58:37 2017  133 s  34/2980 msgs left
+msg [Gmail]/Trash/1087 {46367}        copied to [katelyn][Gmail]/Trash/211        0.25 msgs/s  103.122 KiB/s 218.024 MiB copied  ETA: Thu Apr  6 16:58:35 2017  129 s  33/2980 msgs left
+msg [Gmail]/Trash/1088 {132997}       copied to [katelyn][Gmail]/Trash/212        0.25 msgs/s  102.983 KiB/s 218.151 MiB copied  ETA: Thu Apr  6 16:58:35 2017  126 s  32/2980 msgs left
+msg [Gmail]/Trash/1089 {125269}       copied to [katelyn][Gmail]/Trash/213        0.25 msgs/s  102.876 KiB/s 218.270 MiB copied  ETA: Thu Apr  6 16:58:35 2017  122 s  31/2980 msgs left
+msg [Gmail]/Trash/1090 {96345}        copied to [katelyn][Gmail]/Trash/214        0.26 msgs/s  102.782 KiB/s 218.362 MiB copied  ETA: Thu Apr  6 16:58:34 2017  118 s  30/2980 msgs left
+msg [Gmail]/Trash/1091 {93098}        copied to [katelyn][Gmail]/Trash/215        0.26 msgs/s  102.709 KiB/s 218.451 MiB copied  ETA: Thu Apr  6 16:58:32 2017  114 s  29/2980 msgs left
+msg [Gmail]/Trash/1092 {88400}        copied to [katelyn][Gmail]/Trash/216        0.26 msgs/s  102.638 KiB/s 218.535 MiB copied  ETA: Thu Apr  6 16:58:30 2017  110 s  28/2980 msgs left
+msg [Gmail]/Trash/1093 {82660}        copied to [katelyn][Gmail]/Trash/217        0.26 msgs/s  102.556 KiB/s 218.614 MiB copied  ETA: Thu Apr  6 16:58:29 2017  106 s  27/2980 msgs left
+msg [Gmail]/Trash/1094 {82143}        copied to [katelyn][Gmail]/Trash/218        0.26 msgs/s  102.447 KiB/s 218.692 MiB copied  ETA: Thu Apr  6 16:58:28 2017  102 s  26/2980 msgs left
+msg [Gmail]/Trash/1095 {13124}        copied to [katelyn][Gmail]/Trash/219        0.26 msgs/s  102.387 KiB/s 218.705 MiB copied  ETA: Thu Apr  6 16:58:25 2017  98 s  25/2980 msgs left
+msg [Gmail]/Trash/1096 {13220}        copied to [katelyn][Gmail]/Trash/220        0.26 msgs/s  102.336 KiB/s 218.718 MiB copied  ETA: Thu Apr  6 16:58:23 2017  94 s  24/2980 msgs left
+msg [Gmail]/Trash/1097 {13268}        copied to [katelyn][Gmail]/Trash/221        0.26 msgs/s  102.287 KiB/s 218.730 MiB copied  ETA: Thu Apr  6 16:58:20 2017  90 s  23/2980 msgs left
+msg [Gmail]/Trash/1098 {12992}        copied to [katelyn][Gmail]/Trash/222        0.26 msgs/s  102.242 KiB/s 218.743 MiB copied  ETA: Thu Apr  6 16:58:17 2017  86 s  22/2980 msgs left
+msg [Gmail]/Trash/1099 {13077}        copied to [katelyn][Gmail]/Trash/223        0.26 msgs/s  102.194 KiB/s 218.755 MiB copied  ETA: Thu Apr  6 16:58:14 2017  82 s  21/2980 msgs left
+msg [Gmail]/Trash/1100 {13125}        copied to [katelyn][Gmail]/Trash/224        0.26 msgs/s  102.143 KiB/s 218.768 MiB copied  ETA: Thu Apr  6 16:58:11 2017  78 s  20/2980 msgs left
+msg [Gmail]/Trash/1101 {13694}        copied to [katelyn][Gmail]/Trash/225        0.26 msgs/s  102.076 KiB/s 218.781 MiB copied  ETA: Thu Apr  6 16:58:09 2017  74 s  19/2980 msgs left
+msg [Gmail]/Trash/1102 {13084}        copied to [katelyn][Gmail]/Trash/226        0.26 msgs/s  102.011 KiB/s 218.793 MiB copied  ETA: Thu Apr  6 16:58:06 2017  70 s  18/2980 msgs left
+msg [Gmail]/Trash/1103 {13131}        copied to [katelyn][Gmail]/Trash/227        0.26 msgs/s  101.950 KiB/s 218.806 MiB copied  ETA: Thu Apr  6 16:58:04 2017  66 s  17/2980 msgs left
+msg [Gmail]/Trash/1104 {13233}        copied to [katelyn][Gmail]/Trash/228        0.26 msgs/s  101.896 KiB/s 218.818 MiB copied  ETA: Thu Apr  6 16:58:01 2017  62 s  16/2980 msgs left
+msg [Gmail]/Trash/1105 {12990}        copied to [katelyn][Gmail]/Trash/229        0.26 msgs/s  101.849 KiB/s 218.831 MiB copied  ETA: Thu Apr  6 16:57:59 2017  58 s  15/2980 msgs left
+msg [Gmail]/Trash/1106 {12961}        copied to [katelyn][Gmail]/Trash/230        0.26 msgs/s  101.802 KiB/s 218.843 MiB copied  ETA: Thu Apr  6 16:57:56 2017  54 s  14/2980 msgs left
+msg [Gmail]/Trash/1107 {13015}        copied to [katelyn][Gmail]/Trash/231        0.26 msgs/s  101.750 KiB/s 218.855 MiB copied  ETA: Thu Apr  6 16:57:53 2017  50 s  13/2980 msgs left
+msg [Gmail]/Trash/1108 {14764}        copied to [katelyn][Gmail]/Trash/232        0.26 msgs/s  101.696 KiB/s 218.869 MiB copied  ETA: Thu Apr  6 16:57:50 2017  46 s  12/2980 msgs left
+msg [Gmail]/Trash/1109 {13063}        copied to [katelyn][Gmail]/Trash/233        0.26 msgs/s  101.645 KiB/s 218.882 MiB copied  ETA: Thu Apr  6 16:57:48 2017  42 s  11/2980 msgs left
+msg [Gmail]/Trash/1110 {12278}        copied to [katelyn][Gmail]/Trash/234        0.26 msgs/s  101.596 KiB/s 218.894 MiB copied  ETA: Thu Apr  6 16:57:45 2017  38 s  10/2980 msgs left
+msg [Gmail]/Trash/1111 {12981}        copied to [katelyn][Gmail]/Trash/235        0.26 msgs/s  101.546 KiB/s 218.906 MiB copied  ETA: Thu Apr  6 16:57:42 2017  34 s  9/2980 msgs left
+msg [Gmail]/Trash/1112 {13058}        copied to [katelyn][Gmail]/Trash/236        0.26 msgs/s  101.493 KiB/s 218.918 MiB copied  ETA: Thu Apr  6 16:57:40 2017  31 s  8/2980 msgs left
+msg [Gmail]/Trash/1113 {13426}        copied to [katelyn][Gmail]/Trash/237        0.26 msgs/s  101.433 KiB/s 218.931 MiB copied  ETA: Thu Apr  6 16:57:37 2017  27 s  7/2980 msgs left
+msg [Gmail]/Trash/1114 {13005}        copied to [katelyn][Gmail]/Trash/238        0.26 msgs/s  101.384 KiB/s 218.944 MiB copied  ETA: Thu Apr  6 16:57:35 2017  23 s  6/2980 msgs left
+msg [Gmail]/Trash/1115 {13169}        copied to [katelyn][Gmail]/Trash/239        0.26 msgs/s  101.339 KiB/s 218.956 MiB copied  ETA: Thu Apr  6 16:57:32 2017  19 s  5/2980 msgs left
+msg [Gmail]/Trash/1116 {13199}        copied to [katelyn][Gmail]/Trash/240        0.26 msgs/s  101.291 KiB/s 218.969 MiB copied  ETA: Thu Apr  6 16:57:29 2017  15 s  4/2980 msgs left
+msg [Gmail]/Trash/1117 {12987}        copied to [katelyn][Gmail]/Trash/241        0.26 msgs/s  101.247 KiB/s 218.981 MiB copied  ETA: Thu Apr  6 16:57:27 2017  11 s  3/2980 msgs left
+msg [Gmail]/Trash/1118 {12950}        copied to [katelyn][Gmail]/Trash/242        0.26 msgs/s  101.202 KiB/s 218.994 MiB copied  ETA: Thu Apr  6 16:57:24 2017  8 s  2/2980 msgs left
+msg [Gmail]/Trash/1119 {1741}         copied to [katelyn][Gmail]/Trash/243        0.26 msgs/s  101.146 KiB/s 218.995 MiB copied  ETA: Thu Apr  6 16:57:21 2017  4 s  1/2980 msgs left
+msg [Gmail]/Trash/1120 {12739}        copied to [katelyn][Gmail]/Trash/244        0.26 msgs/s  101.097 KiB/s 219.007 MiB copied  ETA: Thu Apr  6 16:57:19 2017  0 s  0/2980 msgs left
+++++ End looping on each folder
+
+Folders sizes after the synchronization.
+You can remove this foldersizes listing by using  "--nofoldersizesatend"
+++++ Calculating sizes of 9 folders on Host1
+Host1 folder     1/9 [GQ Updates]                        Size:         0 Messages:     0 Biggest:         0
+Host1 folder     2/9 [Goolam Attorneys]                  Size:         0 Messages:     0 Biggest:         0
+Host1 folder     3/9 [INBOX]                             Size: 530908059 Messages:  1016 Biggest:  26426187
+Host1 folder     4/9 [Provisional Tax]                   Size:         0 Messages:     0 Biggest:         0
+Host1 folder     5/9 [[Gmail]/Drafts]                    Size:         0 Messages:     0 Biggest:         0
+Host1 folder     6/9 [[Gmail]/Important]                 Size: 607742405 Messages:  1096 Biggest:  26426187
+Host1 folder     7/9 [[Gmail]/Sent Mail]                 Size: 359969414 Messages:   513 Biggest:  35690794
+Host1 folder     8/9 [[Gmail]/Starred]                   Size:  31562899 Messages:   111 Biggest:   8928822
+Host1 folder     9/9 [[Gmail]/Trash]                     Size:  69041829 Messages:   244 Biggest:   7517843
+Host1 Nb folders:                9 folders
+Host1 Nb messages:            2980 messages
+Host1 Total size:       1599224606 bytes (1.489 GiB)
+Host1 Biggest message:    35690794 bytes (34.037 MiB)
+Host1 Time spent:              8.8 seconds
+++++ Calculating sizes of 9 folders on Host2
+Host2 folder     1/9 [[katelyn]GQ Updates]               Size:         0 Messages:     0 Biggest:         0
+Host2 folder     2/9 [[katelyn]Goolam Attorneys]         Size:         0 Messages:     0 Biggest:         0
+Host2 folder     3/9 [[katelyn]INBOX]                    Size: 530842722 Messages:  1016 Biggest:  26426187
+Host2 folder     4/9 [[katelyn]Provisional Tax]          Size:         0 Messages:     0 Biggest:         0
+Host2 folder     5/9 [[katelyn][Gmail]/Drafts]           Size:         0 Messages:     0 Biggest:         0
+Host2 folder     6/9 [[katelyn][Gmail]/Important]        Size: 607693234 Messages:  1096 Biggest:  26426187
+Host2 folder     7/9 [[katelyn][Gmail]/Sent Mail]        Size: 288662711 Messages:   511 Biggest:  23042085
+Host2 folder     8/9 [[katelyn][Gmail]/Starred]          Size:  31561757 Messages:   111 Biggest:   8928822
+Host2 folder     9/9 [[katelyn][Gmail]/Trash]            Size:  69135641 Messages:   244 Biggest:   7517843
+Host2 Nb folders:                9 folders
+Host2 Nb messages:            2978 messages
+Host2 Total size:       1527896065 bytes (1.423 GiB)
+Host2 Biggest message:    26426187 bytes (25.202 MiB)
+Host2 Time spent:              8.2 seconds
+++++ Statistics
+Transfer started on               : Thu Apr  6 16:19:23 2017
+Transfer ended on                 : Thu Apr  6 16:57:37 2017
+Transfer time                     : 2294.1 sec
+Folders synced                    : 9/9 synced
+Messages transferred              : 585 
+Messages skipped                  : 2393
+Messages found duplicate on host1 : 0
+Messages found duplicate on host2 : 0
+Messages void (noheader) on host1 : 0
+Messages void (noheader) on host2 : 0
+Messages deleted on host1         : 0
+Messages deleted on host2         : 0
+Total bytes transferred           : 229645864 (219.007 MiB)
+Total bytes duplicate host1       : 0 (0.000 KiB)
+Total bytes duplicate host2       : 0 (0.000 KiB)
+Total bytes skipped               : 1298208855 (1.209 GiB)
+Total bytes error                 : 71369887 (68.064 MiB)
+Message rate                      : 0.3 messages/s
+Average bandwidth rate            : 97.8 KiB/s
+Memory consumption                : 454.3 MiB
+Biggest message                   : 35690794 bytes (34.037 MiB)
+Memory/biggest message ratio      : 13.3
+Start difference host2 - host1    : -404 messages, -240337008 bytes (-229.203 MiB)
+Final difference host2 - host1    : -2 messages, -71328541 bytes (-68.024 MiB)
+Detected 2 errors
+
+
+Homepage: http://imapsync.lamiral.info/
+++++ Listing 2 errors encountered during the sync ( avoid this listing with --noerrorsdump ).
+Err 1/2: - msg [Gmail]/Sent Mail/489 {35679093} couldn't append  (Subject:[Chitha Sikhunyana Attorney Audit - Review Queries]) to folder [katelyn][Gmail]/Sent Mail: Error sending 'APPEND "[katelyn][Gmail]/Sent Mail" (\Answered \Seen) "27-Jan-2017 13:11:12 +0000" {35679093}': 235 BAD [TOOBIG] Message too large. https://support.google.com/mail/answer/6584#limit
+Err 2/2: - msg [Gmail]/Sent Mail/490 {35690794} couldn't append  (Subject:[Fwd: Chitha Sikhunyana Attorney Audit - Review Queries]) to folder [katelyn][Gmail]/Sent Mail: Error sending 'APPEND "[katelyn][Gmail]/Sent Mail" (\Seen) "27-Jan-2017 13:40:15 +0000" {35690794}': 236 BAD [TOOBIG] Message too large. https://support.google.com/mail/answer/6584#limit
+Exiting with return value 111
+Log file is LOG_imapsync/2017_04_06_16_19_23_deleted@coas.co.za.txt ( to change it, use --logfile filepath ; or use --nolog to turn off logging )
