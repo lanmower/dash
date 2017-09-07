@@ -1,6 +1,6 @@
 Meteor.methods({
 
-  sendEmail: function (to, from, subject, text, html) {
+  sendEmail: function ({to, from, subject, text, html}) {
     check([to, from, subject, text], [String]);
 
     // Let other method calls from the same client start running,

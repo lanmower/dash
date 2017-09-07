@@ -3,60 +3,40 @@ import Fiber from 'fibers';
 
 var Uptime = new Mongo.Collection('uptime');
 
-var up = {
+var ids = {}
 
-}
-var times = {
-
-}
-
-setInterval(function() {
+Router.route('/monitor/:name', function() {
+  var name = this.params.name;
+  const ip = this.request.connection.remoteAddress;
   Fiber(() => {
-    for (const ip in up) {
-      if (new Date() - times[ip] > 86400000) { //stop tracking after 1 day
-        delete up[ip];
-        delete times[ip]
-        if (Uptime.findOne(up[ip])) {
-          Uptime.update(up[ip], {
-            stoppedAt: new Date()
-          });
-        }
-      }
-      if (new Date() - times[ip] > 20000) {
-        //log downtime
-        if (up[ip] == true) {
-          console.log('inserting');
-          up[ip] = Uptime.insert({
-            IP: ip,
-            time: new Date()
-          });
-        }
-        else {
-          console.log('updating');
-          if (Uptime.findOne(up[ip])) {
-            Uptime.update(up[ip], {
-              until: new Date()
-            });
-          }
-        }
+    this.response.writeHead(200, {
+      'Content-Type': 'text/html'
+    });
+
+    if (!ids[name]) {
+      ids[name] = Uptime.insert({
+        ip: ip,
+        from: new Date()
+      });
+    } else {
+      const uptime = Uptime.findOne(ids[name]);
+      if (uptime && uptime.till && new Date() - uptime.till > 60000) { //1 minute downtime
+        ids[name] = Uptime.insert({
+          ip: ip,
+          from: new Date(),
+          name: name
+        });
+      } else {
+        Uptime.update(ids[name], {
+          till: new Date(),
+          ip: uptime.ip,
+          from: uptime.from,
+          uptime: new Date() - uptime.from
+        });
       }
     }
   }).run();
-}, 10000);
-
-Router.route('/monitor', function() {
-  this.response.writeHead(200, {
-    'Content-Type': 'text/html'
-  });
-  const ip = this.request.headers['x-forwarded-for'];
-  this.response.end('<html><body><pre>' + ip + '</pre></body></html>');
-  if (up[ip] != true && Uptime.findOne(up[ip])) {
-    Uptime.update(up[ip], {
-      until: new Date()
-    });
-  }
-  up[ip] = true;
-  times[ip] = new Date();
+  this.response.end(ip);
 }, {
   where: 'server'
 });

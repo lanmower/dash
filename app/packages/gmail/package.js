@@ -18,6 +18,7 @@ Package.onUse(function(api) {
   api.use('templating', "client");
   api.use("iron:router");
 
+  api.use("percolate:google-api");
   api.use('momentjs:moment'); 
   api.mainModule('gmail.js');
 

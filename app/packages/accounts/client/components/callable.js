@@ -3,23 +3,25 @@ Template.callable.events({
     // Prevent default browser form submit
     event.preventDefault();
     event.stopPropagation();
-    var name = this.name;
-    var params = [this.name];
-    for (var key in this) {
-      if (key != "name" && this.hasOwnProperty(key)) {
-        params.push(this[key]);
+    if (confirm('Are you sure?')) {
+      var name = this.name;
+      var params = [this.name];
+      for (var key in this) {
+        if (key != "name" && this.hasOwnProperty(key)) {
+          params.push(this[key]);
+        }
       }
-    }
-    params.push(function(error, result) {
-      if (error) {
-        console.log(error);
-        return;
-      }
-      console.log(result);
-      $(this.find(".content btn-info")).animate({
-        backgroundColor: "#00ff00"
+      params.push(function(error, result) {
+        if (error) {
+          console.log(error);
+          return;
+        }
+        console.log(result);
+        $(this.find(".content btn-info")).animate({
+          backgroundColor: "#00ff00"
+        });
       });
-    });
-    Meteor.call.apply(null, params);
+      Meteor.call.apply(null, params);
+    }
   }
 });

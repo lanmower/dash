@@ -56,38 +56,12 @@ Meteor.methods({
     if (query) uri = uri + '?' + toQueryString({
       q: query
     });
-    try {
-      response = GoogleApi.get(uri, {
-        user: user
-      });
-      gmailSearch.insert({
-        search: response,
-        user: user._id,
-        query: query
-      });
-    }
-    catch (error) {
-      console.log(error);
-      Meteor.call("exchangeRefreshTokenAdmin", user._id);
-      user = Meteor.users.findOne({
-        _id: uid
-      });
-      console.log("Refresh token exchanged");
-      try {
-        response = GoogleApi.get(uri, {
-          user: user
-        });
-        gmailSearch.insert({
-          search: response,
-          user: user._id,
-          query: query
-        });
-      }
-      catch (error) {
-        console.log("Error updating messages");
-        console.log(error);
-      }
-    }
+    response = Meteor.googleApi.get(user, uri);
+    gmailSearch.insert({
+      search: response,
+      user: user._id,
+      query: query
+    });
     if (response && response.messages) {
       _.each(response.messages, function(item) {
         var id = item.id;
@@ -95,9 +69,7 @@ Meteor.methods({
           _id: id
         });
         if (!existing) {
-          var result = GoogleApi.get('gmail/v1/users/' + user.profile.email + "/messages/" + id, {
-            user: user
-          });
+          var result = Meteor.googleApi.get(user, 'gmail/v1/users/' + user.profile.email + "/messages/" + id);
           var doc = {};
 
           for (i in result.payload.headers) {
@@ -144,32 +116,10 @@ Meteor.methods({
 
     var uri = 'admin/directory/v1/users';
     var response = null;
-    try {
-      response = GoogleApi.get(uri, {
-        user: user
-      });
-    }
-    catch (error) {
-      console.log(error);
-      Meteor.call("exchangeRefreshTokenAdmin", user._id);
-      user = Meteor.users.findOne({
-        _id: uid
-      });
-      console.log("Refresh token exchanged");
-      try {
-        response = GoogleApi.get(uri, {
-          user: user
-        });
-      }
-      catch (error) {
-        console.log("Error updating messages");
-        console.log(error);
-      }
-    }
-
+    response = Meteor.googleApi.get(user, uri);
   },
   getMailLabels: function() {
-    var result = GoogleApi.get('gmail/v1/users/' + Meteor.user().profile.email + "/labels");
+    var result = Meteor.googleApi.get(Meteor.user(), 'gmail/v1/users/' + Meteor.user().profile.email + "/labels");
     return result;
   }
 });

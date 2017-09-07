@@ -61,3 +61,5 @@ almagest:fines
 google-config-ui@1.0.0
 classcraft:googleapis
 peerlibrary:util
+percolate:google-api
+email
