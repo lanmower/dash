@@ -2,3 +2,5 @@ mup.js
 build/
 app/node_modules
 settings.json
+config.bat
+node_modules
